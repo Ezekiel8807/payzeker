@@ -8,7 +8,7 @@ export default function Hero() {
     <div className="mx-auto flex flex-col-reverse md:flex-row items-center justify-center p-5 md:p-10">
       <div className="relative md:w-[40%]">
         <h1 className="font-black text-[30px] md:text-[45px] mt-10 md:mt-0 text-center md:text-start">
-          Earn on 2pay by performing simple tasks.
+          Earn on payzeker by performing simple tasks.
         </h1>
         <p className="font-extralight text-sm my-3 text-center md:text-starttext-center md:text-start">
           Earn some naira daily by performing simple social media tasks such as

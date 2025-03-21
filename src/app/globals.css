@@ -26,6 +26,10 @@
   --gray-80: #333;
   --green-trans: #29cd9c77;
   --black-trans: #00000050;
+  --pri-green: #00ff00;
+  --pri-red: #ff0000;
+  --pri-green-trans: #00ff0040;
+  --pri-red-trans: #ff000040;
 }
 
 * {

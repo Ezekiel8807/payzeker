@@ -92,14 +92,16 @@ export default async function Dashboard() {
         </>
       )}
 
-      <div className="">
-        <div className="mt-5">
-          <SubHeading
-            title="Submitted Tasks"
-            desc="All tasks submitted at a go."
-          />
+      {user.isAdmin && (
+        <div className="">
+          <div className="mt-5">
+            <SubHeading
+              title="Submitted Tasks"
+              desc="All tasks submitted at a go."
+            />
+          </div>
         </div>
-      </div>
+      )}
     </Main>
   );
 }

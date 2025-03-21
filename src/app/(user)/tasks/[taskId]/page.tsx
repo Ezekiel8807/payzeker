@@ -10,6 +10,7 @@ import { getToken } from "@/actions/action";
 //components
 import Button from "@/components/Button";
 import TaskSubmissionForm from "@/components/TaskSubmissionForm";
+import SubHeading from "@/components/SubHeading";
 
 export default async function TaskDetails({
   params,
@@ -47,7 +48,10 @@ export default async function TaskDetails({
     <>
       {userTask && (
         <>
-          <h1 className="font-black text-2xl mb-3 md:mb-0">Task Details</h1>
+          <SubHeading
+            title="Task Details"
+            desc="More information on how to perform task"
+          />
 
           <div className="inline-block relative align-top w-[100%] md:w-[60%]">
             <div className="block text-end">
@@ -60,15 +64,15 @@ export default async function TaskDetails({
             </div>
 
             <div className="block mb-5">
-              <h2 className="text-xl font-bold mt-5 mb-2 md:mt-3 md:mb-3 underline">
-                Instruction
+              <h2 className="text-md font-bold mt-5 mb-2 md:mt-3 md:mb-3">
+                {userTask.name}
               </h2>
               <p className="w-full">{userTask.instruction}</p>
             </div>
           </div>
 
-          <div className="inline-block align-top w-[100%] md:w-[40%] p-5 bg-[var(--gray-01)] ">
-            <h2 className="text-xl font-bold underline">Media</h2>
+          <div className="inline-block align-top w-[100%] md:w-[40%] p-5 mb-10 bg-[var(--gray-01)] ">
+            <h2 className="text-md font-bold">Media</h2>
             <div className="grid grid-cols-1">
               <div className="bg">
                 {userTask.media?.type === "image" && (
@@ -112,7 +116,7 @@ export default async function TaskDetails({
                   </>
                 )}
 
-                {userTask.media?.type === "link" && (
+                {userTask.link && (
                   <div className="w-full h-[100px] my-3 bg-[var(--gray-10)] flex items-center justify-center">
                     Copy the link below
                   </div>
@@ -120,7 +124,7 @@ export default async function TaskDetails({
               </div>
             </div>
 
-            <h2 className="text-xl font-bold mt-5 underline">Link</h2>
+            <h2 className="text-md font-bold mt-5">Link</h2>
             <div className="flex my-3">
               <input
                 className="w-[70%] p-1 outline-none"
@@ -143,10 +147,10 @@ export default async function TaskDetails({
           </div>
 
           <div className="w-[100%] md:w-[60%] mb-10">
-            <h1 className="w-[200px] font-black text-3xl text-center mb-0 p-10 md:p-0 md:mb-5 m-auto">
-              Task Submission
-            </h1>
-
+            <SubHeading
+              title="Task Submission"
+              desc="Submitting proof for Payment"
+            />
             <TaskSubmissionForm />
           </div>
         </>

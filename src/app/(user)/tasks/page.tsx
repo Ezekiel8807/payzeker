@@ -6,11 +6,18 @@ import { connectDB } from "../../../lib/mongodb";
 // Components
 import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";
+import {
+  Key,
+  ReactElement,
+  JSXElementConstructor,
+  ReactNode,
+  ReactPortal,
+} from "react";
 
 // Fetch user data on the server
 async function getTasks() {
   const token = await getToken();
-  if (!token) throw new Error("User not login!");
+  if (!token) return redirect("/login");
 
   if (token.isAdmin != true) {
     return redirect("/dashboard");
@@ -35,9 +42,36 @@ export default async function page() {
         title="All Tasks"
         desc="Earn real cash for completing task."
       />
-      {tasks.map((task) => (
-        <h1 key={task._id}>{task.name}</h1>
-      ))}
+      {tasks.map(
+        (task: {
+          _id: Key | null | undefined;
+          name:
+            | string
+            | number
+            | bigint
+            | boolean
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            | ReactElement<unknown, string | JSXElementConstructor<any>>
+            | Iterable<ReactNode>
+            | ReactPortal
+            | Promise<
+                | string
+                | number
+                | bigint
+                | boolean
+                | ReactPortal
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                | ReactElement<unknown, string | JSXElementConstructor<any>>
+                | Iterable<ReactNode>
+                | null
+                | undefined
+              >
+            | null
+            | undefined;
+        }) => (
+          <h1 key={task._id}>{task.name}</h1>
+        )
+      )}
     </Main>
   );
 }

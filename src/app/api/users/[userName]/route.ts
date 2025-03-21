@@ -39,8 +39,6 @@ export async function PATCH(req: Request) {
   const { searchParams } = new URL(req.url);
   const updateType = searchParams.get("updateType");
 
-  console.log(updateType);
-
   // Ensure DB connection
   await connectDB();
 

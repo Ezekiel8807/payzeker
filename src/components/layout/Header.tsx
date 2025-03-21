@@ -40,7 +40,7 @@ export default function Header() {
         {/* Logo */}
         <Link className="inline" href={user ? "/dashboard" : "/"}>
           <h1 className="font-black text-[35px]">
-            <span className="text-[var(--green)]">@</span>pay
+            <span className="text-[var(--green)]">Pay</span>zeker
           </h1>
         </Link>
 
