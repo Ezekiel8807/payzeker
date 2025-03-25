@@ -32,17 +32,14 @@ export default async function Account() {
     return redirect("/login");
   }
 
-  const {
-    firstname = "firstname",
-    lastname = "lastname",
-    username = "username",
-    rank = 1,
-  } = user;
+  const { firstname = "firstname", lastname = "lastname", rank = 1 } = user;
   const balance = user.account.balance as number;
   const {
     bankName = "bankName",
     bankAcctNo = 12346790,
     minWithdrawal = 5000,
+    maxWithdrawal,
+    allTimeWithdrawal,
   } = user.account.withdrawal;
 
   return (
@@ -55,12 +52,13 @@ export default async function Account() {
             acctInfo={{
               firstname,
               lastname,
-              username,
               rank,
               balance,
               bankName,
               bankAcctNo,
               minWithdrawal,
+              maxWithdrawal,
+              allTimeWithdrawal,
             }}
           />
         </div>

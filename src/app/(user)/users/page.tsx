@@ -6,6 +6,13 @@ import { connectDB } from "../../../lib/mongodb";
 // Components
 import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";
+import {
+  Key,
+  ReactElement,
+  JSXElementConstructor,
+  ReactNode,
+  ReactPortal,
+} from "react";
 
 // Fetch user data on the server
 async function getUsers() {
@@ -34,9 +41,36 @@ export default async function page() {
   return (
     <Main>
       <SubHeading title="All Users" desc="Users information all together." />
-      {users.map((user) => (
-        <h1 key={user._id}>{user.username}</h1>
-      ))}
+      {users.map(
+        (user: {
+          _id: Key | null | undefined;
+          username:
+            | string
+            | number
+            | bigint
+            | boolean
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            | ReactElement<unknown, string | JSXElementConstructor<any>>
+            | Iterable<ReactNode>
+            | ReactPortal
+            | Promise<
+                | string
+                | number
+                | bigint
+                | boolean
+                | ReactPortal
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                | ReactElement<unknown, string | JSXElementConstructor<any>>
+                | Iterable<ReactNode>
+                | null
+                | undefined
+              >
+            | null
+            | undefined;
+        }) => (
+          <h1 key={user._id}>{user.username}</h1>
+        )
+      )}
     </Main>
   );
 }
