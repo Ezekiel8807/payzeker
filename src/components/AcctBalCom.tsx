@@ -3,23 +3,42 @@ import React, { useState } from "react";
 import Button from "./Button";
 import WithdrawalModal from "./modal/WithdrawalModal";
 import DepositModal from "./modal/DepositModal";
+import ConfirmWitdrawalModal from "./modal/ConfirmWitdrawalModal";
 
 type AcctBalComProps = {
-  firstName: string;
-  lastName: string;
-  userRank: number;
-  userBalance: number;
+  acctInfo: {
+    firstname: string;
+    lastname: string;
+    rank: number;
+    balance: number;
+    bankName: string;
+    bankAcctNo: number;
+    minWithdrawal: number;
+    maxWithdrawal: number;
+    allTimeWithdrawal: number;
+  };
 };
 
-export default function AcctBalCom({
-  firstName,
-  lastName,
-  userRank,
-  userBalance,
-}: AcctBalComProps) {
-  const balance = Number(userBalance) || 0; // Ensure valid number
-  const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
+export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
+  const {
+    firstname,
+    lastname,
+    rank,
+    minWithdrawal,
+    maxWithdrawal,
+    allTimeWithdrawal,
+  } = acctInfo;
+  const fullname = `${lastname} ${firstname}`;
+
+  const [isPen, setIspen] = useState(false);
+  const [witAmount, setWitamount] = useState<number | undefined>();
+  const [isConWitModal, setIsconwitmodal] = useState(false);
+  const [bankName, setBankname] = useState(acctInfo.bankName);
   const [openDepositModal, setOpenDepositModal] = useState(false);
+  const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
+  const [bankAcctNo, setBankacctno] = useState(acctInfo.bankAcctNo);
+  // const [balance, setBalance] = useState(Number(acctInfo.balance) || 0);
+  const balance = Number(acctInfo.balance) || 0;
 
   function openCloseWithdrawModal() {
     setOpenWithdrawModal(!openWithdrawModal);
@@ -27,6 +46,36 @@ export default function AcctBalCom({
 
   function openCloseDepositModal() {
     setOpenDepositModal(!openDepositModal);
+  }
+
+  //function to handle withdrawal form submit
+  // async function withdrawalAction() {}
+
+  //function to handle withdrawal form submit
+  function handleWithdrawal(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    //set pending state
+    setIspen(true);
+    const amount = !witAmount ? 0 : witAmount;
+
+    if (balance < amount) {
+      setIspen(false);
+      return;
+    }
+
+    if (balance > minWithdrawal) {
+      setIspen(false);
+      return;
+    }
+
+    if (amount + allTimeWithdrawal > maxWithdrawal) {
+      setIspen(false);
+      return;
+    }
+    //se
+    setOpenWithdrawModal(false);
+    setIsconwitmodal(true);
   }
 
   // useEffect(() => {
@@ -37,14 +86,14 @@ export default function AcctBalCom({
     <>
       <div className="w-[100%] h-[130px] md:w-[300px] bg-[var(--gray-10)] p-3 shadow-md rounded-lg">
         <div className="flex justify-between items-center">
-          {firstName != "" || lastName != "" ? (
-            <h3 className="font-bold text-[14px]">{`${lastName} ${firstName}`}</h3>
+          {firstname != "" ? (
+            <h3 className="font-bold text-[14px]">{`${fullname}`}</h3>
           ) : (
             <h3 className="font-bold text-[14px]">How’re you doing today?</h3>
           )}
 
           <div className="rounded-lg  text-[10px] bg-[var(--white)]">
-            <span className="font-bold p-2 ">Rank: {userRank}</span>
+            <span className="font-bold p-2 ">Rank: {rank}</span>
           </div>
         </div>
         <div className="text-left">
@@ -71,9 +120,38 @@ export default function AcctBalCom({
       </div>
 
       {openWithdrawModal && (
-        <WithdrawalModal closeModal={openCloseWithdrawModal} />
+        <WithdrawalModal
+          withdrawalInfo={{
+            isPen,
+            fullname,
+            bankName,
+            setBankname,
+            bankAcctNo,
+            setBankacctno,
+            balance,
+            witAmount,
+            setWitamount,
+            minWithdrawal,
+            handleWithdrawal,
+          }}
+          closeModal={openCloseWithdrawModal}
+        />
       )}
-      {openDepositModal && <DepositModal closeModal={openCloseDepositModal} />}
+
+      {/* confirm withdrawal component */}
+      {isConWitModal && (
+        <ConfirmWitdrawalModal
+          confirmInfo={{ fullname, bankName, bankAcctNo, witAmount }}
+          setIsconwitmodal={setIsconwitmodal}
+        />
+      )}
+
+      {openDepositModal && (
+        <DepositModal
+          depositInfo={{ fullname, balance }}
+          closeModal={openCloseDepositModal}
+        />
+      )}
     </>
   );
 }

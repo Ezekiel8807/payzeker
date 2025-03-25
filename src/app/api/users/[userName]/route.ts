@@ -59,13 +59,20 @@ export async function PATCH(req: Request) {
           { status: 400 }
         );
       }
+
+      return NextResponse.json(
+        { success: "Personal data updated successfully!" },
+        { status: 200 }
+      );
+
+      //
     } else if (updateType == "account") {
       const accUp = await User.findOneAndUpdate(
         { username },
         {
           $set: {
-            "account.withdrawer.bankName": data.bankName,
-            "account.withdrawer.bankAcctNo": data.bankAcctNo,
+            "account.withdrawal.bankName": data.bankName,
+            "account.withdrawal.bankAcctNo": data.bankAcctNo,
           },
         },
         { new: true }
@@ -77,12 +84,12 @@ export async function PATCH(req: Request) {
           { status: 400 }
         );
       }
-    }
 
-    return NextResponse.json(
-      { success: "Profile updated successfully!" },
-      { status: 200 }
-    );
+      return NextResponse.json(
+        { success: "Account data updated successfully!" },
+        { status: 200 }
+      );
+    }
   } catch (err) {
     return NextResponse.json({ error: `Error: ${err}` }, { status: 500 });
   }

@@ -5,9 +5,11 @@ import User from "../../../model/userModel";
 import { connectDB } from "../../../lib/mongodb";
 
 // Components
-import ClientProfile from "@/components/layout/Profile";
-import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";
+import SubHeading from "@/components/SubHeading";
+import ClientProfile from "@/components/layout/Profile";
+import Button from "@/components/Button";
+import ForgetPass from "@/components/ForgetPass";
 
 // Fetch user data on the server
 async function getUser() {
@@ -39,7 +41,7 @@ export default async function Profile() {
     email = "enail",
   } = user;
   const { bankName = "bankName", bankAcctNo = 12346790 } =
-    user.account.withdrawer;
+    user.account.withdrawal;
 
   return (
     <Main>
@@ -55,6 +57,12 @@ export default async function Profile() {
           bankAcctNo,
         }}
       ></ClientProfile>
+
+      <ForgetPass />
+
+      <Button btnStyle="w-full font-black block p-3 text-center bg-red-600 text-white mb-5 ">
+        Delete account
+      </Button>
     </Main>
   );
 }

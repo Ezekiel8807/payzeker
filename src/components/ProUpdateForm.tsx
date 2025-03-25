@@ -1,6 +1,3 @@
-//components
-import Button from "./Button";
-
 type ProUpdateFormProbs = {
   title: string;
   children: React.ReactNode;
@@ -17,10 +14,6 @@ export default function ProUpdateForm({
       <h2 className="font-black text-xl mb-5">{title}</h2>
       <form onSubmit={handleForm} method="POST">
         {children}
-
-        <Button btnStyle="w-[100px] font-bold float-end p-2 text-[var(--white)] bg-[var(--green)]">
-          Update
-        </Button>
       </form>
     </div>
   );

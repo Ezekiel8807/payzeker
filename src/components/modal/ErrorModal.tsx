@@ -1,15 +1,21 @@
 import React from "react";
 import Image from "next/image";
+import { Cancel } from "@/utils/modalFunc";
 
 //components
 import Button from "../Button";
 import ModalFrame2 from "./ModalFrame2";
 
-type SuccessModalPProbs = {
+type SuccessModalProbs = {
   errMsg?: string;
+  setIserr: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function ErrorModal({ errMsg }: SuccessModalPProbs) {
+export default function ErrorModal({ errMsg, setIserr }: SuccessModalProbs) {
+  //
+  function handleClick() {
+    Cancel(setIserr);
+  }
   return (
     <ModalFrame2>
       <div className="p-2">
@@ -27,7 +33,9 @@ export default function ErrorModal({ errMsg }: SuccessModalPProbs) {
         </div>
 
         <div className="text-right">
-          <Button btnStyle="mt-5">Cancel</Button>
+          <Button btnAction={handleClick} btnStyle="mt-5">
+            Cancel
+          </Button>
         </div>
       </div>
     </ModalFrame2>

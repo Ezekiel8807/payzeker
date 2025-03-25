@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useState } from "react";
 
 //coponents
-import Button from "../Button";
 import AcctProUpdate from "../proUpdate/AcctProUpdate";
 import PersonalProUpdate from "../proUpdate/PersonalProUpdate";
 
@@ -73,52 +72,6 @@ export default function Profile({ userInfo }: ProfileProbs) {
           }}
         />
       </div>
-      <div className="w-full my-5 p-5 bg-[var(--green)] rounded-lg">
-        <h2 className="font-black text-2xl text-white mb-5">Change Password</h2>
-
-        <form>
-          <div className="flex flex-col gap-5 mb-5 items-center justify-between">
-            <div className="w-[100%] flex flex-col md:flex-row justify-between">
-              <label htmlFor="firstname">Old password: </label>
-              <input
-                className="w-[100%] md:w-[70%] outline-none bg-none border-b-2 p-1"
-                type="text"
-                name="firstname"
-                id="firstname"
-              />
-            </div>
-
-            <div className="w-[100%] flex flex-col md:flex-row justify-between">
-              <label htmlFor="firstname">New password: </label>
-              <input
-                className="w-[100%] md:w-[70%] outline-none bg-none border-b-2 p-1"
-                type="text"
-                name="firstname"
-                id="firstname"
-              />
-            </div>
-          </div>
-
-          <div className="w-[100%] flex flex-col md:flex-row justify-between">
-            <label htmlFor="firstname">Comfirm new password: </label>
-            <input
-              className="w-[100%] md:w-[70%] outline-none bg-none border-b-2 p-1"
-              type="text"
-              name="firstname"
-              id="firstname"
-            />
-          </div>
-
-          <div className="text-right">
-            <Button btnStyle="w-[150px] font-bold p-2 mt-5 shadow-lg bg-[var(--white)] rounded-lg">
-              Change password
-            </Button>
-          </div>
-        </form>
-      </div>
-      <Button btnStyle="w-full font-black block p-3 text-center bg-red-600 text-white mb-5 ">
-        Delete account
-      </Button>
     </div>
   );
 }

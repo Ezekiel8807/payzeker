@@ -34,9 +34,12 @@ const UserSchema = new mongoose.Schema({
   completedTask: { type: Number, default: 0 },
   account: {
     balance: { type: Number, default: 0 },
-    withdrawer: {
-      bankName: { type: String, default: "" },
+    withdrawal: {
+      allTimeWithdrawal: { type: Number, default: 0 },
+      bankName: { type: String, default: "Bank Name" },
       bankAcctNo: { type: Number, default: 123456890 },
+      minWithdrawal: { type: Number, default: 5000 },
+      maxWithdrawal: { type: Number, default: 5000 },
     },
   },
   password: { type: String, require: true }, // user password is required

@@ -1,10 +1,11 @@
 "use client";
-
 import { useState } from "react";
+
 //components
+import Button from "../Button";
 import ProUpdateForm from "../ProUpdateForm";
-import SuccessModal from "../modal/SuccessModal";
 import ErrorModal from "../modal/ErrorModal";
+import SuccessModal from "../modal/SuccessModal";
 
 type PersonalProUpdateProbs = {
   userpersonalData: {
@@ -24,7 +25,7 @@ export default function PersonalProUpdate({
   const [errMsg, setErrmsg] = useState("");
   const [sucMsg, setSucmsg] = useState("");
   const [isErr, setIserr] = useState(false);
-  // const [isPen, setIspen] = useState(false);
+  const [isPen, setIspen] = useState(false);
 
   const { firstname, lastname, setFirstname, setLastname, username, email } =
     userpersonalData;
@@ -32,6 +33,9 @@ export default function PersonalProUpdate({
   //
   async function handlePerProUp(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    //set pending to true
+    setIspen(true);
 
     const response = await fetch(`/api/users/${username}?updateType=personal`, {
       method: "PATCH",
@@ -53,6 +57,9 @@ export default function PersonalProUpdate({
       setIserr(true);
       setErrmsg(result.error);
     }
+
+    //set pending to false
+    setIspen(false);
   }
 
   return (
@@ -106,9 +113,14 @@ export default function PersonalProUpdate({
           id="email"
         />
       </div>
+      <div className="text-right mt-5">
+        <Button btnStyle="w-[100px] font-bold p-2 text-[var(--white)] bg-[var(--green)]">
+          {isPen ? "Updating..." : "Update"}
+        </Button>
+      </div>
 
-      {isSuc && <SuccessModal sucMsg={sucMsg} />}
-      {isErr && <ErrorModal errMsg={errMsg} />}
+      {isSuc && <SuccessModal setIssuc={setIssuc} sucMsg={sucMsg} />}
+      {isErr && <ErrorModal setIserr={setIserr} errMsg={errMsg} />}
     </ProUpdateForm>
   );
 }

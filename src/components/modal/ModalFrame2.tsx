@@ -1,12 +1,10 @@
 type ModalFrameProbs = {
   children: React.ReactNode;
   bgColor?: string;
-  closeModal?: () => void;
 };
 
 export default function ModalFrame2({
   children,
-  closeModal,
   bgColor = "bg-[var(--white)]",
 }: ModalFrameProbs) {
   return (

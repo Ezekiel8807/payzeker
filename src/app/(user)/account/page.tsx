@@ -32,9 +32,18 @@ export default async function Account() {
     return redirect("/login");
   }
 
-  const { firstname, lastname, rank } = user;
-  const { bankName, bankAcctNo } = user.account.withdrawer;
-  const acctName = `${lastname} ${firstname}`;
+  const {
+    firstname = "firstname",
+    lastname = "lastname",
+    username = "username",
+    rank = 1,
+  } = user;
+  const balance = user.account.balance as number;
+  const {
+    bankName = "bankName",
+    bankAcctNo = 12346790,
+    minWithdrawal = 5000,
+  } = user.account.withdrawal;
 
   return (
     <Main>
@@ -43,14 +52,20 @@ export default async function Account() {
       <div className="grid grid-flow-col justify-start gap-5 overflow-x-scroll no-scrollbar  my-3">
         <div className="w-[275px] h-[130px] md:w-[300px]">
           <AcctBalCom
-            firstName={firstname}
-            lastName={lastname}
-            userRank={rank}
-            userBalance={parseInt(user.account?.balance) || 0}
+            acctInfo={{
+              firstname,
+              lastname,
+              username,
+              rank,
+              balance,
+              bankName,
+              bankAcctNo,
+              minWithdrawal,
+            }}
           />
         </div>
 
-        <BankInfo BankInfo={{ acctName, bankName, bankAcctNo }} />
+        <BankInfo BankInfo={{ firstname, lastname, bankName, bankAcctNo }} />
       </div>
 
       {/* auto scroll element */}

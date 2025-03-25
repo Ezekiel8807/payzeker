@@ -33,6 +33,16 @@ export default async function Dashboard() {
     return redirect("/login");
   }
 
+  const { firstname = "firstname", lastname = "lastname", rank = 1 } = user;
+  const balance = user.account.balance as number;
+  const {
+    bankName = "bankName",
+    bankAcctNo = 12346790,
+    minWithdrawal = 5000,
+    maxWithdrawal,
+    allTimeWithdrawal,
+  } = user.account.withdrawal;
+
   // filter tasks that have new state
   const filterUserTask = user.tasks.filter(
     (e: { state: string }) => e.state === "new"
@@ -44,10 +54,17 @@ export default async function Dashboard() {
         <>
           <div className="flex flex-col sm:flex-row items-center justify-end gap-5">
             <AcctBalCom
-              firstName={user.firstname}
-              lastName={user.lastname}
-              userRank={user.rank}
-              userBalance={parseInt(user.account?.balance) || 0}
+              acctInfo={{
+                firstname,
+                lastname,
+                rank,
+                balance,
+                bankName,
+                bankAcctNo,
+                minWithdrawal,
+                maxWithdrawal,
+                allTimeWithdrawal,
+              }}
             />
             <Performance
               Overall={user.overallTask}

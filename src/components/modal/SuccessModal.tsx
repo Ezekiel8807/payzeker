@@ -1,12 +1,19 @@
 import ModalFrame2 from "./ModalFrame2";
-import Button from "../Button";
 import Image from "next/image";
+import { Continue } from "../../utils/modalFunc";
+import Button from "../Button";
 
+//
 type SuccessModalProbs = {
   sucMsg?: string;
+  setIssuc: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function SuccessModal({ sucMsg }: SuccessModalProbs) {
+export default function SuccessModal({ sucMsg, setIssuc }: SuccessModalProbs) {
+  //
+  function handleClick() {
+    Continue(setIssuc);
+  }
   return (
     <ModalFrame2>
       <div className="p-2">
@@ -24,7 +31,9 @@ export default function SuccessModal({ sucMsg }: SuccessModalProbs) {
         </div>
 
         <div className="text-right">
-          <Button btnStyle="mt-5">Continue</Button>
+          <Button btnAction={handleClick} btnStyle="mt-5">
+            Continue
+          </Button>
         </div>
       </div>
     </ModalFrame2>

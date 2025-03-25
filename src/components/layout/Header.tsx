@@ -39,7 +39,7 @@ export default function Header() {
       <div className="mx-auto w-[100%] md:w-[90%] flex flex-row items-center justify-between">
         {/* Logo */}
         <Link className="inline" href={user ? "/dashboard" : "/"}>
-          <h1 className="font-black text-[35px]">
+          <h1 className="font-black text-[25px]">
             <span className="text-[var(--green)]">Pay</span>zeker
           </h1>
         </Link>

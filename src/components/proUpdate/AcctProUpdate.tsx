@@ -5,6 +5,7 @@ import { useState } from "react";
 import ProUpdateForm from "../ProUpdateForm";
 import SuccessModal from "../modal/SuccessModal";
 import ErrorModal from "../modal/ErrorModal";
+import Button from "../Button";
 
 type AcctProUpdateProbs = {
   userAcctData: {
@@ -22,7 +23,9 @@ export default function AcctProUpdate({ userAcctData }: AcctProUpdateProbs) {
   const [errMsg, setErrmsg] = useState("");
   const [sucMsg, setSucmsg] = useState("");
   const [isErr, setIserr] = useState(false);
-  // const [isPen, setIspen] = useState(false);
+  const [isPen, setIspen] = useState(false);
+
+  //
   const {
     fullname,
     username,
@@ -35,6 +38,9 @@ export default function AcctProUpdate({ userAcctData }: AcctProUpdateProbs) {
   async function handleAccProUp(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    //set pending to true
+    setIspen(true);
+
     const response = await fetch(`/api/users/${username}?updateType=account`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -46,7 +52,6 @@ export default function AcctProUpdate({ userAcctData }: AcctProUpdateProbs) {
     });
 
     const result = await response.json();
-    console.log(result);
 
     if (response.ok) {
       setIssuc(true);
@@ -55,6 +60,9 @@ export default function AcctProUpdate({ userAcctData }: AcctProUpdateProbs) {
       setIserr(true);
       setErrmsg(result.error);
     }
+
+    //set pending to false
+    setIspen(false);
   }
 
   return (
@@ -96,9 +104,14 @@ export default function AcctProUpdate({ userAcctData }: AcctProUpdateProbs) {
           onChange={(e) => setBankAcctNo(+e.target.value)}
         />
       </div>
+      <div className="text-right mt-5">
+        <Button btnStyle="w-[100px] font-bold p-2 text-[var(--white)] bg-[var(--green)]">
+          {isPen ? "Updating..." : "Update"}
+        </Button>
+      </div>
 
-      {isSuc && <SuccessModal sucMsg={sucMsg} />}
-      {isErr && <ErrorModal errMsg={errMsg} />}
+      {isSuc && <SuccessModal setIssuc={setIssuc} sucMsg={sucMsg} />}
+      {isErr && <ErrorModal setIserr={setIserr} errMsg={errMsg} />}
     </ProUpdateForm>
   );
 }
