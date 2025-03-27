@@ -51,41 +51,6 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
   //function to handle withdrawal form submit
   // async function withdrawalAction() {}
 
-  //function to handle withdrawal form submit
-  function handleWithdrawal(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    //set pending state
-    setIspen(true);
-    const amount = !witAmount ? 0 : witAmount;
-
-    console.log(amount);
-
-    if (amount > balance) {
-      console.log(amount);
-      setIspen(false);
-      return;
-    }
-
-    if (amount < minWithdrawal) {
-      console.log(amount);
-      setIspen(false);
-      return;
-    }
-
-    if (amount + allTimeWithdrawal > maxWithdrawal) {
-      console.log(amount);
-      setIspen(false);
-      return;
-    }
-    //se
-    setOpenWithdrawModal(false);
-    setIsconwitmodal(true);
-
-    //set pending state
-    setIspen(false);
-  }
-
   // useEffect(() => {
   //   document.addEventListener("click", () => setOpen(!open));
   // }, [open]);
@@ -131,6 +96,7 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
         <WithdrawalModal
           withdrawalInfo={{
             isPen,
+            setIspen,
             fullname,
             bankName,
             setBankname,
@@ -140,7 +106,10 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
             witAmount,
             setWitamount,
             minWithdrawal,
-            handleWithdrawal,
+            maxWithdrawal,
+            allTimeWithdrawal,
+            setIsconwitmodal,
+            setOpenWithdrawModal,
           }}
           closeModal={openCloseWithdrawModal}
         />

@@ -128,7 +128,7 @@ export default function ForgetPass() {
         <div className="text-right">
           <Button
             disabled={disableBtn}
-            btnStyle="w-[150px] font-bold p-2 mt-5 shadow-lg bg-[var(--white)] text-[13px] rounded-lg disabled:text-gray-200 disabled:bg-gray-300"
+            btnStyle="w-[150px] font-bold p-2 mt-5 shadow-lg bg-[var(--white)] text-[13px] rounded-lg disabled:text-gray-300 disabled:bg-gray-200"
           >
             {isPen ? "Changing..." : "Change password"}
           </Button>

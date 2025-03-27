@@ -5,6 +5,7 @@ import Button from "../Button";
 type WithdrawalModalProbs = {
   withdrawalInfo: {
     isPen: boolean;
+    setIspen: React.Dispatch<React.SetStateAction<boolean>>;
     fullname: string;
     bankName: string;
     setBankname: React.Dispatch<React.SetStateAction<string>>;
@@ -14,7 +15,10 @@ type WithdrawalModalProbs = {
     witAmount: number | undefined;
     setWitamount: React.Dispatch<React.SetStateAction<number | undefined>>;
     minWithdrawal: number;
-    handleWithdrawal: (e: React.FormEvent<HTMLFormElement>) => void;
+    maxWithdrawal: number;
+    allTimeWithdrawal: number;
+    setIsconwitmodal: React.Dispatch<React.SetStateAction<boolean>>;
+    setOpenWithdrawModal: React.Dispatch<React.SetStateAction<boolean>>;
   };
   closeModal: () => void;
 };
@@ -25,6 +29,7 @@ export default function WithdrawalModal({
 }: WithdrawalModalProbs) {
   const {
     isPen,
+    setIspen,
     fullname,
     bankName,
     setBankname,
@@ -34,7 +39,10 @@ export default function WithdrawalModal({
     witAmount,
     setWitamount,
     minWithdrawal,
-    handleWithdrawal,
+    maxWithdrawal,
+    allTimeWithdrawal,
+    setIsconwitmodal,
+    setOpenWithdrawModal,
   } = withdrawalInfo;
 
   //component state
@@ -48,6 +56,40 @@ export default function WithdrawalModal({
       setDiswithdraw(true);
     }
   }, [balance, minWithdrawal, witAmount]);
+
+  //function to handle withdrawal form submit
+  function handleWithdrawal(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    //set pending state
+    setIspen(true);
+    const amount = !witAmount ? 0 : witAmount;
+
+    if (amount > balance) {
+      setWitamount(undefined);
+      setIspen(false);
+      return;
+    }
+
+    if (amount < minWithdrawal) {
+      setWitamount(undefined);
+      setIspen(false);
+      return;
+    }
+
+    if (amount + allTimeWithdrawal > maxWithdrawal) {
+      setWitamount(undefined);
+      setIspen(false);
+      return;
+    }
+
+    //se
+    setOpenWithdrawModal(false);
+    setIsconwitmodal(true);
+
+    //set pending state
+    setIspen(false);
+  }
 
   return (
     <ModalFrame title={"Withdraw"} closeModal={closeModal}>
