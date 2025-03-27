@@ -83,7 +83,7 @@ export default async function Upgrade() {
     <Main>
       <SubHeading title="Upgrade" desc="Heigher previledges upgrading." />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 my-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 my-5">
         {upgrade.map((el, i) => (
           <Upgradecard
             upgradeInfo={{ ...el, userRank: user.rank, elIndex: 1 + i }}

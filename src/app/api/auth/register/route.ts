@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import Task from "@/model/taskModel";
 import User from "@/model/userModel";
 import { NextRequest, NextResponse } from "next/server";

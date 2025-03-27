@@ -33,7 +33,7 @@ export default function DashhboardLayout({
     <html lang="en">
       <body>
         <Header />
-        <div className="mx-auto">
+        <div className="h-[85vh] mx-auto">
           <div className="flex">
             <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
               <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />

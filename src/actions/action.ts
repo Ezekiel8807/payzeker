@@ -19,7 +19,7 @@ export async function decrypt(input: string) {
     algorithms: ["HS256"],
   });
 
-  return payload;
+  return JSON.parse(JSON.stringify(payload));
 }
 
 export async function getToken() {
@@ -33,11 +33,6 @@ export async function getToken() {
 export async function deleteToken() {
   const cookieStore = await cookies();
   cookieStore.delete("token");
-}
-
-export async function logout() {
-  const cookieStore = await cookies();
-  cookieStore.set("token", "", { expires: new Date(0) });
 }
 
 export async function updateTokenExpirationTime() {

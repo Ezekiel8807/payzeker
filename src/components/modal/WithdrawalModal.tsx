@@ -38,11 +38,11 @@ export default function WithdrawalModal({
   } = withdrawalInfo;
 
   //component state
-  const [disWithdraw, setDiswithdraw] = useState(false);
+  const [disWithdraw, setDiswithdraw] = useState(true);
 
   useEffect(() => {
     const amount = !witAmount ? 0 : witAmount;
-    if (balance >= minWithdrawal && amount > 0) {
+    if (amount <= balance && amount >= minWithdrawal) {
       setDiswithdraw(false);
     } else {
       setDiswithdraw(true);

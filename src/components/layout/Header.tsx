@@ -35,8 +35,8 @@ export default function Header() {
   //
 
   return (
-    <header className="p-5">
-      <div className="mx-auto w-[100%] md:w-[90%] flex flex-row items-center justify-between">
+    <header className="h-[15vh] flex items-center justify-center">
+      <div className="w-[90%] md:w-[80%] flex flex-row items-center justify-between">
         {/* Logo */}
         <Link className="inline" href={user ? "/dashboard" : "/"}>
           <h1 className="font-black text-[25px]">

@@ -59,23 +59,31 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
     setIspen(true);
     const amount = !witAmount ? 0 : witAmount;
 
-    if (balance < amount) {
+    console.log(amount);
+
+    if (amount > balance) {
+      console.log(amount);
       setIspen(false);
       return;
     }
 
-    if (balance > minWithdrawal) {
+    if (amount < minWithdrawal) {
+      console.log(amount);
       setIspen(false);
       return;
     }
 
     if (amount + allTimeWithdrawal > maxWithdrawal) {
+      console.log(amount);
       setIspen(false);
       return;
     }
     //se
     setOpenWithdrawModal(false);
     setIsconwitmodal(true);
+
+    //set pending state
+    setIspen(false);
   }
 
   // useEffect(() => {

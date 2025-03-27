@@ -1,5 +1,5 @@
 "use server";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { getToken } from "./action";
 import User from "@/model/userModel";
 
