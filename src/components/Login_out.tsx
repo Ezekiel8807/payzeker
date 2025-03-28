@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Login_out() {
   return (
-    <div className="hidden md:block">
+    <div className="hidden lg:block">
       <Link
         className="w-[60px] inline-block font-black text-center p-2 text-[var(--black)] hover:text-[var(--green)]"
         href="/login"

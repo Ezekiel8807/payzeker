@@ -9,6 +9,7 @@ import NavLink from "../NavLink";
 import ToggleBtn from "../ToggleBtn";
 import Login_out from "../Login_out";
 import NavProfile from "../NavProfile";
+import Notification from "../Notification";
 
 // Fetch user data on the server
 async function getUser() {
@@ -35,7 +36,7 @@ export default function Header() {
   //
 
   return (
-    <header className="h-[15vh] flex items-center justify-center">
+    <header className="h-[10vh] md:h-[15vh] flex items-center justify-center">
       <div className="w-[90%] md:w-[80%] flex flex-row items-center justify-between">
         {/* Logo */}
         <Link className="inline" href={user ? "/dashboard" : "/"}>
@@ -48,14 +49,21 @@ export default function Header() {
         <NavLink />
 
         {/* User Authentication */}
-        {!user ? (
-          <Login_out />
-        ) : (
-          <NavProfile userName={user.username} userRank={user.rank} />
-        )}
+        <div className="w-[100px] md:w-[200px]  flex items-center justify-end">
+          <div className="flex flex-row-reverse md:flex-row items-center">
+            {!user ? (
+              <Login_out />
+            ) : (
+              <>
+                <Notification />
+                <NavProfile userName={user.username} userRank={user.rank} />
+              </>
+            )}
+          </div>
 
-        {/* Toggle Button */}
-        <ToggleBtn toggleData={{ isLogin, isAdmin }} />
+          {/* Toggle Button */}
+          <ToggleBtn toggleData={{ isLogin, isAdmin }} />
+        </div>
       </div>
     </header>
   );

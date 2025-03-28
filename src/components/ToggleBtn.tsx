@@ -61,26 +61,23 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
   return (
     <>
       {/* Toggle Button */}
-      <button
+      <Image
         onClick={toggleMenu}
         aria-expanded={menuIsOpen}
         aria-label="Toggle navigation menu"
-        className="lg:hidden absolute right-5"
-      >
-        <Image
-          src="/icons/menu.png"
-          alt="menu icon"
-          width={30}
-          height={30}
-          style={{ width: "auto", height: "auto" }}
-        />
-      </button>
+        src="/icons/menu.png"
+        alt="menu icon"
+        width={100}
+        height={100}
+        style={{ width: "auto", height: "auto" }}
+        className="lg:hidden"
+      />
 
       {/* Toggle Dropdown */}
       <div
         className={`${
           !menuIsOpen ? "hidden" : "block"
-        } absolute top-20 z-10 right-5 bg-[var(--white)] rounded shadow-lg border-b-2 border-[var(--green)] transition-transform scale-100 ease-in-out`}
+        } absolute top-12 z-10 right-5 bg-[var(--white)] rounded shadow-lg border-b-2 border-[var(--green)] transition-transform scale-100 ease-in-out`}
       >
         <nav className="h-[250px] overflow-y-scroll text-center">
           {menuItems.map(
