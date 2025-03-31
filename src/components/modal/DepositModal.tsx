@@ -1,11 +1,17 @@
-import { useState } from "react";
+// import { useState } from "react";
 import Button from "../Button";
 import ModalFrame from "../modalFrame";
 
 type DepositModalProbs = {
   depositInfo: {
+    isPen: boolean;
+    setIspen: React.Dispatch<React.SetStateAction<boolean>>;
     fullname: string;
     balance: number;
+    depAmount: number;
+    setDepamount: React.Dispatch<React.SetStateAction<number>>;
+    setIscondepmodal: React.Dispatch<React.SetStateAction<boolean>>;
+    setOpenDepositModal: React.Dispatch<React.SetStateAction<boolean>>;
   };
   closeModal: () => void;
 };
@@ -14,12 +20,62 @@ export default function DepositModal({
   depositInfo,
   closeModal,
 }: DepositModalProbs) {
-  const { fullname, balance } = depositInfo;
-  const [amount, setAmount] = useState<number>();
+  const {
+    isPen,
+    setIspen,
+    fullname,
+    balance,
+    depAmount,
+    setDepamount,
+    setIscondepmodal,
+    setOpenDepositModal,
+  } = depositInfo;
+
+  //function to handle withdrawal form submit
+  function handleDepposit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    //set pending state
+    setIspen(true);
+
+    // if (amount > balance) {
+    //   setAmount(0);
+    //   setIspen(false);
+    //   return;
+    // }
+
+    // if (amount < minWithdrawal) {
+    //   setAmount(0);
+    //   setIspen(false);
+    //   return;
+    // }
+
+    // if (amount + allTimeWithdrawal > maxWithdrawal) {
+    //   setAmount(0);
+    //   setIspen(false);
+    //   return;
+    // }
+
+    // if (!fullname) {
+    //   setAmount(0);
+    //   setIspen(false);
+    //   return;
+    // }
+
+    //set pending state
+    setIspen(false);
+
+    //se
+    setOpenDepositModal(false);
+    setIscondepmodal(true);
+  }
 
   return (
     <ModalFrame title="Deposit" closeModal={closeModal}>
-      <form className="w-[90%] md:w-[70%] my-5 mx-auto" action="">
+      <form
+        onSubmit={handleDepposit}
+        className="w-[90%] md:w-[70%] my-5 mx-auto"
+      >
         <input
           className="w-full outline-none bg-none p-1 border-b-2 text-right"
           type="text"
@@ -40,17 +96,18 @@ export default function DepositModal({
         <input
           className="w-full outline-none p-1 border-2 text-right"
           type="number"
-          name="Amount"
-          defaultValue={amount}
+          name="depAmount"
+          value={depAmount}
           onChange={(e) => {
-            setAmount(Number(e.target.value));
+            setDepamount(Number(e.target.value));
           }}
           placeholder={`Amount(NGN): min- #100`}
         />
+
         <div className="flex flex-row mt-2 items-center justify-between gap-2">
           <div
             onClick={() => {
-              setAmount((value = 0) => value + 100);
+              setDepamount((value) => value + 100);
             }}
             className="p-2 font-black text-[10px] text-center bg-[var(--gray-20)]"
           >
@@ -58,7 +115,7 @@ export default function DepositModal({
           </div>
           <div
             onClick={() => {
-              setAmount((value = 0) => value + 500);
+              setDepamount((value) => value + 500);
             }}
             className="p-2 font-black text-[10px] text-center bg-[var(--gray-20)]"
           >
@@ -66,7 +123,7 @@ export default function DepositModal({
           </div>
           <div
             onClick={() => {
-              setAmount((value = 0) => value + 1000);
+              setDepamount((value) => value + 1000);
             }}
             className="p-2 font-black text-[10px] text-center bg-[var(--gray-20)]"
           >
@@ -74,7 +131,7 @@ export default function DepositModal({
           </div>
           <div
             onClick={() => {
-              setAmount((value = 0) => value + 5000);
+              setDepamount((value) => value + 5000);
             }}
             className="p-2 font-black text-[10px] text-center bg-[var(--gray-20)]"
           >
@@ -82,7 +139,7 @@ export default function DepositModal({
           </div>
           <div
             onClick={() => {
-              setAmount((value = 0) => value + 10000);
+              setDepamount((value) => value + 10000);
             }}
             className="p-2 font-black text-[10px] text-center bg-[var(--gray-20)]"
           >
@@ -92,7 +149,7 @@ export default function DepositModal({
 
         <div className="text-right">
           <Button btnStyle="w-[100px] mt-5 p-1 text-center bg-[var(--green)] rounded">
-            Deposit
+            {isPen ? "Processing..." : "Deposit"}
           </Button>
         </div>
       </form>

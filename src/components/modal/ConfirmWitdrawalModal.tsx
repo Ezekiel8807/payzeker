@@ -1,4 +1,4 @@
-import { Cancel } from "@/utils/modalFunc";
+import { Cancel, Continue } from "@/utils/modalFunc";
 
 //components
 import Button from "../Button";
@@ -9,23 +9,26 @@ type ConfirmWitdrawalModalProbs = {
     fullname: string;
     bankName: string;
     bankAcctNo: number;
-    witAmount: number | undefined;
+    amount: number;
   };
   setIsconwitmodal: React.Dispatch<React.SetStateAction<boolean>>;
+  withdrawalFunc: () => void;
 };
 
 export default function ConfirmWitdrawalModal({
   confirmInfo,
   setIsconwitmodal,
+  withdrawalFunc,
 }: ConfirmWitdrawalModalProbs) {
-  const { fullname, bankName, bankAcctNo, witAmount } = confirmInfo;
+  const { fullname, bankName, bankAcctNo, amount } = confirmInfo;
 
   function handleCancleClick() {
     Cancel(setIsconwitmodal);
   }
 
-  //   function handleConfirmClick() {
-  //   }
+  function handleConfirmClick() {
+    Continue(setIsconwitmodal, withdrawalFunc);
+  }
 
   //
   return (
@@ -49,7 +52,7 @@ export default function ConfirmWitdrawalModal({
         </div>
         <div className="flex p-2 items-center justify-between">
           <span className="">Amount:</span>
-          <span className="text-right">{`#${witAmount}`}</span>
+          <span className="text-right">{`#${amount}`}</span>
         </div>
       </div>
 
@@ -62,7 +65,10 @@ export default function ConfirmWitdrawalModal({
             Cancel
           </Button>
 
-          <Button btnStyle="w-[100px] p-2 rounded font- black text-white bg-[var(--green)]">
+          <Button
+            btnAction={handleConfirmClick}
+            btnStyle="w-[100px] p-2 rounded font- black text-white bg-[var(--green)]"
+          >
             Confirm
           </Button>
         </div>

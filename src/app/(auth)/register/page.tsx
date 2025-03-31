@@ -104,7 +104,7 @@ export default function Register() {
             defaultValue={compass}
             placeholder="Password Again"
           />
-          {err && <FormError>{err}</FormError>}
+          {err && <FormError msg={err} />}
 
           <div className="flex items-center justify-between my-2">
             <Link className="text-[12px] cursor-pointer" href="/login">

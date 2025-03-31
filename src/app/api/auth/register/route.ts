@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import Task from "@/model/taskModel";
 import User from "@/model/userModel";
+import Notification from "@/model/notificationModel";
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 
@@ -38,8 +39,11 @@ export async function POST(request: NextRequest) {
       tasks: assignedTask ? [assignedTask] : [],
       password: hashPass,
     });
-
     await newUser.save();
+
+    //create Notification
+    const welcomeMsg = new Notification({ username });
+    await welcomeMsg.save();
 
     // Return success response
     return NextResponse.json(
@@ -47,7 +51,6 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
 
-    //
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return NextResponse.json(

@@ -1,7 +1,7 @@
 import mongoose, { models } from "mongoose";
 
 const notificationSchema = new mongoose.Schema({
-  userId: { type: String, default: "" },
+  username: { type: String, required: true },
   state: {
     type: String,
     enum: ["read", "unread"],

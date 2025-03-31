@@ -72,7 +72,7 @@ export default function Login() {
             defaultValue={password}
             placeholder="Password"
           />
-          {err && <FormError>{err}</FormError>}
+          {err && <FormError msg={err} />}
 
           <div className="flex items-center justify-between my-2">
             <Link className="text-[12px] cursor-pointer" href="/register">

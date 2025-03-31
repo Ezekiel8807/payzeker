@@ -3,13 +3,14 @@ import Link from "next/link";
 import { getToken } from "@/actions/action";
 import User from "../../model/userModel";
 import { connectDB } from "../../lib/mongodb";
+import Notification from "@/model/notificationModel";
 
 // components
 import NavLink from "../NavLink";
 import ToggleBtn from "../ToggleBtn";
 import Login_out from "../Login_out";
 import NavProfile from "../NavProfile";
-import Notification from "../Notification";
+import NotificationCom from "../NotificationCom";
 
 // Fetch user data on the server
 async function getUser() {
@@ -29,8 +30,25 @@ async function getUser() {
   return JSON.parse(JSON.stringify(user));
 }
 
+// Fetch user notification
+async function getNotifications() {
+  const token = await getToken();
+  if (!token) return null;
+
+  //connect to database
+  await connectDB();
+
+  //fetch user
+  const notifications = await Notification.find({ username: token.username });
+
+  // respond
+  return JSON.parse(JSON.stringify(notifications));
+}
+
 export default function Header() {
   const user = use(getUser());
+  const notifications = use(getNotifications());
+
   const isLogin = !user ? false : true;
   const isAdmin = !user ? false : user.isAdmin;
   //
@@ -55,7 +73,7 @@ export default function Header() {
               <Login_out />
             ) : (
               <>
-                <Notification />
+                <NotificationCom notis={notifications} />
                 <NavProfile userName={user.username} userRank={user.rank} />
               </>
             )}

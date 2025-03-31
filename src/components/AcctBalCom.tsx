@@ -1,9 +1,16 @@
 "use client";
 import React, { useState } from "react";
+import { depositAction } from "@/actions/DepositAction";
+import { withdrawalAction } from "@/actions/withdrawalAction";
+
+//components
 import Button from "./Button";
 import WithdrawalModal from "./modal/WithdrawalModal";
 import DepositModal from "./modal/DepositModal";
 import ConfirmWitdrawalModal from "./modal/ConfirmWitdrawalModal";
+import SuccessModal from "./modal/SuccessModal";
+import ErrorModal from "./modal/ErrorModal";
+import ConfirmDepositModal from "./modal/ConfirmDepositModal";
 
 type AcctBalComProps = {
   acctInfo: {
@@ -28,11 +35,17 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
     maxWithdrawal,
     allTimeWithdrawal,
   } = acctInfo;
+  const [isSuc, setIssuc] = useState(false);
+  const [errMsg, setErrmsg] = useState("");
+  const [sucMsg, setSucmsg] = useState("");
+  const [isErr, setIserr] = useState(false);
   const fullname = `${lastname} ${firstname}`;
-
   const [isPen, setIspen] = useState(false);
-  const [witAmount, setWitamount] = useState<number | undefined>();
+  const [amount, setAmount] = useState(5000);
+  const [fileUrl, setFileurl] = useState("");
+  const [depAmount, setDepamount] = useState(5000);
   const [isConWitModal, setIsconwitmodal] = useState(false);
+  const [isConDepModal, setIscondepmodal] = useState(false);
   const [bankName, setBankname] = useState(acctInfo.bankName);
   const [openDepositModal, setOpenDepositModal] = useState(false);
   const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
@@ -49,7 +62,42 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
   }
 
   //function to handle withdrawal form submit
-  // async function withdrawalAction() {}
+  async function withdrawalFunc() {
+    const res = await withdrawalAction(
+      balance,
+      minWithdrawal,
+      allTimeWithdrawal,
+      maxWithdrawal,
+      amount
+    );
+
+    if (res.error != true) {
+      setIssuc(true);
+      setSucmsg(res.msg);
+    } else {
+      setIserr(true);
+      setErrmsg(res.msg);
+    }
+  }
+
+  //function to handle withdrawal form submit
+  async function depositFunc() {
+    if (!fileUrl) {
+      setErrmsg("Upload reciept to Confirm payment!");
+      setIserr(true);
+      return;
+    }
+
+    const res = await depositAction(depAmount, fileUrl);
+
+    if (res.error != true) {
+      setIssuc(true);
+      setSucmsg(res.msg);
+    } else {
+      setIserr(true);
+      setErrmsg(res.msg);
+    }
+  }
 
   // useEffect(() => {
   //   document.addEventListener("click", () => setOpen(!open));
@@ -103,8 +151,8 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
             bankAcctNo,
             setBankacctno,
             balance,
-            witAmount,
-            setWitamount,
+            amount,
+            setAmount,
             minWithdrawal,
             maxWithdrawal,
             allTimeWithdrawal,
@@ -118,17 +166,38 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
       {/* confirm withdrawal component */}
       {isConWitModal && (
         <ConfirmWitdrawalModal
-          confirmInfo={{ fullname, bankName, bankAcctNo, witAmount }}
+          confirmInfo={{ fullname, bankName, bankAcctNo, amount }}
+          withdrawalFunc={withdrawalFunc}
           setIsconwitmodal={setIsconwitmodal}
         />
       )}
 
       {openDepositModal && (
         <DepositModal
-          depositInfo={{ fullname, balance }}
+          depositInfo={{
+            isPen,
+            setIspen,
+            fullname,
+            balance,
+            depAmount,
+            setDepamount,
+            setIscondepmodal,
+            setOpenDepositModal,
+          }}
           closeModal={openCloseDepositModal}
         />
       )}
+
+      {isConDepModal && (
+        <ConfirmDepositModal
+          confirmInfo={{ isPen, setIspen, depAmount, setFileurl }}
+          depositFunc={depositFunc}
+          setIscondepmodal={setIscondepmodal}
+        />
+      )}
+
+      {isSuc && <SuccessModal setIssuc={setIssuc} sucMsg={sucMsg} />}
+      {isErr && <ErrorModal setIserr={setIserr} errMsg={errMsg} />}
     </>
   );
 }

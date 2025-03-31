@@ -12,8 +12,8 @@ type WithdrawalModalProbs = {
     bankAcctNo: number;
     setBankacctno: React.Dispatch<React.SetStateAction<number>>;
     balance: number;
-    witAmount: number | undefined;
-    setWitamount: React.Dispatch<React.SetStateAction<number | undefined>>;
+    amount: number;
+    setAmount: React.Dispatch<React.SetStateAction<number>>;
     minWithdrawal: number;
     maxWithdrawal: number;
     allTimeWithdrawal: number;
@@ -36,8 +36,8 @@ export default function WithdrawalModal({
     bankAcctNo,
     setBankacctno,
     balance,
-    witAmount,
-    setWitamount,
+    amount,
+    setAmount,
     minWithdrawal,
     maxWithdrawal,
     allTimeWithdrawal,
@@ -49,13 +49,12 @@ export default function WithdrawalModal({
   const [disWithdraw, setDiswithdraw] = useState(true);
 
   useEffect(() => {
-    const amount = !witAmount ? 0 : witAmount;
     if (amount <= balance && amount >= minWithdrawal) {
       setDiswithdraw(false);
     } else {
       setDiswithdraw(true);
     }
-  }, [balance, minWithdrawal, witAmount]);
+  }, [balance, minWithdrawal, amount]);
 
   //function to handle withdrawal form submit
   function handleWithdrawal(e: React.FormEvent<HTMLFormElement>) {
@@ -63,32 +62,31 @@ export default function WithdrawalModal({
 
     //set pending state
     setIspen(true);
-    const amount = !witAmount ? 0 : witAmount;
 
     if (amount > balance) {
-      setWitamount(undefined);
+      setAmount(0);
       setIspen(false);
       return;
     }
 
     if (amount < minWithdrawal) {
-      setWitamount(undefined);
+      setAmount(0);
       setIspen(false);
       return;
     }
 
     if (amount + allTimeWithdrawal > maxWithdrawal) {
-      setWitamount(undefined);
+      setAmount(0);
       setIspen(false);
       return;
     }
 
+    //set pending state
+    setIspen(false);
+
     //se
     setOpenWithdrawModal(false);
     setIsconwitmodal(true);
-
-    //set pending state
-    setIspen(false);
   }
 
   return (
@@ -143,9 +141,9 @@ export default function WithdrawalModal({
           className="w-full outline-none p-1 border-2 text-right"
           type="number"
           name="amount"
-          defaultValue={witAmount}
+          defaultValue={amount}
           onChange={(e) => {
-            setWitamount(Number(e.target.value));
+            setAmount(Number(e.target.value));
           }}
           placeholder={`Amount(NGN): min- #${minWithdrawal}`}
         />
