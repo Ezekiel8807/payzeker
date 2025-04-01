@@ -14,6 +14,10 @@ export default function NotificationCom({ notis }: { notis: any[] }) {
   const [notiLen, setNotiLen] = useState(0);
 
   useEffect(() => {
+    console.log("Updated notisarr:", notisArr);
+  }, [notisArr]);
+
+  useEffect(() => {
     function unReadNotiCheck() {
       // Count unread notifications and set state
       const unreadCount = notisArr.filter((e) => e.state === "unread").length;
@@ -24,21 +28,26 @@ export default function NotificationCom({ notis }: { notis: any[] }) {
   }, [notisArr]); // Depend on `notisArr` to update properly
 
   function openCloseNoteBox() {
-    setNotebox((prev) => !prev);
+    if (notiLen > 0) {
+      setNotebox((prev) => !prev);
+      return;
+    }
+
+    return;
   }
 
   async function deleteNotisDbSt(id: string) {
-    //
+    // Store previous state in case of failure
+    const prevState = notisArr;
+
     // Optimistically update the UI before making the API call
-    setNotisarr((prevNotisArr) => [
-      ...prevNotisArr.filter((e) => e._id !== id),
-    ]);
+    setNotisarr((prevNotisArr) => prevNotisArr.filter((e) => e._id !== id));
 
     const deletedNotisDb = await deleteNotis(id);
 
     if (deletedNotisDb.error) {
       // If API call fails, revert state change (restore previous state)
-      setNotisarr((prevNotisArr) => [...prevNotisArr, { _id: id }]); // Adjust based on actual object structure
+      setNotisarr(prevState); // Adjust based on actual object structure
       return;
     }
   }
