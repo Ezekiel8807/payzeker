@@ -13,12 +13,10 @@ type ConfirmDepositModalProbs = {
   confirmInfo: {
     isPen: boolean;
     setIspen: React.Dispatch<React.SetStateAction<boolean>>;
+    firstname: string;
+    lastname: string;
     depAmount: number;
     setFileurl: React.Dispatch<React.SetStateAction<string>>;
-    // fullname: string;
-    // bankName: string;
-    // bankAcctNo: number;
-    // amount: number;
   };
   setIscondepmodal: React.Dispatch<React.SetStateAction<boolean>>;
   depositFunc: () => void;
@@ -29,7 +27,8 @@ export default function ConfirmDepositModal({
   setIscondepmodal,
   depositFunc,
 }: ConfirmDepositModalProbs) {
-  const { isPen, setIspen, depAmount, setFileurl } = confirmInfo;
+  const { isPen, setIspen, firstname, lastname, depAmount, setFileurl } =
+    confirmInfo;
   const [err, setErr] = useState("");
   const [suc, setSuc] = useState("");
   const [file, setFile] = useState<File>();
@@ -48,6 +47,12 @@ export default function ConfirmDepositModal({
     //set pending state
     setIspen(true);
 
+    if (!firstname || !lastname) {
+      setErr("Please update your profile");
+      setIspen(false);
+      return;
+    }
+
     if (!file) {
       setErr("Provide prof of payment");
       setIspen(false);
@@ -60,8 +65,16 @@ export default function ConfirmDepositModal({
       return;
     }
 
+    // save image to google drive
     const res = await fileUpload(file);
-    console.log(res);
+
+    if (res.error != false) {
+      setErr(res.msg as string);
+      return;
+    }
+
+    setFileurl(res.fileUrl);
+    setSuc(res.msg as string);
 
     //set pending state
     setIspen(false);

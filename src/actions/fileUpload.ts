@@ -8,7 +8,7 @@ export async function fileUpload(file: File | null) {
   //   const filePath = file.filepath;
 
   if (!file) {
-    return { error: true, msg: "No file found" };
+    return { error: true, msg: "No file found", fileUrl: "" };
   }
 
   try {
@@ -50,9 +50,10 @@ export async function fileUpload(file: File | null) {
       return {
         error: true,
         msg: "File ID is undefined. Upload may have failed.",
+        fileUrl: "",
       };
 
-    // 🔥 Make the file public
+    // 🔥Make the file public
     await drive.permissions.create({
       fileId,
       requestBody: {
@@ -69,6 +70,6 @@ export async function fileUpload(file: File | null) {
 
     //
   } catch (err) {
-    return { error: true, msg: err };
+    return { error: true, msg: err, fileUrl: "" };
   }
 }

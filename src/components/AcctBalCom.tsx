@@ -190,7 +190,14 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
 
       {isConDepModal && (
         <ConfirmDepositModal
-          confirmInfo={{ isPen, setIspen, depAmount, setFileurl }}
+          confirmInfo={{
+            isPen,
+            setIspen,
+            firstname,
+            lastname,
+            depAmount,
+            setFileurl,
+          }}
           depositFunc={depositFunc}
           setIscondepmodal={setIscondepmodal}
         />

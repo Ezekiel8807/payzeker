@@ -39,7 +39,9 @@ async function getNotifications() {
   await connectDB();
 
   //fetch user
-  const notifications = await Notification.find({ username: token.username });
+  const notifications = await Notification.find({
+    username: token.username,
+  }).sort({ _id: -1 });
 
   // respond
   return JSON.parse(JSON.stringify(notifications));

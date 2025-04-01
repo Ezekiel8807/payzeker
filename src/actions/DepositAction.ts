@@ -54,10 +54,10 @@ export async function depositAction(depAmount: number, fileUrl: string) {
 
     return {
       error: false,
-      msg: `Deposit of #${depAmount} successfully made.`,
+      msg: `Deposit request of #${depAmount} successfully made.`,
     };
 
-    //
+    //z
   } catch (err) {
     //
     return {

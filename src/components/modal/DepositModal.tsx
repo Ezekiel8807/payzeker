@@ -38,29 +38,17 @@ export default function DepositModal({
     //set pending state
     setIspen(true);
 
-    // if (amount > balance) {
-    //   setAmount(0);
-    //   setIspen(false);
-    //   return;
-    // }
+    if (depAmount < 1000) {
+      setIspen(false);
+      setOpenDepositModal(false);
+      return;
+    }
 
-    // if (amount < minWithdrawal) {
-    //   setAmount(0);
-    //   setIspen(false);
-    //   return;
-    // }
-
-    // if (amount + allTimeWithdrawal > maxWithdrawal) {
-    //   setAmount(0);
-    //   setIspen(false);
-    //   return;
-    // }
-
-    // if (!fullname) {
-    //   setAmount(0);
-    //   setIspen(false);
-    //   return;
-    // }
+    if (fullname === " ") {
+      setIspen(false);
+      setOpenDepositModal(false);
+      return;
+    }
 
     //set pending state
     setIspen(false);

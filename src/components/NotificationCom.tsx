@@ -1,5 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { updateNotis } from "@/actions/notifficationAction";
+import { deleteNotis } from "@/actions/notifficationAction";
 
 // Components
 import DeleteIcon from "./ui/DeleteIcon";
@@ -25,14 +27,38 @@ export default function NotificationCom({ notis }: { notis: any[] }) {
     setNotebox((prev) => !prev);
   }
 
-  function deleteNotis(id: string) {
-    setNotisarr((prevNotisArr) => prevNotisArr.filter((e) => e._id !== id));
+  async function deleteNotisDbSt(id: string) {
+    //
+    // Optimistically update the UI before making the API call
+    setNotisarr((prevNotisArr) => [
+      ...prevNotisArr.filter((e) => e._id !== id),
+    ]);
+
+    const deletedNotisDb = await deleteNotis(id);
+
+    if (deletedNotisDb.error) {
+      // If API call fails, revert state change (restore previous state)
+      setNotisarr((prevNotisArr) => [...prevNotisArr, { _id: id }]); // Adjust based on actual object structure
+      return;
+    }
   }
 
-  function readNotis(id: string) {
+  async function readNotis(id: string) {
+    // Store previous state in case of failure
+    const prevState = notisArr;
+
+    //
     setNotisarr((prevNotisArr) =>
       prevNotisArr.map((e) => (e._id === id ? { ...e, state: "read" } : e))
     );
+
+    const updateNotisDb = await updateNotis(id);
+
+    if (updateNotisDb.error) {
+      // Revert state if API fails
+      setNotisarr(prevState);
+      return;
+    }
   }
 
   return (
@@ -58,7 +84,7 @@ export default function NotificationCom({ notis }: { notis: any[] }) {
                   >
                     Mark as read |
                   </small>
-                  <DeleteIcon deleteNotis={() => deleteNotis(el._id)} />
+                  <DeleteIcon deleteNotis={() => deleteNotisDbSt(el._id)} />
                 </div>
               </div>
             ) : (
