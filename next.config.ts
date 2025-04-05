@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "200mb",
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "drive.google.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

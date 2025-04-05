@@ -35,9 +35,11 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
     { label: "Blog", href: "/blog", show: !toggleData.isLogin },
     { label: "About", href: "/about", show: !toggleData.isLogin },
     { label: "Dashboard", href: "/dashboard", show: toggleData.isLogin },
+    { label: "Account", href: "/account", show: toggleData.isLogin },
+    { label: "Profile", href: "/profile", show: toggleData.isLogin },
     {
-      label: "Users",
-      href: "/users",
+      label: "Request",
+      href: "/requests",
       show: toggleData.isLogin && toggleData.isAdmin,
     },
     {
@@ -46,12 +48,10 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
       show: toggleData.isLogin && toggleData.isAdmin,
     },
     {
-      label: "Request",
-      href: "/requests",
+      label: "Users",
+      href: "/users",
       show: toggleData.isLogin && toggleData.isAdmin,
     },
-    { label: "Profile", href: "/profile", show: toggleData.isLogin },
-    { label: "Account", href: "/account", show: toggleData.isLogin },
     { label: "Transactions", href: "/transactions", show: toggleData.isLogin },
     { label: "Upgrade", href: "/upgrade", show: toggleData.isLogin },
     { label: "Login", href: "/login", show: !toggleData.isLogin },

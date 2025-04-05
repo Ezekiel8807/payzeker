@@ -6,6 +6,8 @@ type WithdrawalModalProbs = {
   withdrawalInfo: {
     isPen: boolean;
     setIspen: React.Dispatch<React.SetStateAction<boolean>>;
+    setErrmsg: React.Dispatch<React.SetStateAction<string>>;
+    setIserr: React.Dispatch<React.SetStateAction<boolean>>;
     fullname: string;
     bankName: string;
     setBankname: React.Dispatch<React.SetStateAction<string>>;
@@ -30,6 +32,8 @@ export default function WithdrawalModal({
   const {
     isPen,
     setIspen,
+    setErrmsg,
+    setIserr,
     fullname,
     bankName,
     setBankname,
@@ -49,12 +53,12 @@ export default function WithdrawalModal({
   const [disWithdraw, setDiswithdraw] = useState(true);
 
   useEffect(() => {
-    if (amount <= balance && amount >= minWithdrawal) {
+    if (amount <= balance) {
       setDiswithdraw(false);
     } else {
       setDiswithdraw(true);
     }
-  }, [balance, minWithdrawal, amount]);
+  }, [balance, amount]);
 
   //function to handle withdrawal form submit
   function handleWithdrawal(e: React.FormEvent<HTMLFormElement>) {
@@ -66,18 +70,27 @@ export default function WithdrawalModal({
     if (amount > balance) {
       setAmount(0);
       setIspen(false);
+      setOpenWithdrawModal(false);
+      setErrmsg("Insufficient balance");
+      setIserr(true);
       return;
     }
 
     if (amount < minWithdrawal) {
       setAmount(0);
-      setIspen(false);
+        setIspen(false);
+        setOpenWithdrawModal(false);
+        setErrmsg(`Opps, minimum withdrawal is #${minWithdrawal}`);
+        setIserr(true);
       return;
     }
 
     if (amount + allTimeWithdrawal > maxWithdrawal) {
       setAmount(0);
-      setIspen(false);
+        setIspen(false);
+        setOpenWithdrawModal(false);
+        setErrmsg("Upgrade account to increase your withdrawal limit");
+        setIserr(true);
       return;
     }
 

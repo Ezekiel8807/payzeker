@@ -1,18 +1,14 @@
+import { Key } from "react";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
 import { connectDB } from "../../../lib/mongodb";
 
 // Components
-import SubHeading from "@/components/SubHeading";
+import Table from "@/components/Table";
+import Search from "@/components/Search";
 import Main from "@/components/layout/Main";
-import {
-  Key,
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-} from "react";
+import SubHeading from "@/components/SubHeading";
 
 // Fetch user data on the server
 async function getUsers() {
@@ -41,36 +37,14 @@ export default async function page() {
   return (
     <Main>
       <SubHeading title="All Users" desc="Users information all together." />
-      {users.map(
-        (user: {
-          _id: Key | null | undefined;
-          username:
-            | string
-            | number
-            | bigint
-            | boolean
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            | ReactElement<unknown, string | JSXElementConstructor<any>>
-            | Iterable<ReactNode>
-            | ReactPortal
-            | Promise<
-                | string
-                | number
-                | bigint
-                | boolean
-                | ReactPortal
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                | ReactElement<unknown, string | JSXElementConstructor<any>>
-                | Iterable<ReactNode>
-                | null
-                | undefined
-              >
-            | null
-            | undefined;
-        }) => (
-          <h1 key={user._id}>{user.username}</h1>
-        )
-      )}
+      <Search />
+      <Table disabled={false}>
+        {users.map(
+          (user: { _id: Key | null | undefined; username: string }) => (
+            <h1 key={user._id}>{user.username}</h1>
+          )
+        )}
+      </Table>
     </Main>
   );
 }

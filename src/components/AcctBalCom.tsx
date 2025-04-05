@@ -145,6 +145,8 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
           withdrawalInfo={{
             isPen,
             setIspen,
+            setErrmsg,
+            setIserr,
             fullname,
             bankName,
             setBankname,
@@ -177,6 +179,8 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
           depositInfo={{
             isPen,
             setIspen,
+            setErrmsg,
+            setIserr,
             fullname,
             balance,
             depAmount,

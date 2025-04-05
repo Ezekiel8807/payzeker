@@ -8,6 +8,8 @@ import { connectDB } from "../../../lib/mongodb";
 import TransCard from "@/components/TransCard";
 import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";
+import Table from "@/components/Table";
+import Search from "@/components/Search";
 
 // Fetch user data on the server
 async function getUser() {
@@ -34,15 +36,27 @@ export default async function Transactions() {
   return (
     <Main>
       <SubHeading title="Transactions" desc="Transaction history right here." />
+      {!user.isAdmin && (
+        <div className="w-[100%] py-5">
+          <TransCard />
+          <TransCard />
+          <TransCard />
+          <TransCard />
+          <TransCard />
+          <TransCard />
+        </div>
+      )}
 
-      <div className="w-[100%] py-5">
-        <TransCard />
-        <TransCard />
-        <TransCard />
-        <TransCard />
-        <TransCard />
-        <TransCard />
-      </div>
+      {user.isAdmin && (
+        <div className="w-[100%]">
+          <Search />
+          <Table>
+            <TransCard />
+            <TransCard />
+            <TransCard />
+          </Table>
+        </div>
+      )}
     </Main>
   );
 }

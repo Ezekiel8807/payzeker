@@ -14,9 +14,11 @@ type SideNavProbs = {
 export default function SideNav({ sideNavInfo }: SideNavProbs) {
   const deskLinks = [
     { label: "Dashboard", href: "/dashboard", show: sideNavInfo.isLogin },
+    { label: "Account", href: "/account", show: sideNavInfo.isLogin },
+    { label: "Profile", href: "/profile", show: sideNavInfo.isLogin },
     {
-      label: "Users",
-      href: "/users",
+      label: "Request",
+      href: "/requests",
       show: sideNavInfo.isLogin && sideNavInfo.isAdmin,
     },
     {
@@ -25,12 +27,11 @@ export default function SideNav({ sideNavInfo }: SideNavProbs) {
       show: sideNavInfo.isLogin && sideNavInfo.isAdmin,
     },
     {
-      label: "Request",
-      href: "/requests",
+      label: "Users",
+      href: "/users",
       show: sideNavInfo.isLogin && sideNavInfo.isAdmin,
     },
-    { label: "Profile", href: "/profile", show: sideNavInfo.isLogin },
-    { label: "Account", href: "/account", show: sideNavInfo.isLogin },
+
     { label: "Transactions", href: "/transactions", show: sideNavInfo.isLogin },
     { label: "Upgrade", href: "/upgrade", show: sideNavInfo.isLogin },
   ];

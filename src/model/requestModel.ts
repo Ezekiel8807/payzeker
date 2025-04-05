@@ -14,8 +14,8 @@ const requestSchema = new mongoose.Schema({
     enum: ["new", "accepted", "declined"],
     default: "new",
   },
-  bankName: { type: String, required: true },
-  bankAcctNo: { type: Number, required: true },
+  bankName: String,
+  bankAcctNo: Number,
   prof: { type: String, default: "" },
   amount: { type: Number, required: true },
 });

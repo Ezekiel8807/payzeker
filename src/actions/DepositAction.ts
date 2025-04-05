@@ -36,8 +36,6 @@ export async function depositAction(depAmount: number, fileUrl: string) {
       username: user.username,
       fullname: `${user.lastname} ${user.firstname}`,
       type: "deposit",
-      bankName: user.account.withdrawal.bankName,
-      bankAcctNo: user.account.withdrawal.bankAcctNo,
       prof: fileUrl,
       amount: depAmount,
     });

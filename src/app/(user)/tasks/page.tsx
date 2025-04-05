@@ -1,3 +1,4 @@
+import { Key } from "react";
 import Task from "@/model/taskModel";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
@@ -6,13 +7,8 @@ import { connectDB } from "../../../lib/mongodb";
 // Components
 import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";
-import {
-  Key,
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-} from "react";
+import Table from "@/components/Table";
+import Search from "@/components/Search";
 
 // Fetch user data on the server
 async function getTasks() {
@@ -42,36 +38,12 @@ export default async function page() {
         title="All Tasks"
         desc="Earn real cash for completing task."
       />
-      {tasks.map(
-        (task: {
-          _id: Key | null | undefined;
-          name:
-            | string
-            | number
-            | bigint
-            | boolean
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            | ReactElement<unknown, string | JSXElementConstructor<any>>
-            | Iterable<ReactNode>
-            | ReactPortal
-            | Promise<
-                | string
-                | number
-                | bigint
-                | boolean
-                | ReactPortal
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                | ReactElement<unknown, string | JSXElementConstructor<any>>
-                | Iterable<ReactNode>
-                | null
-                | undefined
-              >
-            | null
-            | undefined;
-        }) => (
+      <Search />
+      <Table disabled={false}>
+        {tasks.map((task: { _id: Key | null | undefined; name: string }) => (
           <h1 key={task._id}>{task.name}</h1>
-        )
-      )}
+        ))}
+      </Table>
     </Main>
   );
 }

@@ -14,10 +14,6 @@ export default function NotificationCom({ notis }: { notis: any[] }) {
   const [notiLen, setNotiLen] = useState(0);
 
   useEffect(() => {
-    console.log("Updated notisarr:", notisArr);
-  }, [notisArr]);
-
-  useEffect(() => {
     function unReadNotiCheck() {
       // Count unread notifications and set state
       const unreadCount = notisArr.filter((e) => e.state === "unread").length;
@@ -28,11 +24,10 @@ export default function NotificationCom({ notis }: { notis: any[] }) {
   }, [notisArr]); // Depend on `notisArr` to update properly
 
   function openCloseNoteBox() {
-    if (notiLen > 0) {
+    if (notisArr.length > 0) {
       setNotebox((prev) => !prev);
       return;
     }
-
     return;
   }
 

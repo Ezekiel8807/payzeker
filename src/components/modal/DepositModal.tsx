@@ -6,6 +6,8 @@ type DepositModalProbs = {
   depositInfo: {
     isPen: boolean;
     setIspen: React.Dispatch<React.SetStateAction<boolean>>;
+    setErrmsg: React.Dispatch<React.SetStateAction<string>>;
+    setIserr: React.Dispatch<React.SetStateAction<boolean>>;
     fullname: string;
     balance: number;
     depAmount: number;
@@ -23,6 +25,8 @@ export default function DepositModal({
   const {
     isPen,
     setIspen,
+    setErrmsg,
+    setIserr,
     fullname,
     balance,
     depAmount,
@@ -41,12 +45,16 @@ export default function DepositModal({
     if (depAmount < 1000) {
       setIspen(false);
       setOpenDepositModal(false);
+      setErrmsg("Opps, minimum deposit of #1,000");
+      setIserr(true);
       return;
     }
 
     if (fullname === " ") {
       setIspen(false);
       setOpenDepositModal(false);
+      setErrmsg("Opps, update your profile to continue!");
+      setIserr(true);
       return;
     }
 

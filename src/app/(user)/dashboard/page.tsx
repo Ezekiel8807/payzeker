@@ -10,6 +10,8 @@ import AcctBalCom from "@/components/AcctBalCom";
 import Performance from "@/components/Performance";
 import TaskCard from "@/components/TaskCard";
 import Main from "@/components/layout/Main";
+import Search from "@/components/Search";
+import Table from "@/components/Table";
 
 // Fetch user data on the server
 async function getUser() {
@@ -116,6 +118,10 @@ export default async function Dashboard() {
               title="Submitted Tasks"
               desc="All tasks submitted at a go."
             />
+            <Search />
+            <Table>
+              <h4>Submtted tasks</h4>
+            </Table>
           </div>
         </div>
       )}
