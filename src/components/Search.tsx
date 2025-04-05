@@ -6,7 +6,7 @@ export default function Search() {
     <form className="w-full my-5 flex" action="">
       <input
         className="w-full px-5 outline-none bg-[var(--gray-05)]"
-        type="text"
+        type="search"
         name=""
         id=""
         placeholder="Enter search"

@@ -10,6 +10,7 @@ const TaskSchema = new mongoose.Schema({
     default: "new",
   },
   socialTarget: { type: String, default: "" },
+  link: { type: String, default: "" },
   media: {
     type: {
       type: String,
@@ -20,6 +21,8 @@ const TaskSchema = new mongoose.Schema({
   },
   isPaid: { type: Boolean, default: false },
   instruction: { type: String, default: "" },
+  startDate: { type: String, default: "" },
+  endDate: { type: String, default: "" },
 });
 
 const Task = models?.Task || mongoose.model("Task", TaskSchema);
