@@ -15,15 +15,15 @@ type userTask = {
 };
 
 //icons
-import web from "../../public/icons/f.svg";
-import facebook from "../../public/icons/f.png";
-import instagram from "../../public/icons/i.png";
-import youtube from "../../public/icons/y.png";
-import linkedin from "../../public/icons/l.png";
-import whatsapp from "../../public/icons/w.png";
+import web from "../../../public/icons/f.svg";
+import facebook from "../../../public/icons/f.png";
+import instagram from "../../../public/icons/i.png";
+import youtube from "../../../public/icons/y.png";
+import linkedin from "../../../public/icons/l.png";
+import whatsapp from "../../../public/icons/w.png";
 
 //images
-import taskBackImg from "../../public/img/b.jpg";
+import taskBackImg from "../../../public/img/b.jpg";
 
 //video
 // import taskBackVid from "../../public/video/a.mp4";

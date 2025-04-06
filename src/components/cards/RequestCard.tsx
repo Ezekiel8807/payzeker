@@ -1,6 +1,6 @@
 import { Key } from "react";
 import Image from "next/image";
-import Button from "./Button";
+import Button from "../Button";
 import Link from "next/link";
 
 type RequestCardProbs = {

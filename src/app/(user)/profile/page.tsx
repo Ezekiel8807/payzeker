@@ -45,7 +45,7 @@ export default async function Profile() {
 
   return (
     <Main>
-      <SubHeading title="Profile" desc="Everything about you." />
+      <SubHeading title="User Profile" desc="Everything about you." />
       <ClientProfile
         userInfo={{
           username,

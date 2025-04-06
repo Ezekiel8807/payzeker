@@ -6,7 +6,7 @@ import { connectDB } from "../../../lib/mongodb";
 
 // Components
 import SubHeading from "@/components/SubHeading";
-import Upgradecard from "@/components/Upgradecard";
+import Upgradecard from "@/components/cards/Upgradecard";
 import Main from "@/components/layout/Main";
 
 // Fetch user data on the server
@@ -81,7 +81,7 @@ export default async function Upgrade() {
 
   return (
     <Main>
-      <SubHeading title="Upgrade" desc="Heigher previledges upgrading." />
+      <SubHeading title="User Upgrade" desc="Heigher previledges upgrading." />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 my-5">
         {upgrade.map((el, i) => (

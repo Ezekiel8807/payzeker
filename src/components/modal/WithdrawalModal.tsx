@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ModalFrame from "../modalFrame";
+import ModalFrame from "./modalFrame";
 import Button from "../Button";
 
 type WithdrawalModalProbs = {
@@ -78,19 +78,19 @@ export default function WithdrawalModal({
 
     if (amount < minWithdrawal) {
       setAmount(0);
-        setIspen(false);
-        setOpenWithdrawModal(false);
-        setErrmsg(`Opps, minimum withdrawal is #${minWithdrawal}`);
-        setIserr(true);
+      setIspen(false);
+      setOpenWithdrawModal(false);
+      setErrmsg(`Opps, minimum withdrawal is #${minWithdrawal}`);
+      setIserr(true);
       return;
     }
 
     if (amount + allTimeWithdrawal > maxWithdrawal) {
       setAmount(0);
-        setIspen(false);
-        setOpenWithdrawModal(false);
-        setErrmsg("Upgrade account to increase your withdrawal limit");
-        setIserr(true);
+      setIspen(false);
+      setOpenWithdrawModal(false);
+      setErrmsg("Upgrade account to increase your withdrawal limit");
+      setIserr(true);
       return;
     }
 

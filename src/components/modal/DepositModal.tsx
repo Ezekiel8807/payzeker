@@ -1,6 +1,6 @@
 // import { useState } from "react";
 import Button from "../Button";
-import ModalFrame from "../modalFrame";
+import ModalFrame from "./modalFrame";
 
 type DepositModalProbs = {
   depositInfo: {

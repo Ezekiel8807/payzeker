@@ -5,7 +5,7 @@ import User from "../../../model/userModel";
 import { connectDB } from "../../../lib/mongodb";
 
 // Components
-import TransCard from "@/components/TransCard";
+import TransCard from "@/components/cards/TransCard";
 import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";
 import Table from "@/components/Table";

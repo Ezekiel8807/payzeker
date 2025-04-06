@@ -5,7 +5,7 @@ import { connectDB } from "../../../lib/mongodb";
 
 // Components
 import BankInfo from "@/components/BankInfo";
-import TransCard from "@/components/TransCard";
+import TransCard from "@/components/cards/TransCard";
 import AcctBalCom from "@/components/AcctBalCom";
 import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";

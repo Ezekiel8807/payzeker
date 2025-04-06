@@ -1,17 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
 import { connectDB } from "../../../lib/mongodb";
+import SubmittedTaskCom from "@/components/SubmittedTaskCom";
 
 // Components
+import Main from "@/components/layout/Main";
 import SubHeading from "@/components/SubHeading";
 import AcctBalCom from "@/components/AcctBalCom";
 import Performance from "@/components/Performance";
-import TaskCard from "@/components/TaskCard";
-import Main from "@/components/layout/Main";
-import Search from "@/components/Search";
-import Table from "@/components/Table";
+import TaskCard from "@/components/cards/TaskCard";
+import SubmittedTask from "@/model/submittedTaskModel";
 
 // Fetch user data on the server
 async function getUser() {
@@ -28,14 +27,27 @@ async function getUser() {
   return JSON.parse(JSON.stringify(user));
 }
 
+//get submitted tasks
+async function getSubmittedTasks() {
+  const token = await getToken();
+  if (!token?.id) return null;
+
+  //db connection
+  await connectDB();
+
+  // Find user and populate tasks
+  const allSubTask = await SubmittedTask.find().sort({ _id: -1 });
+
+  // Convert submitedTasks data to a plain JavaScript object
+  return await JSON.parse(JSON.stringify(allSubTask));
+}
+
 export default async function Dashboard() {
-  const user = await getUser(); // Fetch user data before rendering
+  const user = await getUser();
+  if (!user) return redirect("/login");
+  const subTaskArr = await getSubmittedTasks();
 
-  if (!user) {
-    return redirect("/login");
-  }
-
-  const { firstname = "firstname", lastname = "lastname", rank = 1 } = user;
+  const { firstname = "", lastname = "", rank = 1 } = user;
   const balance = user.account.balance as number;
   const {
     bankName = "bankName",
@@ -86,11 +98,14 @@ export default async function Dashboard() {
               {filterUserTask.length > 0 ? (
                 filterUserTask.map(
                   (task: {
-                    _id: any;
-                    level: any;
-                    media: any;
-                    price: any;
-                    socialTarget: any;
+                    _id?: string;
+                    level?: number;
+                    price?: number;
+                    socialTarget?: string;
+                    media?: {
+                      type?: "image" | "video" | "others";
+                      content?: string;
+                    };
                   }) => {
                     const { _id, level, media, price, socialTarget } = task;
                     return (
@@ -118,10 +133,7 @@ export default async function Dashboard() {
               title="Submitted Tasks"
               desc="All tasks submitted at a go."
             />
-            <Search />
-            <Table>
-              <h4>Submtted tasks</h4>
-            </Table>
+            <SubmittedTaskCom subTaskArr={subTaskArr} />
           </div>
         </div>
       )}

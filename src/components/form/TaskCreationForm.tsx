@@ -4,9 +4,9 @@ import { fileUpload } from "@/actions/fileUpload";
 import { createTask } from "@/actions/taskActions";
 
 //components
-import Button from "./Button";
-import SuccessModal from "./modal/SuccessModal";
-import ErrorModal from "./modal/ErrorModal";
+import Button from "../Button";
+import SuccessModal from "../modal/SuccessModal";
+import ErrorModal from "../modal/ErrorModal";
 
 export default function TaskCreationForm() {
   const prices: number[] = [100, 200, 300, 400, 500];
@@ -152,7 +152,6 @@ export default function TaskCreationForm() {
             className="w-full p-2 outline-none"
             type="date"
             name="startDate"
-            value={startDate}
             required
             onChange={(e) => setStartdate(e.target.value)}
           />
@@ -161,14 +160,13 @@ export default function TaskCreationForm() {
             className="w-full p-2 outline-none"
             type="date"
             name="endDate"
-            value={endDate}
             required
             onChange={(e) => setEnddate(e.target.value)}
           />
         </div>
 
         <input
-          className="p-2 mt-3 outline-none"
+          className="w-full p-2 mt-3 outline-none"
           type="file"
           name="file"
           placeholder="Choose a media file"

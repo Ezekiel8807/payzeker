@@ -1,4 +1,3 @@
-// import { Requests } from "@/utils/data";
 import { Key } from "react";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
@@ -11,7 +10,7 @@ import Main from "@/components/layout/Main";
 import SubHeading from "@/components/SubHeading";
 // import DepositCard from "@/components/request/DepositCard";
 // import WithdrawCard from "@/components/request/WithdrawCard";
-import RequestCard from "@/components/RequestCard";
+import RequestCard from "@/components/cards/RequestCard";
 
 // Fetch requested data on the server
 async function getRequests() {

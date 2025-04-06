@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 // components
 import Button from "@/components/Button";
-import AuthForm from "@/components/AuthForm";
+import AuthForm from "@/components/form/AuthForm";
 import FormError from "@/components/errorCom/FormError";
 
 export default function Register() {

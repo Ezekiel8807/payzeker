@@ -1,5 +1,5 @@
 //components
-import Button from "./Button";
+import Button from "../Button";
 
 //type
 type UpgradecardProbs = {
