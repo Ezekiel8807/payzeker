@@ -4,8 +4,8 @@ import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
 // images
-import subImage from "../../public/img/d.jpg";
-import Button from "./Button";
+import subImage from "../../../public/img/b.jpg";
+import Button from "../Button";
 
 export default function TaskSubmissionForm() {
   // const { err, setErr } = useState(false);
