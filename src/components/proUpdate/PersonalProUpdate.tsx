@@ -3,7 +3,7 @@ import { useState } from "react";
 
 //components
 import Button from "../Button";
-import ProUpdateForm from "../ProUpdateForm";
+import ProUpdateForm from "../form/ProUpdateForm";
 import ErrorModal from "../modal/ErrorModal";
 import SuccessModal from "../modal/SuccessModal";
 

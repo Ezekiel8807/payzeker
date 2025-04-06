@@ -9,8 +9,8 @@ import { getToken } from "@/actions/action";
 
 //components
 import Button from "@/components/Button";
-import TaskSubmissionForm from "@/components/TaskSubmissionForm";
 import SubHeading from "@/components/SubHeading";
+import TaskSubmissionForm from "@/components/form/TaskSubmissionForm";
 
 export default async function TaskDetails({
   params,

@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 //components
-import ProUpdateForm from "../ProUpdateForm";
+import ProUpdateForm from "../form/ProUpdateForm";
 import SuccessModal from "../modal/SuccessModal";
 import ErrorModal from "../modal/ErrorModal";
 import Button from "../Button";
