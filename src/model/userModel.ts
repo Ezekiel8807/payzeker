@@ -11,13 +11,14 @@ const UserSchema = new mongoose.Schema({
     {
       name: { type: String, default: "" },
       level: { type: Number, default: 1 },
-      price: { type: Number, default: 0 },
+      price: { type: Number, default: 100 },
       state: {
         type: String,
         enum: ["new", "review", "completed"],
         default: "new",
       },
       socialTarget: { type: String, default: "" },
+      link: { type: String, default: "" },
       media: {
         type: {
           type: String,

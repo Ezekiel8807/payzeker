@@ -1,18 +1,18 @@
 "use client";
 import { useState } from "react";
-import { fileUpload } from "@/actions/fileUpload";
-import { createTask } from "@/actions/taskActions";
+// import { fileUpload } from "@/actions/fileUpload";
+// import { createTask } from "@/actions/taskActions";
 
 //components
 import Button from "../Button";
-import SuccessModal from "../modal/SuccessModal";
-import ErrorModal from "../modal/ErrorModal";
+// import SuccessModal from "../modal/SuccessModal";
+// import ErrorModal from "../modal/ErrorModal";
 
 export default function TaskCreationForm() {
-  const [isSuc, setIssuc] = useState(false);
-  const [errMsg, setErrmsg] = useState("");
-  const [sucMsg, setSucmsg] = useState("");
-  const [isErr, setIserr] = useState(false);
+  // const [isSuc, setIssuc] = useState(false);
+  // const [errMsg, setErrmsg] = useState("");
+  // const [sucMsg, setSucmsg] = useState("");
+  // const [isErr, setIserr] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [conpass, setConpass] = useState("");
@@ -24,13 +24,14 @@ export default function TaskCreationForm() {
     setIspen(true);
 
     if (!username || !email || !pass) {
-      setErrmsg("Fill all required field!");
-      setIserr(true);
+      // setErrmsg("Fill all required field!");
+      console.log("Fill all required field!");
+      // setIserr(true);
       setIspen(false);
       return;
     }
 
-    // if (res.error != false) {
+    // if (res.error) {
     //   setErrmsg(res.msg as string);
     //   setIserr(true);
     //   setIspen(false);
@@ -69,16 +70,29 @@ export default function TaskCreationForm() {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label htmlFor="pass">Email:</label>
+        <label htmlFor="pass">Password:</label>
         <input
           className="p-2 mt-3 outline-none"
           type="password"
           name="pass"
           id="pass"
+          required
+          value={pass}
           placeholder="Enter password"
-          onChange={(e) => setPass(e.target.value)};
+          onChange={(e) => setPass(e.target.value)}
         />
 
+        <label htmlFor="conpass">Confirm Password:</label>
+        <input
+          className="p-2 mt-3 outline-none"
+          type="password"
+          name="conpass"
+          id="conpass"
+          required
+          value={conpass}
+          placeholder="Enter confirm password"
+          onChange={(e) => setConpass(e.target.value)}
+        />
 
         <div className="mt-5 text-end">
           <Button btnStyle="w-full sm:w-[200px] p-2 font-black text-white bg-[var(--green)]">
@@ -87,8 +101,8 @@ export default function TaskCreationForm() {
         </div>
       </form>
 
-      {isSuc && <SuccessModal setIssuc={setIssuc} sucMsg={sucMsg} />}
-      {isErr && <ErrorModal setIserr={setIserr} errMsg={errMsg} />}
+      {/* {isSuc && <SuccessModal setIssuc={setIssuc} sucMsg={sucMsg} />}
+      {isErr && <ErrorModal setIserr={setIserr} errMsg={errMsg} />} */}
     </>
   );
 }

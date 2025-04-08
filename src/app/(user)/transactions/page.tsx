@@ -1,62 +1,53 @@
-/* ---eslint-disable @typescript-eslint/no-explicit-any-- */
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
-import User from "../../../model/userModel";
-import { connectDB } from "../../../lib/mongodb";
+// import Transaction from "@/model/transactionModel";
+// import { connectDB } from "../../../lib/mongodb";
 
 // Components
-import TransCard from "@/components/cards/TransCard";
-import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";
-import Table from "@/components/Table";
-import Search from "@/components/Search";
+import SubHeading from "@/components/SubHeading";
+import AllTrans from "@/components/transactions/AllTrans";
+import UserTrans from "@/components/transactions/UserTrans";
 
 // Fetch user data on the server
-async function getUser() {
-  const token = await getToken();
-  if (!token?.id) return null;
+// async function getTransactions() {
+//   const token = await getToken();
+//   if (!token?.id) return redirect("/login");
 
-  //db connection
-  await connectDB();
+//   //db connection
+//   await connectDB();
 
-  // Find user and populate tasks
-  const user = await User.findOne({ _id: token.id }).populate("tasks");
+//   // Find user and populate tasks
+//   const transactions = await Transaction.find();
 
-  // Convert user data to a plain JavaScript object
-  return JSON.parse(JSON.stringify(user));
-}
+//   // Convert user data to a plain JavaScript object
+//   return JSON.parse(JSON.stringify(transactions));
+// }
+
+// Fetch user data on the server
+// async function getUserTransactions() {
+//   const token = await getToken();
+//   if (!token?.id) return redirect("/login");
+
+//   //db connection
+//   await connectDB();
+
+//   // Find user and populate tasks
+//   const userTransactions = await Transaction.find({ userId: token.id });
+
+//   // Convert user data to a plain JavaScript object
+//   return JSON.parse(JSON.stringify(userTransactions));
+// }
 
 export default async function Transactions() {
-  const user = await getUser(); // Fetch user data before rendering
-
-  if (!user) {
-    return redirect("/login");
-  }
+  const user = await getToken();
+  // const AllTransac = await getTransactions();
+  // const userTransac = await getUserTransactions();
 
   return (
     <Main>
       <SubHeading title="Transactions" desc="Transaction history right here." />
-      {!user.isAdmin && (
-        <div className="w-[100%] py-5">
-          <TransCard />
-          <TransCard />
-          <TransCard />
-          <TransCard />
-          <TransCard />
-          <TransCard />
-        </div>
-      )}
-
-      {user.isAdmin && (
-        <div className="w-[100%]">
-          <Search />
-          <Table>
-            <TransCard />
-            <TransCard />
-            <TransCard />
-          </Table>
-        </div>
-      )}
+      {user.isAdmin ? <AllTrans /> : <UserTrans />}
     </Main>
   );
 }

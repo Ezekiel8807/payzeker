@@ -3,7 +3,7 @@
 //components
 import Link from "next/link";
 import Image from "next/image";
-import Button from "../Button";
+// import Button from "../Button";
 
 // type SubmittedTaskCardProbs = {
 //   subTask: {
@@ -20,11 +20,11 @@ import Button from "../Button";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function SubmittedTaskCard({ subTask }: { subTask: any }) {
-  const { userId, taskName, type, price, content, instruction } = subTask;
+  const { _id, type, content } = subTask;
   return (
-    <div className="bg-[var(--gray-10)] p-3 rounded-lg shadow-md">
-      {type == "image" && (
-        <Link href={content} target="_bank">
+    <Link href={`dashboard/submittedTask/${_id}/`}>
+      <div className="bg-[var(--gray-10)] p-3 rounded-lg shadow-md">
+        {type == "image" && (
           <Image
             src={content}
             width={500}
@@ -32,21 +32,21 @@ export default function SubmittedTaskCard({ subTask }: { subTask: any }) {
             alt="request prof"
             className="w-full h-[200px]"
           />
-        </Link>
-      )}
+        )}
 
-      <h2 className="font-black mt-3">{taskName.toLocaleUpperCase()}</h2>
-
-      <div>
-        <p>{instruction}</p>
-
-        <div className="flex mt-3 items-center justify-end text-[14px] font-black gap-3">
-          <Button>Reject</Button>
-          <Button btnStyle=" p-1 text-white bg-[var(--green)] rounded">
-            Verify
-          </Button>
-        </div>
+        {type == "video" && (
+          <video
+            src={content}
+            width={500}
+            height={500}
+            controls
+            loop
+            autoPlay
+            muted
+            className="w-full h-[200px]"
+          ></video>
+        )}
       </div>
-    </div>
+    </Link>
   );
 }

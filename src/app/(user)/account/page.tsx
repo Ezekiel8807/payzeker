@@ -5,10 +5,10 @@ import { connectDB } from "../../../lib/mongodb";
 
 // Components
 import BankInfo from "@/components/BankInfo";
-import TransCard from "@/components/cards/TransCard";
 import AcctBalCom from "@/components/AcctBalCom";
 import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";
+import UserTrans from "@/components/transactions/UserTrans";
 
 // Fetch user data on the server
 async function getUser() {
@@ -74,16 +74,7 @@ export default async function Account() {
           title="Transaction"
           desc="Transaction history right here."
         />
-
-        <div className="flex flex-col md:flex-row my-3">
-          <div className="w-full h-[300px] py-3 overflow-y-scroll">
-            <TransCard />
-            <TransCard />
-            <TransCard />
-            <TransCard />
-            <TransCard />
-          </div>
-        </div>
+        <UserTrans />
       </div>
     </Main>
   );

@@ -65,7 +65,7 @@ export default function PersonalProUpdate({
   return (
     <ProUpdateForm handleForm={handlePerProUp} title="Personal Information">
       <div className="flex flex-col md:flex-row mb-5 md:justify-between">
-        <label htmlFor="firstname">Name: </label>
+        <label htmlFor="firstname">Firstname: </label>
         <input
           className="w-full md:w-[70%] outline-none bg-none border-b-2 p-1 text-right"
           type="text"

@@ -19,15 +19,16 @@ export async function PATCH() {
 
     // Distribute tasks to users
     for (const user of allUsers) {
-      const tasksToAssign = user.rank || 1; // Default to 2 if rank is unknown
-      const assignedTasks = allTasks.splice(0, tasksToAssign); // Assign tasks and remove from the pool
+      const tasksToAssign = user.rank;
 
-      user.overallTask += assignedTasks.length;
+      // Shuffle tasks to ensure randomness
+      const shuffledTasks = [...allTasks].sort(() => Math.random() - 0.5);
+      const assignedTasks = shuffledTasks.slice(0, tasksToAssign);
 
       // Update the user's tasks and overall task count
       await User.findByIdAndUpdate(user._id, {
         $set: { tasks: assignedTasks },
-        $inc: { overallTask: assignedTasks.length }, // update overall task
+        $inc: { overallTask: assignedTasks.length },
       });
     }
 

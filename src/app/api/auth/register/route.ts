@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 
     // Get a random task from the task collection
     const task = await Task.aggregate([{ $sample: { size: 1 } }]);
-    const assignedTask = task?.[0] || null; // Assign task if available
+    const assignedTask = task?.[0] || null;
 
     // Create new user
     const newUser = new User({
@@ -39,6 +39,8 @@ export async function POST(request: NextRequest) {
       tasks: assignedTask ? [assignedTask] : [],
       password: hashPass,
     });
+
+    //save user
     await newUser.save();
 
     //create Notification
