@@ -1,6 +1,7 @@
 "use server";
 import { getToken } from "./action";
 import User from "../../src/model/userModel";
+import Transaction from "@/model/transactionModel";
 import Request from "../../src/model/requestModel";
 import Notification from "../../src/model/notificationModel";
 
@@ -51,9 +52,19 @@ export async function withdrawalAction(
     //   return { error: true, msg: "You have a request waiting for approval." };
     // }
 
+    //crate transaction
+    const newTransaction = await new Transaction({
+      userId: user._id,
+      type: "withdraw",
+      amount: amount,
+      disc: `Withdrawal request of #${amount}`,
+    });
+    await newTransaction.save();
+
     // Create withdrawal request
     const newRequest = new Request({
       userId,
+      transId: newTransaction._id,
       username: user.username,
       fullname: `${user.lastname} ${user.firstname}`,
       type: "withdraw",
@@ -61,16 +72,15 @@ export async function withdrawalAction(
       bankAcctNo: user.account.withdrawal.bankAcctNo,
       amount: amount,
     });
+    await newRequest.save();
 
     // Notify user about withdrawal
-    const newNotification = new Notification({
+    const newNotification = await new Notification({
       username: user.username,
       message: `Withdrawal request of #${amount} successfully made. Await payment under 48hrs.`,
     });
-
-    // Save to database
     await newNotification.save();
-    await newRequest.save();
+    // Save to database
 
     return {
       error: false,

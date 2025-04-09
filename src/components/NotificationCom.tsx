@@ -28,7 +28,7 @@ export default function NotificationCom({ notis }: { notis: any[] }) {
       setNotebox((prev) => !prev);
       return;
     }
-    return;
+    setNotebox(false);
   }
 
   async function deleteNotisDbSt(id: string) {

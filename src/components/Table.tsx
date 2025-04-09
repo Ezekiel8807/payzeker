@@ -40,7 +40,8 @@ export default function Table({ children, disabled = true }: TableProbs) {
           </Button>
         </div>
       </div>
-      <div>{children}</div>
+      <table className="table "> {children}</table>
+
       <div className="w-full px-5 py-2 flex flex-row items-center justify-between bg-[var(--gray-10)]">
         <div>
           Rows per page

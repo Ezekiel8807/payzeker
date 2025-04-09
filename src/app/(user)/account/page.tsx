@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
 import { connectDB } from "../../../lib/mongodb";
+import Transaction from "@/model/transactionModel";
 
 // Components
 import BankInfo from "@/components/BankInfo";
@@ -13,7 +14,7 @@ import UserTrans from "@/components/transactions/UserTrans";
 // Fetch user data on the server
 async function getUser() {
   const token = await getToken();
-  if (!token?.id) return null;
+  if (!token?.id) return redirect("/login");
 
   //db connection
   await connectDB();
@@ -25,12 +26,24 @@ async function getUser() {
   return JSON.parse(JSON.stringify(user));
 }
 
+// Fetch user data on the server
+async function getTransactions() {
+  const token = await getToken();
+  if (!token?.id) return redirect("/login");
+
+  //db connection
+  await connectDB();
+
+  // Find user and populate tasks
+  const transactions = await Transaction.find().sort({ _id: -1 });
+
+  // Convert user data to a plain JavaScript object
+  return JSON.parse(JSON.stringify(transactions));
+}
+
 export default async function Account() {
   const user = await getUser(); // Fetch user data before rendering
-
-  if (!user) {
-    return redirect("/login");
-  }
+  const AllTransac = await getTransactions();
 
   const { firstname = "firstname", lastname = "lastname", rank = 1 } = user;
   const balance = user.account.balance as number;
@@ -74,7 +87,7 @@ export default async function Account() {
           title="Transaction"
           desc="Transaction history right here."
         />
-        <UserTrans />
+        <UserTrans userId={user._id as string} trans={AllTransac} />
       </div>
     </Main>
   );

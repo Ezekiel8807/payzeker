@@ -7,12 +7,21 @@ import Button from "../Button";
 type SuccessModalProbs = {
   sucMsg?: string;
   setIssuc: React.Dispatch<React.SetStateAction<boolean>>;
+  direction?: string;
 };
 
-export default function SuccessModal({ sucMsg, setIssuc }: SuccessModalProbs) {
+export default function SuccessModal({
+  sucMsg,
+  setIssuc,
+  direction,
+}: SuccessModalProbs) {
   //
   function handleClick() {
-    Continue(setIssuc);
+    if (direction) {
+      Continue(setIssuc, undefined, direction);
+    } else {
+      Continue(setIssuc);
+    }
   }
   return (
     <ModalFrame2>

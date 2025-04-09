@@ -207,7 +207,13 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
         />
       )}
 
-      {isSuc && <SuccessModal setIssuc={setIssuc} sucMsg={sucMsg} />}
+      {isSuc && (
+        <SuccessModal
+          setIssuc={setIssuc}
+          sucMsg={sucMsg}
+          direction="/account"
+        />
+      )}
       {isErr && <ErrorModal setIserr={setIserr} errMsg={errMsg} />}
     </>
   );
