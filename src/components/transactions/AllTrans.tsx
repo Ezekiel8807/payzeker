@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+// import { useState } from "react";
 
 //components
 import Table from "../Table";
@@ -7,7 +7,7 @@ import Search from "../Search";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function AllTrans({ trans }: { trans: any }) {
-  const [alltrans, setAlltrans] = useState(trans);
+  const alltrans = trans;
 
   return (
     <div>
