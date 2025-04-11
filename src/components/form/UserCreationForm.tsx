@@ -8,7 +8,7 @@ import Button from "../Button";
 // import SuccessModal from "../modal/SuccessModal";
 // import ErrorModal from "../modal/ErrorModal";
 
-export default function TaskCreationForm() {
+export default function UserCreationForm() {
   // const [isSuc, setIssuc] = useState(false);
   // const [errMsg, setErrmsg] = useState("");
   // const [sucMsg, setSucmsg] = useState("");

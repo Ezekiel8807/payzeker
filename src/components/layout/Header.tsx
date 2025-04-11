@@ -76,7 +76,9 @@ export default function Header() {
             ) : (
               <>
                 <NotificationCom notis={notifications} />
-                <NavProfile userName={user.username} userRank={user.rank} />
+                <Link href="/profile">
+                  <NavProfile userName={user.username} userRank={user.rank} />
+                </Link>
               </>
             )}
           </div>
