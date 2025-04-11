@@ -1,46 +1,49 @@
 "use client";
+// import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 //components
 import Button from "./Button";
+import { useEffect, useState } from "react";
 
 type TableProbs = {
-  disabled?: boolean;
   children: React.ReactNode;
+  createLocation?: string;
 };
 
-export default function Table({ children, disabled = true }: TableProbs) {
+export default function Table({ children, createLocation }: TableProbs) {
   const navigate = useRouter();
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    if (createLocation) {
+      setDisabled(false);
+    }
+  }, [createLocation]);
 
   function createTaskPage() {
-    navigate.push("/tasks/newTask");
+    if (createLocation) {
+      navigate.push(createLocation);
+    }
   }
 
   return (
-    <div className="flex flex-col items-center justify-between ">
-      <div className="w-full p-5 flex flex-row items-center justify-between bg-[var(--gray-10)]">
-        <div className="w-[20%]">
-          <Button
-            disabled={disabled}
-            btnAction={createTaskPage}
-            btnStyle="w-[50px] md:w-[100px] font-black text-white text-[10px] md:text-[14px] p-2 bg-[var(--green)] rounded disabled:bg-[var(--gray-05)]"
-          >
-            Create
-          </Button>
-        </div>
-        <div className="w-[80%] text-end">
-          <Button
-            disabled={disabled}
-            btnStyle="w-[50px] md:w-[100px] font-black text-white text-[10px] md:text-[14px] mx-2 p-2 rounded bg-[var(--green)] disabled:bg-[var(--gray-05)]"
-          >
-            Edit
-          </Button>
-          <Button btnStyle="w-[70px] md:w-[100px] font-black text-white text-[10px] md:text-[14px] p-2 bg-red-600 rounded disabled:bg-[var(--gray-05)]">
-            Delete all
-          </Button>
-        </div>
+    <div className="w-full">
+      <div className="w-full flex flex-row p-5 items-center justify-between bg-[var(--gray-10)]">
+        <Button
+          disabled={disabled}
+          btnAction={createTaskPage}
+          btnStyle="w-[50px] md:w-[100px] font-black text-white text-[10px] md:text-[14px] p-2 bg-[var(--green)] rounded disabled:bg-[var(--gray-05)]"
+        >
+          Create
+        </Button>
+        <Button btnStyle="w-[70px] md:w-[100px] font-black text-white text-[10px] md:text-[14px] p-2 bg-red-600 rounded disabled:bg-[var(--gray-05)]">
+          Delete all
+        </Button>
       </div>
-      <div>{children}</div>
+      <div className="w-full overflow-x-scroll">
+        <table className="table overflow-hidden">{children}</table>
+      </div>
       <div className="w-full px-5 py-2 flex flex-row items-center justify-between bg-[var(--gray-10)]">
         <div>
           Rows per page

@@ -2,6 +2,7 @@ import mongoose, { models } from "mongoose";
 
 const requestSchema = new mongoose.Schema({
   userId: { type: String, default: "" },
+  transId: { type: mongoose.Schema.Types.ObjectId, ref: "Transaction" },
   username: { type: String, default: "" },
   fullname: { type: String, default: "" },
   type: {

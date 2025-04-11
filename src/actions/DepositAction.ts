@@ -2,6 +2,7 @@
 import { getToken } from "./action";
 import User from "../../src/model/userModel";
 import Request from "../../src/model/requestModel";
+import Transaction from "@/model/transactionModel";
 import Notification from "../../src/model/notificationModel";
 
 export async function depositAction(depAmount: number, fileUrl: string) {
@@ -30,25 +31,34 @@ export async function depositAction(depAmount: number, fileUrl: string) {
       };
     }
 
+    //crate transaction
+    const newTransaction = new Transaction({
+      userId,
+      type: "deposit",
+      amount: depAmount,
+      disc: `Deposit request of #${depAmount}`,
+    });
+    await newTransaction.save();
+
     // Create deposit request
     const newRequest = new Request({
       userId,
+      transId: newTransaction._id,
       username: user.username,
       fullname: `${user.lastname} ${user.firstname}`,
       type: "deposit",
       prof: fileUrl,
       amount: depAmount,
     });
+    await newRequest.save();
 
     // Notify user about withdrawal
     const newNotification = new Notification({
       username: user.username,
       message: `Deposit request of #${depAmount} successfully made. Await Approval under 24hrs.`,
     });
-
     // Save to database
     await newNotification.save();
-    await newRequest.save();
 
     return {
       error: false,

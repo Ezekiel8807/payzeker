@@ -19,9 +19,9 @@ export default function SubmittedTaskCom({ subTaskArr }: { subTaskArr: any }) {
             <SubmittedTaskCard key={subTask._id} subTask={subTask} />
           ))
         ) : (
-          <div className="h-[200px] flex items-center justify-center">
+          <div className="col-span-3 h-[200px] flex items-center justify-center">
             <p className="w-[200px] text-center text-gray-600">
-              No submitted tasks. Check back later.
+              No submitted tasks🙈. Check back later.
             </p>
           </div>
         )}

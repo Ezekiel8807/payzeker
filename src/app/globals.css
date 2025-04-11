@@ -14,6 +14,24 @@
   }
 }
 
+@layer components {
+  .table {
+    @apply w-screen;
+  }
+
+  .table-head {
+    @apply bg-[var(--gray-20)] font-black text-center;
+  }
+
+  .table-roll {
+    @apply bg-[var(--gray-05)] border-b-4 border-[vare(--gray-20)] hover:bg-[var(--gray-10)] text-center;
+  }
+
+  .table-cell {
+    @apply p-3 text-center;
+  }
+}
+
 :root {
   --green: #29cd9c;
   --black: black;

@@ -9,6 +9,7 @@ import Table from "@/components/Table";
 import Search from "@/components/Search";
 import Main from "@/components/layout/Main";
 import SubHeading from "@/components/SubHeading";
+import Allusers from "@/components/Allusers";
 
 // Fetch user data on the server
 async function getUsers() {
@@ -37,14 +38,7 @@ export default async function page() {
   return (
     <Main>
       <SubHeading title="All Users" desc="Users information all together." />
-      <Search />
-      <Table disabled={false}>
-        {users.map(
-          (user: { _id: Key | null | undefined; username: string }) => (
-            <h1 key={user._id}>{user.username}</h1>
-          )
-        )}
-      </Table>
+      <Allusers allUsers={users} />
     </Main>
   );
 }

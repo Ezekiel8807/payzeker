@@ -8,7 +8,6 @@ import { connectDB } from "../../../lib/mongodb";
 import Main from "@/components/layout/Main";
 import SubHeading from "@/components/SubHeading";
 import ClientProfile from "@/components/layout/Profile";
-import Button from "@/components/Button";
 import ForgetPass from "@/components/ForgetPass";
 
 // Fetch user data on the server
@@ -59,10 +58,6 @@ export default async function Profile() {
       ></ClientProfile>
 
       <ForgetPass />
-
-      <Button btnStyle="w-full font-black block p-3 text-center bg-red-600 text-white mb-5 ">
-        Delete account
-      </Button>
     </Main>
   );
 }
