@@ -1,12 +1,9 @@
-import { Key } from "react";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
 import { connectDB } from "../../../lib/mongodb";
 
 // Components
-import Table from "@/components/Table";
-import Search from "@/components/Search";
 import Main from "@/components/layout/Main";
 import SubHeading from "@/components/SubHeading";
 import Allusers from "@/components/Allusers";
