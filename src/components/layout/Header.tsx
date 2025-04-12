@@ -1,11 +1,12 @@
 import { use } from "react";
-import Link from "next/link";
 import { getToken } from "@/actions/action";
 import User from "../../model/userModel";
 import { connectDB } from "../../lib/mongodb";
 import Notification from "@/model/notificationModel";
 
 // components
+import Link from "next/link";
+import Image from "next/Image";
 import NavLink from "../NavLink";
 import ToggleBtn from "../ToggleBtn";
 import Login_out from "../Login_out";
@@ -59,10 +60,16 @@ export default function Header() {
     <header className="h-[10vh] md:h-[15vh] flex items-center justify-center">
       <div className="w-[90%] md:w-[80%] flex flex-row items-center justify-between">
         {/* Logo */}
-        <Link className="inline" href={user ? "/dashboard" : "/"}>
-          <h1 className="font-black text-[25px]">
+        <Link className="" href={user ? "/dashboard" : "/"}>
+          <Image
+            src="/img/logo.png"
+            width={200}
+            height={200}
+            alt="payzeker logo"
+          />
+          {/* <h1 className="font-black text-[25px]">
             <span className="text-[var(--green)]">Pay</span>zeker
-          </h1>
+          </h1> */}
         </Link>
 
         {/* /*  Navigation Links  */}

@@ -1,20 +1,24 @@
 import "../globals.css";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { UserProvider } from "@/components/UserProvider";
+// import { Geist, Geist_Mono } from "next/font/google";
+// import { UserProvider } from "@/components/UserProvider";
 
 // layouts
 import Header from "@/components/layout/Header";
+import Image from "next/image";
+import Link from "next/link";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
+
+// className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,16 +32,84 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <UserProvider>
-          <Header />
-          {children}
-          <footer className="bg-[var(--green)] text-white p-10 text-xl">
-            Hello world!
-          </footer>
-        </UserProvider>
+      <body>
+        <Header />
+        {children}
+
+        <footer className="bg-[var(--green)] text-white text-xl">
+          <div className="flex flex-col md:flex-row p-5 justify-center">
+            <div className="flex flex-col md:flex-row items-center md:w-[70%]">
+              <Image
+                src="/img/logo_white.png"
+                width={300}
+                height={200}
+                alt="payzeker-logo-alt-white"
+              />
+              <p className="text-sm py-3 md:ml-5 text-white">
+                © Copyright {new Date().getFullYear()}. All Rights Reserved
+              </p>
+            </div>
+
+            {/* social handles */}
+            <div className="flex flex-row justify-center items-center md:w-[20%]">
+              <h3 className="text-white mr-1">Follow: </h3>
+              <div className="flex flex-row justify-end">
+                <Link
+                  className="mx-1 block"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.facebook.com/profile.php?id=100077701836062/"
+                >
+                  <Image
+                    src="/icons/f.png"
+                    width={30}
+                    height={30}
+                    alt="Facebook Icon - Link to Facebook page"
+                  />
+                </Link>
+                <Link
+                  className="mx-1 block"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://x.com/AyebidunEzekiel/"
+                >
+                  <Image
+                    src="/icons/t.png"
+                    width={30}
+                    height={30}
+                    alt="Twitter Icon - Link to Twitter page"
+                  />
+                </Link>
+                <Link
+                  className="mx-1 block"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.linkedin.com/in/Ezekiel8807/"
+                >
+                  <Image
+                    src="/icons/l.png"
+                    width={30}
+                    height={30}
+                    alt="LinkedIn Icon - Link to LinkedIn profile"
+                  />
+                </Link>
+                <Link
+                  className="mx-1 block"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="mailto:ayebidunezekiel@gmail.com"
+                >
+                  <Image
+                    src="/icons/w.png"
+                    width={30}
+                    height={30}
+                    alt="Email Icon - Send an email"
+                  />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </footer>
       </body>
     </html>
   );
