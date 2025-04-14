@@ -67,9 +67,8 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
         aria-label="Toggle navigation menu"
         src="/icons/menu.png"
         alt="menu icon"
-        width={100}
-        height={100}
-        style={{ width: "auto", height: "auto" }}
+        width={30}
+        height={30}
         className="lg:hidden"
       />
 

@@ -7,7 +7,7 @@ export default function Search() {
       <input
         className="w-full px-5 outline-none bg-[var(--gray-05)]"
         type="search"
-        name=""
+        name="search"
         id=""
         placeholder="Enter search"
       />

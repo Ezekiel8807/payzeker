@@ -1,7 +1,5 @@
 import Image from "next/image";
-
-//image
-import heroImage from "../../../public/img/e.svg";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -15,24 +13,18 @@ export default function Hero() {
           posting, liking, commenting and so on.
         </p>
 
-        <a
+        <Link
           href="/dashboard"
           className="w-[100%] md:w-[200px] block text-center font-bold bg-[var(--green)] p-3 my-5 text-white rounded-full"
         >
           Start earning now!!!
-        </a>
+        </Link>
 
         <div className="w-[150px] h-[150px] absolute right-0 bottom-0 md:left-0 md:top-0 -z-10 rounded-[220px] blur-[30px] bg-[#29cd9c4d]"></div>
       </div>
 
       <div className="relative">
-        <Image
-          src={heroImage}
-          width={400}
-          height={400}
-          alt="hero image"
-          className="mx-auto md:float-end"
-        />
+        <Image src="/img/e.svg" width={500} height={500} alt="hero image" />
         <div className="w-[150px] h-[150px] absolute top-0 left-0 md:bottom-0  -z-10 rounded-[220px] blur-[30px] bg-[#29cd9c4d]"></div>
       </div>
     </div>

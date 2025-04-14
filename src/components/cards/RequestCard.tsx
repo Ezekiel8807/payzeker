@@ -68,7 +68,12 @@ export default function RequestCard({ requestCardInfo }: RequestCardProbs) {
 
         <div className="flex mt-1 items-center justify-between">
           <span className="">Amount:</span>
-          <span className="text-right">{`#${amount}`}</span>
+          <span className="text-right">
+            {amount.toLocaleString("en-NG", {
+              style: "currency",
+              currency: "NGN",
+            })}
+          </span>
         </div>
 
         {type === "withdraw" && (

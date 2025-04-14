@@ -1,11 +1,9 @@
-import "../globals.css";
 import { use } from "react";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 
 // compponents\
 import SideNav from "@/components/SideNav";
-import Header from "@/components/layout/Header";
 
 async function mytoken() {
   const token = await getToken();
@@ -30,18 +28,13 @@ export default function DashhboardLayout({
   const isLogin = !token ? false : true;
   //
   return (
-    <html lang="en">
-      <body>
-        <Header />
-        <div className="h-[85vh] mx-auto">
-          <div className="flex">
-            <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
-              <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
-            </div>
-            <div className="w-[100%] px-5 lg:w-[70%]">{children}</div>
-          </div>
+    <div className="mx-auto">
+      <div className="flex">
+        <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
+          <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
         </div>
-      </body>
-    </html>
+        <div className="w-[100%] px-5 lg:w-[70%]">{children}</div>
+      </div>
+    </div>
   );
 }

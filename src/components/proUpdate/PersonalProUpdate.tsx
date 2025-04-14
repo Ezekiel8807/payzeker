@@ -96,6 +96,7 @@ export default function PersonalProUpdate({
           value={username}
           readOnly
           disabled
+          autoComplete="true"
           name="username"
           id="username"
         />
@@ -109,6 +110,7 @@ export default function PersonalProUpdate({
           value={email}
           readOnly
           disabled
+          autoComplete="true"
           name="email"
           id="email"
         />

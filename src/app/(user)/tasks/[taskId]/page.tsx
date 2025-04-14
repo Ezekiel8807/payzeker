@@ -1,14 +1,11 @@
-import Image from "next/image";
 import mongoose from "mongoose";
 import User from "@/model/userModel";
 import { connectDB } from "@/lib/mongodb";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 
-// images
-
 //components
-import Button from "@/components/Button";
+import MediaCom from "@/components/MediaCom";
 import SubHeading from "@/components/SubHeading";
 import TaskSubmissionForm from "@/components/form/TaskSubmissionForm";
 
@@ -71,76 +68,7 @@ export default async function TaskDetails({
         </div>
       </div>
 
-      <div className="inline-block align-top w-[100%] md:w-[40%] p-5 mb-10 bg-[var(--gray-01)] ">
-        <h2 className="text-md font-bold">Media</h2>
-        <div className="grid grid-cols-1">
-          <div className="">
-            {taskInfo.media?.type === "image" && (
-              <>
-                <Image
-                  className="w-full "
-                  src={taskInfo.media!.content || "/img/a.png"}
-                  width="100"
-                  height="50"
-                  alt="task media image"
-                />
-                <a
-                  className="flex justify-end"
-                  href={taskInfo.media!.content}
-                  download
-                >
-                  Download
-                </a>
-              </>
-            )}
-
-            {taskInfo.media?.type === "video" && (
-              <>
-                <video
-                  src={taskInfo.media?.content}
-                  width={100}
-                  height={50}
-                  muted
-                  loop
-                  autoPlay
-                >
-                  play me
-                </video>
-                <a
-                  className="float-end py-1 px-3 bg-[var(--green)] disabled:bg-[var(--gray-10)] text-white"
-                  href={taskInfo.media.content}
-                  download
-                >
-                  Download
-                </a>
-              </>
-            )}
-
-            {taskInfo.link && (
-              <div className="w-full h-[100px] my-3 bg-[var(--gray-10)] flex items-center justify-center">
-                Copy the link below
-              </div>
-            )}
-          </div>
-        </div>
-
-        <h2 className="text-md font-bold mt-5">Link</h2>
-        <div className="flex my-3">
-          <input
-            className="w-[70%] p-1 outline-none"
-            type="text"
-            readOnly
-            value={taskInfo.link ? taskInfo.link : "No link avaliable!"}
-          />
-
-          <Button
-            btnStyle="w-[30%] bg-[var(--green)] disabled:bg-[var(--gray-10)] text-white"
-            disabled={!taskInfo.link}
-          >
-            Copy
-          </Button>
-        </div>
-      </div>
+      <MediaCom link={taskInfo.link} media={taskInfo.media} />
 
       <div className="w-[100%] md:w-[60%] mb-10">
         <SubHeading

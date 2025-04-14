@@ -86,7 +86,7 @@ export default function ForgetPass() {
       <form onSubmit={handleChagePass}>
         <div className="flex flex-col gap-5 mb-5 items-center justify-between">
           <div className="w-[100%] flex flex-col md:flex-row justify-between">
-            <label htmlFor="oldPas">Old password: </label>
+            <label htmlFor="oldPass">Old password: </label>
             <input
               className="w-[100%] md:w-[70%] outline-none bg-none border-b-2 p-1 text-right"
               type="password"

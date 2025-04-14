@@ -6,7 +6,7 @@ import Notification from "@/model/notificationModel";
 
 // components
 import Link from "next/link";
-import Image from "next/Image";
+import Image from "next/image";
 import NavLink from "../NavLink";
 import ToggleBtn from "../ToggleBtn";
 import Login_out from "../Login_out";
@@ -63,7 +63,7 @@ export default function Header() {
         <Link className="" href={user ? "/dashboard" : "/"}>
           <Image
             src="/img/logo.png"
-            width={200}
+            width={150}
             height={200}
             alt="payzeker logo"
           />

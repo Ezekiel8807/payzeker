@@ -120,7 +120,7 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
         <div className="text-left">
           <h4 className="text-[14px]">Balance:</h4>
           <h5 className="font-black text-lg my-1">
-            {`${balance.toFixed(2)}`}
+            {balance.toLocaleString()}
             <span className="ms-1 text-[var(--green)]">NGN</span>
           </h5>
         </div>

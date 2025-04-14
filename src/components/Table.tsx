@@ -47,7 +47,7 @@ export default function Table({ children, createLocation }: TableProbs) {
       <div className="w-full px-5 py-2 flex flex-row items-center justify-between bg-[var(--gray-10)]">
         <div>
           Rows per page
-          <select>
+          <select name="rows">
             <option>5</option>
             <option>10</option>
             <option>15</option>

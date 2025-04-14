@@ -38,7 +38,10 @@ export default function Upgradecard({ upgradeInfo }: UpgradecardProbs) {
           <h2 className="font-black text-center text-[25px] text-[var(--green)]">
             {typeof upgradeInfo.price == typeof ""
               ? upgradeInfo.price
-              : `#${upgradeInfo.price}`}
+              : upgradeInfo.price.toLocaleString("en-NG", {
+                  style: "currency",
+                  currency: "NGN",
+                })}
           </h2>
         </div>
       </div>

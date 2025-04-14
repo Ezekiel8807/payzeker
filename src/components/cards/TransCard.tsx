@@ -23,7 +23,12 @@ export default function TransCard({
         </div>
       </div>
       <div>
-        <p className="font-black text-[12px]">{`#${transCardInfo.amount}`}</p>
+        <p className="font-black text-[12px]">
+          {transCardInfo.amount.toLocaleString("en-NG", {
+            style: "currency",
+            currency: "NGN",
+          })}
+        </p>
         <span
           className={`text-[9px] ${
             transCardInfo.status == "pending" && "bg-[#ffff00]"
