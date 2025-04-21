@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import Task from "@/model/taskModel";
 import User from "@/model/userModel";
+import Plan from "@/model/planModel";
 import Notification from "@/model/notificationModel";
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
@@ -31,13 +32,27 @@ export async function POST(request: NextRequest) {
     const task = await Task.aggregate([{ $sample: { size: 1 } }]);
     const assignedTask = task?.[0] || null;
 
+    //get default plan
+    const defaultPlan = await Plan.findOne({ isDefault: true });
+
     // Create new user
     const newUser = new User({
       username,
+      rank: defaultPlan.rank,
       email,
+      planName: defaultPlan.name,
+      subDuration: defaultPlan.subDuration,
+      subStartDate: defaultPlan.subStartDate,
+      subEndDate: defaultPlan.subEndDate,
       overallTask: task.length,
       tasks: assignedTask ? [assignedTask] : [],
       password: hashPass,
+      account: {
+        withdrawal: {
+          minWithdrawal: defaultPlan.minWithdrawal,
+          maxWithdrawal: defaultPlan.maxWithdrawal,
+        },
+      },
     });
 
     //save user

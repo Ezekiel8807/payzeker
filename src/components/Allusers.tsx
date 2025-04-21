@@ -14,9 +14,9 @@ export default function Allusers({ allUsers }: { allUsers: any }) {
         <thead className="table-head">
           <tr>
             <td className="table-cell">S/n</td>
-            <td className="table-cell">Surname</td>
-            <td className="table-cell">UserID</td>
             <td className="table-cell">Username</td>
+            <td className="table-cell">UserID</td>
+            <td className="table-cell">Surname</td>
             <td className="table-cell">Firstname</td>
             <td className="table-cell">Balance</td>
             <td className="table-cell">Action</td>

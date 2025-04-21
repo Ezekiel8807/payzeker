@@ -10,7 +10,7 @@ import Logout_btn from "./Logout_btn";
 interface ToggleBtnProps {
   toggleData: {
     isLogin: boolean;
-    isAdmin: boolean;
+    isAdmin: boolean | null;
   };
 }
 
@@ -50,6 +50,11 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
     {
       label: "Users",
       href: "/users",
+      show: toggleData.isLogin && toggleData.isAdmin,
+    },
+    {
+      label: "Plans",
+      href: "/plans",
       show: toggleData.isLogin && toggleData.isAdmin,
     },
     { label: "Transactions", href: "/transactions", show: toggleData.isLogin },

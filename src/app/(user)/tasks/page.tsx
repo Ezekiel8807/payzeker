@@ -1,7 +1,7 @@
 import Task from "@/model/taskModel";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
-import { connectDB } from "../../../lib/mongodb";
+import { fetchModelsData } from "@/utils/scripting";
 
 // Components
 import SubHeading from "@/components/SubHeading";
@@ -9,27 +9,16 @@ import Main from "@/components/layout/Main";
 import AllTasks from "@/components/AllTasks";
 
 // Fetch user data on the server
-async function getTasks() {
-  const token = await getToken();
-  if (!token) return redirect("/login");
-
-  if (token.isAdmin != true) {
-    return redirect("/dashboard");
-  }
-
-  //db connection
-  await connectDB();
-
-  // Find user and populate tasks
-  const tasks = await Task.find();
-  if (!tasks) throw new Error("Something went wrong!");
-
-  // Convert tasks data to a plain JavaScript object
-  return JSON.parse(JSON.stringify(tasks));
-}
+const fetchData = await fetchModelsData(Task);
 
 export default async function page() {
-  const tasks = await getTasks();
+  const user = await getToken();
+
+  if (!user.isAdmin) {
+    return redirect("/dashboard");
+  }
+  const [tasks] = fetchData;
+
   return (
     <Main>
       <SubHeading

@@ -1,16 +1,17 @@
-import mongoose, { models } from "mongoose";
+import mongoose from "mongoose";
 
-const SubmittedTaskSchema = new mongoose.Schema({
-  userId: { type: String, default: "" },
-  taskId: { type: String, default: "" },
-  taskName: { type: String, default: "" },
-  price: { type: Number, default: 0 },
-  state: { type: String, default: "review" },
-  type: { type: String, required: true },
-  content: { type: String, default: "" },
-  instruction: { type: String, default: "" },
+const planSchema = new mongoose.Schema({
+  name: { type: String, required: true, unique: true },
+  rank: Number,
+  subDuration: String, // e.g. '1 month' '30 days'
+  minWithdrawal: Number,
+  maxWithdrawal: Number,
+  minEarning: Number,
+  price: Number,
+  isDefault: { type: Boolean, default: false },
+  subStartDate: Date,
+  subEndDate: Date,
 });
 
-const SubmittedTask =
-  models?.SubmittedTask || mongoose.model("SubmittedTask", SubmittedTaskSchema);
-export default SubmittedTask;
+const Plan = mongoose.models.Plan || mongoose.model("Plan", planSchema);
+export default Plan;

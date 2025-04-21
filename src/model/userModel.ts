@@ -5,7 +5,11 @@ const UserSchema = new mongoose.Schema({
   lastname: { type: String, default: "" },
   username: { type: String, required: true, unique: true }, /// username is required
   email: { type: String, required: true, unique: true }, /// user email is required
-  rank: { type: Number, default: 1 },
+  planName: { type: String, required: true },
+  subDuration: String,
+  subStartDate: Date,
+  subEndDate: Date,
+  rank: Number,
   isAdmin: { type: Boolean, default: false },
   tasks: [
     {
@@ -37,13 +41,15 @@ const UserSchema = new mongoose.Schema({
     balance: { type: Number, default: 0 },
     withdrawal: {
       allTimeWithdrawal: { type: Number, default: 0 },
-      bankName: { type: String, default: "Bank Name" },
-      bankAcctNo: { type: Number, default: 123456890 },
-      minWithdrawal: { type: Number, default: 5000 },
-      maxWithdrawal: { type: Number, default: 5000 },
+      bankName: { type: String, default: "" },
+      bankAcctNo: { type: Number, default: 1234567890 },
+      minWithdrawal: { type: Number, required: true },
+      maxWithdrawal: { type: Number, required: true },
     },
   },
   password: { type: String, require: true }, // user password is required
+
+  createdAt: { type: Date, default: Date.now() },
 });
 
 const User = models?.User || mongoose.model("User", UserSchema);

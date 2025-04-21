@@ -19,7 +19,7 @@ async function getUser() {
   await connectDB();
 
   // Find user and populate tasks
-  const user = await User.findOne({ _id: token.id }).populate("tasks");
+  const user = await User.findOne({ _id: token.id });
 
   // Convert user data to a plain JavaScript object
   return JSON.parse(JSON.stringify(user));

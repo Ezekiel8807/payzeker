@@ -96,7 +96,10 @@ export default function TaskCreationForm() {
 
   return (
     <>
-      <form onSubmit={handleCreateTask} className="p-5 bg-[var(--gray-10)]">
+      <form
+        onSubmit={handleCreateTask}
+        className="p-5 mb-5 bg-[var(--gray-10)]"
+      >
         <input
           className="w-full h-full block p-2 outline-none"
           type="text"

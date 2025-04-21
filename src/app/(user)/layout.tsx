@@ -5,27 +5,16 @@ import { getToken } from "@/actions/action";
 // compponents\
 import SideNav from "@/components/SideNav";
 
-async function mytoken() {
-  const token = await getToken();
-
-  if (!token) return null;
-
-  return JSON.parse(JSON.stringify(token));
-}
-
-export default function DashhboardLayout({
+export default function UserLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const token = use(mytoken());
+  const user = use(getToken());
+  if (!user) return redirect("/login");
 
-  if (!token) {
-    redirect("/login");
-  }
-
-  const { username, isAdmin } = token;
-  const isLogin = !token ? false : true;
+  const { username, isAdmin } = user;
+  const isLogin = !!user;
   //
   return (
     <div className="mx-auto">

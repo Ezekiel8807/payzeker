@@ -1,5 +1,4 @@
 "use server";
-
 import { getToken } from "@/actions/action";
 import { connectDB } from "@/lib/mongodb";
 import User from "@/model/userModel";

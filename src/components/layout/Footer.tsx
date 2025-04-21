@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="flex flex-col md:flex-row p-5 justify-center">
         <div className="flex flex-col md:flex-row items-center md:w-[70%]">
           <Image
-            src="/img/logo_white.png"
+            src="/img/logo_white1.png"
             width={300}
             height={200}
             style={{ width: "auto", height: "auto" }}
@@ -27,7 +27,7 @@ export default function Footer() {
               className="mx-1 block"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.facebook.com/profile.php?id=100077701836062/"
+              href="https://web.facebook.com/profile.php?id=61575039205827&rdid=KtcjpjZc2pzRzJLm"
             >
               <Image
                 src="/icons/f.png"
@@ -43,7 +43,7 @@ export default function Footer() {
               href="https://x.com/AyebidunEzekiel/"
             >
               <Image
-                src="/icons/f.svg"
+                src="/icons/x.png"
                 width={30}
                 height={30}
                 alt="Twitter Icon - Link to Twitter page"

@@ -1,23 +1,22 @@
 import "./globals.css";
+import { use } from "react";
 import type { Metadata } from "next";
-// import { Geist, Geist_Mono } from "next/font/google";
-// import { UserProvider } from "@/components/UserProvider";
+import { Geist, Geist_Mono } from "next/font/google";
+import { getHeaderData } from "@/actions/getHeaderData";
 
 // layouts
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
 
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
-
-// className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,10 +28,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { user, notifications } = use(getHeaderData());
+
   return (
     <html lang="en">
-      <body>
-        <Header />
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <Header user={user} notifications={notifications} />
         {children}
         <Footer />
       </body>

@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 // components
 import Button from "@/components/Button";
@@ -12,8 +11,6 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,7 +39,7 @@ export default function Login() {
     }
 
     setIsLoading(false);
-    router.replace("/dashboard");
+    window.location.href = "/dashboard";
     //globall suceess msg
   };
 
@@ -60,6 +57,7 @@ export default function Login() {
           type="text"
           name="username"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setErr("");
             setUsername(e.target.value);
           }}
           defaultValue={username}
@@ -71,6 +69,7 @@ export default function Login() {
           type="password"
           name="password"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setErr("");
             setPassword(e.target.value);
           }}
           defaultValue={password}

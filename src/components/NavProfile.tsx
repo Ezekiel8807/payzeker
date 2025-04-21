@@ -4,7 +4,7 @@ import Image from "next/image";
 
 type NavProfileProbs = {
   userName: string;
-  userRank: number;
+  userRank: number | null;
 };
 
 export default function NavProfile({ userName, userRank }: NavProfileProbs) {
