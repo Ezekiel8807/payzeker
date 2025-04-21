@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import Button from "../Button";
 
 type PlanCardProbs = {
@@ -16,7 +16,7 @@ type PlanCardProbs = {
 };
 
 export default function PlanCard({ plan }: PlanCardProbs) {
-  const [isPen, setIspen] = useState(false);
+  const isPen = false;
   const { name, rank, minWithdrawal, maxWithdrawal, minEarning, price } = plan;
 
   return (
