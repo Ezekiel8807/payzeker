@@ -4,6 +4,8 @@ import Link from "next/link";
 import CardActionBtn from "../CardActionBtn";
 import WarningModal from "../modal/WarningModal";
 import { useState } from "react";
+import SuccessModal from "../modal/SuccessModal";
+import ErrorModal from "../modal/ErrorModal";
 
 type RequestCardProbs = {
   requestCardInfo: {
@@ -20,10 +22,75 @@ type RequestCardProbs = {
 };
 
 export default function RequestCard({ requestCardInfo }: RequestCardProbs) {
-  const [warningMsg, setWarningmsg] = useState("");
-  const [isWarning, setIswarning] = useState(false);
+  const [isCon, setIscon] = useState(false);
+  const [isRej, setIsrej] = useState(false);
+  const [isSuc, setIssuc] = useState(false);
+  const [errMsg, setErrmsg] = useState("");
+  const [sucMsg, setSucmsg] = useState("");
+  const [isErr, setIserr] = useState(false);
+  const [rejWarningMsg, setRejwarningmsg] = useState("");
+  const [conWarningMsg, setConwarningmsg] = useState("");
+  const [IsRejWarning, setIsrejwarning] = useState(false);
+  const [IsConWarning, setIsconwarning] = useState(false);
+
   const { type, username, fullname, bankName, prof, bankAcctNo, amount } =
     requestCardInfo;
+
+  async function cancelSubTaskAction() {
+    setIsrej(true);
+    //await reject action call
+    // const response = await rejectTask(subTask.userId, subTask._id);
+
+    // if (response.error) {
+    setErrmsg("");
+    //   setErrmsg(response.msg as string);
+    //   setIserr(true);
+    //   return;
+    // }
+
+    setSucmsg("");
+    // setSucmsg(response.msg as string);
+    setIssuc(true);
+    setIsrej(false);
+  }
+
+  async function confirmSubTaskAction() {
+    setIscon(true);
+    //await reject action call
+    // const response = await verifyTask(subTask.userId, subTask._id);
+
+    // if (response.error) {
+    setErrmsg("");
+    //   setErrmsg(response.msg as string);
+    //   setIserr(true);
+    //   return;
+    // }
+
+    setSucmsg("");
+    // setSucmsg(response.msg as string);
+    setIssuc(true);
+    setIscon(false);
+  }
+
+  //cancle subtask button func
+  function cancelSubTask() {
+    setIsrej(true);
+    //display warning
+    setRejwarningmsg("Rejection of task performed action cannot be revised!");
+    setIsrejwarning(true);
+    setIsrej(false);
+  }
+
+  //confirm subtask button func
+  function confirmSubTask() {
+    setIscon(true);
+    //display warning
+    setConwarningmsg(
+      "Confirm Task has been performed before taking this action!"
+    );
+    setIsconwarning(true);
+    setIscon(false);
+  }
 
   return (
     <>
@@ -87,11 +154,40 @@ export default function RequestCard({ requestCardInfo }: RequestCardProbs) {
             </p>
           )}
 
-          <CardActionBtn />
+          <CardActionBtn
+            isCon={isCon}
+            isRej={isRej}
+            rejectFunc={cancelSubTask}
+            confirmFunc={confirmSubTask}
+          />
         </div>
       </div>
 
-      <WarningModal warningMsg={warningMsg} setIswarning={setIswarning} />
+      {IsRejWarning && (
+        <WarningModal
+          setIswarning={setIsrejwarning}
+          warningMsg={rejWarningMsg}
+          action={cancelSubTaskAction}
+        />
+      )}
+
+      {IsConWarning && (
+        <WarningModal
+          setIswarning={setIsconwarning}
+          warningMsg={conWarningMsg}
+          action={confirmSubTaskAction}
+        />
+      )}
+
+      {isSuc && (
+        <SuccessModal
+          setIssuc={setIssuc}
+          sucMsg={sucMsg}
+          direction="/dashboard"
+        />
+      )}
+
+      {isErr && <ErrorModal setIserr={setIserr} errMsg={errMsg} />}
     </>
   );
 }
