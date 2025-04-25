@@ -1,9 +1,5 @@
-// import { Key } from "react";
-
 //components
 import Link from "next/link";
-import Image from "next/image";
-// import Button from "../Button";
 
 // type SubmittedTaskCardProbs = {
 //   subTask: {
@@ -20,33 +16,23 @@ import Image from "next/image";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function SubmittedTaskCard({ subTask }: { subTask: any }) {
-  const { _id, type, content } = subTask;
+  const { _id, taskName, price, type } = subTask;
   return (
-    <Link href={`dashboard/submittedTask/${_id}/`}>
-      <div className="bg-[var(--gray-10)] p-3 rounded-lg shadow-md">
-        {type == "image" && (
-          <Image
-            src={content}
-            width={500}
-            height={500}
-            alt="request prof"
-            className="w-full h-[200px]"
-          />
-        )}
+    <div className="bg-[var(--gray-05)] p-3 rounded-lg shadow-3xl">
+      <h4 className="font-black text-sm text-center sm:text-start">
+        {taskName}
+      </h4>
+      <p className="font-black text-xl text-center sm:text-start "># {price}</p>
 
-        {type == "video" && (
-          <video
-            src={content}
-            width={500}
-            height={500}
-            controls
-            loop
-            autoPlay
-            muted
-            className="w-full h-[200px]"
-          ></video>
-        )}
+      <div className="flex flex-col sm:flex-row items-center justify-between">
+        <div className="font-extralight">{type}</div>
+        <Link
+          className="w-[100px] block bg-[var(--green)] p-1 font-extrabold text-center text-[12px] text-white rounded-full shadow-sm"
+          href={`dashboard/submittedTask/${_id}/`}
+        >
+          Learn More
+        </Link>
       </div>
-    </Link>
+    </div>
   );
 }

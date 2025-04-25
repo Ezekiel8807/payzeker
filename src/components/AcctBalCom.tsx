@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { depositAction } from "@/actions/DepositAction";
-import { withdrawalAction } from "@/actions/withdrawalAction";
+import { depositAction } from "@/actions/requesAction";
+import { withdrawalAction } from "@/actions/requesAction";
 
 //components
 import Button from "./Button";

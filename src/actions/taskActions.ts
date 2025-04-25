@@ -2,7 +2,10 @@
 import { getToken } from "./action";
 import User from "@/model/userModel";
 import Task from "@/model/taskModel";
+import Transaction from "@/model/transactionModel";
+import Notification from "@/model/notificationModel";
 import SubmittedTask from "@/model/submittedTaskModel";
+// import { fetchModelsData } from "@/utils/scripting";
 
 type taskCreateInfo = {
   taskName: string;
@@ -145,6 +148,98 @@ export async function subTask({
   }
 }
 
-export async function verifyTask() {}
+export async function verifyTask(userId: string, subTaskId: string) {
+  if (!userId || !subTaskId)
+    return { error: true, msg: "Error something went wrong!" };
 
-export async function rejectTask() {}
+  try {
+    //fetch the user
+    const user = await User.findById(userId);
+    if (!user) return { error: true, msg: "Error can't find user!" };
+
+    console.log(user);
+
+    //fetch submitted task
+    const task = await SubmittedTask.findById(subTaskId);
+    if (!task) return { error: true, msg: "Error can't find task submitted!" };
+
+    //update task status
+    task.state = "completed";
+
+    //save to update new info
+    await task.save();
+
+    //increase completed task by one
+    user.completedTask += 1;
+
+    //add price to balance
+    user.account.balance += task.price;
+
+    //save to update new info
+    await user.save();
+
+    //fetch the transaction
+    const transaction = new Transaction({
+      userId,
+      status: "successful",
+      amount: task.price,
+      disc: `#${task.price} for completing a tasks`,
+    });
+
+    //save to update new info
+    await transaction.save();
+
+    const notification = new Notification({
+      username: user.username,
+      message: `Congrat😃, #${task.price} paid for completing a tasks`,
+    });
+
+    //save to update new info
+    await notification.save();
+
+    return { error: false, msg: "Task Verification completed!" };
+    //
+  } catch (err) {
+    return {
+      error: true,
+      msg: err instanceof Error ? err.message : "An unknown error occurred",
+    };
+  }
+}
+
+export async function rejectTask(userId: string, subTaskId: string) {
+  if (!userId || !subTaskId)
+    return { error: true, msg: "Error something went wrong!" };
+
+  try {
+    //fetch the user
+    const user = await User.findById(userId);
+    if (!user) return { error: true, msg: "Error can't find user!" };
+
+    //fetch submitted task
+    const task = await SubmittedTask.findById(subTaskId);
+    if (!task) return { error: true, msg: "Error can't find task submitted!" };
+
+    //update task status
+    task.state = "rejected";
+
+    //save to update new info
+    await task.save();
+
+    const notification = new Notification({
+      username: user.username,
+      message: "Sorry😔, task verification failed!.",
+    });
+
+    //save to update new info
+    await notification.save();
+
+    return { error: false, msg: "Task rejected sucessfully!" };
+    //
+  } catch (err) {
+    return {
+      error: true,
+      msg: err instanceof Error ? err.message : "An unknown error occurred",
+    };
+  }
+}

@@ -13,7 +13,7 @@ export default function UserTrans({
     (tran: { userId: string }) => tran.userId === userId
   );
 
-  userTrans.reverse();
+  // userTrans.reverse();
 
   return (
     <div className="w-full h-[300px] overflow-y-scroll">
@@ -25,6 +25,7 @@ export default function UserTrans({
               type: string;
               amount: number;
               status: string;
+              date: string;
             }) => <TransCard key={el._id} transCardInfo={el} />
           )
         ) : (

@@ -25,6 +25,13 @@ export async function PATCH() {
       const shuffledTasks = [...allTasks].sort(() => Math.random() - 0.5);
       const assignedTasks = shuffledTasks.slice(0, tasksToAssign);
 
+      if (assignedTasks.length > 1) {
+        //loop thhrough each to change prce valur
+        for (const etask of assignedTasks) {
+          etask.price = etask.price * user.rank;
+        }
+      }
+
       // Update the user's tasks and overall task count
       await User.findByIdAndUpdate(user._id, {
         $set: { tasks: assignedTasks },

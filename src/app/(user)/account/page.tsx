@@ -1,8 +1,7 @@
-import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
-import { connectDB } from "../../../lib/mongodb";
 import Transaction from "@/model/transactionModel";
+import { fetchModelById, fetchModelsData } from "@/utils/scripting";
 
 // Components
 import BankInfo from "@/components/BankInfo";
@@ -11,39 +10,10 @@ import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";
 import UserTrans from "@/components/transactions/UserTrans";
 
-// Fetch user data on the server
-async function getUser() {
-  const token = await getToken();
-  if (!token?.id) return redirect("/login");
-
-  //db connection
-  await connectDB();
-
-  // Find user and populate tasks
-  const user = await User.findOne({ _id: token.id }).populate("tasks");
-
-  // Convert user data to a plain JavaScript object
-  return JSON.parse(JSON.stringify(user));
-}
-
-// Fetch user data on the server
-async function getTransactions() {
-  const token = await getToken();
-  if (!token?.id) return redirect("/login");
-
-  //db connection
-  await connectDB();
-
-  // Find user and populate tasks
-  const transactions = await Transaction.find().sort({ _id: -1 });
-
-  // Convert user data to a plain JavaScript object
-  return JSON.parse(JSON.stringify(transactions));
-}
-
 export default async function Account() {
-  const user = await getUser(); // Fetch user data before rendering
-  const AllTransac = await getTransactions();
+  const token = await getToken();
+  const user = await fetchModelById(User, token.id);
+  const [AllTransac] = await fetchModelsData(Transaction);
 
   const { firstname = "firstname", lastname = "lastname", rank = 1 } = user;
   const balance = user.account.balance as number;

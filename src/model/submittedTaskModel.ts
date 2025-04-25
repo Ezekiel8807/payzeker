@@ -4,6 +4,7 @@ const SubmittedTaskSchema = new mongoose.Schema({
   userId: { type: String, default: "" },
   taskId: { type: String, default: "" },
   taskName: { type: String, default: "" },
+  level: Number,
   price: { type: Number, default: 0 },
   state: { type: String, default: "review" },
   type: { type: String, required: true },

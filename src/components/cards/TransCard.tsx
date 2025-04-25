@@ -8,8 +8,17 @@ export default function TransCard({
     type: string;
     amount: number;
     status: string;
+    date: string;
   };
 }) {
+  const day = new Date(transCardInfo.date).getDay();
+  const mon = new Date(transCardInfo.date).getMonth();
+  const yrs = new Date(transCardInfo.date).getFullYear();
+  const hrs = new Date(transCardInfo.date).getHours();
+  const mins = new Date(transCardInfo.date).getMinutes();
+  const date = `${day}/${mon}/${yrs} - ${hrs}:${mins} ${
+    hrs > 12 ? "PM" : "AM"
+  }`;
   return (
     <div className="w-full p-2 flex flex-row items-center justify-between gap-3 bg-[var(--gray-05)] rounded">
       <div className="flex flex-row gap-2">
@@ -19,12 +28,12 @@ export default function TransCard({
         <div className="font-light text-[10px]">
           <p className="font-black capitalize">{transCardInfo.type}</p>
           <p className="text-[11px]">{transCardInfo._id}</p>
-          <p className="text-[8px]">2/4/2025 7:15pm</p>
+          <p className="text-[8px]">{date}</p>
         </div>
       </div>
       <div className="flex flex-col">
         <p className="font-black text-[12px]">
-          {transCardInfo.type != "deposite" && "- "}
+          {transCardInfo.type != "deposit" && "- "}
           {transCardInfo.amount.toLocaleString("en-NG", {
             style: "currency",
             currency: "NGN",

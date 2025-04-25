@@ -127,15 +127,13 @@ export default async function Dashboard() {
       )}
 
       {user.isAdmin && (
-        <div className="">
-          <div className="mt-5">
-            <SubHeading
-              title="Submitted Tasks"
-              desc="All tasks submitted at a go."
-            />
-            <SubmittedTaskCom subTaskArr={subTaskArr} />
-          </div>
-        </div>
+        <>
+          <SubHeading
+            title="Submitted Tasks"
+            desc="All tasks submitted at a go."
+          />
+          <SubmittedTaskCom subTaskArr={subTaskArr} />
+        </>
       )}
     </Main>
   );
