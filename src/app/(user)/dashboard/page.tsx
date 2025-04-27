@@ -1,8 +1,8 @@
-import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
 import { connectDB } from "../../../lib/mongodb";
-import SubmittedTaskCom from "@/components/SubmittedTaskCom";
+import { fetchModelsData } from "@/utils/scripting";
+import SubmittedTask from "@/model/submittedTaskModel";
 
 // Components
 import Main from "@/components/layout/Main";
@@ -10,7 +10,7 @@ import SubHeading from "@/components/SubHeading";
 import AcctBalCom from "@/components/AcctBalCom";
 import Performance from "@/components/Performance";
 import TaskCard from "@/components/cards/TaskCard";
-import SubmittedTask from "@/model/submittedTaskModel";
+import SubmittedTaskCard from "@/components/cards/SubmittedTaskCard";
 
 // Fetch user data on the server
 async function getUser() {
@@ -27,32 +27,16 @@ async function getUser() {
   return JSON.parse(JSON.stringify(user));
 }
 
-//get submitted tasks
-async function getSubmittedTasks() {
-  const token = await getToken();
-  if (!token?.id) return null;
-
-  //db connection
-  await connectDB();
-
-  // Find user and populate tasks
-  const allSubTask = await SubmittedTask.find().sort({ _id: -1 });
-
-  // Convert submitedTasks data to a plain JavaScript object
-  return await JSON.parse(JSON.stringify(allSubTask));
-}
-
 export default async function Dashboard() {
   const user = await getUser();
-  if (!user) return redirect("/login");
-  const subTaskArr = await getSubmittedTasks();
+  const [subTaskArr] = await fetchModelsData(SubmittedTask);
 
-  const { firstname = "", lastname = "", rank = 1 } = user;
+  const { firstname, lastname, rank } = user;
   const balance = user.account.balance as number;
   const {
-    bankName = "bankName",
-    bankAcctNo = 12346790,
-    minWithdrawal = 5000,
+    bankName,
+    bankAcctNo,
+    minWithdrawal,
     maxWithdrawal,
     allTimeWithdrawal,
   } = user.account.withdrawal;
@@ -60,6 +44,11 @@ export default async function Dashboard() {
   // filter tasks that have new state
   const filterUserTask = user.tasks.filter(
     (e: { state: string }) => e.state === "new"
+  );
+
+  // filter submitted task with review state
+  const filterSubTask = subTaskArr.filter(
+    (filterTask: { state: string }) => filterTask.state === "review"
   );
 
   return (
@@ -117,8 +106,8 @@ export default async function Dashboard() {
                   }
                 )
               ) : (
-                <p className="flex items-center justify-center h-full">
-                  Opps.. tasks unavailable
+                <p className="flex h-[200px] items-center justify-center">
+                  Opps🙈... tasks unavailable
                 </p>
               )}
             </div>
@@ -132,7 +121,21 @@ export default async function Dashboard() {
             title="Submitted Tasks"
             desc="All tasks submitted at a go."
           />
-          <SubmittedTaskCom subTaskArr={subTaskArr} />
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 mb-5 items-center justify-start gap-5">
+            {filterSubTask.length > 0 ? (
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              filterSubTask.map((subTask: any) => (
+                <SubmittedTaskCard key={subTask._id} subTask={subTask} />
+              ))
+            ) : (
+              <div className="col-span-3 h-[200px] flex items-center justify-center">
+                <p className="w-[200px] text-center text-gray-600">
+                  No submitted tasks🙈. Check back later.
+                </p>
+              </div>
+            )}
+          </div>
         </>
       )}
     </Main>

@@ -6,11 +6,13 @@ import Main from "@/components/layout/Main";
 import SubHeading from "@/components/SubHeading";
 import RequestCard from "@/components/cards/RequestCard";
 
-// Fetch requested data on the server
-const result = await fetchModelsData(Request);
 
 export default async function page() {
-  const [requests] = result;
+  const [requests] = await fetchModelsData(Request);
+
+  const newRequest = requests.filter(
+    (r: { status: string }) => r.status === "new"
+  );
 
   return (
     <Main>
@@ -20,7 +22,7 @@ export default async function page() {
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 my-5 gap-5">
-        {requests.map(
+        {newRequest.map(
           (request: {
             _id: string;
             userId: string;

@@ -4,6 +4,7 @@ import User from "../../src/model/userModel";
 import Request from "../../src/model/requestModel";
 import Transaction from "@/model/transactionModel";
 import Notification from "../../src/model/notificationModel";
+// import { revalidatePath } from "next/cache";
 
 export async function withdrawalAction(
   balance: number,
@@ -162,7 +163,7 @@ export async function depositAction(depAmount: number, fileUrl: string) {
   }
 }
 
-///function to cancel request
+//function to cancle deposit or withdraw requst...
 export async function cancelRequest(userId: string, requestId: string) {
   if (!userId || !requestId)
     return { error: true, msg: "Error something went wrong!" };
@@ -172,14 +173,21 @@ export async function cancelRequest(userId: string, requestId: string) {
     const user = await User.findById(userId);
     if (!user) return { error: true, msg: "Error can't find user!" };
 
-    //fetch submitted task
+    //fetch request with its id
     const request = await Request.findById(requestId);
     if (!request) return { error: true, msg: "Error can't find request!" };
 
-    //fetch submitted task
+    //fetch requst transaction
     const transaction = await Transaction.findById(request.transId);
     if (!transaction)
       return { error: true, msg: "Error can't find transaction!" };
+
+    if (request.type === "withdraw") {
+      user.account.balance += request.amount;
+
+      //Update user
+      await user.save();
+    }
 
     //set transaction status failed
     transaction.status = "failed";
@@ -188,6 +196,8 @@ export async function cancelRequest(userId: string, requestId: string) {
     //Update the status of the request
     request.status = "declined";
     await request.save();
+
+    //refund
 
     //notify the user
     const notification = new Notification({
@@ -209,6 +219,7 @@ export async function cancelRequest(userId: string, requestId: string) {
   }
 }
 
+//function to confirm deposit or withdraw requst...
 export async function confirmRequest(userId: string, requestId: string) {
   if (!userId || !requestId)
     return { error: true, msg: "Error something went wrong!" };
@@ -227,15 +238,14 @@ export async function confirmRequest(userId: string, requestId: string) {
     if (!transaction)
       return { error: true, msg: "Error can't find transaction!" };
 
-    if (request.type === "withdraw") {
-      //
-      if (user.account.balance < request.amount) {
-        cancelRequest(userId, requestId);
-        return;
-      }
+    // if (request.type === "withdraw") {
+    //   if (user.account.balance < request.amount) {
+    //     cancelRequest(userId, requestId);
+    //     return { error: true, msg: "Error: Insufficent balance!" };
+    //   }
 
-      user.account.balance -= request.amount;
-    }
+    //   user.account.balance -= request.amount;
+    // }
 
     if (request.type === "deposit") {
       user.account.balance += request.amount;

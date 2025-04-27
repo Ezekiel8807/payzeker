@@ -1,4 +1,7 @@
 "use client";
+import { cancelRequest, confirmRequest } from "@/actions/requesAction";
+
+//components
 import Image from "next/image";
 import Link from "next/link";
 import CardActionBtn from "../CardActionBtn";
@@ -33,60 +36,67 @@ export default function RequestCard({ requestCardInfo }: RequestCardProbs) {
   const [IsRejWarning, setIsrejwarning] = useState(false);
   const [IsConWarning, setIsconwarning] = useState(false);
 
-  const { type, username, fullname, bankName, prof, bankAcctNo, amount } =
-    requestCardInfo;
+  const {
+    _id,
+    userId,
+    type,
+    username,
+    fullname,
+    bankName,
+    prof,
+    bankAcctNo,
+    amount,
+  } = requestCardInfo;
 
-  async function cancelSubTaskAction() {
+  async function cancelRequestAction() {
     setIsrej(true);
     //await reject action call
-    // const response = await rejectTask(subTask.userId, subTask._id);
+    const response = await cancelRequest(userId, _id);
 
-    // if (response.error) {
-    setErrmsg("");
-    //   setErrmsg(response.msg as string);
-    //   setIserr(true);
-    //   return;
-    // }
+    if (response.error) {
+      setErrmsg(response.msg as string);
+      setIsrej(false);
+      setIserr(true);
+      return;
+    }
 
-    setSucmsg("");
-    // setSucmsg(response.msg as string);
+    setSucmsg(response.msg as string);
     setIssuc(true);
     setIsrej(false);
   }
 
-  async function confirmSubTaskAction() {
+  async function confirmRequestAction() {
     setIscon(true);
     //await reject action call
-    // const response = await verifyTask(subTask.userId, subTask._id);
+    const response = await confirmRequest(userId, _id);
 
-    // if (response.error) {
-    setErrmsg("");
-    //   setErrmsg(response.msg as string);
-    //   setIserr(true);
-    //   return;
-    // }
+    if (response.error) {
+      setErrmsg(response.msg as string);
+      setIscon(false);
+      setIserr(true);
+      return;
+    }
 
-    setSucmsg("");
-    // setSucmsg(response.msg as string);
-    setIssuc(true);
+    setSucmsg(response.msg as string);
     setIscon(false);
+    setIssuc(true);
   }
 
   //cancle subtask button func
-  function cancelSubTask() {
+  function cancelRequestFunc() {
     setIsrej(true);
     //display warning
-    setRejwarningmsg("Rejection of task performed action cannot be revised!");
+    setRejwarningmsg("Rejection of request action cannot be revised!");
     setIsrejwarning(true);
     setIsrej(false);
   }
 
   //confirm subtask button func
-  function confirmSubTask() {
+  function confirmRequestFunc() {
     setIscon(true);
     //display warning
     setConwarningmsg(
-      "Confirm Task has been performed before taking this action!"
+      "Confirm request and be certain before taking this action!"
     );
     setIsconwarning(true);
     setIscon(false);
@@ -157,8 +167,8 @@ export default function RequestCard({ requestCardInfo }: RequestCardProbs) {
           <CardActionBtn
             isCon={isCon}
             isRej={isRej}
-            rejectFunc={cancelSubTask}
-            confirmFunc={confirmSubTask}
+            rejectFunc={cancelRequestFunc}
+            confirmFunc={confirmRequestFunc}
           />
         </div>
       </div>
@@ -167,7 +177,7 @@ export default function RequestCard({ requestCardInfo }: RequestCardProbs) {
         <WarningModal
           setIswarning={setIsrejwarning}
           warningMsg={rejWarningMsg}
-          action={cancelSubTaskAction}
+          action={cancelRequestAction}
         />
       )}
 
@@ -175,7 +185,7 @@ export default function RequestCard({ requestCardInfo }: RequestCardProbs) {
         <WarningModal
           setIswarning={setIsconwarning}
           warningMsg={conWarningMsg}
-          action={confirmSubTaskAction}
+          action={confirmRequestAction}
         />
       )}
 
@@ -183,7 +193,7 @@ export default function RequestCard({ requestCardInfo }: RequestCardProbs) {
         <SuccessModal
           setIssuc={setIssuc}
           sucMsg={sucMsg}
-          direction="/dashboard"
+          direction="/requests"
         />
       )}
 

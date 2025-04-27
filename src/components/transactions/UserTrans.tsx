@@ -13,10 +13,10 @@ export default function UserTrans({
     (tran: { userId: string }) => tran.userId === userId
   );
 
-  // userTrans.reverse();
+  userTrans.reverse();
 
   return (
-    <div className="w-full h-[300px] overflow-y-scroll">
+    <div className="w-full mb-5 overflow-y-scroll">
       <div className="flex flex-col gap-2">
         {userTrans.length > 0 ? (
           userTrans.map(
