@@ -181,6 +181,7 @@ export async function verifyTask(userId: string, subTaskId: string) {
     //fetch the transaction
     const transaction = new Transaction({
       userId,
+      type: "deposit",
       status: "successful",
       amount: task.price,
       disc: `#${task.price} for completing a tasks`,

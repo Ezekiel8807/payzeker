@@ -27,7 +27,7 @@ export default function Footer() {
               className="mx-1 block"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://web.facebook.com/profile.php?id=61575039205827&rdid=KtcjpjZc2pzRzJLm"
+              href="https://web.facebook.com/profile.php?id=61575039205827"
             >
               <Image
                 src="/icons/f.png"
@@ -40,7 +40,7 @@ export default function Footer() {
               className="mx-1 block"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://x.com/AyebidunEzekiel/"
+              href="https://x.com/payzeker"
             >
               <Image
                 src="/icons/x.png"
@@ -53,7 +53,7 @@ export default function Footer() {
               className="mx-1 block"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.linkedin.com/in/Ezekiel8807/"
+              href="https://www.instagram.com/payzeker/"
             >
               <Image
                 src="/icons/i.png"
@@ -66,7 +66,7 @@ export default function Footer() {
               className="mx-1 block"
               target="_blank"
               rel="noopener noreferrer"
-              href="mailto:ayebidunezekiel@gmail.com"
+              href="https://wa.link/q91k54"
             >
               <Image
                 src="/icons/w.png"

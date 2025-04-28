@@ -31,7 +31,7 @@ export default function TransCard({
           <p className="text-[8px]">{date}</p>
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="text-end">
         <p className="font-black text-[12px]">
           {transCardInfo.type != "deposit" && "- "}
           {transCardInfo.amount.toLocaleString("en-NG", {
@@ -40,7 +40,7 @@ export default function TransCard({
           })}
         </p>
         <span
-          className={`text-[8px] float-end ${
+          className={`text-[8px] ${
             transCardInfo.status == "pending" && "bg-[#ffff00]"
           } ${transCardInfo.status == "successful" && "bg-[#00ff00]"} ${
             transCardInfo.status == "failed" && "bg-[#ff0000]"
