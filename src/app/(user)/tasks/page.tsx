@@ -1,7 +1,7 @@
 import Task from "@/model/taskModel";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
-import { fetchModelsData } from "@/utils/scripting";
+import { fetchModelsData } from "@/utils/modelFunc";
 
 // Components
 import SubHeading from "@/components/SubHeading";

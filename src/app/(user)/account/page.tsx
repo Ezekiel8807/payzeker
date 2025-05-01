@@ -1,7 +1,7 @@
 import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
 import Transaction from "@/model/transactionModel";
-import { fetchModelById, fetchModelsData } from "@/utils/scripting";
+import { fetchModelById, fetchModelsData } from "@/utils/modelFunc";
 
 // Components
 import BankInfo from "@/components/BankInfo";

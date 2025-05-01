@@ -1,14 +1,18 @@
 "use server";
 import { getToken } from "./action";
 import { connectDB } from "@/lib/mongodb";
-import { calculateEndDate } from "@/utils/scripting";
+import { calculateEndDate } from "@/utils/dateFunc";
 
 // models
 import User from "@/model/userModel";
 import Plan from "@/model/planModel";
 import Transaction from "@/model/transactionModel";
 import Notification from "@/model/notificationModel";
+import { redirect } from "next/navigation";
 
+//////////////////////////////////
+//Action to create a user Plan
+//////////////////////////////////
 export async function createPlan({
   name,
   rank,
@@ -68,18 +72,18 @@ export async function createPlan({
   }
 }
 
+//////////////////////////////////
+//Action to subscribe user to a plan
+//////////////////////////////////
 export async function subToPlan(planId: string) {
-  if (!planId) {
+  if (!planId)
     return {
       error: true,
       msg: "Missing plan ID. Please provide a valid plan.",
     };
-  }
 
   const user = await getToken();
-  if (!user) {
-    return { error: true, msg: "User not authenticated." };
-  }
+  if (!user) return redirect("/login");
 
   try {
     await connectDB();
@@ -89,24 +93,17 @@ export async function subToPlan(planId: string) {
       Plan.findById(planId),
     ]);
 
-    if (!dbUserInfo) {
-      return { error: true, msg: "User not found." };
-    }
-
-    if (!plan) {
-      return { error: true, msg: "Plan not found." };
-    }
-
+    if (!dbUserInfo) return { error: true, msg: "User not found." };
+    if (!plan) return { error: true, msg: "Plan not found." };
     if (dbUserInfo.planName === plan.name) {
       return { error: true, msg: "Already subscribed to this plan." };
     }
-
     if (dbUserInfo.account.balance < plan.price) {
       return { error: true, msg: "Insufficient funds." };
     }
 
     const now = new Date();
-    const subEndDate = calculateEndDate(now, plan.subDuration);
+    const end = calculateEndDate(now, plan.subDuration);
     const updatedBalance = dbUserInfo.account.balance - plan.price;
 
     const updatedUser = await User.findByIdAndUpdate(
@@ -117,8 +114,9 @@ export async function subToPlan(planId: string) {
           planName: plan.name,
           subDuration: plan.subDuration,
           subStartDate: now,
-          subEndDate,
+          subEndDate: end,
           "account.balance": updatedBalance,
+          "account.withdrawal.allTimeWithdrawal": 5000,
           "account.withdrawal.minWithdrawal": plan.minWithdrawal,
           "account.withdrawal.maxWithdrawal": plan.maxWithdrawal,
         },

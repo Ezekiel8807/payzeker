@@ -1,5 +1,5 @@
 import Request from "../../../model/requestModel";
-import { fetchModelsData } from "@/utils/scripting";
+import { fetchModelsData } from "@/utils/modelFunc";
 
 // // Components
 import Main from "@/components/layout/Main";

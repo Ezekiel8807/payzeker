@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import Plan from "@/model/planModel";
-import { fetchModelsData } from "@/utils/scripting";
+import { fetchModelsData } from "@/utils/modelFunc";
 
 import Link from "next/link";
 import Main from "@/components/layout/Main";

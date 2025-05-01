@@ -1,6 +1,6 @@
 import { getToken } from "@/actions/action";
 import Transaction from "@/model/transactionModel";
-import { fetchModelsData } from "@/utils/scripting";
+import { fetchModelsData } from "@/utils/modelFunc";
 
 // Components
 import Main from "@/components/layout/Main";

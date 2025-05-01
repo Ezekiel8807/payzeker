@@ -1,5 +1,5 @@
 import SubmittedTask from "@/model/submittedTaskModel";
-import { fetchModelById } from "@/utils/scripting";
+import { fetchModelById } from "@/utils/modelFunc";
 
 //cononents
 import SubmittedTaskDetails from "@/components/SubmittedTaskDetails";

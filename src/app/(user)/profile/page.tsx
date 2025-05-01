@@ -1,6 +1,6 @@
 import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
-import { fetchModelById } from "@/utils/scripting";
+import { fetchModelById } from "@/utils/modelFunc";
 
 // Components
 import Main from "@/components/layout/Main";

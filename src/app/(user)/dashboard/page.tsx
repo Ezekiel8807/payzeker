@@ -1,7 +1,7 @@
 import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
 import { connectDB } from "../../../lib/mongodb";
-import { fetchModelsData } from "@/utils/scripting";
+import { fetchModelsData } from "@/utils/modelFunc";
 import SubmittedTask from "@/model/submittedTaskModel";
 
 // Components
@@ -31,8 +31,8 @@ export default async function Dashboard() {
   const user = await getUser();
   const [subTaskArr] = await fetchModelsData(SubmittedTask);
 
-  const { firstname, lastname, rank } = user;
-  const balance = user.account.balance as number;
+  const { firstname, lastname, rank, account } = user;
+  const balance = account.balance as number;
   const {
     bankName,
     bankAcctNo,

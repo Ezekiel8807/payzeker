@@ -12,30 +12,26 @@ export async function PATCH() {
     const allUsers = await User.find({ isAdmin: false });
 
     // featch all taskS
-    let allTasks = await Task.find();
-
-    // Shuffle tasks for randomness
-    allTasks = allTasks.sort(() => Math.random() - 0.5);
+    const allTasks = await Task.find();
 
     // Distribute tasks to users
     for (const user of allUsers) {
-      const tasksToAssign = user.rank;
+      const userRank = user.rank;
 
-      // Shuffle tasks to ensure randomness
+      // Shuffle tasks
       const shuffledTasks = [...allTasks].sort(() => Math.random() - 0.5);
-      const assignedTasks = shuffledTasks.slice(0, tasksToAssign);
+      const assignedTasks = shuffledTasks.slice(0, userRank);
+      const taskCount = assignedTasks.length;
 
-      if (assignedTasks.length > 1) {
-        //loop thhrough each to change prce valur
-        for (const etask of assignedTasks) {
-          etask.price = etask.price * user.rank;
-        }
-      }
+      // Clone and adjust price based on rank
+      const userTasks = assignedTasks.map((task) => ({
+        ...task.toObject(),
+        price: task.price * userRank,
+      }));
 
-      // Update the user's tasks and overall task count
       await User.findByIdAndUpdate(user._id, {
-        $set: { tasks: assignedTasks },
-        $inc: { overallTask: assignedTasks.length },
+        $set: { tasks: userTasks },
+        $inc: { overallTask: taskCount },
       });
     }
 
