@@ -10,7 +10,7 @@ export default function NavLink() {
         <Link
           className="font-black p-3 hover:text-[var(--green)]"
           key={link}
-          href={`/${link.toLowerCase()}`}
+          href={`/#${link.toLowerCase()}`}
         >
           {link}
         </Link>

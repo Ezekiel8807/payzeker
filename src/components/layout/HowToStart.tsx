@@ -3,16 +3,17 @@ import React from "react";
 
 export default function HowToStart() {
   return (
-    <div className="p-5 md:p-10 bg-[#efefef]">
-      <div className="flex flex-col sm:flex-row gap-2 md:gap-10">
+    <div id="how to start" className="p-5 md:p-10 bg-[var(--gray-05)]">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-2 md:gap-10">
         <div className="w-full md:w-1/2">
-          <h3 className="md:text-[35px] font-black">
+          <h3 className="md:text-[30px] font-black">
             Welcome to <span className="text-[var(--green)]">Payzeker</span>,
           </h3>
-          <h3 className="md:text-[35px] font-black">
+          <h3 className="md:text-[30px] font-black">
             Learn How To Get Started!
           </h3>
-          <p className="text-[10px] md:text-[24px] text-justify">
+
+          <p className="text-[12px] md:text-[16px] text-justify">
             Getting started on Payzeker is quick and easy. First, create a free
             account, whether you&apos;re a business owner looking to delegate
             simple online tasks or a freelancer ready to earn, signing up takes
@@ -25,10 +26,10 @@ export default function HowToStart() {
         <div className="w-full md:w-1/2 m-auto">
           <Image
             src="/img/b.svg"
-            width={1000}
-            height={1000}
+            width={500}
+            height={500}
             alt="how_to_start image"
-            className="rounded-md"
+            className="m-auto rounded-md"
           />
         </div>
       </div>

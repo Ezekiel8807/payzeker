@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Contact() {
   return (
-    <div className="p-5 md:p-10 text-center">
+    <div id="contact" className="relative p-5 md:p-10 text-center">
       <Image
         src="/icons/duo-icons.svg"
         width={50}
@@ -23,6 +23,7 @@ export default function Contact() {
       >
         Contact Us
       </Link>
+      <div className="w-[150px] h-[150px] absolute top-0 right-5 -z-10 rounded-[220px] blur-[30px] bg-[#29cd9c4d]"></div>
     </div>
   );
 }
