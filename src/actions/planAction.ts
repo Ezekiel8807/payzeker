@@ -116,7 +116,7 @@ export async function subToPlan(planId: string) {
           subStartDate: now,
           subEndDate: end,
           "account.balance": updatedBalance,
-          "account.withdrawal.allTimeWithdrawal": 5000,
+          "account.withdrawal.allTimeWithdrawal": 0,
           "account.withdrawal.minWithdrawal": plan.minWithdrawal,
           "account.withdrawal.maxWithdrawal": plan.maxWithdrawal,
         },

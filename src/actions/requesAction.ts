@@ -48,8 +48,9 @@ export async function withdrawalAction(
       };
     }
 
-    //remove withdrawal amount from balance
+    //remove withdrawal amount from balance and add to allTimeWitdrawal
     user.account.balance -= amount;
+    user.account.withdrawal.allTimeWithdrawal += amount;
     await user.save();
 
     //crate transaction

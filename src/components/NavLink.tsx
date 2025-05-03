@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 
-const links = ["How To Start", "Blog", "Busniess", "About", "Contact"];
+const links = ["How To Start", "About", "FAQ", "Contact"];
 
 export default function NavLink() {
   return (
