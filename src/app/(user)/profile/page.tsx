@@ -7,37 +7,48 @@ import Main from "@/components/layout/Main";
 import SubHeading from "@/components/SubHeading";
 import ClientProfile from "@/components/layout/Profile";
 import ForgetPass from "@/components/ForgetPass";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import SideNav from "@/components/SideNav";
 
 export default async function Profile() {
   const token = await getToken();
   const user = await fetchModelById(User, token.id); // Fetch user data before rendering
 
-  const {
-    firstname = "firstname",
-    lastname = "lastname",
-    username = "username",
-    rank = 1,
-    email = "enail",
-  } = user;
+  const isLogin = !!user;
+  const { username, isAdmin, firstname, lastname, rank, email } = user;
   const { bankName = "bankName", bankAcctNo = 12346790 } =
     user.account.withdrawal;
 
   return (
-    <Main>
-      <SubHeading title="User Profile" desc="Everything about you." />
-      <ClientProfile
-        userInfo={{
-          username,
-          firstname,
-          lastname,
-          email,
-          rank,
-          bankName,
-          bankAcctNo,
-        }}
-      ></ClientProfile>
+    <>
+      <Header />
+      <div className="mx-auto">
+        <div className="flex">
+          <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
+            <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
+          </div>
+          <div className="w-[100%] px-5 lg:w-[70%]">
+            <Main>
+              <SubHeading title="User Profile" desc="Everything about you." />
+              <ClientProfile
+                userInfo={{
+                  username,
+                  firstname,
+                  lastname,
+                  email,
+                  rank,
+                  bankName,
+                  bankAcctNo,
+                }}
+              ></ClientProfile>
 
-      <ForgetPass />
-    </Main>
+              <ForgetPass />
+            </Main>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 }

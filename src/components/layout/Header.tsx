@@ -1,3 +1,6 @@
+// import { use } from "react";
+import { getHeaderData } from "@/actions/getHeaderData";
+
 //components
 import Link from "next/link";
 import Image from "next/image";
@@ -7,15 +10,8 @@ import Login_out from "../Login_out";
 import NavProfile from "../NavProfile";
 import NotificationCom from "../NotificationCom";
 
-export default async function Header({
-  user,
-  notifications,
-}: {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  user: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  notifications: any;
-}) {
+export default async function Header() {
+  const { user, notifications } = await getHeaderData();
   const isLogin = !!user;
   const isAdmin = user?.isAdmin;
 
