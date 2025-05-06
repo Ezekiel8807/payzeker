@@ -2,13 +2,15 @@ import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
 import { fetchModelById } from "@/utils/modelFunc";
 
-// Components
+//layout
 import Main from "@/components/layout/Main";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+
+// Components
 import SubHeading from "@/components/SubHeading";
 import ClientProfile from "@/components/layout/Profile";
 import ForgetPass from "@/components/ForgetPass";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import SideNav from "@/components/SideNav";
 
 export default async function Profile() {
