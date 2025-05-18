@@ -4,12 +4,13 @@ import Link from "next/link";
 
 export default function Contact() {
   return (
-    <div id="contact" className="relative p-5 md:p-10 text-center">
+    <div id="contact" className="relative p-5 sm:p-10 md:p-20 text-center">
       <Image
         src="/icons/duo-icons.svg"
         width={50}
         height={50}
         alt="contact-duo-image"
+        style={{ width: "auto", height: "auto" }}
         className="m-auto"
       />
       <h2 className="my-2 font-black ">Get In Touch With Us</h2>

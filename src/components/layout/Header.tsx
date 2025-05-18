@@ -16,14 +16,15 @@ export default async function Header() {
   const isAdmin = user?.isAdmin;
 
   return (
-    <header className="h-[10vh] md:h-[15vh] flex items-center justify-center">
-      <div className="w-[90%] md:w-[80%] flex flex-row items-center justify-between">
+    <header className="px-5 sm:px-10 md:px-20">
+      <div className="h-[15vh] md:h-[20vh] flex flex-row items-center justify-between">
         {/* Logo */}
         <Link href={isLogin ? "/dashboard" : "/"}>
           <Image
             src="/img/logo.png"
             width={150}
-            height={200}
+            height={150}
+            style={{ width: "auto", height: "auto" }}
             alt="payzeker logo"
           />
         </Link>

@@ -32,8 +32,8 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
   // Define Navigation Links
   const menuItems = [
     { label: "Home", href: "/", show: !toggleData.isLogin },
-    { label: "Blog", href: "/blog", show: !toggleData.isLogin },
     { label: "About", href: "/about", show: !toggleData.isLogin },
+    { label: "Contact", href: "/contact", show: !toggleData.isLogin },
     { label: "Dashboard", href: "/dashboard", show: toggleData.isLogin },
     { label: "Account", href: "/account", show: toggleData.isLogin },
     { label: "Profile", href: "/profile", show: toggleData.isLogin },
@@ -72,8 +72,9 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
         aria-label="Toggle navigation menu"
         src="/icons/menu.png"
         alt="menu icon"
-        width={30}
-        height={30}
+        width={25}
+        height={25}
+        style={{ width: "auto", height: "auto" }}
         className="lg:hidden"
       />
 
@@ -81,7 +82,7 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
       <div
         className={`${
           !menuIsOpen ? "hidden" : "block"
-        } absolute top-12 z-10 right-5 bg-[var(--white)] rounded shadow-lg border-b-2 border-[var(--green)] transition-transform scale-100 ease-in-out`}
+        } absolute top-16 z-10 right-5 bg-[var(--white)] rounded shadow-lg border-b-2 border-[var(--green)] transition-transform scale-100 ease-in-out`}
       >
         <nav className="h-[250px] overflow-y-scroll text-center">
           {menuItems.map(

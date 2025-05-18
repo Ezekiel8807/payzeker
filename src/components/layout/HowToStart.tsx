@@ -3,24 +3,24 @@ import React from "react";
 
 export default function HowToStart() {
   return (
-    <div id="how to start" className="p-5 md:p-10 bg-[var(--gray-05)]">
+    <div id="how to start" className="p-5 sm:p-10 md:p-20 bg-[var(--gray-05)]">
       <div className="flex flex-col sm:flex-row items-center justify-center gap-2 md:gap-10">
         <div className="w-full md:w-1/2">
           <h3 className="md:text-[30px] font-black">
             Welcome to <span className="text-[var(--green)]">Payzeker</span>,
           </h3>
           <h3 className="md:text-[30px] font-black">
-            Learn How To Get Started!
+            Your Platform for Earning and Delegating Online Tasks!
           </h3>
 
           <p className="text-[12px] md:text-[16px] text-justify">
-            Getting started on Payzeker is quick and easy. First, create a free
-            account, whether you&apos;re a business owner looking to delegate
-            simple online tasks or a freelancer ready to earn, signing up takes
-            just a few minutes. After registration, set up your profile to help
-            us connect you with the right opportunities. Business owners can
-            fund their wallets and start posting tasks, while freelancers can
-            showcase their skills and preferences.
+            Joining Payzeker is fast and simple. Whether you&apos;re a business
+            owner wanting to outsource online tasks or a freelancer ready to
+            earn by completing them, you&apos;re just a few steps away. Start by
+            creating a free account—it only takes a few minutes. Once
+            you&apos;re in, complete your profile so we can match you with the
+            right opportunities. Payzeker makes it easy to connect, collaborate,
+            and grow. Let&apos;s get to work!
           </p>
         </div>
         <div className="w-full md:w-1/2 m-auto">

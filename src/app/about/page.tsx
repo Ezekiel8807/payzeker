@@ -1,15 +1,12 @@
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import React from "react";
 
-export default function MainLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function About() {
   return (
     <>
       <Header />
-      {children}
+      <div>About page</div>
       <Footer />
     </>
   );

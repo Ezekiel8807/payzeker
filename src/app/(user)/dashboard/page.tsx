@@ -11,6 +11,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 // Components
+import PayGamer from "@/components/PayGamer";
 import SideNav from "@/components/SideNav";
 import SubHeading from "@/components/SubHeading";
 import AcctBalCom from "@/components/AcctBalCom";
@@ -99,6 +100,8 @@ export default async function Dashboard() {
                           desc="Your chance to earn more."
                         />
                       </div>
+                      {/* gwin components */}
+                      <PayGamer />
                     </div>
                     <div className="w-full sm:w-[70%]">
                       <div className="mt-5">
