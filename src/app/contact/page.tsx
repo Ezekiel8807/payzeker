@@ -25,15 +25,12 @@ export default function Contact() {
           </p>
           <div className="mt-8 bg-white rounded-xl p-8 shadow-md text-center">
             <div className="flex justify-center mb-4">
-              <div className="bg-green-500 p-3 rounded-full">
-                <svg
-                  className="w-6 h-6 text-white"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M2 3h20v18H2V3zm18 2H4v14h16V5zm-8 7H6v2h6v-2zm6 0h-4v2h4v-2z" />
-                </svg>
-              </div>
+              <Image
+                src="/icons/contact23.svg"
+                width={50}
+                height={50}
+                alt="duo"
+              />
             </div>
             <h2 className="text-xl font-semibold text-gray-800 mb-2">
               Have something to share? We&apos;re here for it!
@@ -73,11 +70,11 @@ export default function Contact() {
 
             <div className="mt-6">
               <p className="font-semibold mb-2">Our Social Profile</p>
-              <div className="w-[100px] flex p-2 items-center bg-white rounded-lg shadow-md gap-5">
+              <div className="w-[150px] flex p-2 items-center bg-white rounded-lg shadow-md gap-5">
                 <Link href="https://web.facebook.com/profile.php?id=61575039205827">
                   <Image
-                    width={30}
-                    height={30}
+                    width={50}
+                    height={50}
                     src="/icons/Facebook (1).svg"
                     alt="icon- social-f"
                   />
@@ -85,16 +82,16 @@ export default function Contact() {
 
                 <Link href="https://web.facebook.com/profile.php?id=61575039205827">
                   <Image
-                    width={30}
-                    height={30}
+                    width={50}
+                    height={50}
                     src="/icons/Facebook (2).svg"
                     alt="icon- social-f"
                   />
                 </Link>
                 <Link href="https://web.facebook.com/profile.php?id=61575039205827">
                   <Image
-                    width={30}
-                    height={30}
+                    width={50}
+                    height={50}
                     src="/icons/Facebook (3).svg"
                     alt="icon- social-f"
                   />
