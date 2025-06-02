@@ -1,12 +1,10 @@
-import React from "react";
-
 type AccordProbs = {
   question: string;
   answer: string;
   isActive: boolean;
 };
 
-export default function Accord({ question, answer, isActive }: AccordProbs) {
+export default function AccordCom({ question, answer, isActive }: AccordProbs) {
   return (
     <div>
       <div>

@@ -4,7 +4,10 @@ import Link from "next/link";
 
 export default function Contact() {
   return (
-    <div id="contact" className="relative p-5 sm:p-10 md:p-20 text-center">
+    <div
+      id="contact"
+      className="relative px-5 sm:px-10 md:px-20 py-5 sm:py-10 text-center"
+    >
       <Image
         src="/icons/duo-icons.svg"
         width={50}

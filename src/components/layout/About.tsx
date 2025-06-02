@@ -4,7 +4,7 @@ import React from "react";
 
 export default function About() {
   return (
-    <div id="about" className="relative p-5 sm:p-10 md:p-20">
+    <div id="about" className="relative px-5 sm:px-10 md:px-20 py-5 sm:py-10">
       <div className="flex flex-col md:flex-row justify-center mb-5 gap-2 sm:gap-10">
         <div className="w-full sm:w-1/2">
           <h1 className="font-black ">ABOUT US</h1>

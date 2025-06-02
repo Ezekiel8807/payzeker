@@ -1,10 +1,13 @@
 import React from "react";
-import GenAccord from "../accordion/Accordion";
+import Accordion from "../accordion/Accordion";
 
 export default function Faq() {
   return (
-    <div id="faq" className="p-5 sm:p-10 md:p-20 bg-[var(--gray-05)]">
-      <div className="w-full sm:max-w-[800px] m-auto p-5 sm:p-10 text-center">
+    <div
+      id="faq"
+      className="px-5 sm:px-10 md:px-20 py-5 sm:py-10 bg-[var(--gray-05)]"
+    >
+      <div className="w-full sm:max-w-[800px] m-auto p-5 text-center">
         <h1 className="font-black text-sm text-[var(--green)]">FAQS</h1>
         <h1 className="font-black text-lg">Frequently Asked Questions</h1>
         <p className="text-sm">
@@ -14,7 +17,7 @@ export default function Faq() {
         </p>
       </div>
 
-      <GenAccord />
+      <Accordion />
     </div>
   );
 }

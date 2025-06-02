@@ -17,15 +17,15 @@ export default async function Header() {
 
   return (
     <header className="px-5 sm:px-10 md:px-20">
-      <div className="h-[15vh] md:h-[20vh] flex flex-row items-center justify-between">
+      <div className="flex flex-row items-center justify-between">
         {/* Logo */}
         <Link href={isLogin ? "/dashboard" : "/"}>
           <Image
             src="/img/logo.png"
-            width={150}
-            height={150}
-            style={{ width: "auto", height: "auto" }}
+            width={500}
+            height={500}
             alt="payzeker logo"
+            className="w-[110px] sm:w-[120px] md:w-[200px]"
           />
         </Link>
 
