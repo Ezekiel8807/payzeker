@@ -35,38 +35,58 @@ export default function About() {
     <>
       <Header />
       <div className="bg-[#D9EDE7]">
-        <div className="relative w-full max-h-[450px] overflow-hidden">
+        {/* +++++++++++++++++++++++++++++++++
+        ++ */}
+        {/* 1 */}
+        <div className="relative w-full h-screen bg-green-700/90">
+          {/* Background Image */}
           <Image
+            width={500}
+            height={500}
             src="/img/af.svg"
-            width={1000}
-            height={1000}
-            alt="about-banner"
-            className="w-full h-full object-cover"
+            alt="Freelancer at work"
+            className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-multiply"
           />
 
-          <div className="absolute top-0 left-0 w-full h-full bg-green-600/50 backdrop-blur-sm bg-gradient-to-r from-bg-green-600/50 to-transparent">
-            <div className="w-full h-full p-5">
-              <div className="text-white">
-                <h1 className="text-sm">
-                  <span className="mr-3 text-[var(--green)]">&#47;&#47;</span>
-                  Experience seamless task completion
-                </h1>
+          {/* Overlay content */}
+          <div className="relative z-10 flex items-center justify-start h-full px-8 md:px-20">
+            <div className="max-w-2xl text-white">
+              <p className="text-white text-sm md:text-base mb-2">
+                <span className="text-[var(--green)]">&#47;&#47; </span>
+                Experience seamless task completion
+              </p>
 
-                <p>
-                  Payzeker empowers freelancers to earn by doing what they do
-                  best, while helping businesses get tasks done efficiently.
-                </p>
-              </div>
+              <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6">
+                Where businesses meet <br />
+                skilled freelancers for fast,
+                <br /> efficient results
+              </h1>
+
+              <p className="text-white/90 text-base md:text-lg mb-8">
+                Payzeker empowers freelancers to earn by doing what they do
+                best, while helping businesses get tasks done efficiently.
+              </p>
+
+              <a
+                href="/dashboard"
+                className="inline-flex items-center px-6 py-3 rounded-full bg-[var(--green)] text-white font-semibold hover:bg-white hover:text-[var(--green)] transition"
+              >
+                Explore Task
+                <span className="ml-2 text-lg">→</span>
+              </a>
             </div>
           </div>
         </div>
 
-        <div className="px-5 sm:px-10 md:px-20 py-5 sm:py-10 bg-white">
-          <h1 className="max-w-[500px] font-black text-3xl">
+        {/* +++++++++++++++++++++++++++++++++
+        ++ */}
+        {/* 2 */}
+        <div className="px-5 sm:px-10 md:px-20 py-5 sm:py-20 bg-white">
+          <h1 className="w-full md:max-w-[500px] font-black text-3xl">
             Empowering Micro-Freelancers One Task at a Time
           </h1>
-          <div className="flex flex-col md:flex-row items-start justify-between gap-20">
-            <p className="w-1/2 py-5">
+          <div className="flex flex-col md:flex-row items-start justify-between gap-2 md:gap-20">
+            <p className="w-full md:w-1/2 py-5">
               With a seamless platform built for efficiency, Payzeker makes task
               completion fast and payments instant. We empower freelancers with
               flexible earning opportunities while helping businesses stay
@@ -76,7 +96,7 @@ export default function About() {
               all together
             </p>
 
-            <p className="w-1/2 py-5">
+            <p className="w-full md:w-1/2 py-5">
               Payzeker connects business owners with eager freelancers ready to
               complete simple online tasks in exchange for instant
               micro-payments. Whether you&apos;re growing a brand or earning
@@ -85,9 +105,12 @@ export default function About() {
           </div>
         </div>
 
+        {/* +++++++++++++++++++++++++++++++++
+        ++ */}
+        {/* 3 */}
         <div className="px-5 sm:px-10 md:px-20 py-5 sm:py-10">
-          <div className="flex flex-col md:flex-row items-center justify-center">
-            <div className="w-1/2 m-auto">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-10">
+            <div className="w-full md:w-1/2 m-auto">
               <Image
                 width={500}
                 height={500}
@@ -96,8 +119,8 @@ export default function About() {
               />
             </div>
 
-            <div className="w-1/2">
-              <h1 className="max-w-[400px] font-black text-3xl">
+            <div className="w-full md:w-1/2">
+              <h1 className="max-w-[400px] md:mt-0 font-black text-3xl">
                 Turning Simple Tasks into Real Income
               </h1>
               <p className="py-3">
@@ -117,7 +140,14 @@ export default function About() {
           </div>
         </div>
 
+        {/* +++++++++++++++++++++++++++++++++
+        ++ */}
+        {/* 4 */}
+
         <div className="px-5 sm:px-10 md:px-20 py-5 sm:py-10 bg-white">
+          {/* +++++++++++++++++++++++++++++++++
+        ++ */}
+          {/* 4.1 */}
           <div className="w-full sm:max-w-[800px] m-auto p-5 text-center">
             <h1 className="font-black text-sm text-[var(--green)]">Our Team</h1>
             <h1 className="font-black text-lg">
@@ -130,7 +160,10 @@ export default function About() {
             </p>
           </div>
 
-          <div className="px-5 sm:px-10 md:px-20 flex flex-col md:flex-row items-center justify-between">
+          {/* +++++++++++++++++++++++++++++++++
+        ++ */}
+          {/* 4.2 */}
+          <div className="flex flex-col md:flex-row items-center justify-between py-5 gap-2 md:gap-10">
             {executives.map(
               (e: {
                 name: string;

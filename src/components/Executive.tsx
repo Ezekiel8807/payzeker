@@ -20,7 +20,7 @@ export default function Executive({
   xLink,
 }: ExecutiveProbs) {
   return (
-    <div className="my-10">
+    <div className="m-auto">
       <Image width={300} height={300} src={imgPath} alt="executine-photo" />
 
       <h1 className="font-black text-lg">{name}</h1>
