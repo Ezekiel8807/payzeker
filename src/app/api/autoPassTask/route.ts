@@ -5,7 +5,7 @@ import Transaction from "@/model/transactionModel";
 import Notification from "@/model/notificationModel";
 import SubmittedTask from "@/model/submittedTaskModel";
 
-export async function POST() {
+export async function PATCH() {
   try {
     await connectDB();
 
@@ -55,14 +55,18 @@ export async function POST() {
       // });
     }
 
-    return NextResponse.json({
-      error: false,
-      msg: "All submitted tasks passed!",
-    });
+    return NextResponse.json(
+      { success: "All submitted tasks passed!" },
+      { status: 200 }
+    );
+    //
+
+    //
   } catch (err) {
-    return {
-      error: true,
-      msg: err instanceof Error ? err.message : "An unknown error occurred",
-    };
+    console.log(err);
+    return NextResponse.json(
+      { error: `Failed to pass tasks ${err}` },
+      { status: 500 }
+    );
   }
 }
