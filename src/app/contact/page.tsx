@@ -4,14 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-// py-10 px-4 md:px-16
-// text-[var(--green)]
-
-//         <p className="font-black py-10">
-//           <span className="">Home</span> &gt; Contact Us
-//         </p>
-//               <div className=" "></div>
-
 export default function Contact() {
   return (
     <>

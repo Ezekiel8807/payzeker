@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
 import Transaction from "@/model/transactionModel";
@@ -15,6 +16,9 @@ import Footer from "@/components/layout/Footer";
 
 export default async function Account() {
   const token = await getToken();
+
+  if (!token) return redirect("/login");
+
   const user = await fetchModelById(User, token.id);
   const [AllTransac] = await fetchModelsData(Transaction);
 

@@ -2,7 +2,6 @@ import User from "@/model/userModel";
 import { connectDB } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import Transaction from "@/model/transactionModel";
-import Notification from "@/model/notificationModel";
 import SubmittedTask from "@/model/submittedTaskModel";
 
 export async function PATCH() {
@@ -39,20 +38,6 @@ export async function PATCH() {
 
       //save to update new info
       await transaction.save();
-
-      const notification = new Notification({
-        username: user.username,
-        message: `Congrat😃, #${submittedTask.price} paid for completing a tasks`,
-      });
-
-      //save to update new info
-      await notification.save();
-
-      // results.push({
-      //   submittedTaskId: submittedTask._id,
-      //   userId: user._id,
-      //   paid: submittedTask.price,
-      // });
     }
 
     return NextResponse.json(
