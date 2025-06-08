@@ -4,6 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "Payzeker - Contact page",
+  description: "Connect with us at payzeker",
+};
+
 export default function Contact() {
   return (
     <>

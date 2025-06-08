@@ -1,7 +1,12 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+
+export const metadata: Metadata = {
+  title: "Payzeker - Coming soon!!!",
+};
 
 export default function ComingSoon() {
   return (
@@ -104,7 +109,7 @@ export default function ComingSoon() {
           {/* Right Image */}
           <div className="relative w-full h-full hidden md:block">
             <Image
-              src="/img/illustration.svg"
+              src="/public/img/Illustration.svg"
               alt="Launch Illustration"
               fill
               className="object-contain"

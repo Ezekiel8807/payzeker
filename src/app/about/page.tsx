@@ -4,6 +4,11 @@ import Header from "@/components/layout/Header";
 import Image from "next/image";
 import React from "react";
 
+export const metadata = {
+  title: "Payzeker - About page",
+  description: "Learn more about payzeker",
+};
+
 export default function About() {
   const executives = [
     {
@@ -38,7 +43,7 @@ export default function About() {
         {/* +++++++++++++++++++++++++++++++++
         ++ */}
         {/* 1 */}
-        <div className="relative w-full h-screen bg-green-700/90">
+        <div className="relative w-full py-10 md:py-20 bg-green-700/90">
           {/* Background Image */}
           <Image
             width={500}
@@ -49,7 +54,7 @@ export default function About() {
           />
 
           {/* Overlay content */}
-          <div className="relative z-10 flex items-center justify-start h-full px-8 md:px-20">
+          <div className="relative flex items-center justify-start h-full px-8 md:px-20">
             <div className="max-w-2xl text-white">
               <p className="text-white text-sm md:text-base mb-2">
                 <span className="text-[var(--green)]">&#47;&#47; </span>

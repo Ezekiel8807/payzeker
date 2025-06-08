@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 // import { getToken } from "@/actions/action";
 import { redirect } from "next/navigation";
 
 // components
 // import Header from "@/components/layout/Header";
 // import LoginForm from "@/components/form/LoginForm";
+
+export const metadata: Metadata = {
+  title: "Payzeker - Login page",
+  description: "",
+};
 
 export default async function Login() {
   // const token = await getToken();
