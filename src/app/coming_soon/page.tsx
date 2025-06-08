@@ -109,7 +109,7 @@ export default function ComingSoon() {
           {/* Right Image */}
           <div className="relative w-full h-full hidden md:block">
             <Image
-              src="/public/img/Illustration.svg"
+              src="/img/ilus.svg"
               alt="Launch Illustration"
               fill
               className="object-contain"

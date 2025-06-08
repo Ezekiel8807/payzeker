@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Payzeker - Register page",
-  description: "User registration",
+  description: "Join Payzeker to earn money from simple tasks.",
 };
 
 export default async function Register() {
