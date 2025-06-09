@@ -4,6 +4,9 @@ import type { Metadata } from "next";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 
+// image
+import ilux from "../../../public/img/ilux.svg";
+
 export const metadata: Metadata = {
   title: "Payzeker - Coming soon!!!",
 };
@@ -109,7 +112,7 @@ export default function ComingSoon() {
           {/* Right Image */}
           <div className="relative w-full h-full hidden md:block">
             <Image
-              src="/img/ilus.svg"
+              src={ilux}
               alt="Launch Illustration"
               fill
               className="object-contain"
