@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 // import { getToken } from "@/actions/action";
 import { redirect } from "next/navigation";
+import { getToken } from "@/actions/action";
 
 // components
 // import Header from "@/components/layout/Header";
@@ -24,4 +25,14 @@ export default async function Register() {
   //     <RegisterForm />
   //   </>
   // );
+  if (token) return redirect("/dashboard");
+
+  // return redirect("/coming_soon");
+
+  return (
+    <>
+      <Header />
+      <RegisterForm />
+    </>
+  );
 }
