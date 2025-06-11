@@ -24,7 +24,7 @@ export default function ComingSoon() {
               <span className="text-[var(--green)]">Simple and easy tasks</span>
             </h1>
             <p className="text-gray-600">
-              Payzekre helps businesses easily find reliable freelancers to
+              Payzeker helps businesses easily find reliable freelancers to
               complete simple tasks quickly.
               <br />
               Freelancers can earn by handling micro-tasks, enabling businesses
