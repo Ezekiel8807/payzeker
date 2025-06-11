@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getToken } from "@/actions/action";
 import { redirect } from "next/navigation";
+import { getToken } from "@/actions/action";
 
 // components
 import Header from "@/components/layout/Header";
