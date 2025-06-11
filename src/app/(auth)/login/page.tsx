@@ -8,7 +8,7 @@ import LoginForm from "@/components/form/LoginForm";
 
 export const metadata: Metadata = {
   title: "Payzeker - Login page",
-  description: "",
+  description: "Access your Payzeker account and start earning now.",
 };
 
 export default async function Login() {
