@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getToken } from "@/actions/action";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 
@@ -15,7 +16,9 @@ export default async function Register() {
   const token = await getToken();
 
   if (token) return redirect("/dashboard");
-
+    
+  // return redirect("/coming_soon");
+    
   return (
     <>
       <Header />
