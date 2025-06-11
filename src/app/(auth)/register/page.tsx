@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
+// import { getToken } from "@/actions/action";
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
 
 // components
-import Header from "@/components/layout/Header";
-import RegisterForm from "@/components/form/RegisterForm";
+// import Header from "@/components/layout/Header";
+// import RegisterForm from "@/components/form/RegisterForm";
 
 export const metadata: Metadata = {
   title: "Payzeker - Register page",
@@ -12,16 +12,16 @@ export const metadata: Metadata = {
 };
 
 export default async function Register() {
-  const token = await getToken();
+  // const token = await getToken();
 
-  if (token) return redirect("/dashboard");
+  // if (token) return redirect("/dashboard");
 
-  // return redirect("/coming_soon");
+  return redirect("/coming_soon");
 
-  return (
-    <>
-      <Header />
-      <RegisterForm />
-    </>
-  );
+  // return (
+  //   <>
+  //     <Header />
+  //     <RegisterForm />
+  //   </>
+  // );
 }
