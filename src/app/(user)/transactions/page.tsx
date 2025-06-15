@@ -16,11 +16,11 @@ import SideNav from "@/components/SideNav";
 
 export default async function Transactions() {
   const user = await getToken();
-  const userId = user.id as string;
   const [AllTransac] = await fetchModelsData(Transaction);
-  const isLogin = !!user;
-
   if (!user) return redirect("/login");
+
+  const isLogin = !!user;
+  const userId = user.id as string;
   const { username, isAdmin } = user;
 
   return (

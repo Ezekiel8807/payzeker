@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import GenAccord from "./GenAccord";
+import WorAccord from "./WorAccord";
+import BusAccord from "./BusAccord";
 
 const faqState = ["general", "worker", "bussniess"];
 
@@ -32,8 +34,8 @@ export default function Accordion() {
       </div>
 
       {activeFaqSate == faqState[0] && <GenAccord />}
-      {/* {activeFaqSate == faqState[1] && <GenAccord />} */}
-      {activeFaqSate == faqState[2] && <GenAccord />}
+      {activeFaqSate == faqState[1] && <WorAccord />}
+      {activeFaqSate == faqState[2] && <BusAccord />}
     </>
   );
 }

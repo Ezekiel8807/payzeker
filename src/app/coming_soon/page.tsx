@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 
 // image
 import ilux from "../../../public/img/ilux.svg";
+import NewLetterForm from "@/components/form/NewLetterForm";
 
 export const metadata: Metadata = {
   title: "Payzeker - Coming soon!!!",
@@ -36,19 +37,8 @@ export default function ComingSoon() {
                 We are launching soon!!! Sign up to our newsletter to stay
                 updated
               </p>
-              <form className="flex w-full md:max-w-md">
-                <input
-                  type="email"
-                  placeholder="Enter your mail"
-                  className="w-[70%] px-4 py-2 rounded-l-md border border-gray-300 focus:outline-none"
-                />
-                <button
-                  type="submit"
-                  className="w-[30%] py-2 bg-[var(--green)] text-white text-center rounded-r-md hover:bg-emerald-600"
-                >
-                  Submit
-                </button>
-              </form>
+
+              <NewLetterForm />
             </div>
 
             <div className="flex space-x-3">
