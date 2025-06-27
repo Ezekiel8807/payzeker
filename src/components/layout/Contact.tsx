@@ -6,7 +6,7 @@ export default function Contact() {
   return (
     <div
       id="contact"
-      className="relative px-5 sm:px-10 md:px-20 py-5 sm:py-10 text-center"
+      className="relative px-5 sm:px-10 md:px-20 py-10 sm:py-20 text-center bg-[var(--gray-05)]"
     >
       <Image
         src="/icons/duo-icons.svg"

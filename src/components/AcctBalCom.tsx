@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { depositAction } from "@/actions/requesAction";
+// import { depositAction } from "@/actions/requesAction";
 import { withdrawalAction } from "@/actions/requesAction";
 
 //components
@@ -10,12 +10,13 @@ import DepositModal from "./modal/DepositModal";
 import ConfirmWitdrawalModal from "./modal/ConfirmWitdrawalModal";
 import SuccessModal from "./modal/SuccessModal";
 import ErrorModal from "./modal/ErrorModal";
-import ConfirmDepositModal from "./modal/ConfirmDepositModal";
+// import ConfirmDepositModal from "./modal/ConfirmDepositModal";
 
 type AcctBalComProps = {
   acctInfo: {
     firstname: string;
     lastname: string;
+    email: string;
     rank: number;
     balance: number;
     bankName: string;
@@ -30,6 +31,7 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
   const {
     firstname,
     lastname,
+    email,
     rank,
     minWithdrawal,
     maxWithdrawal,
@@ -42,10 +44,10 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
   const fullname = `${lastname} ${firstname}`;
   const [isPen, setIspen] = useState(false);
   const [amount, setAmount] = useState(5000);
-  const [fileUrl, setFileurl] = useState("");
+  // const [fileUrl, setFileurl] = useState("");
   const [depAmount, setDepamount] = useState(5000);
   const [isConWitModal, setIsconwitmodal] = useState(false);
-  const [isConDepModal, setIscondepmodal] = useState(false);
+  // const [isConDepModal, setIscondepmodal] = useState(false);
   const [bankName, setBankname] = useState(acctInfo.bankName);
   const [openDepositModal, setOpenDepositModal] = useState(false);
   const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
@@ -81,23 +83,23 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
   }
 
   //function to handle withdrawal form submit
-  async function depositFunc() {
-    if (!fileUrl) {
-      setErrmsg("Upload reciept to Confirm payment!");
-      setIserr(true);
-      return;
-    }
+  // async function depositFunc() {
+  //   if (!fileUrl) {
+  //     setErrmsg("Upload reciept to Confirm payment!");
+  //     setIserr(true);
+  //     return;
+  //   }
 
-    const res = await depositAction(depAmount, fileUrl);
+  //   const res = await depositAction(depAmount, fileUrl);
 
-    if (res.error != true) {
-      setIssuc(true);
-      setSucmsg(res.msg);
-    } else {
-      setIserr(true);
-      setErrmsg(res.msg);
-    }
-  }
+  //   if (res.error != true) {
+  //     setIssuc(true);
+  //     setSucmsg(res.msg);
+  //   } else {
+  //     setIserr(true);
+  //     setErrmsg(res.msg);
+  //   }
+  // }
 
   // useEffect(() => {
   //   document.addEventListener("click", () => setOpen(!open));
@@ -185,17 +187,18 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
             setErrmsg,
             setIserr,
             fullname,
+            email,
             balance,
             depAmount,
             setDepamount,
-            setIscondepmodal,
+            // setIscondepmodal,
             setOpenDepositModal,
           }}
           closeModal={openCloseDepositModal}
         />
       )}
 
-      {isConDepModal && (
+      {/* {isConDepModal && (
         <ConfirmDepositModal
           confirmInfo={{
             isPen,
@@ -208,7 +211,7 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
           depositFunc={depositFunc}
           setIscondepmodal={setIscondepmodal}
         />
-      )}
+      )} */}
 
       {isSuc && (
         <SuccessModal

@@ -4,7 +4,8 @@ import React, { useState } from "react";
 export default function NewLetterForm() {
   const [email, setEmail] = useState("");
 
-  function handleNewsLetterSubmit() {
+  function handleNewsLetterSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     console.log(email);
   }
 

@@ -40,7 +40,7 @@ export default async function Dashboard() {
   if (!user) return redirect("/login");
 
   const isLogin = !!user;
-  const { username, isAdmin, firstname, lastname, rank, account } = user;
+  const { username, isAdmin, firstname, lastname, email, rank, account } = user;
   const balance = account.balance as number;
   const {
     bankName,
@@ -77,6 +77,7 @@ export default async function Dashboard() {
                       acctInfo={{
                         firstname,
                         lastname,
+                        email,
                         rank,
                         balance,
                         bankName,

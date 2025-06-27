@@ -23,7 +23,7 @@ export default async function Account() {
   const [AllTransac] = await fetchModelsData(Transaction);
 
   const isLogin = !!user;
-  const { username, isAdmin, firstname, lastname, rank } = user;
+  const { username, isAdmin, firstname, lastname, email, rank } = user;
   const balance = user.account.balance as number;
   const {
     bankName = "bankName",
@@ -54,6 +54,7 @@ export default async function Account() {
                     acctInfo={{
                       firstname,
                       lastname,
+                      email,
                       rank,
                       balance,
                       bankName,

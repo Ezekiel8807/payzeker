@@ -23,7 +23,7 @@ export default function Executive({
     <div className="m-auto">
       <Image width={300} height={300} src={imgPath} alt="executine-photo" />
 
-      <h1 className="font-black text-lg">{name}</h1>
+      <h1 className="font-black text-lg mt-2">{name}</h1>
       <p className="text-md mb-2">{title} </p>
 
       <div className="flex gap-5">

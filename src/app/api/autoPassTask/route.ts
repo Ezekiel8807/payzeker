@@ -21,6 +21,9 @@ export async function PATCH() {
       submittedTask.state = "approved";
       await submittedTask.save();
 
+      //increase completed task counter
+      user.completedTask += 1;
+
       // Update user balance
       user.account.balance += submittedTask.price;
       await user.save();
