@@ -5,43 +5,38 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 
 const faqs = [
   {
-    question: "What is Payzeker?",
+    question: "How do I earn money on Payzeker?",
     answer:
-      "Payzeker is a digital platform where individuals complete simple online tasks for businesses in exchange for small earnings. It connects brands with a crowd workforce to boost online engagement.",
+      "You earn by completing simple online tasks like following social media pages, commenting on posts, or sharing content. Each task has a fixed payout.",
   },
   {
-    question: "Is Payzeker free to use?",
+    question: "What types of tasks will I perform?",
     answer:
-      "Yes, signing up on Payzeker is free. However, workers may need to upgrade to a plan for full access to tasks, and businesses pay to post tasks.",
+      "Tasks may include: - Liking social media posts - Subscribing to YouTube channels - Downloading app - Sharing or commenting on content",
   },
   {
-    question: "How do I get started?",
+    question: "When do I get paid?",
     answer:
-      "Create a free account, complete your profile, and start posting or completing tasks based on your role.",
+      "Payments are processed after tasks are reviewed and approved. You can withdraw once you reach the minimum withdrawal threshold.",
   },
   {
-    question: " Is Payzeker available in my country?",
+    question: "What’s the minimum withdrawal amount?",
     answer:
-      "Payzeker is primarily focused on users in Nigeria, but future updates may expand to other countries.",
+      "The minimum withdrawal amount is typically ₦500 or ₦1000, depending on your plan. This may vary, so check the wallet page.",
   },
   {
-    question: "How are freelancers paid?",
+    question: "Can I do multiple tasks per day?",
     answer:
-      "Freelancers receive micro-payments instantly after a task is approved. Business owners pre-fund their wallets.",
+      "Yes, you can. However, the number of available tasks may depend on your membership plan and rank.",
   },
   {
-    question: "Is there a cost to join?",
+    question: " Why was my task rejected?",
     answer:
-      "Signing up is completely free. Business owners only pay when posting tasks.",
-  },
-  {
-    question: "Is my information safe on Payzeker?",
-    answer:
-      "Yes. Payzeker prioritizes user data protection using secure encryption methods and does not sell personal information.",
+      "Tasks can be rejected if: - You didn't follow the instructions - You submitted invalid or incomplete proof - Always read instructions carefully before submittin.",
   },
 ];
 
-export default function GenAccord() {
+export default function WorAccord() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number) => {

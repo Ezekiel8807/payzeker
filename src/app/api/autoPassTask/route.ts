@@ -12,8 +12,6 @@ export async function PATCH() {
     const submittedTasks = await SubmittedTask.find({ state: "submitted" });
 
     // 2. Loop through and update each
-    // const results = [];
-
     for (const submittedTask of submittedTasks) {
       const user = await User.findById(submittedTask.userId);
 
@@ -22,6 +20,9 @@ export async function PATCH() {
       // Update task status
       submittedTask.state = "approved";
       await submittedTask.save();
+
+      //increase completed task counter
+      user.completedTask += 1;
 
       // Update user balance
       user.account.balance += submittedTask.price;

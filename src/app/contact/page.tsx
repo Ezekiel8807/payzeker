@@ -1,8 +1,8 @@
+import ContactForm from "@/components/form/ContactForm";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 export const metadata = {
   title: "Payzeker - Contact page",
@@ -99,62 +99,7 @@ export default function Contact() {
 
           {/* Contact Form */}
           <div className="bg-white md:col-span-2 p-6 rounded-xl shadow-md">
-            <form className="grid gap-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="border rounded-md px-4 py-2 w-full outline-none text-black bg-[#f5f5f5]"
-                />
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="border rounded-md px-4 py-2 w-full outline-none text-black bg-[#f5f5f5]"
-                />
-              </div>
-              <div className="grid md:grid-cols-2 gap-4">
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="border rounded-md px-4 py-2 w-full outline-none text-black bg-[#f5f5f5]"
-                />
-                <input
-                  type="text"
-                  placeholder="Phone Number"
-                  className="border rounded-md px-4 py-2 w-full outline-none text-black bg-[#f5f5f5]"
-                />
-              </div>
-              <fieldset className="border border-gray-300 rounded-md px-4 py-2 bg-[#f5f5f5]">
-                <legend className="text-sm text-gray-500">
-                  Why are you contacting us?
-                </legend>
-                <div className="grid grid-cols-2 gap-2 mt-2">
-                  <label className="flex gap-2 text-sm">
-                    <input type="checkbox" /> Technical Support
-                  </label>
-                  <label className="flex gap-2 text-sm">
-                    <input type="checkbox" /> Payment Issues
-                  </label>
-                  <label className="flex gap-2 text-sm">
-                    <input type="checkbox" /> Task Inquiry
-                  </label>
-                  <label className="flex gap-2 text-sm">
-                    <input type="checkbox" /> Others
-                  </label>
-                </div>
-              </fieldset>
-              <textarea
-                rows={4}
-                placeholder="Your message here..."
-                className="border rounded-md px-4 py-2 w-full bg-[#f5f5f5] outline-none"
-              ></textarea>
-              <button
-                type="submit"
-                className="bg-[var(--green)] hover:bg-green-600 text-white px-6 py-2 rounded-md w-full md:w-fit"
-              >
-                Submit
-              </button>
-            </form>
+            <ContactForm />
           </div>
         </div>
       </div>

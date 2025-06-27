@@ -1,4 +1,7 @@
 // import { useState } from "react";
+import { payWithPaystack } from "@/utils/payWithPaystack";
+
+//components
 import Button from "../Button";
 import ModalFrame from "./modalFrame";
 
@@ -9,10 +12,11 @@ type DepositModalProbs = {
     setErrmsg: React.Dispatch<React.SetStateAction<string>>;
     setIserr: React.Dispatch<React.SetStateAction<boolean>>;
     fullname: string;
+    email: string;
     balance: number;
     depAmount: number;
     setDepamount: React.Dispatch<React.SetStateAction<number>>;
-    setIscondepmodal: React.Dispatch<React.SetStateAction<boolean>>;
+    // setIscondepmodal: React.Dispatch<React.SetStateAction<boolean>>;
     setOpenDepositModal: React.Dispatch<React.SetStateAction<boolean>>;
   };
   closeModal: () => void;
@@ -28,15 +32,16 @@ export default function DepositModal({
     setErrmsg,
     setIserr,
     fullname,
+    email,
     balance,
     depAmount,
     setDepamount,
-    setIscondepmodal,
+    // setIscondepmodal,
     setOpenDepositModal,
   } = depositInfo;
 
   //function to handle withdrawal form submit
-  function handleDepposit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleDepposit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     //set pending state
@@ -58,12 +63,16 @@ export default function DepositModal({
       return;
     }
 
+    //initialize paystack payment
+    const response = await payWithPaystack(email, depAmount);
+    console.log(response);
+
     //set pending state
     setIspen(false);
 
     //se
     setOpenDepositModal(false);
-    setIscondepmodal(true);
+    // setIscondepmodal(true);
   }
 
   return (

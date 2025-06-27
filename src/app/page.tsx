@@ -7,6 +7,7 @@ import About from "@/components/layout/About";
 import Faq from "@/components/layout/Faq";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import OurTeam from "@/components/layout/OurTeam";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         <HowToStart />
         <About />
         <Faq />
+        <OurTeam />
         <Contact />
       </Main>
       <Footer />

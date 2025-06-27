@@ -5,43 +5,38 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 
 const faqs = [
   {
-    question: "What is Payzeker?",
+    question: "How can Payzeker help my business?",
     answer:
-      "Payzeker is a digital platform where individuals complete simple online tasks for businesses in exchange for small earnings. It connects brands with a crowd workforce to boost online engagement.",
+      "Payzeker helps you grow brand awareness and engagement by assigning your digital tasks (likes, follows, reviews, etc.) to real users who complete them quickly.",
   },
   {
-    question: "Is Payzeker free to use?",
+    question: "What kind of tasks can I post?",
     answer:
-      "Yes, signing up on Payzeker is free. However, workers may need to upgrade to a plan for full access to tasks, and businesses pay to post tasks.",
+      "You can post tasks such as: - Getting followers or likes - Asking users to comment on content - Driving traffic to websites or apps - Installing mobile apps",
   },
   {
-    question: "How do I get started?",
+    question: "How do I fund my account?",
     answer:
-      "Create a free account, complete your profile, and start posting or completing tasks based on your role.",
+      "You can fund your wallet via Paystack or other payment options available on the dashboard. The funds are used to run your campaigns.",
   },
   {
-    question: " Is Payzeker available in my country?",
+    question: "How much does it cost to post a task?",
     answer:
-      "Payzeker is primarily focused on users in Nigeria, but future updates may expand to other countries.",
+      "You’re charged per task based on the number of users and the task type. A breakdown will be shown before confirming any campaign",
   },
   {
-    question: "How are freelancers paid?",
+    question: "How soon will my tasks be completed?",
     answer:
-      "Freelancers receive micro-payments instantly after a task is approved. Business owners pre-fund their wallets.",
+      "Most tasks begin receiving responses within minutes of approval, depending on the number of active workers and the reward offered.",
   },
   {
-    question: "Is there a cost to join?",
+    question: "How much does it cost to post a task?",
     answer:
-      "Signing up is completely free. Business owners only pay when posting tasks.",
-  },
-  {
-    question: "Is my information safe on Payzeker?",
-    answer:
-      "Yes. Payzeker prioritizes user data protection using secure encryption methods and does not sell personal information.",
+      "You’re charged per task based on the number of users and the task type. A breakdown will be shown before confirming any campaign",
   },
 ];
 
-export default function GenAccord() {
+export default function BusAccord() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number) => {
