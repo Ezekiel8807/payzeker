@@ -57,7 +57,7 @@ export default async function Dashboard() {
 
   // filter submitted task with review state
   const filterSubTask = subTaskArr.filter(
-    (filterTask: { state: string }) => filterTask.state === "review"
+    (filterTask: { state: string }) => filterTask.state === "submitted"
   );
 
   return (
@@ -93,7 +93,7 @@ export default async function Dashboard() {
                     />
                   </div>
 
-                  <div className="flex flex-col sm:flex-row justify-end gap-5">
+                  <div className="flex flex-col sm:flex-row justify-end my-5 gap-5">
                     <div className="w-full sm:w-[30%]">
                       <div className="mt-5">
                         <SubHeading
@@ -101,6 +101,7 @@ export default async function Dashboard() {
                           desc="Your chance to earn more."
                         />
                       </div>
+
                       {/* gwin components */}
                       <PayGamer />
                     </div>
