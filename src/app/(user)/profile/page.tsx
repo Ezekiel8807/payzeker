@@ -1,5 +1,6 @@
 import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
+import { redirect } from "next/navigation";
 import { fetchModelById } from "@/utils/modelFunc";
 
 //layout
@@ -15,6 +16,8 @@ import SideNav from "@/components/SideNav";
 
 export default async function Profile() {
   const token = await getToken();
+  if (!token) return redirect("/login");
+
   const user = await fetchModelById(User, token.id); // Fetch user data before rendering
 
   const isLogin = !!user;
