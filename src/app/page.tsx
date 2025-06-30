@@ -8,6 +8,8 @@ import Faq from "@/components/layout/Faq";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import OurTeam from "@/components/layout/OurTeam";
+// import ComingSoon from "@/components/ComingSoon";
+import Countdown from "@/components/Countdown";
 
 export default function Home() {
   return (
@@ -16,6 +18,7 @@ export default function Home() {
       <Main>
         <Hero />
         <HowToStart />
+        <Countdown />
         <About />
         <Faq />
         <OurTeam />
