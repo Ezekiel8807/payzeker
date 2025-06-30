@@ -2,21 +2,24 @@
 "use client";
 import { useEffect, useState } from "react";
 
+//lauch date
+const launchDate = new Date("2026-01-01T00:00:00").getTime();
+
+//function to get remaining time
+function getTimeRemaining() {
+  const now = new Date().getTime();
+  const distance = launchDate - now;
+
+  return {
+    days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((distance / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((distance / 1000 / 60) % 60),
+    seconds: Math.floor((distance / 1000) % 60),
+  };
+}
+
 export default function Countdown() {
-  const launchDate = new Date("2026-01-01T00:00:00").getTime();
   const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
-
-  function getTimeRemaining() {
-    const now = new Date().getTime();
-    const distance = launchDate - now;
-
-    return {
-      days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((distance / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((distance / 1000 / 60) % 60),
-      seconds: Math.floor((distance / 1000) % 60),
-    };
-  }
 
   useEffect(() => {
     const interval = setInterval(() => {
