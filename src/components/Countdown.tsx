@@ -32,9 +32,12 @@ export default function Countdown() {
     <>
       {/*bg-gradient-to-br from-bg-[var(--green)] via-green-300 to-bg-[var(--green)] */}
       <div className="bg-[var(--green)] text-white py-16 px-6 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white tracking-wide">
-          Payzeker Launching Soon!!!🚀
+        <h2 className="text-4xl md:text-5xl font-bold text-white tracking-wide">
+          🚀Payzeker
         </h2>
+        <h3 className="text-3xl md:text-4xl font-bold mb-6 text-white tracking-wide">
+          Launching Soon!!!
+        </h3>
         <p className="mb-3 text-lg text-white">
           Launching on January 1st, 2026
         </p>
