@@ -93,7 +93,7 @@ export default async function Dashboard() {
                     />
                   </div>
 
-                  <div className="flex flex-col sm:flex-row justify-end my-5 gap-5">
+                  <div className="flex flex-col-reverse sm:flex-row justify-between gap-5">
                     <div className="w-full sm:w-[30%]">
                       <div className="mt-5">
                         <SubHeading

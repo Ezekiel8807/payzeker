@@ -1,6 +1,7 @@
 // components/Countdown.tsx
 "use client";
 import { useEffect, useState } from "react";
+import SubscriberForm from "./form/SubscriberForm";
 
 //lauch date
 const launchDate = new Date("2026-01-01T00:00:00").getTime();
@@ -61,19 +62,7 @@ export default function Countdown() {
           ))}
         </div>
 
-        <form className="mt-6 flex flex-col md:flex-row justify-center gap-3">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="px-4 py-2 rounded-md text-black w-full md:w-auto"
-          />
-          <button
-            type="submit"
-            className="bg-yellow-500 hover:bg-yellow-600 transition text-black font-semibold px-6 py-2 rounded-md"
-          >
-            Notify Me
-          </button>
-        </form>
+        <SubscriberForm />
 
         <p className="mt-8 text-white text-sm italic">
           Be the first to experience the future of digital tasks & rewards ✨

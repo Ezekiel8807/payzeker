@@ -33,14 +33,16 @@ export default function SuccessModal({
           className="m-auto"
           alt="Success msg con"
         />
-        <h1 className="font-black text-[40px] text-center">Success!</h1>
+        <h1 className="font-black text-[40px] text-center text-black">
+          Success!
+        </h1>
 
-        <div className="p-5 border-2 border-[#00ff00] bg-[#00ff0020] text-center rounded-lg">
+        <div className="p-5 border-2 border-[#00ff00] bg-[#00ff0020] text-black text-center rounded-lg">
           {sucMsg}
         </div>
 
         <div className="text-right">
-          <Button btnAction={handleClick} btnStyle="mt-5">
+          <Button btnAction={handleClick} btnStyle="mt-5 text-black">
             Continue
           </Button>
         </div>
