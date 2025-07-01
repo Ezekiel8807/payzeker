@@ -26,14 +26,16 @@ export default function ErrorModal({ errMsg, setIserr }: SuccessModalProbs) {
           className="m-auto"
           alt="Error msg con"
         />
-        <h1 className="font-black text-[40px] text-center">Error!</h1>
+        <h1 className="font-black text-[40px] text-center text-black">
+          Error!
+        </h1>
 
-        <div className="p-5 border-2 border-[#ff0000] bg-[#ff000020] text-center rounded-lg">
+        <div className="p-5 border-2 border-[#ff0000] bg-[#ff000020] text-black text-center rounded-lg">
           {errMsg}
         </div>
 
         <div className="text-right">
-          <Button btnAction={handleClick} btnStyle="mt-5">
+          <Button btnAction={handleClick} btnStyle="mt-5 text-black">
             Cancel
           </Button>
         </div>

@@ -16,14 +16,10 @@ export default function SideNav({ sideNavInfo }: SideNavProbs) {
     { label: "Dashboard", href: "/dashboard", show: sideNavInfo.isLogin },
     { label: "Account", href: "/account", show: sideNavInfo.isLogin },
     { label: "Profile", href: "/profile", show: sideNavInfo.isLogin },
+    { label: "Tasks", href: "/tasks", show: sideNavInfo.isLogin },
     {
       label: "Request",
       href: "/requests",
-      show: sideNavInfo.isLogin && sideNavInfo.isAdmin,
-    },
-    {
-      label: "Tasks",
-      href: "/tasks",
       show: sideNavInfo.isLogin && sideNavInfo.isAdmin,
     },
     {
