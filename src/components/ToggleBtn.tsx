@@ -55,8 +55,8 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
     },
     { label: "Transactions", href: "/transactions", show: toggleData.isLogin },
     { label: "Upgrade", href: "/upgrade", show: toggleData.isLogin },
-    { label: "Login", href: "/login", show: !toggleData.isLogin },
-    { label: "Register", href: "/register", show: !toggleData.isLogin },
+    { label: "Login", href: "/#countdown", show: !toggleData.isLogin },
+    { label: "Register", href: "/#countdown", show: !toggleData.isLogin },
   ];
 
   return (
@@ -85,7 +85,7 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
             (item) =>
               item.show && (
                 <Link
-                  key={item.href}
+                  key={item.label}
                   onClick={() => setMenuIsOpen(false)}
                   className="p-3 block w-[200px] hover:bg-[var(--green)] hover:text-[var(--white)] hover:font-black"
                   href={item.href}

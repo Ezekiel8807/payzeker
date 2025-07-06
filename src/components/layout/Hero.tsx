@@ -14,7 +14,7 @@ export default function Hero() {
         </p>
 
         <Link
-          href="/dashboard"
+          href="/#countdown"
           className="w-[100%] ms:max-w-[700px] lg:w-[200px] block text-center font-bold bg-[var(--green)] p-3 my-5 text-white rounded-full"
         >
           Start earning now!!!
