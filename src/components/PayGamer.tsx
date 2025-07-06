@@ -32,7 +32,7 @@ export default function PayGamer() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-gradient-to-tr from-purple-600 to-indigo-700 text-white rounded-3xl shadow-2xl">
+    <div className="max-w-md mx-auto p-6 bg-gradient-to-tr from-green-600 to-black-700 text-white rounded-3xl shadow-2xl">
       <h2 className="text-center text-3xl font-bold mb-4">Lucky Spin 🎰</h2>
       <p className="text-center mb-6">Spin for ₦100. Win up to ₦1000!</p>
 
@@ -40,13 +40,31 @@ export default function PayGamer() {
         <Spinner spinning={spinning} />
       </div>
 
-      <button
-        onClick={handleSpin}
-        disabled={spinning}
-        className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold"
-      >
-        {spinning ? "Spinning..." : "Spin Now"}
-      </button>
+      <div className="div">
+        <div className="flex flex-row ">
+          <div>Bal: #500</div>
+          <div>
+            <input type="text" name="stake" id="" placeholder="Min #100" />
+          </div>
+        </div>
+
+        <div className="flex flex-row ">
+          <div>+100</div>
+          <div>+500</div>
+          <div>+1000</div>
+        </div>
+
+        <div className="flex flex-row ">
+          <p>Stake: #2,000</p>
+          <button
+            onClick={handleSpin}
+            disabled={spinning}
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold"
+          >
+            {spinning ? "Spinning..." : "Spin Now"}
+          </button>
+        </div>
+      </div>
 
       {result && (
         <ResultModal result={result} onClose={() => setResult(null)} />
