@@ -20,9 +20,11 @@ function getTimeRemaining() {
 }
 
 export default function Countdown() {
+  const [hasMounted, setHasMounted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
 
   useEffect(() => {
+    setHasMounted(true);
     const interval = setInterval(() => {
       setTimeLeft(getTimeRemaining());
     }, 1000);
@@ -52,12 +54,15 @@ export default function Countdown() {
               key={i}
               className="bg-black bg-opacity-30 shadow-lg backdrop-blur-md border border-white border-opacity-10 rounded-xl p-6 w-24 md:w-28"
             >
-              <p className="text-3xl md:text-4xl font-extrabold text-white">
-                {String(timeLeft[unit as keyof typeof timeLeft]).padStart(
-                  2,
-                  "0"
-                )}
-              </p>
+              {hasMounted && (
+                <p className="text-3xl md:text-4xl font-extrabold text-white">
+                  {String(timeLeft[unit as keyof typeof timeLeft]).padStart(
+                    2,
+                    "0"
+                  )}
+                </p>
+              )}
+
               <span className="uppercase text-xs mt-2 block tracking-widest text-gray-300">
                 {unit}
               </span>
