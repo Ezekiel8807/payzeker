@@ -1,4 +1,8 @@
+import { getToken } from "@/actions/action";
+
 import { Cancel } from "@/utils/modalFunc";
+import { redirect } from "next/navigation";
+import { handleSpinAction } from "@/actions/miniGameAction";
 
 export function comfirmSpin(
   stateSetter: React.Dispatch<React.SetStateAction<boolean>>
@@ -12,24 +16,39 @@ export function cancelConfirmSpin(
   Cancel(stateSetter);
 }
 
-// export const handleSpin = async () => {
-//   if (spinning) return;
+export async function handleSpin(
+  balance: number,
+  stake: number,
+  spinning: boolean,
+  setErrmsg: React.Dispatch<React.SetStateAction<string>>,
+  setiserr: React.Dispatch<React.SetStateAction<boolean>>,
+  setIscon: React.Dispatch<React.SetStateAction<boolean>>,
+  setBalance: React.Dispatch<React.SetStateAction<number>>,
+  setSpinning: React.Dispatch<React.SetStateAction<boolean>>,
+  setResult: React.Dispatch<React.SetStateAction<null | string>>
+) {
+  const isLogin = await getToken();
 
-//   setSpinning(true);
-//   setResult(null);
+  if (spinning) return;
+  setSpinning(true);
 
-//   // Fake delay for animation
-//   await new Promise((res) => setTimeout(res, 3000));
+  if (!isLogin) redirect("/login");
 
-//   // Simulate backend result
-//   const rand = Math.random() * 100;
+  setIscon(false);
 
-//   let outcome = "Try Again";
-//   if (rand <= 2) outcome = "Jackpot 🎉";
-//   else if (rand <= 10) outcome = "Big Win";
-//   else if (rand <= 25) outcome = "Break Even";
-//   else if (rand <= 50) outcome = "Small Win";
+  const handleSpinActionRes = await handleSpinAction(stake, balance);
+  if (handleSpinActionRes.error) {
+    setSpinning(false);
+    setIscon(false);
+    setErrmsg(handleSpinActionRes.msg);
+    setiserr(true);
+    return;
+  }
 
-//   setResult(outcome);
-//   setSpinning(false);
-// };
+  // Fake delay for animation
+  await new Promise((res) => setTimeout(res, 2000));
+
+  setBalance(handleSpinActionRes!.result!.finalBalance);
+  setResult(handleSpinActionRes!.result!.outcome);
+  setSpinning(false);
+}
