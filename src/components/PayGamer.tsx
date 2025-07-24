@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { comfirmSpin, cancelConfirmSpin } from "@/utils/miniGame";
+import { comfirmSpin, cancelConfirmSpin, handleSpin } from "@/utils/miniGame";
 
 //components
 import Spinner from "./Spinner";
@@ -15,15 +15,14 @@ type PayGamerProbs = {
 };
 
 export default function PayGamer({ gameInfo }: PayGamerProbs) {
-  const { balance } = gameInfo;
+  const { balance, setBalance } = gameInfo;
 
   const [stake, setStake] = useState(100);
   const [con, setIscon] = useState(false);
   const [isErr, setiserr] = useState(false);
-  const spinning = false;
+  const [errMsg, setErrmsg] = useState("");
+  const [spinning, setSpinning] = useState(false);
   const [result, setResult] = useState<null | string>(null);
-
-  // bg-[#F7F9FA]
 
   return (
     <div className="relative max-w-md bg-[var(--gray-10)] text-sm rounded-lg shadow-lg">
@@ -48,7 +47,14 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
             </div>
 
             <div className="w-[100px] p-1 text-right outline-none border rounded bg-white text-[#2D3436]">
-              {stake}
+              <input
+                className="w-full text-right outline-none"
+                type="text"
+                name=""
+                id=""
+                value={stake.toString()}
+                onChange={(e) => setStake(+e.target.value)}
+              />
             </div>
           </div>
 
@@ -57,9 +63,11 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
               <div
                 key={val}
                 className="w-[60px] p-1 text-center font-black bg-[var(--green)] hover:bg-[#019875] text-white text-[12px] rounded cursor-pointer"
-                onClick={() => setStake((e) => (e += parseInt(val)))}
+                onClick={() => {
+                  setStake((e) => (e += parseInt(val)));
+                }}
               >
-                +{val}
+                {val}
               </div>
             ))}
 
@@ -123,14 +131,29 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
               >
                 Cancel
               </button>
-              <button className="w-full block p-2 bg-[var(--green)] cursor shadow-xl">
+              <button
+                onClick={() => {
+                  handleSpin(
+                    balance,
+                    stake,
+                    spinning,
+                    setErrmsg,
+                    setiserr,
+                    setIscon,
+                    setBalance,
+                    setSpinning,
+                    setResult
+                  );
+                }}
+                className="w-full block p-2 bg-[var(--green)] cursor shadow-xl"
+              >
                 Comfirm
               </button>
             </div>
           </div>
         )}
 
-        {isErr && <ErrorModal errMsg={"Hello there"} setIserr={setiserr} />}
+        {isErr && <ErrorModal errMsg={errMsg} setIserr={setiserr} />}
 
         {result && (
           <ResultModal result={result} onClose={() => setResult(null)} />
