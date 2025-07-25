@@ -130,12 +130,13 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
           </h5>
         </div>
         <div className="flex justify-end items-center">
-          <Button
-            btnAction={openCloseDepositModal}
-            btnStyle="font-bold text-[12px] mx-2 px-2 py-1 cursor-pointer text-[var(--white)] bg-[var(--green)] rounded-lg"
+          <button
+            id="payBtn"
+            onClick={openCloseDepositModal} //payWithPaystack("ayebidunezekiel@gmail.com", 5000)
+            className="font-bold text-[12px] mx-2 px-2 py-1 cursor-pointer text-[var(--white)] bg-[var(--green)] rounded-lg"
           >
             Deposit
-          </Button>
+          </button>
           <Button
             btnAction={openCloseWithdrawModal}
             btnStyle="font-bold text-[12px] cursor-pointer hover:text-[var(--green)]"
