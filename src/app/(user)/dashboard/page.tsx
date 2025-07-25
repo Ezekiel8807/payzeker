@@ -2,22 +2,22 @@ import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
 import { connectDB } from "../../../lib/mongodb";
-// import { fetchModelsData } from "@/utils/modelFunc";
-// import SubmittedTask from "@/model/submittedTaskModel";
+import { fetchModelsData } from "@/utils/modelFunc";
+import SubmittedTask from "@/model/submittedTaskModel";
 
 // Layouts
-// import Main from "@/components/layout/Main";
+import Main from "@/components/layout/Main";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 // Components
 // import PayGamer from "@/components/PayGamer";
-// import SideNav from "@/components/SideNav";
-// import SubHeading from "@/components/SubHeading";
+import SideNav from "@/components/SideNav";
+import SubHeading from "@/components/SubHeading";
 // import AcctBalCom from "@/components/AcctBalCom";
 // import Performance from "@/components/Performance";
 // import TaskCard from "@/components/cards/TaskCard";
-// import SubmittedTaskCard from "@/components/cards/SubmittedTaskCard";
+import SubmittedTaskCard from "@/components/cards/SubmittedTaskCard";
 import DashCom from "@/components/DashCom";
 
 // Fetch user data on the server
@@ -37,7 +37,8 @@ async function getUser() {
 
 export default async function Dashboard() {
   const user = await getUser();
-  // const [subTaskArr] = await fetchModelsData(SubmittedTask);
+  const [subTaskArr] = await fetchModelsData(SubmittedTask);
+
   if (!user) return redirect("/login");
 
   const isLogin = !!user;
@@ -61,38 +62,74 @@ export default async function Dashboard() {
     allTimeWithdrawal,
   } = user.account.withdrawal;
 
-  // filter tasks that have new state
-  // const filterUserTask = user.tasks.filter(
-  //   (e: { state: string }) => e.state === "new"
-  // );
-
   // filter submitted task with review state
-  // const filterSubTask = subTaskArr.filter(
-  //   (filterTask: { state: string }) => filterTask.state === "submitted"
-  // );
+  const filterSubTask = subTaskArr.filter(
+    (filterTask: { state: string }) => filterTask.state === "submitted"
+  );
 
   return (
     <>
       <Header />
-      <DashCom
-        dashInfo={{
-          username,
-          firstname,
-          lastname,
-          isAdmin,
-          isLogin,
-          email,
-          rank,
-          completedTask,
-          overallTask,
-          balance,
-          bankName,
-          bankAcctNo,
-          minWithdrawal,
-          maxWithdrawal,
-          allTimeWithdrawal,
-        }}
-      />
+      <div className="mx-auto">
+        <div className="flex">
+          <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
+            <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
+          </div>
+          <div className="w-[100%] px-5 lg:w-[70%]">
+            <Main>
+              {isAdmin && (
+                <>
+                  <SubHeading
+                    title="Submitted Tasks"
+                    desc="All tasks submitted at a go."
+                  />
+
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 mb-5 items-center justify-start gap-5">
+                    {filterSubTask.length > 0 ? (
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      filterSubTask.map((subTask: any) => (
+                        <SubmittedTaskCard
+                          key={subTask._id}
+                          subTask={subTask}
+                        />
+                      ))
+                    ) : (
+                      <div className="col-span-3 h-[200px] flex items-center justify-center">
+                        <p className="w-[200px] text-center text-gray-600">
+                          No submitted tasks🙈. Check back later.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+
+              {!isAdmin && (
+                <DashCom
+                  dashInfo={{
+                    username,
+                    firstname,
+                    lastname,
+                    isAdmin,
+                    isLogin,
+                    email,
+                    rank,
+                    completedTask,
+                    overallTask,
+                    balance,
+                    bankName,
+                    bankAcctNo,
+                    minWithdrawal,
+                    maxWithdrawal,
+                    allTimeWithdrawal,
+                  }}
+                />
+              )}
+            </Main>
+          </div>
+        </div>
+      </div>
+
       <Footer />
     </>
   );
