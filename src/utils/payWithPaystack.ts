@@ -1,9 +1,20 @@
 // import axios from "axios"
 
-export const payWithPaystack = async (email: string, amount: number) => {
+//public key
+const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_KEY;
+
+export const payWithPaystack = async (
+  email: string,
+  amount: number,
+  setErrmsg: React.Dispatch<React.SetStateAction<string>>,
+  setIserr: React.Dispatch<React.SetStateAction<boolean>>,
+  setIssuc: React.Dispatch<React.SetStateAction<boolean>>,
+  setSucmsg: React.Dispatch<React.SetStateAction<string>>,
+  setBalance: React.Dispatch<React.SetStateAction<number>>
+) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handler = (window as any).PaystackPop.setup({
-    key: "pk_test_3822fcf2427d322dff6aeda676648a48bd4fdfab", // your public key
+    key: publicKey, // your public key
     email,
     amount: amount * 100, // in kobo
     currency: "NGN",
@@ -21,14 +32,21 @@ export const payWithPaystack = async (email: string, amount: number) => {
         .then((data) => {
           if (data.success) {
             // Update your UI with the new balance or status
-            alert("Payment Successful");
+            setBalance((e) => (e += amount));
+
+            setSucmsg("Payment Successful");
+            setIssuc(true);
+
+            //
           } else {
-            alert("Verification failed");
+            setErrmsg("Payment verification failed");
+            setIserr(true);
           }
         });
     },
     onClose: function () {
-      alert("Payment window closed.");
+      setErrmsg("Payment window closed.");
+      setIserr(true);
     },
   });
 
