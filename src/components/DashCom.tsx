@@ -80,6 +80,7 @@ export default function DashCom({ dashInfo }: DashComProps) {
               title="Tasks"
               desc="Earn real cash for completing task."
             />
+
             <DailyTask />
           </div>
         </div>
