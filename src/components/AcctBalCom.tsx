@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-// import { depositAction } from "@/actions/requesAction";
 import { withdrawalAction } from "@/actions/requesAction";
 
 //components
@@ -10,7 +9,6 @@ import DepositModal from "./modal/DepositModal";
 import ConfirmWitdrawalModal from "./modal/ConfirmWitdrawalModal";
 import SuccessModal from "./modal/SuccessModal";
 import ErrorModal from "./modal/ErrorModal";
-// import ConfirmDepositModal from "./modal/ConfirmDepositModal";
 
 type AcctBalComProps = {
   acctInfo: {
@@ -19,6 +17,7 @@ type AcctBalComProps = {
     email: string;
     rank: number;
     balance: number;
+    setBalance: React.Dispatch<React.SetStateAction<number>>;
     bankName: string;
     bankAcctNo: number;
     minWithdrawal: number;
@@ -33,27 +32,28 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
     lastname,
     email,
     rank,
+    balance,
+    setBalance,
     minWithdrawal,
     maxWithdrawal,
     allTimeWithdrawal,
   } = acctInfo;
+
+  const [isPen, setIspen] = useState(false);
   const [isSuc, setIssuc] = useState(false);
   const [errMsg, setErrmsg] = useState("");
   const [sucMsg, setSucmsg] = useState("");
   const [isErr, setIserr] = useState(false);
+
   const fullname = `${lastname} ${firstname}`;
-  const [isPen, setIspen] = useState(false);
   const [amount, setAmount] = useState(5000);
-  // const [fileUrl, setFileurl] = useState("");
   const [depAmount, setDepamount] = useState(5000);
-  const [isConWitModal, setIsconwitmodal] = useState(false);
-  // const [isConDepModal, setIscondepmodal] = useState(false);
   const [bankName, setBankname] = useState(acctInfo.bankName);
+  const [bankAcctNo, setBankacctno] = useState(acctInfo.bankAcctNo);
+
+  const [isConWitModal, setIsconwitmodal] = useState(false);
   const [openDepositModal, setOpenDepositModal] = useState(false);
   const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
-  const [bankAcctNo, setBankacctno] = useState(acctInfo.bankAcctNo);
-  // const [balance, setBalance] = useState(Number(acctInfo.balance) || 0);
-  const balance = Number(acctInfo.balance) || 0;
 
   function openCloseWithdrawModal() {
     setOpenWithdrawModal(!openWithdrawModal);
@@ -81,29 +81,6 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
       setErrmsg(res.msg);
     }
   }
-
-  //function to handle withdrawal form submit
-  // async function depositFunc() {
-  //   if (!fileUrl) {
-  //     setErrmsg("Upload reciept to Confirm payment!");
-  //     setIserr(true);
-  //     return;
-  //   }
-
-  //   const res = await depositAction(depAmount, fileUrl);
-
-  //   if (res.error != true) {
-  //     setIssuc(true);
-  //     setSucmsg(res.msg);
-  //   } else {
-  //     setIserr(true);
-  //     setErrmsg(res.msg);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   document.addEventListener("click", () => setOpen(!open));
-  // }, [open]);
 
   return (
     <>
@@ -146,6 +123,27 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
         </div>
       </div>
 
+      {openDepositModal && (
+        <DepositModal
+          depositInfo={{
+            isPen,
+            setIspen,
+            setErrmsg,
+            setSucmsg,
+            setIserr,
+            setIssuc,
+            fullname,
+            email,
+            balance,
+            setBalance,
+            depAmount,
+            setDepamount,
+            setOpenDepositModal,
+          }}
+          closeModal={openCloseDepositModal}
+        />
+      )}
+
       {openWithdrawModal && (
         <WithdrawalModal
           withdrawalInfo={{
@@ -180,47 +178,7 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
         />
       )}
 
-      {openDepositModal && (
-        <DepositModal
-          depositInfo={{
-            isPen,
-            setIspen,
-            setErrmsg,
-            setIserr,
-            fullname,
-            email,
-            balance,
-            depAmount,
-            setDepamount,
-            // setIscondepmodal,
-            setOpenDepositModal,
-          }}
-          closeModal={openCloseDepositModal}
-        />
-      )}
-
-      {/* {isConDepModal && (
-        <ConfirmDepositModal
-          confirmInfo={{
-            isPen,
-            setIspen,
-            firstname,
-            lastname,
-            depAmount,
-            setFileurl,
-          }}
-          depositFunc={depositFunc}
-          setIscondepmodal={setIscondepmodal}
-        />
-      )} */}
-
-      {isSuc && (
-        <SuccessModal
-          setIssuc={setIssuc}
-          sucMsg={sucMsg}
-          direction="/account"
-        />
-      )}
+      {isSuc && <SuccessModal setIssuc={setIssuc} sucMsg={sucMsg} />}
       {isErr && <ErrorModal setIserr={setIserr} errMsg={errMsg} />}
     </>
   );

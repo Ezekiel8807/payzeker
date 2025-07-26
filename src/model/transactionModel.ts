@@ -4,8 +4,8 @@ const transactionSchema = new mongoose.Schema({
   userId: { type: String, default: "" },
   type: {
     type: String,
-    enum: ["credit", "debit", "other"],
-    default: "other",
+    enum: ["credit", "debit"],
+    default: "debit",
   },
   status: {
     type: String,

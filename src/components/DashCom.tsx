@@ -56,6 +56,7 @@ export default function DashCom({ dashInfo }: DashComProps) {
               email,
               rank,
               balance,
+              setBalance,
               bankName,
               bankAcctNo,
               minWithdrawal,
@@ -70,16 +71,15 @@ export default function DashCom({ dashInfo }: DashComProps) {
       <div className="flex flex-col-reverse sm:flex-row justify-between md:gap-5">
         <div className="w-full sm:w-[30%] my-5">
           <SubHeading title="Mini Game" desc="Your chance to earn more." />
-
           <PayGamer gameInfo={{ balance, setBalance }} />
         </div>
+
         <div className="w-full sm:w-[70%]">
           <div className="mt-5">
             <SubHeading
               title="Tasks"
               desc="Earn real cash for completing task."
             />
-
             <DailyTask />
           </div>
         </div>

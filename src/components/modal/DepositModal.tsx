@@ -10,13 +10,15 @@ type DepositModalProbs = {
     isPen: boolean;
     setIspen: React.Dispatch<React.SetStateAction<boolean>>;
     setErrmsg: React.Dispatch<React.SetStateAction<string>>;
+    setSucmsg: React.Dispatch<React.SetStateAction<string>>;
     setIserr: React.Dispatch<React.SetStateAction<boolean>>;
+    setIssuc: React.Dispatch<React.SetStateAction<boolean>>;
+    setBalance: React.Dispatch<React.SetStateAction<number>>;
     fullname: string;
     email: string;
     balance: number;
     depAmount: number;
     setDepamount: React.Dispatch<React.SetStateAction<number>>;
-    // setIscondepmodal: React.Dispatch<React.SetStateAction<boolean>>;
     setOpenDepositModal: React.Dispatch<React.SetStateAction<boolean>>;
   };
   closeModal: () => void;
@@ -30,13 +32,15 @@ export default function DepositModal({
     isPen,
     setIspen,
     setErrmsg,
+    setSucmsg,
     setIserr,
+    setIssuc,
+    setBalance,
     fullname,
     email,
     balance,
     depAmount,
     setDepamount,
-    // setIscondepmodal,
     setOpenDepositModal,
   } = depositInfo;
 
@@ -64,15 +68,19 @@ export default function DepositModal({
     }
 
     //initialize paystack payment
-    const response = await payWithPaystack(email, depAmount);
-    console.log(response);
+    await payWithPaystack(
+      email,
+      depAmount,
+      setErrmsg,
+      setIserr,
+      setIssuc,
+      setSucmsg,
+      setBalance
+    );
 
     //set pending state
     setIspen(false);
-
-    //se
     setOpenDepositModal(false);
-    // setIscondepmodal(true);
   }
 
   return (

@@ -3,15 +3,18 @@ import { connectDB } from "@/lib/mongodb";
 // import Transaction from "@/model/transactionModel";
 import { NextRequest, NextResponse } from "next/server";
 
+//private key
+const privateKey = process.env.PAYSTACK_SECRET_KEY;
+
 export async function POST(req: NextRequest) {
   const { reference } = await req.json();
+  console.log(privateKey);
 
   const res = await fetch(
     `https://api.paystack.co/transaction/verify/${reference}`,
     {
       headers: {
-        Authorization:
-          "Bearer sk_test_8f88d45f65a1bbe065f5c5b9f9fcdca6a1e7b09e", // from .env
+        Authorization: `Bearer ${privateKey}`, // from .env
       },
     }
   );
