@@ -6,13 +6,13 @@ import { fetchModelById, fetchModelsData } from "@/utils/modelFunc";
 
 // Components
 import BankInfo from "@/components/BankInfo";
-import AcctBalCom from "@/components/AcctBalCom";
 import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";
 import UserTrans from "@/components/transactions/UserTrans";
 import SideNav from "@/components/SideNav";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import AcctBalComLay from "../../../components/layout/AcctBalComLay";
 
 export default async function Account() {
   const token = await getToken();
@@ -50,8 +50,8 @@ export default async function Account() {
 
               <div className="grid grid-flow-col justify-start gap-5 overflow-x-scroll no-scrollbar  my-3">
                 <div className="w-[275px] h-[130px] md:w-[300px]">
-                  <AcctBalCom
-                    acctInfo={{
+                  <AcctBalComLay
+                    AcctBalComInfo={{
                       firstname,
                       lastname,
                       email,
