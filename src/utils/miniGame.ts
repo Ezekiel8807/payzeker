@@ -4,7 +4,7 @@ import { Cancel } from "@/utils/modalFunc";
 import { redirect } from "next/navigation";
 import { handleSpinAction } from "@/actions/miniGameAction";
 
-export function comfirmSpin(
+export function confirmSpin(
   stateSetter: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   stateSetter(true);
