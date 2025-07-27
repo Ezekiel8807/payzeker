@@ -25,6 +25,7 @@ export default function UserTrans({
               type: string;
               amount: number;
               status: string;
+              disc: string;
               date: string;
             }) => <TransCard key={el._id} transCardInfo={el} />
           )
