@@ -8,6 +8,7 @@ export default function TransCard({
     type: string;
     amount: number;
     status: string;
+    disc: string;
     date: string;
   };
 }) {
@@ -26,14 +27,17 @@ export default function TransCard({
           B
         </div>
         <div className="font-light text-[10px]">
-          <p className="font-black capitalize">{transCardInfo.type}</p>
+          <p className="font-black capitalize">
+            {transCardInfo.type}- {transCardInfo.disc}
+          </p>
           <p className="text-[11px]">{transCardInfo._id}</p>
           <p className="text-[8px]">{date}</p>
         </div>
       </div>
       <div className="text-end">
         <p className="font-black text-[12px]">
-          {transCardInfo.type != "deposit" && "- "}
+          {transCardInfo.type == "credit" && "+ "}
+          {transCardInfo.type == "debit" && "- "}
           {transCardInfo.amount.toLocaleString("en-NG", {
             style: "currency",
             currency: "NGN",
