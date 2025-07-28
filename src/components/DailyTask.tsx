@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import getUserDailyTask from "@/actions/getDailyTask";
 
 //components
-import TaskCard from "./cards/TaskCard";
+import TaskCard from "./cards/DailyTaskCard";
 
 export default function DailyTask() {
   const [dailyTask, setDailytask] = useState([]);
