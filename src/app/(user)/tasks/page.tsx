@@ -12,6 +12,7 @@ import Footer from "@/components/layout/Footer";
 import SideNav from "@/components/SideNav";
 import AllTasks from "@/components/AllTasks";
 import SubHeading from "@/components/SubHeading";
+import TaskCom from "@/components/TaskCom";
 
 export default async function page() {
   const user = await getToken();
@@ -20,7 +21,6 @@ export default async function page() {
   const isLogin = !!user;
   if (!user) return redirect("/login");
   const { username, isAdmin } = user;
-  if (!isAdmin) return redirect("/dashboard");
 
   return (
     <>
@@ -33,11 +33,12 @@ export default async function page() {
           <div className="w-[100%] px-5 lg:w-[70%]">
             <Main>
               <SubHeading
-                title="All Tasks"
-                desc="Earn real cash for completing task."
+                title="Manage Tasks"
+                desc="Your Tasks managing page."
               />
 
-              <AllTasks alltasks={tasks} />
+              {isAdmin && <AllTasks alltasks={tasks} />}
+              {!isAdmin && <TaskCom />}
             </Main>
           </div>
         </div>
