@@ -32,6 +32,10 @@ export default function RootLayout({
         <meta property="og:image" content="/icons/pIcon.png" />
         <meta name="twitter:card" content="/icons/pIcon.png" />
         <meta
+          name="google-adsense-account"
+          content="ca-pub-3810051236937370"
+        ></meta>
+        <meta
           property="og:description"
           content="Payzeker is an online platform (accessible via web) connecting businesses with micro‑freelancers who complete simple online tasks—such as liking, commenting, or posting on social media—for instant micro‑payments"
         />

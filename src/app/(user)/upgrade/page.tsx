@@ -30,7 +30,6 @@ export default async function Upgrade() {
             <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
           </div>
           <div className="w-[100%] px-5 lg:w-[70%]">
-            {" "}
             <Main>
               <SubHeading
                 title="User Upgrade"
@@ -38,26 +37,28 @@ export default async function Upgrade() {
               />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 my-5">
-                {plans.map(
-                  (
-                    el: {
-                      _id: string;
-                      name: string;
-                      rank: number;
-                      subDuration: string;
-                      minWithdrawal: number;
-                      maxWithdrawal: number;
-                      minEarning: number;
-                      price: number;
-                    },
-                    i: number
-                  ) => (
-                    <Upgradecard
-                      upgradeInfo={{ ...el, elIndex: 1 + i }}
-                      key={el._id}
-                    />
-                  )
-                )}
+                {plans
+                  .filter((e: { isDefault: boolean }) => !e.isDefault)
+                  .map(
+                    (
+                      el: {
+                        _id: string;
+                        name: string;
+                        rank: number;
+                        subDuration: string;
+                        minWithdrawal: number;
+                        maxWithdrawal: number;
+                        minEarning: number;
+                        price: number;
+                      },
+                      i: number
+                    ) => (
+                      <Upgradecard
+                        upgradeInfo={{ ...el, elIndex: 1 + i }}
+                        key={el._id}
+                      />
+                    )
+                  )}
               </div>
             </Main>
           </div>
