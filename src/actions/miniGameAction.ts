@@ -24,19 +24,15 @@ export async function handleSpinAction(stake: number, balance: number) {
   if (rand <= 2) {
     outcome = "Jackpot 🎉";
     multiplier = 5.0;
-
   } else if (rand <= 10) {
     outcome = "Big Win";
     multiplier = 2.5;
-
   } else if (rand <= 25) {
     outcome = "Small Win";
     multiplier = 1.5;
-
-  } else if (rand <= 50) {
+  } else if (rand <= 45) {
     outcome = "Break Even";
     multiplier = 1.0;
-    
   } else {
     outcome = "Oops, Try Again";
     multiplier = 0;
