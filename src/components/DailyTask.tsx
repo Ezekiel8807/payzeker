@@ -23,7 +23,12 @@ export default function DailyTask() {
   }, []);
 
   return (
-    <div className="bg-[var(--gray-01)] h-[250px] p-5 my-5 rounded">
+    <div className="bg-[var(--gray-01)] p-5 my-5 rounded">
+      <h2 className="text-2xl font-bold text-[#2D3436]">Task</h2>
+      <small className="block mb-5 text-[13px] text-[#636e72]">
+        Earn real cash for completing task.
+      </small>
+
       <div className="grid grid-flow-col justify-start gap-5 overflow-x-scroll no-scrollbar">
         {dailyTask.length > 0 ? (
           dailyTask.map(

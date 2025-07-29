@@ -32,7 +32,7 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
   return (
     <div className="relative max-w-md bg-[var(--gray-10)] text-sm rounded-lg shadow-lg">
       <div className="p-5">
-        <h2 className="text-xl font-bold text-[#2D3436]">Lucky Spin 🎰</h2>
+        <h2 className="text-2xl font-bold text-[#2D3436]">Lucky Spin 🎰</h2>
         <small className="text-[13px] text-[#636e72]">
           One Spin Could Change Everything
         </small>

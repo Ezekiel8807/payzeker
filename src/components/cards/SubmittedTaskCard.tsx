@@ -28,7 +28,7 @@ export default function SubmittedTaskCard({ subTask }: { subTask: any }) {
         <div className="font-extralight">{type}</div>
         <Link
           className="w-[100px] block bg-[var(--green)] p-1 font-extrabold text-center text-[12px] text-white rounded-full shadow-sm"
-          href={`dashboard/submittedTask/${_id}/`}
+          href={`task/submittedTask/${_id}/`}
         >
           Learn More
         </Link>
