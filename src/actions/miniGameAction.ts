@@ -14,28 +14,35 @@ export async function handleSpinAction(stake: number, balance: number) {
   const userId = token.id;
 
   if (stake > balance) return { error: true, msg: "Insufficient funds!" };
+  if (stake < 100) return { error: true, msg: "Enter minimum stake of #100" };
 
   const newBalance = balance - stake;
   const rand = Math.random() * 100;
 
+  let outcome = "lose";
   let multiplier = 0;
-  let outcome = "Try Again";
+  let winType = "Try Again";
 
   if (rand <= 2) {
-    outcome = "Jackpot 🎉";
+    winType = "Jackpot 🎉";
     multiplier = 5.0;
+    outcome = "win";
   } else if (rand <= 10) {
-    outcome = "Big Win";
+    winType = "Big Win";
     multiplier = 2.5;
+    outcome = "win";
   } else if (rand <= 25) {
-    outcome = "Small Win";
+    winType = "Small Win";
     multiplier = 1.5;
+    outcome = "win";
   } else if (rand <= 45) {
-    outcome = "Break Even";
+    winType = "Break Even";
     multiplier = 1.0;
+    outcome = "break-even";
   } else {
-    outcome = "Oops, Try Again";
+    winType = "Try Again";
     multiplier = 0;
+    outcome = "lose";
   }
 
   const amountWon = stake * multiplier;
@@ -62,7 +69,7 @@ export async function handleSpinAction(stake: number, balance: number) {
         type: "credit",
         status: "successful",
         amount: amountWon,
-        disc: `Spin win: ${outcome}`,
+        disc: `Spin win: ${winType}`,
         date: new Date(),
       });
     }
@@ -72,6 +79,7 @@ export async function handleSpinAction(stake: number, balance: number) {
       msg: "success",
       result: {
         outcome,
+        winType,
         amountWon,
         finalBalance,
       },
