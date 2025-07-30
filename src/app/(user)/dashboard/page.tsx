@@ -11,14 +11,11 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 // Components
-// import PayGamer from "@/components/PayGamer";
 import SideNav from "@/components/SideNav";
 import SubHeading from "@/components/SubHeading";
-// import AcctBalCom from "@/components/AcctBalCom";
-// import Performance from "@/components/Performance";
-// import TaskCard from "@/components/cards/TaskCard";
 import SubmittedTaskCard from "@/components/cards/SubmittedTaskCard";
 import DashCom from "@/components/DashCom";
+// import WinCard from "@/components/cards/WinCard";
 
 // Fetch user data on the server
 async function getUser() {
@@ -129,6 +126,8 @@ export default async function Dashboard() {
           </div>
         </div>
       </div>
+
+      {/* <WinCard /> */}
 
       <Footer />
     </>
