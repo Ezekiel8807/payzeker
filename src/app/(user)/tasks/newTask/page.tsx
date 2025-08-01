@@ -13,11 +13,10 @@ import TaskCreationForm from "@/components/form/TaskCreationForm";
 
 export default async function page() {
   const user = await getToken();
-
   const isLogin = !!user;
+
   if (!user) return redirect("/login");
   const { username, isAdmin } = user;
-  if (!isAdmin) return redirect("/dashboard");
 
   return (
     <>

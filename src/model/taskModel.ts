@@ -1,6 +1,7 @@
 import mongoose, { models } from "mongoose";
 
 const TaskSchema = new mongoose.Schema({
+  userId: { type: String, default: "" },
   name: { type: String, default: "" },
   level: { type: Number, default: 1 },
   price: { type: Number, default: 0 },
@@ -19,7 +20,7 @@ const TaskSchema = new mongoose.Schema({
     },
     content: { type: String, default: "" },
   },
-  isPaid: { type: Boolean, default: false },
+  caption: { type: String, default: "" },
   instruction: { type: String, default: "" },
   startDate: { type: String, default: "" },
   endDate: { type: String, default: "" },

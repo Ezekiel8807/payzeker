@@ -5,7 +5,8 @@ import Task from "@/model/taskModel";
 import Transaction from "@/model/transactionModel";
 import Notification from "@/model/notificationModel";
 import SubmittedTask from "@/model/submittedTaskModel";
-// import { fetchModelsData } from "@/utils/scripting";
+import { calculateEndDate } from "@/utils/dateFunc";
+import { redirect } from "next/navigation";
 
 type taskCreateInfo = {
   taskName: string;
@@ -15,9 +16,10 @@ type taskCreateInfo = {
   link: string;
   fileType: string;
   fileUrl: string;
-  startDate: string;
-  endDate: string;
+  duration: string;
+  caption: string;
   instruction: string;
+  billingPrice: number;
 };
 
 type subTaskInfo = {
@@ -34,59 +36,89 @@ export async function createTask({
   link,
   fileType,
   fileUrl,
-  startDate,
-  endDate,
+  duration,
+  caption,
   instruction,
+  billingPrice,
 }: taskCreateInfo) {
+  const userToken = await getToken();
+  if (!userToken) return redirect("/login");
+
   //
+  //
+  if (
+    !taskName ||
+    !level ||
+    !price ||
+    !social ||
+    !duration ||
+    !billingPrice ||
+    !instruction
+  )
+    return { error: true, msg: "Fill all required fields!" };
+
+  const validDurations = ["7", "14", "30", "90"];
+  if (!validDurations.includes(duration))
+    return { error: true, msg: "Invalid task duration" };
+
+  const startDate = new Date();
+  const userId = userToken.id as string;
+  const endDate = calculateEndDate(startDate, duration);
 
   try {
-    if (
-      !taskName ||
-      !level ||
-      !price ||
-      !social ||
-      !startDate ||
-      !endDate ||
-      !instruction
-    )
-      return { error: true, msg: "Fill all required fields!" };
+    const user = await User.findById(userId);
+    if (!user) return { error: true, msg: "Error can't find user!" };
 
-    if (!fileUrl) {
-      const newTask = await new Task({
-        name: taskName,
-        level,
-        price,
-        socialTarget: social,
-        link,
-        instruction,
-        startDate,
-        endDate,
-      });
+    //
+    const balance = user.account.balance;
 
-      //save task
-      await newTask.save();
+    if (balance < billingPrice)
+      return { error: true, msg: "Insufficient funds!" };
 
-      //
-    } else {
-      const newTask = await new Task({
-        name: taskName,
-        level,
-        price,
-        socialTarget: social,
-        link,
-        media: {
-          type: fileType,
-          content: fileUrl,
-        },
-        instruction,
-        startDate,
-        endDate,
-      });
+    const newBalance = balance - billingPrice;
+    user.account.balance = newBalance;
 
-      //save task
-      await newTask.save();
+    await user.save();
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const taskData: any = {
+      name: taskName,
+      level,
+      price,
+      socialTarget: social,
+      link,
+      caption,
+      instruction,
+      startDate,
+      endDate,
+    };
+
+    if (fileUrl) {
+      taskData.media = { type: fileType, content: fileUrl };
     }
+
+    const newTask = await new Task(taskData);
+    await newTask.save();
+
+    //fetch the transaction
+    const transaction = new Transaction({
+      userId,
+      type: "debit",
+      status: "successful",
+      amount: billingPrice,
+      disc: `#${billingPrice} for task creation`,
+    });
+
+    //save to update new info
+    await transaction.save();
+
+    const notification = new Notification({
+      username: user.username,
+      message: `Task created successfully😃`,
+    });
+
+    //save to update new info
+    await notification.save();
 
     return { error: false, msg: "Task created successfully" };
 
@@ -105,6 +137,10 @@ export async function subTask({
   taskFileLink,
 }: subTaskInfo) {
   const userToken = await getToken();
+  if (!userToken) return redirect("/login");
+
+  //
+  //
   const userId = userToken.id as string;
 
   try {
@@ -157,11 +193,12 @@ export async function verifyTask(userId: string, subTaskId: string) {
     const user = await User.findById(userId);
     if (!user) return { error: true, msg: "Error can't find user!" };
 
-    console.log(user);
-
     //fetch submitted task
     const task = await SubmittedTask.findById(subTaskId);
     if (!task) return { error: true, msg: "Error can't find task submitted!" };
+
+    if (task.state === "completed")
+      return { error: true, msg: "Task already verified" };
 
     //update task status
     task.state = "completed";
@@ -181,7 +218,7 @@ export async function verifyTask(userId: string, subTaskId: string) {
     //fetch the transaction
     const transaction = new Transaction({
       userId,
-      type: "deposit",
+      type: "credit",
       status: "successful",
       amount: task.price,
       disc: `#${task.price} for completing a tasks`,
