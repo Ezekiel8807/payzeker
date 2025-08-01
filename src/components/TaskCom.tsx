@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import TaskCard from "./cards/TaskCard";
 import TaskFilterTabs from "./TaskFilterTabs";
+import Link from "next/link";
 
 export default function TaskCom() {
   const [filter, setFilter] = useState("Ongoing");
@@ -13,9 +14,12 @@ export default function TaskCom() {
         {/* <h1 className="text-2xl md:text-3xl font-bold text-[#29cd9c]">
           Manage Your Tasks
         </h1> */}
-        <button className="bg-[#29cd9c] hover:bg-[#22b891] text-white font-medium px-4 py-2 rounded-xl">
+        <Link
+          href="/tasks/newTask"
+          className="bg-[var(--green)] hover:bg-[#22b891] text-white font-medium px-4 py-2 rounded-xl"
+        >
           + Create Task
-        </button>
+        </Link>
       </div>
 
       <TaskFilterTabs active={filter} onChange={setFilter} />
