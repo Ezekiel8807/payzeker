@@ -53,12 +53,14 @@ export async function withdrawalAction(
     user.account.withdrawal.allTimeWithdrawal += amount;
     await user.save();
 
+    //update
+
     //crate transaction
     const newTransaction = await new Transaction({
       userId: user._id,
-      type: "withdraw",
+      type: "debit",
       amount: amount,
-      disc: `Withdrawal request of #${amount}`,
+      disc: `Withdraw #${amount}`,
     });
     await newTransaction.save();
 
@@ -85,6 +87,7 @@ export async function withdrawalAction(
 
     return {
       error: false,
+      balance: user.account.balance,
       msg: `Withdrawal request of #${amount} successfully made.`,
     };
   } catch (err) {

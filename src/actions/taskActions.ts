@@ -57,12 +57,13 @@ export async function createTask({
   )
     return { error: true, msg: "Fill all required fields!" };
 
-  const validDurations = ["7", "14", "30", "90"];
-  if (!validDurations.includes(duration))
-    return { error: true, msg: "Invalid task duration" };
+  // const validDurations = ["7 days", "14 days", "1 month", "3 months"];
+  // if (!validDurations.includes(duration))
+  //   return { error: true, msg: "Invalid task duration" };
 
   const startDate = new Date();
   const userId = userToken.id as string;
+
   const endDate = calculateEndDate(startDate, duration);
 
   try {
@@ -82,6 +83,7 @@ export async function createTask({
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const taskData: any = {
+      userId: userToken.id,
       name: taskName,
       level,
       price,

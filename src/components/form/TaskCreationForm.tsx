@@ -20,7 +20,7 @@ export default function TaskCreationForm() {
   const [taskName, setTaskname] = useState("");
   const [taskType, setTasktype] = useState("link");
   const [level, setLevel] = useState(1);
-  const [duration, setDuration] = useState("7");
+  const [duration, setDuration] = useState("7 days");
   const price: number = prices[level - 1];
   const [social, setSocial] = useState("facebook");
   const [link, setLink] = useState("");
@@ -80,14 +80,14 @@ export default function TaskCreationForm() {
       billingPrice,
     });
 
-    if (res.error) {
-      setErrmsg(res.msg as string);
+    if (res?.error) {
+      setErrmsg(res?.msg as string);
       setIserr(true);
       setIspen(false);
       return;
     }
 
-    setSucmsg(res.msg as string);
+    setSucmsg(res?.msg as string);
     setIssuc(true);
     setIspen(false);
 
@@ -138,11 +138,20 @@ export default function TaskCreationForm() {
             value={level}
             onChange={(e) => setLevel(parseInt(e.target.value))}
           >
-            {[1, 2, 3, 4, 5].map((lvl) => (
-              <option key={lvl} value={lvl}>
-                Level: {lvl}
-              </option>
-            ))}
+            {(() => {
+              let minLevel = 1;
+
+              if (taskType === "image") minLevel = 2;
+              if (taskType === "video") minLevel = 3;
+
+              return [1, 2, 3, 4, 5]
+                .filter((lvl) => lvl >= minLevel)
+                .map((lvl) => (
+                  <option key={lvl} value={lvl}>
+                    Level: {lvl}
+                  </option>
+                ));
+            })()}
           </select>
 
           <select
@@ -164,13 +173,14 @@ export default function TaskCreationForm() {
         <div className="flex mt-5 items-center justify-between gap-5">
           <select
             name="duration"
+            value={duration}
             onChange={(e) => setDuration(e.target.value)}
             className="w-full p-2 outline-none form-select"
           >
-            <option value="7">7 Days</option>
-            <option value="14">14 Days</option>
-            <option value="30">1 Month</option>
-            <option value="90">3 Months</option>
+            <option value="7 days">7 days</option>
+            <option value="14 days">14 days</option>
+            <option value="1 month">1 month</option>
+            <option value="3 months">3 months</option>
           </select>
 
           {taskType == "link" && (
