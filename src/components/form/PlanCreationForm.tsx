@@ -103,12 +103,12 @@ export default function PlanCreationForm() {
             value={duration}
           >
             <option value="">Select Duration</option>
-            <option value="7 Days">7 Days</option>
-            <option value="1 Month">1 Month</option>
-            <option value="3 Months">3 Months</option>
-            <option value="6 Months">6 Months</option>
-            <option value="9 Months">9 Months</option>
-            <option value="12 months">1 year</option>
+            <option value="7 days">7 Days</option>
+            <option value="1 month">1 Month</option>
+            <option value="3 months">3 Months</option>
+            <option value="6 months">6 Months</option>
+            <option value="9 months">9 Months</option>
+            <option value="1 year">1 year</option>
           </select>
         </div>
 

@@ -134,16 +134,15 @@ export async function subToPlan(planId: string) {
     await Promise.all([
       new Transaction({
         userId: user.id,
-        type: "upgrade",
+        type: "debit",
         status: "successful",
         amount: plan.price,
-        desc: `Payment of #${plan.price} for subscription upgrade`,
+        disc: `#${plan.price} for upgrade`,
       }).save(),
 
       new Notification({
         username: dbUserInfo.username,
-        message:
-          "Congratulations! You have successfully subscribed to an upgraded plan.",
+        message: "Congratulations! You have successfully upgraded your plan.",
       }).save(),
     ]);
 

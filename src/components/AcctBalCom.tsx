@@ -47,7 +47,7 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
 
   const fullname = `${lastname} ${firstname}`;
   const [amount, setAmount] = useState(5000);
-  const [depAmount, setDepamount] = useState(5000);
+  const [depAmount, setDepamount] = useState(1000);
   const [bankName, setBankname] = useState(acctInfo.bankName);
   const [bankAcctNo, setBankacctno] = useState(acctInfo.bankAcctNo);
 
@@ -73,13 +73,15 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
       amount
     );
 
-    if (res.error != true) {
-      setIssuc(true);
-      setSucmsg(res.msg);
-    } else {
+    if (res.error) {
       setIserr(true);
       setErrmsg(res.msg);
+      return;
     }
+
+    setBalance(res.balance);
+    setIssuc(true);
+    setSucmsg(res.msg);
   }
 
   return (

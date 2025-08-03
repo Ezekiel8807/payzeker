@@ -1,7 +1,9 @@
+import User from "@/model/userModel";
 import Plan from "@/model/planModel";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import { fetchModelsData } from "@/utils/modelFunc";
+import { fetchModelById } from "@/utils/modelFunc";
 
 //layouts
 import Main from "@/components/layout/Main";
@@ -14,12 +16,14 @@ import SubHeading from "@/components/SubHeading";
 import Upgradecard from "@/components/cards/Upgradecard";
 
 export default async function Upgrade() {
-  const user = await getToken();
-  const [plans] = await fetchModelsData(Plan);
-  const isLogin = !!user;
+  const token = await getToken();
+  if (!token) redirect("/login");
 
-  if (!user) return redirect("/login");
-  const { username, isAdmin } = user;
+  const isLogin = !!token;
+  const [plans] = await fetchModelsData(Plan);
+  const user = await fetchModelById(User, token.id);
+
+  const { username, isAdmin, rank } = user;
 
   return (
     <>
@@ -33,12 +37,15 @@ export default async function Upgrade() {
             <Main>
               <SubHeading
                 title="User Upgrade"
-                desc="Heigher previledges upgrading."
+                desc="Upgrade to unlock higher privileges."
               />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 my-5">
                 {plans
-                  .filter((e: { isDefault: boolean }) => !e.isDefault)
+                  .filter(
+                    (e: { rank: number; isDefault: boolean }) =>
+                      e.rank > rank && !e.isDefault
+                  )
                   .map(
                     (
                       el: {
