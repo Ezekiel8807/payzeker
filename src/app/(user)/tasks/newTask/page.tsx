@@ -11,11 +11,11 @@ import SideNav from "@/components/SideNav";
 import SubHeading from "@/components/SubHeading";
 import TaskCreationForm from "@/components/form/TaskCreationForm";
 
-export default async function page() {
+export default async function Page() {
   const user = await getToken();
-  const isLogin = !!user;
-
   if (!user) return redirect("/login");
+
+  const isLogin = !!user;
   const { username, isAdmin } = user;
 
   return (

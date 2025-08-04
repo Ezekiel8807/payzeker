@@ -13,7 +13,6 @@ type taskCreateInfo = {
   level: number;
   price: number;
   social: string;
-  link: string;
   fileType: string;
   fileUrl: string;
   duration: string;
@@ -33,7 +32,6 @@ export async function createTask({
   level,
   price,
   social,
-  link,
   fileType,
   fileUrl,
   duration,
@@ -44,8 +42,7 @@ export async function createTask({
   const userToken = await getToken();
   if (!userToken) return redirect("/login");
 
-  //
-  //
+  // Basic validation
   if (
     !taskName ||
     !level ||
@@ -54,55 +51,50 @@ export async function createTask({
     !duration ||
     !billingPrice ||
     !instruction
-  )
+  ) {
     return { error: true, msg: "Fill all required fields!" };
-
-  // const validDurations = ["7 days", "14 days", "1 month", "3 months"];
-  // if (!validDurations.includes(duration))
-  //   return { error: true, msg: "Invalid task duration" };
+  }
 
   const startDate = new Date();
   const userId = userToken.id as string;
-
   const endDate = calculateEndDate(startDate, duration);
 
   try {
     const user = await User.findById(userId);
-    if (!user) return { error: true, msg: "Error can't find user!" };
+    if (!user) {
+      return { error: true, msg: "User not found!" };
+    }
 
-    //
     const balance = user.account.balance;
-
-    if (balance < billingPrice)
+    if (balance < billingPrice) {
       return { error: true, msg: "Insufficient funds!" };
+    }
 
-    const newBalance = balance - billingPrice;
-    user.account.balance = newBalance;
-
+    // Deduct balance
+    user.account.balance -= billingPrice;
     await user.save();
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const taskData: any = {
-      userId: userToken.id,
+    // Create Task
+    const task = new Task({
+      userId,
       name: taskName,
       level,
       price,
       socialTarget: social,
-      link,
+      media: {
+        type: fileType,
+        content: fileUrl,
+      },
       caption,
       instruction,
+      billingPrice,
       startDate,
       endDate,
-    };
+    });
 
-    if (fileUrl) {
-      taskData.media = { type: fileType, content: fileUrl };
-    }
+    await task.save();
 
-    const newTask = await new Task(taskData);
-    await newTask.save();
-
-    //fetch the transaction
+    // Log transaction
     const transaction = new Transaction({
       userId,
       type: "debit",
@@ -110,21 +102,16 @@ export async function createTask({
       amount: billingPrice,
       disc: `#${billingPrice} for task creation`,
     });
-
-    //save to update new info
     await transaction.save();
 
+    // Send notification
     const notification = new Notification({
       username: user.username,
-      message: `Task created successfully😃`,
+      message: "Task created successfully 😃",
     });
-
-    //save to update new info
     await notification.save();
 
     return { error: false, msg: "Task created successfully" };
-
-    //
   } catch (err) {
     return {
       error: true,

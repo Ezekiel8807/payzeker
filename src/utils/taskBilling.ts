@@ -18,10 +18,10 @@ export default function calculateBillingPrice(
   };
 
   const durationMultipliers: Record<string, number> = {
-    "7": 1,
-    "14": 1.5,
-    "30": 2,
-    "90": 3.5,
+    "7 days": 1,
+    "14 days": 1.5,
+    "1 month": 2,
+    "3 months": 3.5,
   };
 
   const typeRate = typeRates[type] || 0;

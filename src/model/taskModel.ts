@@ -10,13 +10,13 @@ const TaskSchema = new mongoose.Schema({
     enum: ["new", "review", "completed"],
     default: "new",
   },
+  isActive: { type: Boolean, default: true },
   socialTarget: { type: String, default: "" },
-  link: { type: String, default: "" },
   media: {
     type: {
       type: String,
-      enum: ["image", "video", "others"],
-      default: "others",
+      enum: ["link", "image", "video"],
+      default: "link",
     },
     content: { type: String, default: "" },
   },
