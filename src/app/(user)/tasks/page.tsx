@@ -16,11 +16,16 @@ import TaskCom from "@/components/TaskCom";
 
 export default async function page() {
   const user = await getToken();
-  const [tasks] = await fetchModelsData(Task);
+  if (!user) return redirect("/login");
 
   const isLogin = !!user;
-  if (!user) return redirect("/login");
   const { username, isAdmin } = user;
+  const [tasks] = await fetchModelsData(Task);
+
+  //filter user tasks
+  const userTasks = tasks.filter(
+    (e: { userId: string }) => e.userId == user.id
+  );
 
   return (
     <>
@@ -38,7 +43,7 @@ export default async function page() {
               />
 
               {isAdmin && <AllTasks alltasks={tasks} />}
-              {!isAdmin && <TaskCom />}
+              {!isAdmin && <TaskCom userTasks={userTasks} />}
             </Main>
           </div>
         </div>

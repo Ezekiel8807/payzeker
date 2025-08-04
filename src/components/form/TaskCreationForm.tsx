@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { fileUpload } from "@/actions/fileUpload";
 import { createTask } from "@/actions/taskActions";
 import calculateBillingPrice from "../../utils/taskBilling";
@@ -25,54 +25,79 @@ export default function TaskCreationForm() {
   const [social, setSocial] = useState("facebook");
   const [link, setLink] = useState("");
   const [file, setFile] = useState<File>();
-  const [fileUrl, setFileurl] = useState("");
-  const [fileType, setFiletype] = useState("");
   const [caption, setCaption] = useState("");
   const [instruction, setInstruction] = useState("");
 
+  ///
   //billing price
   const billingPrice = calculateBillingPrice(taskType, level, duration);
 
+  ///
   async function handleCreateTask(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIspen(true);
+    setIserr(false);
+    setIssuc(false);
 
+    // Validation
     if (!taskName || !level || !price || !duration || !social || !instruction) {
-      setErrmsg("Fill all required field!");
+      setErrmsg("Fill all required fields!");
       setIserr(true);
       setIspen(false);
       return;
     }
 
-    //set file url
+    if (taskType === "link" && !link) {
+      setErrmsg("Link field cannot be empty!");
+      setIserr(true);
+      setIspen(false);
+      return;
+    }
+
+    if (taskType === "image" && (!file || !file.type.startsWith("image/"))) {
+      setErrmsg("Accept image file only!");
+      setIserr(true);
+      setIspen(false);
+      return;
+    }
+
+    if (taskType === "video" && (!file || !file.type.startsWith("video/"))) {
+      setErrmsg("Accept video file only!");
+      setIserr(true);
+      setIspen(false);
+      return;
+    }
+
+    // Upload file if necessary
+    let fileUrl: string | undefined = "";
+
     if (file) {
-      if (file.type.startsWith("image/")) {
-        setFiletype("image");
-      }
-
-      if (file.type.startsWith("video/")) {
-        setFiletype("video");
-      }
-
       const fileUp = await fileUpload(file);
 
-      if (fileUp.error != false) {
+      if (fileUp.error) {
         setErrmsg(fileUp.msg as string);
         setIserr(true);
         setIspen(false);
         return;
       }
 
-      setFileurl(fileUp.fileUrl);
+      fileUrl = fileUp.fileUrl;
+    } else if (taskType === "link") {
+      fileUrl = link;
+    } else {
+      setErrmsg("File or link is required!");
+      setIserr(true);
+      setIspen(false);
+      return;
     }
 
+    // Create task
     const res = await createTask({
       taskName,
       level,
       price,
       social,
-      link,
-      fileType,
+      fileType: taskType,
       fileUrl,
       duration,
       caption,
@@ -80,29 +105,30 @@ export default function TaskCreationForm() {
       billingPrice,
     });
 
-    if (res?.error) {
-      setErrmsg(res?.msg as string);
+    if (res.error) {
+      setErrmsg(res.msg as string);
       setIserr(true);
       setIspen(false);
       return;
     }
 
-    setSucmsg(res?.msg as string);
+    setSucmsg(res.msg as string);
     setIssuc(true);
     setIspen(false);
 
-    setTaskname("");
-    setTasktype("link");
-    setLevel(1);
-    setDuration("7");
-    setSocial("facebook");
-    setLink("");
-    setFile(undefined);
-    setFileurl("");
-    setFiletype("");
-    setCaption("");
-    setInstruction("");
+    // Optional: reset form fields here
   }
+
+  // Inside your component
+  useEffect(() => {
+    if (taskType === "image") {
+      setLevel(2);
+    } else if (taskType === "video") {
+      setLevel(3);
+    } else {
+      setLevel(1);
+    }
+  }, [taskType]); // runs whenever taskType changes
 
   return (
     <>
@@ -140,9 +166,8 @@ export default function TaskCreationForm() {
           >
             {(() => {
               let minLevel = 1;
-
               if (taskType === "image") minLevel = 2;
-              if (taskType === "video") minLevel = 3;
+              else if (taskType === "video") minLevel = 3;
 
               return [1, 2, 3, 4, 5]
                 .filter((lvl) => lvl >= minLevel)
@@ -250,7 +275,9 @@ export default function TaskCreationForm() {
         </div>
       </form>
 
-      {isSuc && <SuccessModal setIssuc={setIssuc} sucMsg={sucMsg} />}
+      {isSuc && (
+        <SuccessModal setIssuc={setIssuc} sucMsg={sucMsg} direction="/tasks" />
+      )}
       {isErr && <ErrorModal setIserr={setIserr} errMsg={errMsg} />}
     </>
   );

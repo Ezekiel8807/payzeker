@@ -6,7 +6,7 @@ interface Props {
   onChange: (val: string) => void;
 }
 
-const filters = ["Ongoing", "Expired", "Reactivate"];
+const filters = ["Ongoing", "Reactivate", "Expired"];
 
 export default function TaskFilterTabs({ active, onChange }: Props) {
   return (
