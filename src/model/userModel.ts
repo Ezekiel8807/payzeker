@@ -13,6 +13,7 @@ const UserSchema = new mongoose.Schema({
   isAdmin: { type: Boolean, default: false },
   tasks: [
     {
+      userId: { type: String, default: "" },
       name: { type: String, default: "" },
       level: { type: Number, default: 1 },
       price: { type: Number, default: 100 },
@@ -21,18 +22,16 @@ const UserSchema = new mongoose.Schema({
         enum: ["new", "review", "completed"],
         default: "new",
       },
+      isActive: { type: Boolean, default: true },
       socialTarget: { type: String, default: "" },
-      link: { type: String, default: "" },
       media: {
-        type: {
-          type: String,
-          enum: ["image", "video", "others"],
-          default: "others",
-        },
+        type: { type: String, default: "link" },
         content: { type: String, default: "" },
       },
-      isPaid: { type: Boolean, default: false },
+      caption: { type: String, default: "" },
       instruction: { type: String, default: "" },
+      startDate: { type: String, default: "" },
+      endDate: { type: String, default: "" },
     },
   ],
   overallTask: { type: Number, default: 0 },
