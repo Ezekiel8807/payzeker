@@ -9,7 +9,7 @@ type userTask = {
   price?: number;
   socialTarget?: string;
   media?: {
-    type?: "image" | "video" | "others";
+    type?: string;
     content?: string;
   };
 };
@@ -117,7 +117,7 @@ export default function DailyTaskCard({ userTask }: { userTask: userTask }) {
         ></video>
       )}
 
-      {userTask.media?.type === "others" && (
+      {userTask.media?.type === "link" && (
         <Image
           width={200}
           height={200}
