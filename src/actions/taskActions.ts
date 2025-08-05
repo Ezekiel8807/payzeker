@@ -1,12 +1,13 @@
 "use server";
 import { getToken } from "./action";
-import User from "@/model/userModel";
 import Task from "@/model/taskModel";
+import User from "@/model/userModel";
+import { connectDB } from "@/lib/mongodb";
+import { redirect } from "next/navigation";
 import Transaction from "@/model/transactionModel";
 import Notification from "@/model/notificationModel";
 import SubmittedTask from "@/model/submittedTaskModel";
 import { calculateEndDate } from "@/utils/dateFunc";
-import { redirect } from "next/navigation";
 
 type taskCreateInfo = {
   taskName: string;
@@ -60,6 +61,9 @@ export async function createTask({
   const endDate = calculateEndDate(startDate, duration);
 
   try {
+    //connect database
+    await connectDB();
+
     const user = await User.findById(userId);
     if (!user) {
       return { error: true, msg: "User not found!" };
