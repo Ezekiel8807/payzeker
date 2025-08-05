@@ -100,17 +100,17 @@ export default async function TaskDetails({
                   {taskInfo.instruction}
                 </p>
 
-                <div>
-                  <h3 className="text-lg font-medium">Caption</h3>
-                  <p className="bg-gray-100 p-3 rounded text-gray-800 text-sm font-mono">
-                    🚀 Join Codeneacademy and learn to code from scratch!
-                    <br />
-                    Like this page to support the community 👨‍💻💡
-                  </p>
-                </div>
+                {taskInfo.caption && (
+                  <div>
+                    <h3 className="text-lg font-medium">Caption</h3>
+                    <p className="bg-gray-100 p-3 rounded text-gray-800 text-sm font-mono">
+                      {taskInfo.caption}
+                    </p>
+                  </div>
+                )}
               </section>
 
-              <MediaCom link={taskInfo.link} media={taskInfo.media} />
+              <MediaCom media={taskInfo.media} />
 
               <div className="w-[100%] md:w-[60%] mb-10">
                 <SubHeading
