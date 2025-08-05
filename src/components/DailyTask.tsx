@@ -38,7 +38,7 @@ export default function DailyTask() {
               price?: number;
               socialTarget?: string;
               media?: {
-                type?: "image" | "video" | "others";
+                type?: string;
                 content?: string;
               };
             }) => {
