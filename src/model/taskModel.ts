@@ -13,11 +13,7 @@ const TaskSchema = new mongoose.Schema({
   isActive: { type: Boolean, default: true },
   socialTarget: { type: String, default: "" },
   media: {
-    type: {
-      type: String,
-      enum: ["link", "image", "video"],
-      default: "link",
-    },
+    type: { type: String, default: "link" },
     content: { type: String, default: "" },
   },
   caption: { type: String, default: "" },
