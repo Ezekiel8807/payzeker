@@ -13,7 +13,7 @@ type taskCreateInfo = {
   level: number;
   price: number;
   social: string;
-  fileType: string;
+  fileType: "link" | "image" | "video";
   fileUrl: string;
   duration: string;
   caption: string;
