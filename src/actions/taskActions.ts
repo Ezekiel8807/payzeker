@@ -4,6 +4,7 @@ import Task from "@/model/taskModel";
 import User from "@/model/userModel";
 import { connectDB } from "@/lib/mongodb";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import Transaction from "@/model/transactionModel";
 import Notification from "@/model/notificationModel";
 import SubmittedTask from "@/model/submittedTaskModel";
@@ -266,6 +267,98 @@ export async function rejectTask(userId: string, subTaskId: string) {
     await notification.save();
 
     return { error: false, msg: "Task rejected sucessfully!" };
+    //
+  } catch (err) {
+    return {
+      error: true,
+      msg: err instanceof Error ? err.message : "An unknown error occurred",
+    };
+  }
+}
+
+export async function pauseTask(taskId: string) {
+  const pauseDate = new Date();
+
+  try {
+    //connect dataBase
+    await connectDB();
+
+    const task = await Task.findById(taskId);
+    const endDate = new Date(task.endDate);
+
+    const remainingDays = Math.ceil(
+      (endDate.getTime() - pauseDate.getTime()) / (1000 * 60 * 60 * 24)
+    );
+
+    task.pauseDate = pauseDate;
+    task.remainingDays = remainingDays;
+    task.isActive = false;
+
+    await task.save();
+    // Revalidate the task list page (optional)
+    revalidatePath("/tasks"); // change path as needed
+    return { error: false, msg: "Task paused sucessfully!" };
+    //
+
+    //
+  } catch (err) {
+    return {
+      error: true,
+      msg: err instanceof Error ? err.message : "An unknown error occurred",
+    };
+  }
+}
+
+export async function resumeTask(taskId: string) {
+  try {
+    //connect dataBase
+    await connectDB();
+
+    const task = await Task.findById(taskId);
+    const now = new Date();
+
+    if (task.remainingDays && task.remainingDays > 0) {
+      const newEndDate = new Date(now);
+      newEndDate.setDate(now.getDate() + task.remainingDays);
+
+      task.endDate = newEndDate;
+      task.isPaused = false;
+    }
+
+    task.pauseDate = null;
+    task.remainingDays = null;
+    task.isActive = true;
+
+    await task.save();
+    // Revalidate the task list page (optional)
+    revalidatePath("/tasks"); // change path as needed
+    return { error: false, msg: "Task activated sucessfully!" };
+    //
+
+    //
+  } catch (err) {
+    return {
+      error: true,
+      msg: err instanceof Error ? err.message : "An unknown error occurred",
+    };
+  }
+}
+
+export async function deleteTask(taskId: string) {
+  try {
+    //connect db
+    await connectDB();
+
+    const deleted = await Task.findByIdAndDelete(taskId);
+
+    if (!deleted) throw new Error("Task not found");
+
+    // Revalidate the task list page (optional)
+    revalidatePath("/tasks"); // change path as needed
+    return { error: false, msg: "Task deleted sucessfully!" };
+
+    //
+
     //
   } catch (err) {
     return {
