@@ -18,8 +18,10 @@ const TaskSchema = new mongoose.Schema({
   },
   caption: { type: String, default: "" },
   instruction: { type: String, default: "" },
-  startDate: { type: String, default: "" },
-  endDate: { type: String, default: "" },
+  remainingDays: Number,
+  startDate: Date,
+  pauseDate: Date,
+  endDate: Date,
 });
 
 const Task = models?.Task || mongoose.model("Task", TaskSchema);

@@ -30,8 +30,10 @@ const UserSchema = new mongoose.Schema({
       },
       caption: { type: String, default: "" },
       instruction: { type: String, default: "" },
-      startDate: { type: String, default: "" },
-      endDate: { type: String, default: "" },
+      remainingDays: Number,
+      startDate: Date,
+      pauseDate: Date,
+      endDate: Date,
     },
   ],
   overallTask: { type: Number, default: 0 },
@@ -47,7 +49,6 @@ const UserSchema = new mongoose.Schema({
     },
   },
   password: { type: String, require: true }, // user password is required
-
   createdAt: { type: Date, default: Date.now() },
 });
 

@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
+import { pauseTask, deleteTask } from "@/actions/taskActions";
+
+//components
+import Link from "next/link";
 import TaskCard from "./cards/TaskCard";
 import TaskFilterTabs from "./TaskFilterTabs";
-import Link from "next/link";
 
 type Task = {
   _id?: string;
@@ -35,6 +38,43 @@ export default function TaskCom({ userTasks }: taskType) {
     (task) => !task.isActive && new Date(task.endDate) >= now
   );
 
+  const handleDeleteTask = async (taskId: string) => {
+    const confirm = window.confirm(
+      "Are you sure you want to delete this task?"
+    );
+    if (!confirm) return;
+
+    try {
+      const res = await deleteTask(taskId);
+
+      if (res.error) alert("Failed to delete task");
+
+      // Optionally, refresh task list or remove from state
+      alert(res.msg);
+      // Refresh UI logic here
+    } catch (error) {
+      console.error(error);
+      alert("Error deleting task");
+    }
+  };
+
+  const handlePauseTask = async (taskId: string) => {
+    const confirm = window.confirm("Are you sure you want to pause this task?");
+    if (!confirm) return;
+
+    try {
+      const res = await pauseTask(taskId);
+
+      if (res.error) alert("Failed to pause task");
+
+      alert(res.msg);
+      // Refresh UI logic here
+    } catch (error) {
+      console.error(error);
+      alert("Error pausing task");
+    }
+  };
+
   const renderTasks = (
     tasks: Task[],
     status: "Ongoing" | "Expired" | "Inactive",
@@ -50,12 +90,10 @@ export default function TaskCom({ userTasks }: taskType) {
         title={`📢 ${task.name}`}
         status={status}
         dateLabel={dateLabel}
-        dateValue={
-          dateLabel === "Start Date"
-            ? task.startDate
-            : dateLabel === "End Date"
-            ? task.endDate
-            : task.startDate
+        dateValue={dateLabel === "Start Date" ? task.startDate : task.endDate}
+        onDelete={() => handleDeleteTask(task._id!)}
+        onPause={
+          status === "Ongoing" ? () => handlePauseTask(task._id!) : undefined
         }
       />
     ));
