@@ -1,6 +1,9 @@
 "use client";
 import { useState } from "react";
-import { confirmSpin, cancelConfirmSpin, handleSpin } from "@/utils/miniGame";
+import { Cancel } from "@/utils/modalFunc";
+import { redirect } from "next/navigation";
+import { getToken } from "@/actions/action";
+import { handleSpinAction } from "@/actions/miniGameAction";
 
 //components
 import Spinner from "./Spinner";
@@ -25,10 +28,52 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
   const [spinning, setSpinning] = useState(false);
   const [winType, setWinType] = useState("");
   const [amontWon, setAmountWon] = useState(0);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [result, setResult] = useState<string | null>(null);
+
+  function confirmSpin(
+    stateSetter: React.Dispatch<React.SetStateAction<boolean>>
+  ) {
+    stateSetter(true);
+  }
+
+  function cancelConfirmSpin(
+    stateSetter: React.Dispatch<React.SetStateAction<boolean>>
+  ) {
+    Cancel(stateSetter);
+  }
 
   function onReset() {
     setStake(100);
+  }
+
+  async function handlespin() {
+    if (isProcessing || spinning) return;
+    setIsProcessing(true);
+
+    const isLogin = await getToken();
+    if (!isLogin) redirect("/login");
+
+    setIscon(false);
+    setSpinning(true);
+
+    const handleSpinActionRes = await handleSpinAction(stake, balance);
+    if (handleSpinActionRes.error) {
+      setIscon(false);
+      setErrmsg(handleSpinActionRes.msg);
+      setiserr(true);
+      return;
+    }
+
+    // Fake delay for animation
+    await new Promise((res) => setTimeout(res, 2000));
+
+    setSpinning(false);
+    setWinType(handleSpinActionRes.result!.winType);
+    setAmountWon(handleSpinActionRes.result!.amountWon);
+    setBalance(handleSpinActionRes.result!.finalBalance);
+    setResult(handleSpinActionRes.result!.outcome);
+    setIsProcessing(false);
   }
 
   return (
@@ -120,21 +165,8 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
               Cancel
             </button>
             <button
-              onClick={() => {
-                handleSpin(
-                  balance,
-                  stake,
-                  spinning,
-                  setErrmsg,
-                  setiserr,
-                  setIscon,
-                  setBalance,
-                  setSpinning,
-                  setWinType,
-                  setAmountWon,
-                  setResult
-                );
-              }}
+              onClick={handlespin}
+              disabled={isProcessing}
               className="w-full font-black block p-2 bg-[var(--green)] cursor shadow-xl"
             >
               Comfirm
