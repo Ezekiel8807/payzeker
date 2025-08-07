@@ -35,7 +35,9 @@ export default function TaskCreationForm() {
   ///
   async function handleCreateTask(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (isPen) return;
     setIspen(true);
+
     setIserr(false);
     setIssuc(false);
 
