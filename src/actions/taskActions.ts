@@ -284,6 +284,8 @@ export async function pauseTask(taskId: string) {
     await connectDB();
 
     const task = await Task.findById(taskId);
+    if (!task) return { error: true, msg: "Task not found" };
+
     const endDate = new Date(task.endDate);
 
     const remainingDays = Math.ceil(
@@ -309,18 +311,21 @@ export async function pauseTask(taskId: string) {
   }
 }
 
-export async function resumeTask(taskId: string) {
+export async function reactivateTask(taskId: string) {
   try {
     //connect dataBase
     await connectDB();
 
     const task = await Task.findById(taskId);
+    if (!task) return { error: true, msg: "Task not found" };
+
     const now = new Date();
 
     if (task.remainingDays && task.remainingDays > 0) {
       const newEndDate = new Date(now);
       newEndDate.setDate(now.getDate() + task.remainingDays);
 
+      task.startDate = new Date(now);
       task.endDate = newEndDate;
       task.isPaused = false;
     }
@@ -350,7 +355,6 @@ export async function deleteTask(taskId: string) {
     await connectDB();
 
     const deleted = await Task.findByIdAndDelete(taskId);
-
     if (!deleted) throw new Error("Task not found");
 
     // Revalidate the task list page (optional)
