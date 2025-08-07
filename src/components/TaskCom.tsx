@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { pauseTask, deleteTask } from "@/actions/taskActions";
+import { pauseTask, deleteTask, reactivateTask } from "@/actions/taskActions";
 
 //components
 import Link from "next/link";
@@ -75,6 +75,21 @@ export default function TaskCom({ userTasks }: taskType) {
     }
   };
 
+  const handleReactivateTask = async (taskId: string) => {
+    const confirm = window.confirm("Reactivate this task?");
+    if (!confirm) return;
+
+    try {
+      const res = await reactivateTask(taskId); // You must create this in taskActions.ts
+      if (res.error) return alert("Failed to reactivate task");
+      alert(res.msg);
+      // Refresh logic
+    } catch (error) {
+      console.error(error);
+      alert("Error reactivating task");
+    }
+  };
+
   const renderTasks = (
     tasks: Task[],
     status: "Ongoing" | "Expired" | "Inactive",
@@ -95,6 +110,15 @@ export default function TaskCom({ userTasks }: taskType) {
         onPause={
           status === "Ongoing" ? () => handlePauseTask(task._id!) : undefined
         }
+        onActionClick={() => {
+          if (status === "Ongoing") {
+            // handle view details (maybe navigate or show modal)
+            console.log("Viewing details of", task.name);
+          } else if (status === "Inactive") {
+            // handle reactivation
+            handleReactivateTask(task._id!);
+          }
+        }}
       />
     ));
   };
