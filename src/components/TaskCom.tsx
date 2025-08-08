@@ -25,12 +25,14 @@ export default function TaskCom({ userTasks }: taskType) {
 
   const now = new Date();
 
-  const ongoingTasks = userTasks.filter(
-    (task) =>
-      new Date(task.startDate) <= now &&
-      new Date(task.endDate) >= now &&
-      task.isActive
-  );
+  const ongoingTasks = userTasks
+    .filter(
+      (task) =>
+        new Date(task.startDate) <= now &&
+        new Date(task.endDate) >= now &&
+        task.isActive
+    )
+    .reverse();
 
   const expiredTasks = userTasks.filter((task) => new Date(task.endDate) < now);
 
@@ -136,7 +138,7 @@ export default function TaskCom({ userTasks }: taskType) {
 
       <TaskFilterTabs active={filter} onChange={setFilter} />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 my-5 gap-5">
         {filter === "Ongoing" &&
           renderTasks(ongoingTasks, "Ongoing", "Start Date")}
         {filter === "Expired" &&

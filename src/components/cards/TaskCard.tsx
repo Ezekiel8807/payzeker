@@ -55,7 +55,9 @@ export default function TaskCard({
 
       <p className="text-sm text-gray-600 mt-1">
         Status:
-        <span className={`${statusColor[status]} font-medium`}>{status}</span>
+        <span
+          className={`${statusColor[status]} font-medium`}
+        >{` ${status}`}</span>
       </p>
       <p className="text-sm text-gray-500">
         {dateLabel}: {dateValue}
