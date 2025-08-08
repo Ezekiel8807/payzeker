@@ -43,14 +43,14 @@ async function getTaskInfo(id: string) {
   return await JSON.parse(JSON.stringify(taskInfo));
 }
 
-export default async function TaskDetails({
+export default async function Page({
   params,
 }: {
-  params: Promise<{ taskId: string }>;
+  params: Promise<{ id: string }>;
 }) {
   const user = await getToken();
-  const { taskId } = await params;
-  const taskInfo = await getTaskInfo(taskId);
+  const { id } = await params;
+  const taskInfo = await getTaskInfo(id);
 
   const isLogin = !!user;
   if (!user) return redirect("/login");
@@ -86,7 +86,7 @@ export default async function TaskDetails({
               </section>
 
               {/* Task Details */}
-              <section className="bg-white rounded-xl shadow-md">
+              <section className="bg-white rounded-xl">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-lg md:text-xl font-semibold">
                     Task Details
@@ -111,7 +111,10 @@ export default async function TaskDetails({
                 )}
               </section>
 
-              <MediaCom media={taskInfo.media} />
+              <MediaCom
+                type={taskInfo.media.type}
+                content={taskInfo.media.type.content}
+              />
 
               <div className="w-[100%] md:w-[60%] mb-10">
                 <SubHeading

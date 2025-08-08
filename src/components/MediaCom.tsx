@@ -3,8 +3,12 @@ import Link from "next/link";
 // import Button from "./Button";
 import Image from "next/image";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function MediaCom({ media }: { media: any }) {
+type mediaType = {
+  type: "link" | "image" | "video";
+  content: string;
+};
+
+export default function MediaCom({ type, content }: mediaType) {
   return (
     <div className="my-5">
       <h3 className="font-semibold text-lg mb-2">Task Media</h3>
@@ -13,7 +17,7 @@ export default function MediaCom({ media }: { media: any }) {
         {/*  */}
 
         {/*  */}
-        {media?.type === "link" && (
+        {type === "link" && (
           <div className="w-full mt-4">
             <label className="block text-sm font-medium text-gray-600 mb-1">
               Link
@@ -24,12 +28,12 @@ export default function MediaCom({ media }: { media: any }) {
                 className="w-[80%] p-2 outline-none block"
                 type="text"
                 readOnly
-                value={media!.content}
+                value={content}
               />
               <Link
                 target="_blank"
                 className="w-[20%] p-2 text-white text-center bg-[var(--green)]"
-                href={media!.content}
+                href={content}
               >
                 Visit
               </Link>
@@ -39,17 +43,17 @@ export default function MediaCom({ media }: { media: any }) {
 
         {/*  */}
         {/* Example for image */}
-        {media?.type === "image" && (
+        {type === "image" && (
           <>
             <Image
               width={500}
               height={500}
-              src={media!.content || "/img/a.png"}
+              src={content || "/img/a.png"}
               alt="Task Image"
               className="w-full max-w-md rounded-md border"
             />
             <a
-              href={media!.content}
+              href={content}
               download
               className="bg-[var(--green)] text-white px-4 py-2 rounded hover:bg-teal-600"
             >
@@ -58,14 +62,14 @@ export default function MediaCom({ media }: { media: any }) {
           </>
         )}
         {/* Example for video */}
-        {media?.type === "video" && (
+        {type === "video" && (
           <>
             <video controls className="w-full max-w-md rounded-md border">
-              <source src={media?.content} type="video/mp4" />
+              <source src={content} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <a
-              href={media.content}
+              href={content}
               download
               className="bg-[var(--green)] text-white px-4 py-2 rounded hover:bg-teal-600"
             >
