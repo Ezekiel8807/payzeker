@@ -13,6 +13,10 @@ import SubHeading from "@/components/SubHeading";
 import TaskSubmissionForm from "@/components/form/TaskSubmissionForm";
 import Main from "@/components/layout/Main";
 
+interface DailyTaskPageProps {
+  params: { id: string };
+}
+
 async function getTaskInfo(id: string, username: string) {
   await connectDB();
 
@@ -29,7 +33,7 @@ async function getTaskInfo(id: string, username: string) {
   return taskInfo ? JSON.parse(JSON.stringify(taskInfo)) : null;
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: DailyTaskPageProps) {
   const user = await getToken();
   if (!user) return redirect("/login");
 
