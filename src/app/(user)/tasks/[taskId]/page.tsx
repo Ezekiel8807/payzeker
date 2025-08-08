@@ -13,16 +13,16 @@ import MediaCom from "@/components/MediaCom";
 import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";
 
-export default async function TaskDetails({
-  params,
-}: {
-  params: { taskId: string };
-}) {
+type TaskDetailsProbs = {
+  params: Promise<{ taskId: string }>;
+};
+
+export default async function TaskDetails({ params }: TaskDetailsProbs) {
+  const { taskId } = await params;
   const user = await getToken();
-  if (!user) return redirect(`/login?redirectTo=/tasks/${params.taskId}`);
+  if (!user) return redirect(`/login?redirectTo=/tasks/${taskId}`);
 
   const isLogin = !!user;
-  const { taskId } = params;
   const { username, isAdmin } = user;
   const taskInfo = await fetchModelById(Task, taskId);
 

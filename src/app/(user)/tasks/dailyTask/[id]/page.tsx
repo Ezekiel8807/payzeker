@@ -13,9 +13,9 @@ import SubHeading from "@/components/SubHeading";
 import TaskSubmissionForm from "@/components/form/TaskSubmissionForm";
 import Main from "@/components/layout/Main";
 
-interface DailyTaskPageProps {
-  params: { id: string };
-}
+type DailyTaskPageProps = {
+  params: Promise<{ id: string }>;
+};
 
 async function getTaskInfo(id: string, username: string) {
   await connectDB();
@@ -34,10 +34,10 @@ async function getTaskInfo(id: string, username: string) {
 }
 
 export default async function Page({ params }: DailyTaskPageProps) {
+  const { id } = await params;
   const user = await getToken();
   if (!user) return redirect("/login");
 
-  const { id } = params;
   const taskInfo = await getTaskInfo(id, user.username);
 
   if (!taskInfo) {
