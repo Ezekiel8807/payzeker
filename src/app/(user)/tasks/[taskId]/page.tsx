@@ -13,11 +13,11 @@ import MediaCom from "@/components/MediaCom";
 import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";
 
-interface TaskDetailsPageProps {
+export default async function TaskDetails({
+  params,
+}: {
   params: { taskId: string };
-}
-
-export default async function TaskDetails({ params }: TaskDetailsPageProps) {
+}) {
   const user = await getToken();
   if (!user) return redirect(`/login?redirectTo=/tasks/${params.taskId}`);
 
