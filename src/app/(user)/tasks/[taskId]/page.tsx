@@ -122,7 +122,10 @@ export default async function TaskDetails({
                 </div>
               </section>
 
-              <MediaCom media={taskInfo.media} />
+              <MediaCom
+                type={taskInfo.media.type}
+                content={taskInfo.media.type.content}
+              />
             </Main>
           </div>
         </div>
