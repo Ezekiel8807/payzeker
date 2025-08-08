@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 //components
 import Link from "next/link";
@@ -15,6 +15,9 @@ export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo") || "/dashboard";
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,10 +33,13 @@ export default function LoginForm() {
       return setErr("Enter your password");
     }
 
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ username, password }),
-    });
+    const res = await fetch(
+      `/api/auth/login?redirectTo=${encodeURIComponent(redirectTo)}`,
+      {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+      }
+    );
 
     const data = await res.json();
 
@@ -44,6 +50,8 @@ export default function LoginForm() {
 
     setIsLoading(false);
     router.push(data.redirectTo);
+    // window.location.href = "/dashboard";
+    //globall suceess msg
   };
 
   return (
