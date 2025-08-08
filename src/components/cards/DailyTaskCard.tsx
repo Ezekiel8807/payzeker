@@ -93,7 +93,7 @@ export default function DailyTaskCard({ userTask }: { userTask: userTask }) {
 
   return (
     <div
-      onClick={() => router.push(`/tasks/${userTask._id}`)}
+      onClick={() => router.push(`/tasks/dailyTask/${userTask._id}`)}
       className="group relative w-[200px] h-[200px] bg-[var(--gray-20)] shadow-xl rounded-lg"
     >
       {userTask.media?.type === "image" && (

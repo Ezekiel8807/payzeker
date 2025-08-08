@@ -1,11 +1,9 @@
-import mongoose from "mongoose";
-import User from "@/model/userModel";
-import { connectDB } from "@/lib/mongodb";
+import Task from "@/model/taskModel";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
+import { fetchModelById } from "@/utils/modelFunc";
 
 //layout
-// import Main from "@/components/layout/Main";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
@@ -13,34 +11,7 @@ import Footer from "@/components/layout/Footer";
 import SideNav from "@/components/SideNav";
 import MediaCom from "@/components/MediaCom";
 import SubHeading from "@/components/SubHeading";
-import TaskSubmissionForm from "@/components/form/TaskSubmissionForm";
 import Main from "@/components/layout/Main";
-
-async function getTaskInfo(id: string) {
-  const token = await getToken();
-  if (!token) return redirect("/login");
-
-  // datase connection
-  await connectDB();
-
-  // fetch the task
-  const user = await User.findOne({ username: token.username }).populate(
-    "tasks"
-  );
-
-  // Convert `taskId` to ObjectId if necessary
-  const taskObjectId = mongoose.Types.ObjectId.isValid(id)
-    ? new mongoose.Types.ObjectId(id)
-    : null;
-
-  // Find task in user's tasks
-  const taskInfo = user.tasks.find(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (task: any) => task._id?.toString() === taskObjectId!.toString()
-  );
-
-  return await JSON.parse(JSON.stringify(taskInfo));
-}
 
 export default async function TaskDetails({
   params,
@@ -48,12 +19,20 @@ export default async function TaskDetails({
   params: Promise<{ taskId: string }>;
 }) {
   const user = await getToken();
-  const { taskId } = await params;
-  const taskInfo = await getTaskInfo(taskId);
+  if (!user) return redirect("/login");
 
   const isLogin = !!user;
-  if (!user) return redirect("/login");
+  const { taskId } = await params;
   const { username, isAdmin } = user;
+  const taskInfo = await fetchModelById(Task, taskId);
+
+  const remainingDays = Math.max(
+    Math.ceil(
+      (new Date(taskInfo.endDate).getTime() - Date.now()) /
+        (1000 * 60 * 60 * 24)
+    ),
+    0
+  );
 
   return (
     <>
@@ -70,72 +49,80 @@ export default async function TaskDetails({
                 desc="More information on how to perform task"
               />
 
-              {/* General Instructions */}
-              <section className="bg-white rounded-xl mb-5">
-                <h2 className="text-lg md:text-xl font-semibold mb-2">
-                  General Instructions
-                </h2>
-                <p className="text-gray-700 leading-relaxed">
-                  Please ensure your submission is clear and accurate.
-                  Submissions must meet the task requirements to be approved.
-                  Avoid fake screenshots or incomplete proofs, as that could
-                  lead to disqualification or ban. If you have any technical
-                  issues, contact support using the help button.
-                </p>
-              </section>
-
-              {/* Task Details */}
-              <section className="bg-white rounded-xl shadow-md">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-lg md:text-xl font-semibold">
-                    Task Details
-                  </h2>
+              <section className="bg-white rounded-xl p-5 shadow-md space-y-5">
+                {/* Task Title and Level */}
+                <div className="flex justify-between items-center">
+                  <h2 className="text-xl font-semibold">{taskInfo.name}</h2>
                   <span className="bg-[var(--green)] text-white px-3 py-1 rounded-full text-sm">
                     Level: {taskInfo.level}
                   </span>
                 </div>
-                <p className="text-gray-700 mb-4">
-                  <strong>{taskInfo.name}</strong>
-                  <br />
-                  {taskInfo.instruction}
-                </p>
 
+                {/* Status Tags */}
+                <div className="flex flex-wrap gap-3">
+                  <span className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                    State: {taskInfo.state}
+                  </span>
+                  <span
+                    className={`text-sm px-2 py-1 rounded ${
+                      taskInfo.isActive
+                        ? "bg-green-100 text-green-700"
+                        : "bg-yellow-100 text-yellow-700"
+                    }`}
+                  >
+                    Status: {taskInfo.isActive ? "Active" : "Paused"}
+                  </span>
+                  <span className="text-sm bg-purple-100 text-purple-700 px-2 py-1 rounded">
+                    Social Target: {taskInfo.socialTarget}
+                  </span>
+                </div>
+
+                {/* Timeline Info */}
+                <div>
+                  <h3 className="text-lg font-medium mb-1">Timeline</h3>
+                  <ul className="text-gray-600 text-sm space-y-1">
+                    <li>
+                      <strong>Remaining Days: </strong> {remainingDays}
+                    </li>
+                    <li>
+                      <strong>Start Date:</strong>{" "}
+                      {taskInfo.startDate
+                        ? new Date(taskInfo.startDate).toLocaleString()
+                        : "Not started"}
+                    </li>
+                    <li>
+                      <strong>Pause Date:</strong>{" "}
+                      {taskInfo.pauseDate
+                        ? new Date(taskInfo.pauseDate).toLocaleString()
+                        : "Never paused"}
+                    </li>
+                    <li>
+                      <strong>End Date:</strong>{" "}
+                      {taskInfo.endDate
+                        ? new Date(taskInfo.endDate).toLocaleString()
+                        : "No end date"}
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Caption */}
                 {taskInfo.caption && (
                   <div>
-                    <h3 className="text-lg font-medium">Caption</h3>
-                    <p className="bg-gray-100 p-3 rounded text-gray-800 text-sm font-mono">
+                    <h3 className="text-lg font-medium mb-1">Caption</h3>
+                    <p className="bg-gray-100 p-3 rounded text-gray-800 text-sm font-mono whitespace-pre-wrap">
                       {taskInfo.caption}
                     </p>
                   </div>
                 )}
+
+                {/* Instruction */}
+                <div>
+                  <h3 className="text-lg font-medium mb-1">Instruction</h3>
+                  <p className="text-gray-700">{taskInfo.instruction}</p>
+                </div>
               </section>
 
               <MediaCom media={taskInfo.media} />
-
-              <div className="w-[100%] md:w-[60%] mb-10">
-                <SubHeading
-                  title="Task Submission"
-                  desc="Submitting proof for Payment"
-                />
-                <TaskSubmissionForm taskId={taskInfo._id.toString()} />
-              </div>
-
-              {/* Task Submission */}
-              {/* <section className="bg-white rounded-xl p-6 shadow-md">
-                <h2 className="text-xl font-semibold mb-4">Task Submission</h2>
-                <p className="text-gray-600 mb-2">
-                  Upload an image or video record for task verification
-                </p>
-                <div className="flex items-center space-x-4">
-                  <input
-                    type="file"
-                    className="border px-4 py-2 rounded-md w-full"
-                  />
-                  <button className="bg-teal-500 text-white px-6 py-2 rounded-md hover:bg-teal-600">
-                    Submit
-                  </button>
-                </div>
-              </section> */}
             </Main>
           </div>
         </div>
