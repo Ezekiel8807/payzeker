@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { redirect } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 //components
 import Link from "next/link";
@@ -13,6 +14,11 @@ export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo") || "/dashboard";
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,9 +47,7 @@ export default function LoginForm() {
     }
 
     setIsLoading(false);
-    redirect("/dashboard");
-    // window.location.href = "/dashboard";
-    //globall suceess msg
+    router.push(data.redirectTo);
   };
 
   return (

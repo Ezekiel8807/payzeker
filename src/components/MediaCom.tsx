@@ -9,6 +9,8 @@ type mediaType = {
 };
 
 export default function MediaCom({ type, content }: mediaType) {
+  console.log(type, content);
+
   return (
     <div className="my-5">
       <h3 className="font-semibold text-lg mb-2">Task Media</h3>
