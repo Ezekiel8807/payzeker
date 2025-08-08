@@ -16,13 +16,13 @@ import Main from "@/components/layout/Main";
 export default async function TaskDetails({
   params,
 }: {
-  params: Promise<{ taskId: string }>;
+  params: { taskId: string };
 }) {
   const user = await getToken();
-  if (!user) return redirect("/login");
+  if (!user) return redirect(`/login?redirectTo=/tasks/${params.taskId}`);
 
   const isLogin = !!user;
-  const { taskId } = await params;
+  const { taskId } = params;
   const { username, isAdmin } = user;
   const taskInfo = await fetchModelById(Task, taskId);
 
