@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { pauseTask, deleteTask, reactivateTask } from "@/actions/taskActions";
 
 //components
@@ -24,6 +25,8 @@ export default function TaskCom({ userTasks }: taskType) {
   const [filter, setFilter] = useState("Ongoing");
 
   const now = new Date();
+
+  const navigate = useRouter();
 
   const ongoingTasks = userTasks
     .filter(
@@ -115,7 +118,9 @@ export default function TaskCom({ userTasks }: taskType) {
         onActionClick={() => {
           if (status === "Ongoing") {
             // handle view details (maybe navigate or show modal)
-            console.log("Viewing details of", task.name);
+            navigate.push(`/tasks/${task._id}`);
+
+            //
           } else if (status === "Inactive") {
             // handle reactivation
             handleReactivateTask(task._id!);
