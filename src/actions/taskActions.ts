@@ -114,9 +114,12 @@ export async function createTask({
       username: user.username,
       message: "Task created successfully 😃",
     });
-    await notification.save();
 
+    await notification.save();
+    revalidatePath("/dashboard"); // change path as needed
     return { error: false, msg: "Task created successfully" };
+
+    //
   } catch (err) {
     return {
       error: true,

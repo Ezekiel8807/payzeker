@@ -3,6 +3,10 @@ import Script from "next/script";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
+// components
+import AdSenseAutoAds from "@/components/adSense";
+
+//
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -18,6 +22,8 @@ export const metadata: Metadata = {
   description:
     "Payzeker is an online platform (accessible via web) connecting businesses with micro‑freelancers who complete simple online tasks—such as liking, commenting, or posting on social media—for instant micro‑payments",
 };
+
+export const config = { amp: true };
 
 export default function RootLayout({
   children,
@@ -51,12 +57,21 @@ export default function RootLayout({
           async
         ></Script>
 
+        <Script
+          async
+          custom-element="amp-auto-ads"
+          src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"
+        ></Script>
+
         {/* Paystack script */}
         <Script src="https://js.paystack.co/v1/inline.js"></Script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Auto ads script injection */}
+        <AdSenseAutoAds client="ca-pub-3810051236937370" />
+
         {children}
       </body>
     </html>
