@@ -60,6 +60,7 @@ export default function TaskSubmissionForm({ taskId }: TaskSubmissionForm) {
 
     const response = await fileUpload(file);
     if (response.error) {
+      // console.log(response.msg as string);
       setErrmsg(response.msg as string);
       setIserr(true);
       setIspen(false);
@@ -70,7 +71,8 @@ export default function TaskSubmissionForm({ taskId }: TaskSubmissionForm) {
 
     const submitting = await subTask({ taskId, taskFileType, taskFileLink });
     if (submitting.error) {
-      setErrmsg(submitting.msg);
+      // console.log(submitting.msg as string);
+      setErrmsg(submitting.msg as string);
       setIserr(true);
       setIspen(false);
       return;

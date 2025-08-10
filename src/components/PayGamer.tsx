@@ -60,6 +60,8 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
     const handleSpinActionRes = await handleSpinAction(stake, balance);
     if (handleSpinActionRes.error) {
       setIscon(false);
+      setSpinning(false);
+      setIsProcessing(false);
       setErrmsg(handleSpinActionRes.msg);
       setiserr(true);
       return;

@@ -45,10 +45,15 @@ export default function RootLayout({
         />
         <link rel="icon" type="image/svg+xml" href="/icons/pIcon.png" />
 
+        <Script
+          src="https://grookilteepsou.net/act/files/tag.min.js?z=9693459"
+          data-cfasync="false"
+          async
+        ></Script>
+
         {/* Paystack script */}
         <Script src="https://js.paystack.co/v1/inline.js"></Script>
       </head>
-
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
