@@ -124,7 +124,7 @@ export default async function TaskDetails({ params }: TaskDetailsProbs) {
 
               <MediaCom
                 type={taskInfo.media.type}
-                content={taskInfo.media.type.content}
+                content={taskInfo.media.content}
               />
             </Main>
           </div>
