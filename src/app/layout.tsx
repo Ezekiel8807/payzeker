@@ -3,6 +3,10 @@ import Script from "next/script";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
+// components
+import AdSenseAutoAds from "@/components/adSense";
+
+//
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -19,6 +23,8 @@ export const metadata: Metadata = {
     "Payzeker is an online platform (accessible via web) connecting businesses with micro‑freelancers who complete simple online tasks—such as liking, commenting, or posting on social media—for instant micro‑payments",
 };
 
+export const config = { amp: true };
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,7 +37,7 @@ export default function RootLayout({
         <meta property="og:title" content="Payzeker" />
         <meta property="og:image" content="/icons/pIcon.png" />
         <meta name="twitter:card" content="/icons/pIcon.png" />
-        <meta name="monetag" content="2c9a0e16906c03b1d0b6edae004e5a23" />
+        {/* <meta name="monetag" content="2c9a0e16906c03b1d0b6edae004e5a23" /> */}
         <meta name="google-adsense-account" content="ca-pub-3810051236937370" />
 
         <meta
@@ -45,10 +51,16 @@ export default function RootLayout({
         />
         <link rel="icon" type="image/svg+xml" href="/icons/pIcon.png" />
 
-        <Script
+        {/* <Script
           src="https://grookilteepsou.net/act/files/tag.min.js?z=9693459"
           data-cfasync="false"
           async
+        ></Script> */}
+
+        <Script
+          async
+          custom-element="amp-auto-ads"
+          src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"
         ></Script>
 
         {/* Paystack script */}
@@ -57,6 +69,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Auto ads script injection */}
+        <AdSenseAutoAds client="ca-pub-3810051236937370" />
+
         {children}
       </body>
     </html>

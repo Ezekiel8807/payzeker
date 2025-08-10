@@ -1,6 +1,7 @@
 "use server";
 import { getToken } from "./action";
 import { connectDB } from "@/lib/mongodb";
+import { revalidatePath } from "next/cache";
 import { calculateEndDate } from "@/utils/dateFunc";
 
 // models
@@ -146,10 +147,13 @@ export async function subToPlan(planId: string) {
       }).save(),
     ]);
 
+    revalidatePath("/dashboard"); // change path as needed
     return {
       error: false,
-      msg: "Successfully subscribed to an upgraded plan.",
+      msg: `Successfully subscribed for upgrade to ${plan.name} plan.`,
     };
+
+    //
   } catch (err) {
     return {
       error: true,
