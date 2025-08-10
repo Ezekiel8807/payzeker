@@ -39,11 +39,7 @@ export default async function Page({ params }: DailyTaskPageProps) {
   if (!user) return redirect("/login");
 
   const taskInfo = await getTaskInfo(id, user.username);
-
-  if (!taskInfo) {
-    // Optional: redirect or show 404
-    return redirect("/tasks");
-  }
+  if (!taskInfo) redirect("/tasks");
 
   const isLogin = true;
 
@@ -73,7 +69,11 @@ export default async function Page({ params }: DailyTaskPageProps) {
                   General Instructions
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
-                  Please ensure your submission is clear and accurate...
+                  Please ensure your submission is clear and accurate.
+                  Submissions must meet the task requirements to be approved.
+                  Avoid fake screenshots or incomplete proofs, as that could
+                  lead to disqualification or ban. If you have any technical
+                  issues, contact support using the help button.
                 </p>
               </section>
 
