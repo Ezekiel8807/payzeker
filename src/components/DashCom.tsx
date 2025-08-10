@@ -104,6 +104,12 @@ export default function DashCom({ dashInfo }: DashComProps) {
         </div>
       )}
 
+      <script
+        src="https://grookilteepsou.net/act/files/tag.min.js?z=9693459"
+        data-cfasync="false"
+        async
+      ></script>
+
       <div className="flex flex-col sm:flex-row justify-between md:gap-5">
         <div className="w-full sm:w-[30%] my-5">
           <PayGamer gameInfo={{ balance, setBalance }} />
