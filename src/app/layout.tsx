@@ -37,7 +37,6 @@ export default function RootLayout({
         <meta property="og:title" content="Payzeker" />
         <meta property="og:image" content="/icons/pIcon.png" />
         <meta name="twitter:card" content="/icons/pIcon.png" />
-        {/* <meta name="monetag" content="2c9a0e16906c03b1d0b6edae004e5a23" /> */}
         <meta name="google-adsense-account" content="ca-pub-3810051236937370" />
 
         <meta
@@ -50,12 +49,6 @@ export default function RootLayout({
           content="Payzeker is an online platform (accessible via web) connecting businesses with micro‑freelancers who complete simple online tasks—such as liking, commenting, or posting on social media—for instant micro‑payments"
         />
         <link rel="icon" type="image/svg+xml" href="/icons/pIcon.png" />
-
-        {/* <Script
-          src="https://grookilteepsou.net/act/files/tag.min.js?z=9693459"
-          data-cfasync="false"
-          async
-        ></Script> */}
 
         <Script
           async
