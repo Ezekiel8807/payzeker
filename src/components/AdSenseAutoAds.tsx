@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 
-interface AdSenseAutoAdsProps {
+type AdSenseAutoAdsProps = {
   client: string; // e.g. "ca-pub-3810051236937370"
-}
+};
 
 export default function AdSenseAutoAds({ client }: AdSenseAutoAdsProps) {
   useEffect(() => {
