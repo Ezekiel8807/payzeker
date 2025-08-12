@@ -55,6 +55,12 @@ export default function RootLayout({
           src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"
         ></Script>
 
+        <Script
+          async
+          custom-element="amp-ad"
+          src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
+        ></Script>
+
         {/* Paystack script */}
         <Script src="https://js.paystack.co/v1/inline.js"></Script>
       </head>
