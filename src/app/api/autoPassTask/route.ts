@@ -31,10 +31,10 @@ export async function PATCH() {
       //fetch the transaction
       const transaction = new Transaction({
         userId: submittedTask.userId,
-        type: "deposit",
+        type: "credit",
         status: "successful",
         amount: submittedTask.price,
-        disc: `#${submittedTask.price} for completing a tasks`,
+        disc: `#${submittedTask.price} - Task completion`,
       });
 
       //save to update new info
