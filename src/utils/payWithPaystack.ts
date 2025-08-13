@@ -1,4 +1,5 @@
-// import axios from "axios"
+import { getToken } from "@/actions/action";
+import { redirect } from "next/navigation";
 
 //public key
 const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_KEY;
@@ -12,6 +13,9 @@ export const payWithPaystack = async (
   setSucmsg: React.Dispatch<React.SetStateAction<string>>,
   setBalance: React.Dispatch<React.SetStateAction<number>>
 ) => {
+  const userToken = await getToken();
+  if (!userToken) redirect("/login");
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handler = (window as any).PaystackPop.setup({
     key: publicKey, // your public key
