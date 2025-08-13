@@ -62,6 +62,13 @@ export default function RootLayout({
           src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
         ></Script>
 
+        <Script
+          src="https://fpyf8.com/88/tag.min.js"
+          data-zone="163203"
+          async
+          data-cfasync="false"
+        ></Script>
+
         {/* Paystack script */}
         <Script src="https://js.paystack.co/v1/inline.js"></Script>
       </head>
