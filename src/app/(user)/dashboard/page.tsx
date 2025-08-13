@@ -123,9 +123,11 @@ export default async function Dashboard() {
                 />
               )}
 
-              {/* Google AdSense ad unit */}
-              <AmpAd1 client="ca-pub-3810051236937370" slot="2128594958" />
-              <AmpAd1 client="ca-pub-3810051236937370" slot="2182313696" />
+              <div className="w-full">
+                {/* Google AdSense ad unit */}
+                <AmpAd1 client="ca-pub-3810051236937370" slot="2128594958" />
+                <AmpAd1 client="ca-pub-3810051236937370" slot="2182313696" />
+              </div>
             </Main>
           </div>
         </div>

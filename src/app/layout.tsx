@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 // components
-import AdSenseAutoAds from "@/components/AdSenseAutoAds";
+import AdSenseAutoAds from "@/components/ads/AdSenseAutoAds";
 //
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +36,7 @@ export default function RootLayout({
         <meta property="og:title" content="Payzeker" />
         <meta property="og:image" content="/icons/pIcon.png" />
         <meta name="twitter:card" content="/icons/pIcon.png" />
+        <meta name="monetag" content="7843fd53e3b091bef9898efe16389281" />
         <meta name="google-adsense-account" content="ca-pub-3810051236937370" />
 
         <meta
