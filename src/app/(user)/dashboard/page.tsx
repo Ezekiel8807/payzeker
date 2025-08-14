@@ -11,12 +11,12 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 // Components
-import AmpAd1 from "@/components/ads/AmpAd1";
+import Ads3 from "@/components/ads/Ads3";
+// import AmpAd1 from "@/components/ads/AmpAd1";
 import SideNav from "@/components/SideNav";
 import SubHeading from "@/components/SubHeading";
 import SubmittedTaskCard from "@/components/cards/SubmittedTaskCard";
 import DashCom from "@/components/DashCom";
-// import WinCard from "@/components/cards/WinCard";
 
 // Fetch user data on the server
 async function getUser() {
@@ -125,8 +125,11 @@ export default async function Dashboard() {
 
               <div className="w-full">
                 {/* Google AdSense ad unit */}
-                <AmpAd1 client="ca-pub-3810051236937370" slot="2128594958" />
-                <AmpAd1 client="ca-pub-3810051236937370" slot="2182313696" />
+                {/* <AmpAd1 client="ca-pub-3810051236937370" slot="2128594958" />
+                <AmpAd1 client="ca-pub-3810051236937370" slot="2182313696" /> */}
+
+                {/* Montag AdSense ad unit */}
+                <Ads3 />
               </div>
             </Main>
           </div>
