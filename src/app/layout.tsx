@@ -4,7 +4,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 // components
-import AdSenseAutoAds from "@/components/ads/AdSenseAutoAds";
+// import Ads2 from "@/components/ads/Ads2";
+// import AdSenseAutoAds from "@/components/ads/AdSenseAutoAds";
 //
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,9 +52,10 @@ export default function RootLayout({
         <link rel="icon" type="image/svg+xml" href="/icons/pIcon.png" />
 
         <Script
+          src="https://fpyf8.com/88/tag.min.js"
+          data-zone="163203"
           async
-          custom-element="amp-auto-ads"
-          src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"
+          data-cfasync="false"
         ></Script>
 
         <Script
@@ -62,22 +64,12 @@ export default function RootLayout({
           src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
         ></Script>
 
-        <Script
-          src="https://fpyf8.com/88/tag.min.js"
-          data-zone="163203"
-          async
-          data-cfasync="false"
-        ></Script>
-
         {/* Paystack script */}
         <Script src="https://js.paystack.co/v1/inline.js"></Script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Auto ads script injection */}
-        <AdSenseAutoAds client="ca-pub-3810051236937370" />
-
         {children}
       </body>
     </html>
