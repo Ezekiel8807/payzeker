@@ -4,8 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 // components
-// import Ads2 from "@/components/ads/Ads2";
-// import AdSenseAutoAds from "@/components/ads/AdSenseAutoAds";
+
 //
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +22,7 @@ export const metadata: Metadata = {
     "Payzeker is an online platform (accessible via web) connecting businesses with micro‑freelancers who complete simple online tasks—such as liking, commenting, or posting on social media—for instant micro‑payments",
 };
 
-export const config = { amp: true };
+// export const config = { amp: true };
 
 export default function RootLayout({
   children,
@@ -37,8 +36,7 @@ export default function RootLayout({
         <meta property="og:title" content="Payzeker" />
         <meta property="og:image" content="/icons/pIcon.png" />
         <meta name="twitter:card" content="/icons/pIcon.png" />
-        <meta name="monetag" content="7843fd53e3b091bef9898efe16389281" />
-        <meta name="google-adsense-account" content="ca-pub-3810051236937370" />
+        {/* <meta name="monetag" content="7843fd53e3b091bef9898efe16389281" /> */}
 
         <meta
           property="og:description"
@@ -51,17 +49,19 @@ export default function RootLayout({
         />
         <link rel="icon" type="image/svg+xml" href="/icons/pIcon.png" />
 
-        <Script
+        {/* montag Ads */}
+        {/* <script
           src="https://fpyf8.com/88/tag.min.js"
           data-zone="163203"
           async
           data-cfasync="false"
-        ></Script>
+        ></script> */}
 
+        {/* Google Ads script */}
         <Script
           async
-          custom-element="amp-ad"
-          src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3810051236937370"
+          crossOrigin="anonymous"
         ></Script>
 
         {/* Paystack script */}
