@@ -1,5 +1,5 @@
 import "./globals.css";
-import Script from "next/script";
+// import Script from "next/script";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
@@ -58,14 +58,14 @@ export default function RootLayout({
         ></script> */}
 
         {/* Google Ads script */}
-        <Script
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3810051236937370"
           crossOrigin="anonymous"
-        ></Script>
+        ></script>
 
         {/* Paystack script */}
-        <Script src="https://js.paystack.co/v1/inline.js"></Script>
+        <script src="https://js.paystack.co/v1/inline.js"></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
