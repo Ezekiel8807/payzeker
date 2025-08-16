@@ -4,7 +4,10 @@
 @tailwind utilities;
 
 @layer utilities {
-  .no-scrollbar:state(webkit-scrollbar) {
+  /* .no-scrollbar:state(webkit-scrollbar) {
+    display: none;
+  } */
+  .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
 
