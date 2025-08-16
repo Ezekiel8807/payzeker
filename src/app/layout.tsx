@@ -35,7 +35,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="theme-color" content="#0f172a" />
+        <meta name="theme-color" content="#29cd9c" />
         <meta property="og:title" content="Payzeker" />
         <meta property="og:image" content="/icons/pIcon.png" />
         <meta name="twitter:card" content="/icons/pIcon.png" />
