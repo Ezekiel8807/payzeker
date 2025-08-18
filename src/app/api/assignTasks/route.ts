@@ -12,7 +12,7 @@ export async function PATCH() {
     const allUsers = await User.find({ isAdmin: false });
 
     // featch all taskS
-    const allTasks = await Task.find();
+    const allTasks = await Task.find({ isActive: true });
 
     // Distribute tasks to users
     for (const user of allUsers) {
@@ -42,7 +42,6 @@ export async function PATCH() {
     );
     //
   } catch (err) {
-    console.log(err);
     return NextResponse.json(
       { error: `Failed to assign tasks ${err}` },
       { status: 500 }

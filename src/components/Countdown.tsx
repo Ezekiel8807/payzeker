@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import SubscriberForm from "./form/SubscriberForm";
 
 //lauch date
-const launchDate = new Date("2026-01-01T00:00:00").getTime();
+const launchDate = new Date("2025-10-01T00:00:00").getTime();
 
 //function to get remaining time
 function getTimeRemaining() {
@@ -45,7 +45,7 @@ export default function Countdown() {
           Launching Soon!!!
         </h3>
         <p className="mb-3 text-lg text-white">
-          Launching on January 1st, 2026
+          Launching on October 1st, 2025
         </p>
 
         <div className="flex justify-center gap-4 flex-wrap text-center max-w-sm md:max-w-3xl  mx-auto">

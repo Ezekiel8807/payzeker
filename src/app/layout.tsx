@@ -1,10 +1,10 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import ServiceWorkerRegister from "./registerServiceWorker";
 
 // components
-import Script from "next/script";
+// import Script from "next/script";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 
 //
@@ -19,9 +19,33 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Payzeker - Landing page",
+  metadataBase: new URL("https://www.payzeker.com"),
+  title: "Payzeker",
   description:
-    "Payzeker is an online platform (accessible via web) connecting businesses with micro‑freelancers who complete simple online tasks—such as liking, commenting, or posting on social media—for instant micro‑payments",
+    "Payzeker is an online platform connecting businesses with micro-freelancers...",
+  openGraph: {
+    title: "Payzeker",
+    description: "Complete tasks. Get paid instantly.",
+    url: "https://www.payzeker.com",
+    siteName: "Payzeker",
+    images: ["/icons/pIcon.png"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Payzeker",
+    description: "Micro-tasks, instant payments.",
+    images: ["/icons/pIcon.png"],
+  },
+  icons: {
+    icon: "/icons/pIcon.png",
+    apple: "/icons/pIcon.png",
+  },
+  manifest: "/manifest.json",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#29cd9c", // 👈 put brand color here instead
 };
 
 // export const config = { amp: true };
@@ -34,38 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta charSet="utf-8" />
-        <meta name="theme-color" content="#29cd9c" />
-        <meta property="og:title" content="Payzeker" />
-        <meta property="og:image" content="/icons/pIcon.png" />
-        <meta name="twitter:card" content="/icons/pIcon.png" />
         <meta name="monetag" content="7843fd53e3b091bef9898efe16389281" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-        <meta
-          property="og:description"
-          content="Payzeker is an online platform (accessible via web) connecting businesses with micro‑freelancers who complete simple online tasks—such as liking, commenting, or posting on social media—for instant micro‑payments"
-        />
-
-        <meta
-          name="description"
-          content="Payzeker is an online platform (accessible via web) connecting businesses with micro‑freelancers who complete simple online tasks—such as liking, commenting, or posting on social media—for instant micro‑payments"
-        />
-
-        {/* PWA manifest */}
-        <link rel="manifest" href="/manifest.json" />
-
-        {/* Apple splash screen support */}
-        <link rel="apple-touch-icon" href="/icons/pIcon.png" />
-        <link rel="icon" type="image/svg+xml" href="/icons/pIcon.png" />
-
-        {/* montag Ads */}
-        {/* <script
-          src="https://fpyf8.com/88/tag.min.js"
-          data-zone="163203"
-          async
-          data-cfasync="false"
-        ></script> */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -73,21 +66,6 @@ export default function RootLayout({
         {children}
         <ServiceWorkerRegister />
         <AddToHomeScreen />
-
-        {/* ✅ Load Paystack only on client */}
-        <Script
-          src="https://js.paystack.co/v1/inline.js"
-          strategy="afterInteractive"
-        />
-
-        {/* ✅ Load AdSense only on client */}
-        <Script
-          id="adsense-script"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3810051236937370"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );
