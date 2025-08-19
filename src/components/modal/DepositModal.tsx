@@ -1,4 +1,3 @@
-import Script from "next/script";
 import { payWithPaystack } from "@/utils/payWithPaystack";
 
 //components
@@ -86,12 +85,6 @@ export default function DepositModal({
   return (
     <ModalFrame title="Deposit" closeModal={closeModal}>
       <>
-        {/* ✅ Load Paystack only on client */}
-        <Script
-          src="https://js.paystack.co/v1/inline.js"
-          strategy="afterInteractive"
-        />
-
         <form
           onSubmit={handleDepposit}
           className="w-[90%] md:w-[70%] my-5 mx-auto"

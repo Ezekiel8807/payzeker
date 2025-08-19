@@ -4,7 +4,6 @@ import { rejectTask, verifyTask } from "@/actions/taskActions";
 
 //components
 import Image from "next/image";
-import Main from "./layout/Main";
 import SubHeading from "./SubHeading";
 import CardActionBtn from "./CardActionBtn";
 import ErrorModal from "./modal/ErrorModal";
@@ -78,51 +77,49 @@ export default function SubmittedTaskDetails({ subTask }: { subTask: any }) {
 
   return (
     <>
-      <Main>
+      <div className="relative px-5 sm:px-10 md:px-20 py-5 sm:py-10">
         <SubHeading
           title="Submitted Details"
           desc="Submitted task full details "
         ></SubHeading>
 
-        <div>
-          {subTask.type == "image" && (
-            <Image
-              src={subTask.content}
-              width={500}
-              height={500}
-              alt="request prof"
-              className="w-full h-full md:w-[500px] md:h-[500px]"
-            />
-          )}
+        {subTask.type == "image" && (
+          <Image
+            src={subTask.content}
+            width={500}
+            height={500}
+            alt="request prof"
+            className="w-full h-full md:w-[500px] md:h-[500px]"
+          />
+        )}
 
-          {subTask.type == "video" && (
-            <video
-              src={subTask.content}
-              width={500}
-              height={500}
-              controls
-              loop
-              autoPlay
-              muted
-              className="w-full h-full md:w-[500px] md:h-[500px]"
-            ></video>
-          )}
+        {subTask.type == "video" && (
+          <video
+            src={subTask.content}
+            width={500}
+            height={500}
+            controls
+            loop
+            autoPlay
+            muted
+            className="w-full h-full md:w-[500px] md:h-[500px]"
+          ></video>
+        )}
 
-          <h1 className="font-bold uppercase mt-5 text-[14px] md:text-[20px] ">
-            {subTask.taskName}
-          </h1>
-          <p>{subTask.instruction}</p>
+        <h1 className="font-bold uppercase mt-5 text-[14px] md:text-[20px] ">
+          {subTask.taskName}
+        </h1>
+        <p>{subTask.instruction}</p>
 
-          <div className="my-5">
-            <CardActionBtn
-              isCon={isCon}
-              isRej={isRej}
-              rejectFunc={cancelSubTask}
-              confirmFunc={confirmSubTask}
-            />
-          </div>
+        <div className="my-5">
+          <CardActionBtn
+            isCon={isCon}
+            isRej={isRej}
+            rejectFunc={cancelSubTask}
+            confirmFunc={confirmSubTask}
+          />
         </div>
-      </Main>
+      </div>
 
       {IsRejWarning && (
         <WarningModal

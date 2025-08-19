@@ -59,6 +59,9 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="monetag" content="7843fd53e3b091bef9898efe16389281" />
+
+        {/* ✅ Load Paystack only on client */}
+        <script src="https://js.paystack.co/v1/inline.js"></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

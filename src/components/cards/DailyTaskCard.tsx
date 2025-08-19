@@ -94,7 +94,7 @@ export default function DailyTaskCard({ userTask }: { userTask: userTask }) {
   return (
     <div
       onClick={() => router.push(`/tasks/dailyTask/${userTask._id}`)}
-      className="group relative w-[200px] h-[200px] bg-[var(--gray-20)] shadow-xl rounded-lg"
+      className="group relative w-[250px] h-[250px] bg-[var(--gray-20)] shadow-xl rounded-lg"
     >
       {userTask.media?.type === "image" && (
         <Image
@@ -127,7 +127,7 @@ export default function DailyTaskCard({ userTask }: { userTask: userTask }) {
         />
       )}
 
-      <div className="group absolute top-0 left-0  w-[200px] h-[200px] hover:bg-[var(--green-trans)] rounded-lg">
+      <div className="group absolute top-0 left-0  w-full h-full hover:bg-[var(--green-trans)] rounded-lg">
         <div className="w-full h-full p-2 rounded-lg">
           <div className="flex flex-row justify-end ">
             <div className="flex flex-row justify-between items-center w-[100px] bg-[var(--green)] group-hover:bg-[var(--white)] rounded-full">

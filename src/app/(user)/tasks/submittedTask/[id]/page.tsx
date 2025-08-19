@@ -5,6 +5,9 @@ import { fetchModelById } from "@/utils/modelFunc";
 
 //cononents
 import SubmittedTaskDetails from "@/components/SubmittedTaskDetails";
+import Header from "@/components/layout/Header";
+import Main from "@/components/layout/Main";
+import Footer from "@/components/layout/Footer";
 
 export default async function page({
   params,
@@ -13,11 +16,21 @@ export default async function page({
 }) {
   const { id } = await params;
   const user = await getToken();
-  const { isAdmin } = user;
-  const subTask = await fetchModelById(SubmittedTask, id);
-
   if (!user) return redirect("/login");
+
+  const { isAdmin } = user;
   if (!isAdmin) return redirect("/dashboard");
 
-  return <SubmittedTaskDetails subTask={subTask} />;
+  const subTask = await fetchModelById(SubmittedTask, id);
+
+  return (
+    <>
+      <Header />
+      <Main>
+        <SubmittedTaskDetails subTask={subTask} />
+
+        <Footer />
+      </Main>
+    </>
+  );
 }
