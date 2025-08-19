@@ -23,8 +23,8 @@ export default function Home() {
         <Faq />
         <OurTeam />
         <Contact />
+        <Footer />
       </Main>
-      <Footer />
     </>
   );
 }
