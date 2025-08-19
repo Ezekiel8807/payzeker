@@ -6,7 +6,7 @@ export default function Spinner({ spinning }: { spinning: boolean }) {
     <>
       {/* border-[var(--gray-10)] */}
       <motion.div
-        className="w-16 h-16 rounded-full border-8 border-[var(--green)] border-t-transparent"
+        className="w-24 h-24 rounded-full border-8 border-[var(--green)] border-t-transparent"
         animate={{
           rotate: spinning ? 360 : 0,
         }}
