@@ -50,10 +50,10 @@ export default function DepositModal({
     //set pending state
     setIspen(true);
 
-    if (depAmount < 1000) {
+    if (depAmount < 100) {
       setIspen(false);
       setOpenDepositModal(false);
-      setErrmsg("Opps, minimum deposit of #1,000");
+      setErrmsg("Opps, minimum deposit of #100");
       setIserr(true);
       return;
     }

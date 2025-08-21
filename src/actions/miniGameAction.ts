@@ -13,8 +13,8 @@ export async function handleSpinAction(stake: number, balance: number) {
 
   const userId = token.id;
 
-  if (stake > balance) return { error: true, msg: "Insufficient funds!" };
-  if (stake < 100) return { error: true, msg: "Enter minimum stake of #100" };
+  if (stake > balance || stake < 100)
+    return { error: true, msg: "Insufficient funds or Invalid Amount!" };
 
   const newBalance = balance - stake;
   const rand = Math.random() * 100;

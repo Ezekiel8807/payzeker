@@ -47,7 +47,7 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
 
   const fullname = `${lastname} ${firstname}`;
   const [amount, setAmount] = useState(5000);
-  const [depAmount, setDepamount] = useState(1000);
+  const [depAmount, setDepamount] = useState(100);
   const [bankName, setBankname] = useState(acctInfo.bankName);
   const [bankAcctNo, setBankacctno] = useState(acctInfo.bankAcctNo);
 
