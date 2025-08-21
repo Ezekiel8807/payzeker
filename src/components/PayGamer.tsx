@@ -54,6 +54,15 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
     const isLogin = await getToken();
     if (!isLogin) redirect("/login");
 
+    if (stake > balance || stake < 100) {
+      setIscon(false);
+      setSpinning(false);
+      setIsProcessing(false);
+      setErrmsg("Insufficient funds or Invalid Amount!");
+      setiserr(true);
+      return;
+    }
+
     setIscon(false);
     setSpinning(true);
 
@@ -92,7 +101,7 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
       <div className="relative">
         <div className="flex flex-row items-center justify-between mb-2">
           <div className="font-black text-[#2D3436]">
-            Bal:
+            Bal:{" "}
             {balance.toLocaleString("en-NG", {
               style: "currency",
               currency: "NGN",
@@ -130,7 +139,7 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
               confirmSpin(setIscon);
             }}
             disabled={spinning}
-            className={`w-[100px] p-1 font-black rounded-lg transition-all duration-200 ${
+            className={`w-[100px] px-5 py-2 font-black rounded-lg transition-all duration-200 ${
               spinning
                 ? "bg-gray-300 text-gray-600 cursor-not-allowed"
                 : "bg-[var(--green)] hover:bg-[#019875] text-white"
@@ -162,14 +171,14 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
               onClick={() => {
                 cancelConfirmSpin(setIscon);
               }}
-              className="w-full font-black block p-2 bg-[var(--gray-10)] cursor"
+              className="w-full font-black block p-3 bg-[var(--gray-10)] cursor"
             >
               Cancel
             </button>
             <button
               onClick={handlespin}
               disabled={isProcessing}
-              className="w-full font-black block p-2 bg-[var(--green)] cursor shadow-xl"
+              className="w-full font-black block p-3 bg-[var(--green)] cursor shadow-xl"
             >
               Comfirm
             </button>
