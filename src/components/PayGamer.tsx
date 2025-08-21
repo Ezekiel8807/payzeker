@@ -139,7 +139,7 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
               confirmSpin(setIscon);
             }}
             disabled={spinning}
-            className={`w-[100px] px-5 py-2 font-black rounded-lg transition-all duration-200 ${
+            className={`w-[100px] px-3 py-2 font-black rounded-lg transition-all duration-200 ${
               spinning
                 ? "bg-gray-300 text-gray-600 cursor-not-allowed"
                 : "bg-[var(--green)] hover:bg-[#019875] text-white"
