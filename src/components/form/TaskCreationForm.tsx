@@ -261,12 +261,10 @@ export default function TaskCreationForm() {
 
         <div className="flex fleflex-row items-center justify-between">
           <div className="font-black text-lg">
-            <p>
-              Total Task Cost:
-              <span className="text-2xl text-[var(--green)]">
-                {` ₦${billingPrice.toLocaleString()}`}
-              </span>
-            </p>
+            <p>Total Task Cost: </p>
+            <span className="text-2xl text-[var(--green)]">
+              {` ₦${billingPrice.toLocaleString()}`}
+            </span>
           </div>
 
           <div className="mt-5 text-end">
