@@ -98,7 +98,7 @@ export default function LoginForm() {
         </div>
 
         <div className="text-right">
-          <Button btnStyle="font-black px-10 py-2 bg-[var(--green)] text-[var(--white)] rounded">
+          <Button btnStyle="font-black px-10 py-2 mt-2 bg-[var(--green)] text-[var(--white)] rounded">
             {isLoading ? "Authenticating..." : "Login"}
           </Button>
         </div>

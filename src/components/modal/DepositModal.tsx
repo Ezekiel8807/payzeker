@@ -102,7 +102,7 @@ export default function DepositModal({
 
           <div className="text-right mt-2">
             <small className="block text-gray-400">
-              {"Balance(NGN): "}
+              {"Balance: "}
               {balance.toLocaleString("en-NG", {
                 style: "currency",
                 currency: "NGN",

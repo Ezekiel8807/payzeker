@@ -104,15 +104,13 @@ export default function DashCom({ dashInfo }: DashComProps) {
         </div>
       )}
 
-      <div className="flex flex-col sm:flex-row justify-between md:gap-5">
-        <div className="w-full sm:w-[30%] my-5">
+      <div className="flex flex-col-reverse sm:flex-row justify-between my-5 gap-5">
+        <div className="w-full sm:w-[30%]">
           <PayGamer gameInfo={{ balance, setBalance }} />
         </div>
 
         <div className="w-full sm:w-[70%]">
-          <div className="mt-5">
-            <DailyTask />
-          </div>
+          <DailyTask />
         </div>
       </div>
     </>
