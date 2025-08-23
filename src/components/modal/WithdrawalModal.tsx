@@ -143,14 +143,14 @@ export default function WithdrawalModal({
 
         <div className="text-right mt-2">
           <small className="block text-gray-400">
-            {"Balance(NGN): "}
+            {"Balance: "}
             {balance.toLocaleString("en-NG", {
               style: "currency",
               currency: "NGN",
             })}
           </small>
           <small className="block text-gray-400">
-            {"min withdrawal(NGN): "}
+            {"min withdrawal: "}
             {minWithdrawal.toLocaleString("en-NG", {
               style: "currency",
               currency: "NGN",
