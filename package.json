@@ -20,7 +20,7 @@
     "mime-types": "^2.1.35",
     "mongoose": "^8.10.1",
     "multer": "^2.0.2",
-    "next": "15.2.3",
+    "next": "15.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-query": "^3.39.3"
