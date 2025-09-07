@@ -43,24 +43,24 @@ export default function PlanCreationForm() {
 
     console.log(isDefault);
 
-    // const response = await createPlan({
-    //   name,
-    //   rank,
-    //   duration,
-    //   minWid,
-    //   maxWid,
-    //   minEarn,
-    //   price,
-    // });
+    const response = await createPlan({
+      name,
+      rank,
+      duration,
+      minWid,
+      maxWid,
+      minEarn,
+      price,
+    });
 
-    // if (response.error) {
-    //   setErrmsg(response.msg as string);
-    //   setIserr(true);
-    //   return;
-    // }
+    if (response.error) {
+      setErrmsg(response.msg as string);
+      setIserr(true);
+      return;
+    }
 
-    // setSucmsg(response.msg as string);
-    // setIssuc(true);
+    setSucmsg(response.msg as string);
+    setIssuc(true);
     setIspen(false);
   }
 
