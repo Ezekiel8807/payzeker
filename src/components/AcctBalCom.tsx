@@ -1,5 +1,7 @@
 "use client";
 import React, { useState } from "react";
+import { redirect } from "next/navigation";
+import { getToken } from "@/actions/action";
 import { withdrawalAction } from "@/actions/requesAction";
 
 //components
@@ -65,6 +67,9 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
 
   //function to handle withdrawal form submit
   async function withdrawalFunc() {
+    const user = await getToken();
+    if (!user) redirect("/login");
+
     const res = await withdrawalAction(
       balance,
       minWithdrawal,

@@ -96,12 +96,16 @@ export default function AcctProUpdate({ userAcctData }: AcctProUpdateProbs) {
         <label htmlFor="bankAcctNo">Acct NO: </label>
         <input
           className="w-full md:w-[70%] outline-none bg-none p-1 border-b-2 text-right"
-          type="number"
-          value={bankAcctNo}
+          type="text"
+          value={bankAcctNo.toString()}
           name="bankAcctNo"
           id="bankAcctNo"
           maxLength={10}
-          onChange={(e) => setBankAcctNo(+e.target.value)}
+          onChange={(e) => {
+            const notNumber = isNaN(Number(e.target.value));
+            if (notNumber) return;
+            setBankAcctNo(Number(e.target.value));
+          }}
         />
       </div>
       <div className="text-right mt-5">

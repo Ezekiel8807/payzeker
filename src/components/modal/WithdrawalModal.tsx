@@ -160,10 +160,12 @@ export default function WithdrawalModal({
 
         <input
           className="w-full outline-none p-1 border-2 text-right"
-          type="number"
+          type="text"
           name="amount"
-          defaultValue={amount}
+          value={amount.toString()}
           onChange={(e) => {
+            const notNumber = isNaN(Number(e.target.value));
+            if (notNumber) return;
             setAmount(Number(e.target.value));
           }}
           placeholder={`Amount(NGN): min- #${minWithdrawal}`}
