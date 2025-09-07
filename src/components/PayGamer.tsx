@@ -116,7 +116,11 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
               name=""
               id=""
               value={stake.toString()}
-              onChange={(e) => setStake(Number(e.target.value))}
+              onChange={(e) => {
+                const notNumber = isNaN(Number(e.target.value));
+                if (notNumber) return;
+                setStake(Number(e.target.value));
+              }}
             />
           </div>
         </div>

@@ -62,6 +62,13 @@ export default function RootLayout({
 
         {/* ✅ Load Paystack only on client */}
         <script src="https://js.paystack.co/v1/inline.js"></script>
+
+        {/* google ads script */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3810051236937370"
+          crossOrigin="anonymous"
+        ></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

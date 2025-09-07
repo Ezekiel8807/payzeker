@@ -112,10 +112,12 @@ export default function DepositModal({
 
           <input
             className="w-full outline-none p-1 border-2 text-right"
-            type="number"
+            type="text"
             name="depAmount"
-            value={depAmount}
+            value={depAmount.toString()}
             onChange={(e) => {
+              const notNumber = isNaN(Number(e.target.value));
+              if (notNumber) return;
               setDepamount(Number(e.target.value));
             }}
             placeholder={`Amount(NGN): min- #100`}

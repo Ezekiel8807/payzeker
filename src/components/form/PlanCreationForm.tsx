@@ -15,8 +15,8 @@ export default function PlanCreationForm() {
   const [isPen, setIspen] = useState(false);
 
   const [name, setName] = useState("");
-  const [rank, setRank] = useState<number | string>("");
-  const [duration, setDuration] = useState("");
+  const [rank, setRank] = useState<number | string>(1);
+  const [duration, setDuration] = useState("1 month");
   const [isDefault, setIsdefault] = useState("");
   const [minWid, setMinwid] = useState<number | string>("");
   const [maxWid, setMaxwid] = useState<number | string>("");
@@ -43,24 +43,24 @@ export default function PlanCreationForm() {
 
     console.log(isDefault);
 
-    const response = await createPlan({
-      name,
-      rank,
-      duration,
-      minWid,
-      maxWid,
-      minEarn,
-      price,
-    });
+    // const response = await createPlan({
+    //   name,
+    //   rank,
+    //   duration,
+    //   minWid,
+    //   maxWid,
+    //   minEarn,
+    //   price,
+    // });
 
-    if (response.error) {
-      setErrmsg(response.msg as string);
-      setIserr(true);
-      return;
-    }
+    // if (response.error) {
+    //   setErrmsg(response.msg as string);
+    //   setIserr(true);
+    //   return;
+    // }
 
-    setSucmsg(response.msg as string);
-    setIssuc(true);
+    // setSucmsg(response.msg as string);
+    // setIssuc(true);
     setIspen(false);
   }
 
@@ -88,7 +88,6 @@ export default function PlanCreationForm() {
             name="level"
             value={rank}
           >
-            <option value="">Select Rank</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -102,8 +101,6 @@ export default function PlanCreationForm() {
             name="social"
             value={duration}
           >
-            <option value="">Select Duration</option>
-            <option value="7 days">7 Days</option>
             <option value="1 month">1 Month</option>
             <option value="3 months">3 Months</option>
             <option value="6 months">6 Months</option>
@@ -162,7 +159,6 @@ export default function PlanCreationForm() {
             type="checkbox"
             name="isDefault"
             id="isdefault"
-            required
             value={isDefault}
             placeholder="Set as default?"
             onChange={(e) => setIsdefault(e.target.value)}
