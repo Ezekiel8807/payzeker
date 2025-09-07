@@ -171,6 +171,9 @@ export default function DepositModal({
               {isPen ? "Processing..." : "Deposit"}
             </Button>
           </div>
+
+          {/* ✅ Load Paystack only on client */}
+          <script src="https://js.paystack.co/v1/inline.js"></script>
         </form>
       </>
     </ModalFrame>

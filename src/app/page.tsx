@@ -11,6 +11,8 @@ import OurTeam from "@/components/layout/OurTeam";
 // import ComingSoon from "@/components/ComingSoon";
 import Countdown from "@/components/Countdown";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <>
