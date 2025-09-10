@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import SubscriberForm from "./form/SubscriberForm";
+import PayzekerLive from "./PayzekerLive"; // <-- import the live section
 
 // Launch date
 const launchDate = new Date("2025-10-01T00:00:00").getTime();
@@ -11,6 +12,7 @@ function getTimeRemaining() {
   const distance = launchDate - now;
 
   return {
+    total: distance,
     days: Math.max(0, Math.floor(distance / (1000 * 60 * 60 * 24))),
     hours: Math.max(0, Math.floor((distance / (1000 * 60 * 60)) % 24)),
     minutes: Math.max(0, Math.floor((distance / 1000 / 60) % 60)),
@@ -27,6 +29,11 @@ export default function Countdown() {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  // ✅ If countdown is finished, show PayzekerLive component
+  if (timeLeft.total <= 0) {
+    return <PayzekerLive />;
+  }
 
   return (
     <div

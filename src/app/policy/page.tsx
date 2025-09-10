@@ -8,7 +8,7 @@ export default function page() {
 
       <div className="px-5 sm:px-10 md:px-20 py-5 sm:py-10 text-gray-800 leading-relaxed">
         {/* Title */}
-        <h1 className="text-2xl font-bold mb-4 text-gray-900">
+        <h1 className="font-semi-bold text-2xl font-bold mb-4 text-gray-900">
           Privacy Policy
         </h1>
         <p className="text-sm text-gray-500 mb-8">
