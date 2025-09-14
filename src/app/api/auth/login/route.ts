@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
-import User from "../../../../model/userModel";
+import User from "../../../../actions/model/userModel";
 import { connectDB } from "../../../../lib/mongodb";
 import { encrypt } from "@/actions/action";
 

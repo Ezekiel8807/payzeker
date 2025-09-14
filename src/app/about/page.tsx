@@ -1,9 +1,11 @@
+import { isLaunchDate } from "@/utils/launch";
+
+//components
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import OurTeam from "@/components/layout/OurTeam";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 export const metadata = {
   title: "Payzeker - About page",
@@ -48,7 +50,7 @@ export default function About() {
               </p>
 
               <Link
-                href="/#countdown"
+                href={isLaunchDate() ? "/dashboard" : "/#countdown"}
                 className="inline-flex items-center px-6 py-3 rounded-full bg-[var(--green)] text-white font-semibold hover:bg-white hover:text-[var(--green)] transition"
               >
                 Explore Task

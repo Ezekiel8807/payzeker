@@ -1,7 +1,7 @@
 "use server";
 
-import User from "@/model/userModel";
-import Transaction from "@/model/transactionModel";
+import User from "@/actions/model/userModel";
+import Transaction from "@/actions/model/transactionModel";
 import { connectDB } from "@/lib/mongodb";
 import { getToken } from "@/actions/action";
 

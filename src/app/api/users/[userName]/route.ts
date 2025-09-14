@@ -1,5 +1,5 @@
 "use server";
-import User from "../../../../model/userModel";
+import User from "../../../../actions/model/userModel";
 import { connectDB } from "../../../../lib/mongodb";
 import { NextResponse } from "next/server";
 

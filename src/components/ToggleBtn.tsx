@@ -1,9 +1,10 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
+import { isLaunchDate } from "@/utils/launch";
 import { useState, useCallback } from "react";
 
 // components
+import Link from "next/link";
+import Image from "next/image";
 import Logout_btn from "./Logout_btn";
 
 // Define Props Type
@@ -55,8 +56,16 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
     },
     { label: "Transactions", href: "/transactions", show: toggleData.isLogin },
     { label: "Upgrade", href: "/upgrade", show: toggleData.isLogin },
-    { label: "Login", href: "/#countdown", show: !toggleData.isLogin },
-    { label: "Register", href: "/#countdown", show: !toggleData.isLogin },
+    {
+      label: "Login",
+      href: `${isLaunchDate() ? "/login" : "/#countdown"}`,
+      show: !toggleData.isLogin,
+    },
+    {
+      label: "Register",
+      href: `${isLaunchDate() ? "/register" : "/#countdown"}`,
+      show: !toggleData.isLogin,
+    },
   ];
 
   return (

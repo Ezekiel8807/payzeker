@@ -1,6 +1,6 @@
 "use server";
 import { connectDB } from "@/lib/mongodb";
-import User from "../../../../../model/userModel";
+import User from "../../../../../actions/model/userModel";
 import { NextResponse } from "next/server";
 
 //task data model

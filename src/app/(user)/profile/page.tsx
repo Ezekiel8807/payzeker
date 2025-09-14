@@ -1,5 +1,5 @@
 import { getToken } from "@/actions/action";
-import User from "../../../model/userModel";
+import User from "../../../actions/model/userModel";
 import { redirect } from "next/navigation";
 import { fetchModelById } from "@/utils/modelFunc";
 

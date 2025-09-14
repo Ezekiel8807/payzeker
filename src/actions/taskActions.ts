@@ -1,13 +1,13 @@
 "use server";
 import { getToken } from "./action";
-import Task from "@/model/taskModel";
-import User from "@/model/userModel";
+import Task from "@/actions/model/taskModel";
+import User from "@/actions/model/userModel";
 import { connectDB } from "@/lib/mongodb";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import Transaction from "@/model/transactionModel";
-import Notification from "@/model/notificationModel";
-import SubmittedTask from "@/model/submittedTaskModel";
+import Transaction from "@/actions/model/transactionModel";
+import Notification from "@/actions/model/notificationModel";
+import SubmittedTask from "@/actions/model/submittedTaskModel";
 import { calculateEndDate } from "@/utils/dateFunc";
 
 type taskCreateInfo = {

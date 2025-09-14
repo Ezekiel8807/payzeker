@@ -1,5 +1,5 @@
 "use server";
-import User from "@/model/userModel";
+import User from "@/actions/model/userModel";
 
 export async function updateUserPersonal(formData: FormData) {
   const firstname = formData.get("firstname");

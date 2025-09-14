@@ -1,11 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
+import { isLaunchDate } from "@/utils/launch";
+
+//componenets
 import SubscriberForm from "./form/SubscriberForm";
 import PayzekerLive from "./PayzekerLive";
 
-const launchDate = new Date("2025-10-01T00:00:00").getTime();
-
 function getTimeRemaining() {
+  const launchDate = new Date("2025-10-01T00:00:00").getTime();
   const now = Date.now();
   const distance = launchDate - now;
 
@@ -30,7 +32,7 @@ export default function Countdown() {
 
   if (!timeLeft) return null; // render nothing until mounted
 
-  if (timeLeft.total <= 0) return <PayzekerLive />;
+  if (isLaunchDate()) return <PayzekerLive />;
 
   return (
     <div
