@@ -1,21 +1,19 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Work_Sans, Quicksand } from "next/font/google";
 import ServiceWorkerRegister from "./registerServiceWorker";
 
 // components
-// import Script from "next/script";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 
-//
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const workSans = Work_Sans({
   subsets: ["latin"],
+  variable: "--font-work-sans",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const quicksand = Quicksand({
   subsets: ["latin"],
+  variable: "--font-quicksand",
 });
 
 export const metadata: Metadata = {
@@ -45,7 +43,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#29cd9c", // 👈 put brand color here instead
+  themeColor: "#29cd9c",
 };
 
 // export const config = { amp: true };
@@ -67,9 +65,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         ></script>
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${workSans.variable} ${quicksand.variable}`}>
         {children}
         <ServiceWorkerRegister />
         <AddToHomeScreen />

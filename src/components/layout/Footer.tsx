@@ -31,7 +31,7 @@ export default function Footer() {
         {/* Quick Links */}
         <div className="flex flex-col items-center md:items-start gap-2 text-sm">
           <h3 className="font-semibold text-white mb-1 text-lg">Quick Links</h3>
-          <ul>
+          <ul className="pl-5 list-disc">
             <li>
               <Link href="/policy" className="hover:underline">
                 Privacy Policy

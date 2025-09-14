@@ -1,4 +1,7 @@
-// layouts
+// app/page.tsx
+
+export const dynamic = "force-dynamic";
+
 import Hero from "@/components/layout/Hero";
 import Main from "@/components/layout/Main";
 import HowToStart from "@/components/layout/HowToStart";
@@ -9,10 +12,6 @@ import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import OurTeam from "@/components/layout/OurTeam";
 import Countdown from "@/components/Countdown";
-// import PayzekerLive from "@/components/PayzekerLive";
-// import ComingSoon from "@/components/ComingSoon";
-
-export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (

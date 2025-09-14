@@ -1,14 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import SubscriberForm from "./form/SubscriberForm";
-import PayzekerLive from "./PayzekerLive"; // <-- import the live section
+import PayzekerLive from "./PayzekerLive";
 
-// Launch date
 const launchDate = new Date("2025-10-01T00:00:00").getTime();
 
-// Function to get remaining time
 function getTimeRemaining() {
-  const now = new Date().getTime();
+  const now = Date.now();
   const distance = launchDate - now;
 
   return {
@@ -21,19 +19,18 @@ function getTimeRemaining() {
 }
 
 export default function Countdown() {
-  const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
+  const [timeLeft, setTimeLeft] =
+    useState<ReturnType<typeof getTimeRemaining>>();
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft(getTimeRemaining());
-    }, 1000);
+    setTimeLeft(getTimeRemaining());
+    const interval = setInterval(() => setTimeLeft(getTimeRemaining()), 1000);
     return () => clearInterval(interval);
   }, []);
 
-  // ✅ If countdown is finished, show PayzekerLive component
-  if (timeLeft.total <= 0) {
-    return <PayzekerLive />;
-  }
+  if (!timeLeft) return null; // render nothing until mounted
+
+  if (timeLeft.total <= 0) return <PayzekerLive />;
 
   return (
     <div
@@ -49,9 +46,9 @@ export default function Countdown() {
       <p className="mb-3 text-lg">Launching on October 1st, 2025</p>
 
       <div className="flex justify-center gap-4 flex-wrap text-center max-w-sm md:max-w-3xl mx-auto">
-        {["days", "hours", "minutes", "seconds"].map((unit, i) => (
+        {["days", "hours", "minutes", "seconds"].map((unit) => (
           <div
-            key={i}
+            key={unit}
             className="bg-black bg-opacity-30 shadow-lg backdrop-blur-md border border-white border-opacity-10 rounded-xl p-6 w-24 md:w-28"
           >
             <p className="text-3xl md:text-4xl font-extrabold">
