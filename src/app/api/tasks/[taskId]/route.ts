@@ -1,4 +1,4 @@
-import Task from "@/model/taskModel";
+import Task from "@/actions/model/taskModel";
 
 //task data model
 export async function GET(

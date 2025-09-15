@@ -1,6 +1,6 @@
 import React from "react";
 import mongoose from "mongoose";
-import User from "@/model/userModel";
+import User from "@/actions/model/userModel";
 import { connectDB } from "@/lib/mongodb";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";

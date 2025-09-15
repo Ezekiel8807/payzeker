@@ -5,10 +5,10 @@ import { revalidatePath } from "next/cache";
 import { calculateEndDate } from "@/utils/dateFunc";
 
 // models
-import User from "@/model/userModel";
-import Plan from "@/model/planModel";
-import Transaction from "@/model/transactionModel";
-import Notification from "@/model/notificationModel";
+import User from "@/actions/model/userModel";
+import Plan from "@/actions/model/planModel";
+import Transaction from "@/actions/model/transactionModel";
+import Notification from "@/actions/model/notificationModel";
 import { redirect } from "next/navigation";
 
 //////////////////////////////////

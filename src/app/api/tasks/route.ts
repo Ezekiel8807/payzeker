@@ -1,4 +1,4 @@
-import Task from "@/model/taskModel";
+import Task from "@/actions/model/taskModel";
 import { connectDB } from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 

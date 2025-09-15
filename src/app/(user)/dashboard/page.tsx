@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
-import User from "../../../model/userModel";
+import User from "../../../actions/model/userModel";
 import { connectDB } from "../../../lib/mongodb";
 import { fetchModelsData } from "@/utils/modelFunc";
-import SubmittedTask from "@/model/submittedTaskModel";
+import SubmittedTask from "@/actions/model/submittedTaskModel";
 
 // Layouts
 import Main from "@/components/layout/Main";

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
-import User from "../../../model/userModel";
+import User from "../../../actions/model/userModel";
 import { fetchModelsData } from "@/utils/modelFunc";
 
 // Components
