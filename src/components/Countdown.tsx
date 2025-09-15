@@ -1,6 +1,6 @@
 "use client";
+import { isLaunched } from "@/utils/launch";
 import { useEffect, useState } from "react";
-import { isLaunchDate } from "@/utils/launch";
 
 //componenets
 import SubscriberForm from "./form/SubscriberForm";
@@ -31,8 +31,7 @@ export default function Countdown() {
   }, []);
 
   if (!timeLeft) return null; // render nothing until mounted
-
-  if (isLaunchDate()) return <PayzekerLive />;
+  if (isLaunched) return <PayzekerLive />;
 
   return (
     <div

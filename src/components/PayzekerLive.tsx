@@ -17,7 +17,7 @@ export default function PayzekerLive() {
         {/* Call to action */}
         <a
           href="/register"
-          className="inline-block bg-white text-[#29cd9c] font-semibold px-6 py-3 rounded-2xl shadow-lg hover:shadow-xl hover:bg-gray-100 transition duration-300"
+          className="w-[50%] inline-block bg-white text-[#29cd9c] font-semibold px-6 py-3 rounded-2xl shadow-lg hover:shadow-xl hover:bg-gray-100 transition duration-300"
         >
           Get Started
         </a>

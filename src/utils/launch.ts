@@ -1,12 +1,11 @@
-export function isLaunchDate(): boolean {
-  const today = new Date();
+function isLaunchDate(): boolean {
+  const today = new Date().getTime();
 
-  // Launch date: October 1, 2025
-  const launchDate = new Date("2025-10-01T00:00:00");
+  // Always use local midnight: October = 9 (zero-based months)
+  const launchDate = new Date("2025-10-01T00:00:00").getTime();
 
-  return (
-    today.getFullYear() === launchDate.getFullYear() &&
-    today.getMonth() === launchDate.getMonth() &&
-    today.getDate() === launchDate.getDate()
-  );
+  if (today >= launchDate) return true;
+  return false;
 }
+
+export const isLaunched = isLaunchDate();

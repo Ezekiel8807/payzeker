@@ -1,4 +1,4 @@
-import { isLaunchDate } from "@/utils/launch";
+import { isLaunched } from "@/utils/launch";
 
 //components
 import Footer from "@/components/layout/Footer";
@@ -50,7 +50,7 @@ export default function About() {
               </p>
 
               <Link
-                href={isLaunchDate() ? "/dashboard" : "/#countdown"}
+                href={isLaunched ? "/dashboard" : "/#countdown"}
                 className="inline-flex items-center px-6 py-3 rounded-full bg-[var(--green)] text-white font-semibold hover:bg-white hover:text-[var(--green)] transition"
               >
                 Explore Task
