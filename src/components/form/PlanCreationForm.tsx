@@ -15,53 +15,71 @@ export default function PlanCreationForm() {
   const [isPen, setIspen] = useState(false);
 
   const [name, setName] = useState("");
-  const [rank, setRank] = useState<number | string>(1);
+  const [rank, setRank] = useState(1);
   const [duration, setDuration] = useState("1 month");
-  const [isDefault, setIsdefault] = useState("");
-  const [minWid, setMinwid] = useState<number | string>("");
-  const [maxWid, setMaxwid] = useState<number | string>("");
-  const [minEarn, setMinearn] = useState<number | string>("");
-  const [price, setPrice] = useState<number | string>("");
+  const [minWid, setMinwid] = useState("");
+  const [maxWid, setMaxwid] = useState("");
+  const [minEarn, setMinearn] = useState("");
+  const [price, setPrice] = useState("");
+  const [isDefault, setIsdefault] = useState(true);
 
   async function handleCreatePlan(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIspen(true);
 
-    if (
-      !name ||
-      !rank ||
-      !duration ||
-      !minWid ||
-      !maxWid ||
-      !minEarn ||
-      !price
-    ) {
-      setErrmsg("Data missing... fill all required fields!");
+    try {
+      if (
+        !name ||
+        !rank ||
+        !duration ||
+        !minWid ||
+        !maxWid ||
+        !minEarn ||
+        !price
+      ) {
+        setIspen(false);
+        setErrmsg("Data missing... fill all required fields!");
+        setIserr(true);
+        return;
+      }
+
+      const response = await createPlan({
+        name,
+        rank,
+        duration,
+        minWid: Number(minWid),
+        maxWid: Number(maxWid),
+        minEarn: Number(minEarn),
+        price: Number(price),
+        isDefault,
+      });
+
+      if (response.error) {
+        setIspen(false);
+        setErrmsg(response.msg as string);
+        setIserr(true);
+        return;
+      }
+
+      setSucmsg(response.msg as string);
+      setIssuc(true);
+      setIspen(false);
+      //
+
+      //
+    } catch (err) {
+      setIspen(false);
+      setErrmsg(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong creating the plan ❌"
+      );
       setIserr(true);
-      return;
+
+      //
+    } finally {
+      setIspen(false);
     }
-
-    console.log(isDefault);
-
-    const response = await createPlan({
-      name,
-      rank,
-      duration,
-      minWid,
-      maxWid,
-      minEarn,
-      price,
-    });
-
-    if (response.error) {
-      setErrmsg(response.msg as string);
-      setIserr(true);
-      return;
-    }
-
-    setSucmsg(response.msg as string);
-    setIssuc(true);
-    setIspen(false);
   }
 
   return (
@@ -159,9 +177,8 @@ export default function PlanCreationForm() {
             type="checkbox"
             name="isDefault"
             id="isdefault"
-            value={isDefault}
-            placeholder="Set as default?"
-            onChange={(e) => setIsdefault(e.target.value)}
+            checked={isDefault}
+            onChange={(e) => setIsdefault(e.target.checked)}
           />
         </div>
 

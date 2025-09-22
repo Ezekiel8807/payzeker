@@ -22,14 +22,16 @@ export async function createPlan({
   maxWid,
   minEarn,
   price,
+  isDefault,
 }: {
   name: string;
-  rank: number | string;
+  rank: number;
   duration: string;
-  minWid: number | string;
-  maxWid: number | string;
-  minEarn: number | string;
-  price: number | string;
+  minWid: number;
+  maxWid: number;
+  minEarn: number;
+  price: number;
+  isDefault: boolean;
 }) {
   try {
     const requiredFields = [
@@ -52,6 +54,14 @@ export async function createPlan({
       };
     }
 
+    // If this new plan should be default, remove default from the previous one
+    if (isDefault) {
+      await Plan.updateMany(
+        { isDefault: true },
+        { $set: { isDefault: false } }
+      );
+    }
+
     const newPlan = new Plan({
       name,
       rank: Number(rank),
@@ -60,6 +70,7 @@ export async function createPlan({
       maxWithdrawal: Number(maxWid),
       minEarning: Number(minEarn),
       price: Number(price),
+      isDefault,
     });
 
     await newPlan.save();
