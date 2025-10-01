@@ -1,5 +1,4 @@
 // app/page.tsx
-export const dynamic = "force-dynamic";
 import Faq from "@/components/layout/Faq";
 import Hero from "@/components/layout/Hero";
 import Main from "@/components/layout/Main";
