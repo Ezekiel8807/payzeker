@@ -1,8 +1,6 @@
-import { isLaunched } from "@/utils/launch";
-
 // components
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -19,7 +17,7 @@ export default function Hero() {
         </p>
 
         <Link
-          href={isLaunched ? "/dashboard" : "/#countdown"}
+          href="/dashboard"
           className="w-full sm:max-w-[700px] lg:w-[200px] block text-center font-bold bg-[var(--green)] p-3 my-5 text-white rounded-full"
         >
           Start earning now!!!
