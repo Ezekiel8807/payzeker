@@ -1,5 +1,4 @@
 "use client";
-import { isLaunched } from "@/utils/launch";
 import { useState, useCallback } from "react";
 
 // components
@@ -58,12 +57,12 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
     { label: "Upgrade", href: "/upgrade", show: toggleData.isLogin },
     {
       label: "Login",
-      href: `${isLaunched ? "/login" : "/#countdown"}`,
+      href: "/login",
       show: !toggleData.isLogin,
     },
     {
       label: "Register",
-      href: `${isLaunched ? "/register" : "/#countdown"}`,
+      href: "/register",
       show: !toggleData.isLogin,
     },
   ];
