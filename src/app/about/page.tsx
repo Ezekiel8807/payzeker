@@ -1,5 +1,3 @@
-import { isLaunched } from "@/utils/launch";
-
 //components
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
@@ -17,9 +15,7 @@ export default function About() {
     <>
       <Header />
       <div className="bg-[#D9EDE7]">
-        {/* +++++++++++++++++++++++++++++++++
-        ++ */}
-        {/* 1 */}
+        {/* ++++++++++++++++++++++++++++++++ */}
         <div className="relative w-full py-10 md:py-20 bg-green-700/90">
           {/* Background Image */}
           <Image
@@ -50,7 +46,7 @@ export default function About() {
               </p>
 
               <Link
-                href={isLaunched ? "/dashboard" : "/#countdown"}
+                href="/dashboard"
                 className="inline-flex items-center px-6 py-3 rounded-full bg-[var(--green)] text-white font-semibold hover:bg-white hover:text-[var(--green)] transition"
               >
                 Explore Task
