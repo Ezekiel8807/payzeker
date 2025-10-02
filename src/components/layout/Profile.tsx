@@ -26,7 +26,7 @@ export default function Profile({ userInfo }: ProfileProbs) {
   const [lastname, setLastname] = useState(userInfo.lastname);
   const fullname = `${lastname} ${firstname}`;
   const [bankName, setBankName] = useState(userInfo.bankName);
-  const [bankAcctNo, setBankAcctNo] = useState(userInfo.bankAcctNo);
+  const [bankAcctNo, setBankAcctNo] = useState(userInfo.bankAcctNo.toString());
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
-import Transaction from "@/actions/model/transactionModel";
+import Transaction from "@/model/transactionModel";
 import { fetchModelsData } from "@/utils/modelFunc";
 
 //layouts

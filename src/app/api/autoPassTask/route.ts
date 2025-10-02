@@ -1,8 +1,8 @@
-import User from "@/actions/model/userModel";
+import User from "@/model/userModel";
 import { connectDB } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
-import Transaction from "@/actions/model/transactionModel";
-import SubmittedTask from "@/actions/model/submittedTaskModel";
+import Transaction from "@/model/transactionModel";
+import SubmittedTask from "@/model/submittedTaskModel";
 
 export async function PATCH() {
   try {

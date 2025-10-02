@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
-import Plan from "@/actions/model/planModel";
+import Plan from "@/model/planModel";
 import { fetchModelsData } from "@/utils/modelFunc";
 
 //layouts

@@ -1,5 +1,5 @@
 "use server";
-import Notification from "@/actions/model/notificationModel";
+import Notification from "@/model/notificationModel";
 
 // Update Notification State
 export async function updateNotis(id: string) {

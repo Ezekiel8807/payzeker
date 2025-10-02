@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
-import Task from "@/actions/model/taskModel";
-import User from "@/actions/model/userModel";
-import Plan from "@/actions/model/planModel";
-import Notification from "@/actions/model/notificationModel";
+import Task from "@/model/taskModel";
+import User from "@/model/userModel";
+import Plan from "@/model/planModel";
+import Notification from "@/model/notificationModel";
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 

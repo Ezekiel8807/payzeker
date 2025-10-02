@@ -1,8 +1,8 @@
-import User from "@/actions/model/userModel";
-import Plan from "@/actions/model/planModel";
+import User from "@/model/userModel";
+import Plan from "@/model/planModel";
 import { connectDB } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
-import Notification from "@/actions/model/notificationModel";
+import Notification from "@/model/notificationModel";
 
 export async function PATCH() {
   try {

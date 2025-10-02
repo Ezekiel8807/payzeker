@@ -1,8 +1,8 @@
-import User from "@/actions/model/userModel";
-import Task from "@/actions/model/taskModel";
+import User from "@/model/userModel";
+import Task from "@/model/taskModel";
 import { connectDB } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
-import Notification from "@/actions/model/notificationModel";
+import Notification from "@/model/notificationModel";
 
 export async function PATCH() {
   try {

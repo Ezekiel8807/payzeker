@@ -1,7 +1,7 @@
 "use server";
 import { getToken } from "@/actions/action";
 import { connectDB } from "@/lib/mongodb";
-import User from "@/actions/model/userModel";
+import User from "@/model/userModel";
 
 // Fetch user data on the server
 export default async function getUserDailyTask() {

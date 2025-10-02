@@ -43,7 +43,7 @@ const UserSchema = new mongoose.Schema({
     withdrawal: {
       allTimeWithdrawal: { type: Number, default: 0 },
       bankName: { type: String, default: "" },
-      bankAcctNo: { type: Number, default: 1234567890 },
+      bankAcctNo: { type: String, default: "1234567890" },
       minWithdrawal: { type: Number, required: true },
       maxWithdrawal: { type: Number, required: true },
     },

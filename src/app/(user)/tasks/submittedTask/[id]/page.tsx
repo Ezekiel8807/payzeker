@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
-import SubmittedTask from "@/actions/model/submittedTaskModel";
+import SubmittedTask from "@/model/submittedTaskModel";
 import { fetchModelById } from "@/utils/modelFunc";
 
 //cononents

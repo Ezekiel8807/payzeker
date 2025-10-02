@@ -1,4 +1,4 @@
-import User from "@/actions/model/userModel";
+import User from "@/model/userModel";
 import { connectDB } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";

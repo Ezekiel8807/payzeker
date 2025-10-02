@@ -1,7 +1,7 @@
 "use server";
 import { connectDB } from "@/lib/mongodb";
 
-import subscriberModel from "@/actions/model/subscriberModel";
+import subscriberModel from "@/model/subscriberModel";
 
 export async function addSubscriber(email: string) {
   if (!email) return { error: true, msg: "Email is required" };

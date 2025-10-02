@@ -1,4 +1,4 @@
-import Task from "@/actions/model/taskModel";
+import Task from "@/model/taskModel";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import { fetchModelById } from "@/utils/modelFunc";
