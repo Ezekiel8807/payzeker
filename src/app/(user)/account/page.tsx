@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
-import User from "../../../actions/model/userModel";
-import Transaction from "@/actions/model/transactionModel";
+import User from "../../../model/userModel";
+import Transaction from "@/model/transactionModel";
 import { fetchModelById, fetchModelsData } from "@/utils/modelFunc";
 
 // Components

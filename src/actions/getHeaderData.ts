@@ -1,8 +1,8 @@
 "use server";
 import { getToken } from "@/actions/action";
 import { connectDB } from "@/lib/mongodb";
-import User from "@/actions/model/userModel";
-import Notification from "@/actions/model/notificationModel";
+import User from "@/model/userModel";
+import Notification from "@/model/notificationModel";
 
 export async function getHeaderData() {
   const token = await getToken();

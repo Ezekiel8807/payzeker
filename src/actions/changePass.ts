@@ -1,7 +1,7 @@
 "use server";
 import bcrypt from "bcryptjs";
 import { getToken } from "./action";
-import User from "@/actions/model/userModel";
+import User from "@/model/userModel";
 
 export async function changePass(
   oldPass: string,

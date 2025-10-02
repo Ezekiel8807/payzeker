@@ -1,7 +1,7 @@
 import { getToken } from "@/actions/action";
-import User from "@/actions/model/userModel";
+import User from "@/model/userModel";
 import { connectDB } from "@/lib/mongodb";
-import Transaction from "@/actions/model/transactionModel";
+import Transaction from "@/model/transactionModel";
 import { NextRequest, NextResponse } from "next/server";
 import { redirect } from "next/navigation";
 

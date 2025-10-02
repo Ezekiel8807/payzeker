@@ -1,9 +1,9 @@
 "use server";
 import { getToken } from "./action";
-import User from "./model/userModel";
-import Request from "./model/requestModel";
-import Transaction from "@/actions/model/transactionModel";
-import Notification from "./model/notificationModel";
+import User from "../model/userModel";
+import Request from "../model/requestModel";
+import Transaction from "@/model/transactionModel";
+import Notification from "../model/notificationModel";
 // import { revalidatePath } from "next/cache";
 
 export async function withdrawalAction(

@@ -12,9 +12,9 @@ type AcctProUpdateProbs = {
     fullname: string;
     username: string;
     bankName: string;
-    bankAcctNo: number;
+    bankAcctNo: string;
     setBankName: React.Dispatch<React.SetStateAction<string>>;
-    setBankAcctNo: React.Dispatch<React.SetStateAction<number>>;
+    setBankAcctNo: React.Dispatch<React.SetStateAction<string>>;
   };
 };
 
@@ -82,6 +82,7 @@ export default function AcctProUpdate({ userAcctData }: AcctProUpdateProbs) {
 
       <div className="flex flex-col md:flex-row mb-5 md:justify-between">
         <label htmlFor="bankName">Bank Name: </label>
+
         <input
           className="w-full md:w-[70%] outline-none bg-none p-1 border-b-2 text-right"
           type="text"
@@ -97,14 +98,17 @@ export default function AcctProUpdate({ userAcctData }: AcctProUpdateProbs) {
         <input
           className="w-full md:w-[70%] outline-none bg-none p-1 border-b-2 text-right"
           type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
           value={bankAcctNo.toString()}
           name="bankAcctNo"
           id="bankAcctNo"
           maxLength={10}
           onChange={(e) => {
-            const notNumber = isNaN(Number(e.target.value));
-            if (notNumber) return;
-            setBankAcctNo(Number(e.target.value));
+            const value = e.target.value;
+            if (/^\d*$/.test(value)) {
+              setBankAcctNo(value);
+            }
           }}
         />
       </div>

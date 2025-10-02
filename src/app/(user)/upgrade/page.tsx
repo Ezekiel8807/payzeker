@@ -1,5 +1,5 @@
-import User from "@/actions/model/userModel";
-import Plan from "@/actions/model/planModel";
+import User from "@/model/userModel";
+import Plan from "@/model/planModel";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import { fetchModelsData } from "@/utils/modelFunc";
