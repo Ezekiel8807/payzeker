@@ -139,11 +139,7 @@ export default function TaskSubmissionForm({ taskId }: TaskSubmissionForm) {
       </div>
 
       {isSuc && (
-        <SuccessModal
-          setIssuc={setIssuc}
-          sucMsg={sucMsg}
-          direction="/dashboard"
-        />
+        <SuccessModal setIssuc={setIssuc} sucMsg={sucMsg} direction="/tasks" />
       )}
       {isErr && <ErrorModal setIserr={setIserr} errMsg={errMsg} />}
     </>

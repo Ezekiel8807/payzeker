@@ -2,13 +2,12 @@
 import React from "react";
 
 interface Props {
+  filters: string[];
   active: string;
   onChange: (val: string) => void;
 }
 
-const filters = ["Ongoing", "Reactivate", "Expired"];
-
-export default function TaskFilterTabs({ active, onChange }: Props) {
+export default function TaskFilterTabs({ filters, active, onChange }: Props) {
   return (
     <div className="w-full flex gap-3 mb-4">
       {filters.map((filter) => (
