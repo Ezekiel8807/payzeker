@@ -12,7 +12,7 @@ interface TaskCardProps {
   onPause?: () => void;
 }
 
-export default function TaskCard({
+export default function BusniessTaskCard({
   title,
   status,
   dateLabel,

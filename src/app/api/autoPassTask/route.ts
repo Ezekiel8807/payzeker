@@ -18,7 +18,7 @@ export async function PATCH() {
       if (!user) continue;
 
       // Update task status
-      submittedTask.state = "approved";
+      submittedTask.state = "completed";
       await submittedTask.save();
 
       //increase completed task counter

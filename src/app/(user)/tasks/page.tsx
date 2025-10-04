@@ -13,6 +13,7 @@ import SideNav from "@/components/SideNav";
 import AllTasks from "@/components/AllTasks";
 import SubHeading from "@/components/SubHeading";
 import TaskCom from "@/components/TaskCom";
+import SubmittedTask from "@/model/submittedTaskModel";
 
 export default async function page() {
   const user = await getToken();
@@ -20,10 +21,15 @@ export default async function page() {
 
   const isLogin = !!user;
   const { username, isAdmin } = user;
-  const [tasks] = await fetchModelsData(Task);
+  const [tasks, subTasks] = await fetchModelsData(Task, SubmittedTask);
 
   //filter user tasks
-  const userTasks = tasks.filter(
+  const busniessTasks = tasks.filter(
+    (e: { userId: string }) => e.userId == user.id
+  );
+
+  //filter user submitted tasks
+  const userTasks = subTasks.filter(
     (e: { userId: string }) => e.userId == user.id
   );
 
@@ -43,7 +49,9 @@ export default async function page() {
               />
 
               {isAdmin && <AllTasks alltasks={tasks} />}
-              {!isAdmin && <TaskCom userTasks={userTasks} />}
+              {!isAdmin && (
+                <TaskCom userTasks={userTasks} busniessTasks={busniessTasks} />
+              )}
             </Main>
           </div>
         </div>
