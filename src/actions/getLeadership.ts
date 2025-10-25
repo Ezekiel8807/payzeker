@@ -8,10 +8,9 @@ export default async function getLeadership() {
   await connectDB();
 
   // Find top 5 users sorted by earning in descending order
-  const leaders = await User.find(
-    {},
-    "username rank completedTask account"
-  ).limit(5); // 👈 sort using dot notation
+  const leaders = await User.find({}, "username rank completedTask account")
+    .sort({ "account.earning": -1 }) // 👈 sort using dot notation
+    .limit(5);
 
   // Convert Mongoose documents to plain objects
   return JSON.parse(JSON.stringify(leaders));
