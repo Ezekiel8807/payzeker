@@ -19,7 +19,7 @@ export default function Performance({ Overall, Completed }: PerformanceProps) {
       value: overall,
       icon: "mdi:clipboard-list-outline",
       color: "text-[var(--green)]",
-      bg: "bg-[var(--green)]/10",
+      bg: "bg-[var(--gray-05)]",
     },
     {
       label: "Tasks Completed",
@@ -39,7 +39,7 @@ export default function Performance({ Overall, Completed }: PerformanceProps) {
 
   return (
     <div className="w-full my-5">
-      <div className="flex flex-row gap-4 sm:gap-6 bg-white/80 backdrop-blur-sm p-3 sm:p-5 rounded-2xl shadow-lg border border-gray-100 overflow-x-auto sm:overflow-visible scrollbar-hide">
+      <div className="flex flex-row gap-4 sm:gap-6 bg-white/80 backdrop-blur-sm px-0 sm:px-3 sm:py-5 rounded shadow-sm border-none sm:border border-gray-100 overflow-x-scroll no-scrollbar">
         {stats.map((stat, i) => (
           <div
             key={i}
