@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
-import { Trash2 } from "lucide-react";
+import { Icon } from "@iconify/react";
 
 interface TaskCardProps {
   title: string;
-  status: "Pending" | "Rejected" | "Completed";
+  status: "New" | "Pending" | "Rejected" | "Completed";
   dateLabel: string;
   dateValue: string;
   onActionClick?: () => void;
@@ -19,7 +19,11 @@ export default function UserTaskCard({
   onActionClick,
   onDelete,
 }: TaskCardProps) {
+  //
+
+  //
   const statusColor = {
+    New: "text-green-600",
     Completed: "text-green-600",
     Rejected: "text-red-500",
     Pending: "text-yellow-500",
@@ -42,7 +46,7 @@ export default function UserTaskCard({
         onClick={onActionClick}
         className="mt-3 bg-[#29cd9c] hover:bg-[#22b891] text-white text-sm px-4 py-2 rounded-xl"
       >
-        {status === "Pending" ? "View Details" : "Reactivate"}
+        {status === "Pending" || "New" ? "View Details" : "Reactivate"}
       </button>
     );
   };
@@ -70,7 +74,7 @@ export default function UserTaskCard({
               title="Delete Task"
               className="p-2 rounded-full hover:bg-red-100 text-red-500 transition"
             >
-              <Trash2 size={20} />
+              <Icon icon="mdi:trash-can-outline" width="20" height="20" />
             </button>
           )}
         </div>

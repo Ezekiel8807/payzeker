@@ -54,6 +54,7 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
       show: toggleData.isLogin && toggleData.isAdmin,
     },
     { label: "Transactions", href: "/transactions", show: toggleData.isLogin },
+    { label: "Leadership", href: "/leadership", show: toggleData.isLogin },
     { label: "Upgrade", href: "/upgrade", show: toggleData.isLogin },
     {
       label: "Login",

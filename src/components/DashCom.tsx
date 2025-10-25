@@ -2,11 +2,11 @@
 import { useState } from "react";
 
 // components
-import AcctBalCom from "./AcctBalCom";
-import PayGamer from "./PayGamer";
-import Performance from "./Performance";
-import DailyTask from "./DailyTask";
 import Link from "next/link";
+import PayGamer from "./PayGamer";
+import MoneyCom from "./MoneyCom";
+import DailyTask from "./DailyTask";
+import Performance from "./Performance";
 
 type DashComProps = {
   dashInfo: {
@@ -20,8 +20,9 @@ type DashComProps = {
     completedTask: number;
     overallTask: number;
     balance: number;
+    earning: number;
     bankName: string;
-    bankAcctNo: number;
+    bankAcctNo: string;
     minWithdrawal: number;
     maxWithdrawal: number;
     allTimeWithdrawal: number;
@@ -36,6 +37,7 @@ export default function DashCom({ dashInfo }: DashComProps) {
   const lastname = dashInfo.lastname;
   const email = dashInfo.email;
   const rank = dashInfo.rank;
+  const earning = dashInfo.earning;
   const completedTask = dashInfo.completedTask;
   const overallTask = dashInfo.overallTask;
   const minWithdrawal = dashInfo.minWithdrawal;
@@ -49,15 +51,15 @@ export default function DashCom({ dashInfo }: DashComProps) {
   return (
     <>
       {!isAdmin && (
-        <div className="flex flex-col sm:flex-row items-center justify-end gap-5">
-          <AcctBalCom
-            acctInfo={{
+        <>
+          <MoneyCom
+            moneyComData={{
               firstname,
               lastname,
               email,
               rank,
               balance,
-              setBalance,
+              earning,
               bankName,
               bankAcctNo,
               minWithdrawal,
@@ -65,8 +67,9 @@ export default function DashCom({ dashInfo }: DashComProps) {
               allTimeWithdrawal,
             }}
           />
+
           <Performance Overall={overallTask} Completed={completedTask} />
-        </div>
+        </>
       )}
 
       {show && (

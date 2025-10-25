@@ -21,7 +21,7 @@ type AcctBalComProps = {
     balance: number;
     setBalance: React.Dispatch<React.SetStateAction<number>>;
     bankName: string;
-    bankAcctNo: number;
+    bankAcctNo: string;
     minWithdrawal: number;
     maxWithdrawal: number;
     allTimeWithdrawal: number;
@@ -91,7 +91,7 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
 
   return (
     <>
-      <div className="w-[100%] h-[130px] md:w-[300px] bg-[var(--gray-10)] p-3 shadow-md rounded-lg">
+      <div className="w-full bg-[var(--gray-10)] p-3 shadow-md rounded-lg">
         <div className="flex justify-between items-center">
           {firstname != "" ? (
             <h3 className="font-bold text-[14px]">{`${fullname}`}</h3>

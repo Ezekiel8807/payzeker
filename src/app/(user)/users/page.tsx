@@ -8,7 +8,6 @@ import SideNav from "@/components/SideNav";
 import Main from "@/components/layout/Main";
 import SubHeading from "@/components/SubHeading";
 import Allusers from "@/components/Allusers";
-import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 
 // Fetch user data on the server
@@ -44,8 +43,6 @@ export default async function page() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 }

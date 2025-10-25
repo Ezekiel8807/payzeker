@@ -6,7 +6,6 @@ import { fetchModelsData } from "@/utils/modelFunc";
 //layouts
 import Main from "@/components/layout/Main";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 
 // Components
 import SubHeading from "@/components/SubHeading";
@@ -46,7 +45,6 @@ export default async function Transactions() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

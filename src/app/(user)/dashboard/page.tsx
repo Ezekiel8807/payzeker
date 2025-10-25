@@ -8,7 +8,6 @@ import SubmittedTask from "@/model/submittedTaskModel";
 // Layouts
 import Main from "@/components/layout/Main";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 
 // Components
 
@@ -52,6 +51,7 @@ export default async function Dashboard() {
     account,
   } = user;
   const balance = account.balance as number;
+  const earning = account.earning as number;
   const {
     bankName,
     bankAcctNo,
@@ -114,6 +114,7 @@ export default async function Dashboard() {
                     completedTask,
                     overallTask,
                     balance,
+                    earning,
                     bankName,
                     bankAcctNo,
                     minWithdrawal,
@@ -132,9 +133,6 @@ export default async function Dashboard() {
           </div>
         </div>
       </div>
-
-      {/* footer */}
-      <Footer />
     </>
   );
 }

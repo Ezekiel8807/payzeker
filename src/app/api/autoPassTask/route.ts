@@ -25,7 +25,7 @@ export async function PATCH() {
       user.completedTask += 1;
 
       // Update user balance
-      user.account.balance += submittedTask.price;
+      user.account.earning += submittedTask.price;
       await user.save();
 
       //fetch the transaction

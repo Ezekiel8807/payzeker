@@ -3,7 +3,7 @@ type BankInfoProbs = {
     firstname: string;
     lastname: string;
     bankName: string;
-    bankAcctNo: number;
+    bankAcctNo: string;
   };
 };
 
@@ -11,7 +11,7 @@ export default function BankInfo({ BankInfo }: BankInfoProbs) {
   const { firstname, lastname, bankName, bankAcctNo } = BankInfo;
   const acctName = `${lastname} ${firstname}`;
   return (
-    <div className="w-[280px] h-[130px] md:w-[300px] bg-[var(--green)] p-3 shadow-md rounded-lg">
+    <div className="w-full bg-[var(--green)] p-3 shadow-md rounded-lg">
       <p className="font-black text-[14px] text-[var(--white)]">
         Withdral Card
       </p>

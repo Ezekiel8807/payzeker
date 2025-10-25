@@ -40,6 +40,7 @@ const UserSchema = new mongoose.Schema({
   completedTask: { type: Number, default: 0 },
   account: {
     balance: { type: Number, default: 0 },
+    earning: { type: Number, default: 0 },
     withdrawal: {
       allTimeWithdrawal: { type: Number, default: 0 },
       bankName: { type: String, default: "" },

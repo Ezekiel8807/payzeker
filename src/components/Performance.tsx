@@ -1,30 +1,66 @@
-type PerformanceProbs = {
+"use client";
+
+import React from "react";
+import { Icon } from "@iconify/react";
+
+type PerformanceProps = {
   Overall: number;
   Completed: number;
 };
 
-export default function Performance({ Overall, Completed }: PerformanceProbs) {
+export default function Performance({ Overall, Completed }: PerformanceProps) {
   const missed = Overall - Completed || 0;
   const overall = Overall || 0;
   const completed = Completed || 0;
 
+  const stats = [
+    {
+      label: "Tasks Overall",
+      value: overall,
+      icon: "mdi:clipboard-list-outline",
+      color: "text-[var(--green)]",
+      bg: "bg-[var(--green)]/10",
+    },
+    {
+      label: "Tasks Completed",
+      value: completed,
+      icon: "mdi:check-circle-outline",
+      color: "text-green-600",
+      bg: "bg-green-100",
+    },
+    {
+      label: "Tasks Missed",
+      value: missed,
+      icon: "mdi:close-circle-outline",
+      color: "text-red-500",
+      bg: "bg-red-100",
+    },
+  ];
+
   return (
-    <div className="w-[100%] h-[100px] sm:h-[130px] sm:w-[250px] md:w-[300px] flex flex-row justify-around items-center bg-[var(--green)]  p-2 md:p-3 shadow-md rounded-lg">
-      <div className="w-[80px] bg-white text-center p-3 rounded-lg">
-        <span className="font-black text-[20px]">{overall}</span>
-        <p className="text-[10px]">Tasks Overall </p>
-      </div>
-      <div className="w-[80px] bg-white text-center p-3 rounded-lg">
-        <span className="font-black text-[20px] bg-[var(--green) p-2]">
-          {completed}
-        </span>
-        <p className="text-[10px]">Tasks Completed</p>
-      </div>
-      <div className="w-[80px] bg-white text-center p-3 rounded-lg">
-        <span className="font-black text-[20px] bg-[var(--green) p-2]">
-          {missed}
-        </span>
-        <p className="text-[10px]">Tasks Missed</p>
+    <div className="w-full my-5">
+      <div className="flex flex-row gap-4 sm:gap-6 bg-white/80 backdrop-blur-sm p-3 sm:p-5 rounded-2xl shadow-lg border border-gray-100 overflow-x-auto sm:overflow-visible scrollbar-hide">
+        {stats.map((stat, i) => (
+          <div
+            key={i}
+            className={`flex flex-row items-center gap-3 ${stat.bg} hover:scale-[1.05] transition-transform duration-300 rounded-xl px-3 py-2 sm:px-5 sm:py-4 min-w-[130px] sm:min-w-0 sm:flex-1 justify-center`}
+          >
+            <div className="flex items-center justify-center w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-white shadow-inner">
+              <Icon
+                icon={stat.icon}
+                className={`${stat.color} text-xl sm:text-3xl`}
+              />
+            </div>
+            <div className="text-center">
+              <span className="block font-extrabold text-lg sm:text-2xl text-gray-800">
+                {stat.value}
+              </span>
+              <p className="text-[10px] sm:text-sm text-gray-600 font-medium whitespace-nowrap">
+                {stat.label}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

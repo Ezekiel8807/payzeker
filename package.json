@@ -15,8 +15,8 @@
     "dotenv": "^16.4.7",
     "framer-motion": "^12.12.1",
     "googleapis": "^146.0.0",
+    "iconify": "^1.4.0",
     "jose": "^6.0.8",
-    "lucide-react": "^0.511.0",
     "mime-types": "^2.1.35",
     "mongoose": "^8.10.1",
     "multer": "^2.0.2",
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@iconify/react": "^6.0.2",
     "@types/mime-types": "^2.1.4",
     "@types/node": "^20",
     "@types/react": "^19",

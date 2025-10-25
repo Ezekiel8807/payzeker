@@ -23,19 +23,20 @@ export async function handleSpinAction(stake: number, balance: number) {
   let multiplier = 0;
   let winType = "Try Again";
 
+  // replace multiplier assignments
   if (rand <= 2) {
     winType = "Jackpot 🎉";
-    multiplier = 5.0;
+    multiplier = 4.0; // changed
     outcome = "win";
   } else if (rand <= 10) {
     winType = "Big Win";
-    multiplier = 2.5;
+    multiplier = 2.0; // changed
     outcome = "win";
-  } else if (rand <= 25) {
+  } else if (rand <= 35) {
     winType = "Small Win";
-    multiplier = 1.5;
+    multiplier = 1.2; // changed
     outcome = "win";
-  } else if (rand <= 45) {
+  } else if (rand <= 60) {
     winType = "Break Even";
     multiplier = 1.0;
     outcome = "break-even";

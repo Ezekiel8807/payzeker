@@ -6,7 +6,6 @@ import { fetchModelsData } from "@/utils/modelFunc";
 //layout
 import Main from "@/components/layout/Main";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 
 // Components
 import SideNav from "@/components/SideNav";
@@ -74,7 +73,6 @@ export default async function page() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

@@ -11,8 +11,8 @@ type WithdrawalModalProbs = {
     fullname: string;
     bankName: string;
     setBankname: React.Dispatch<React.SetStateAction<string>>;
-    bankAcctNo: number;
-    setBankacctno: React.Dispatch<React.SetStateAction<number>>;
+    bankAcctNo: string;
+    setBankacctno: React.Dispatch<React.SetStateAction<string>>;
     balance: number;
     amount: number;
     setAmount: React.Dispatch<React.SetStateAction<number>>;
@@ -132,11 +132,11 @@ export default function WithdrawalModal({
 
         <input
           className="w-full outline-none bg-none p-1 border-b-2 text-right"
-          type="number"
+          type="text"
           name="bankAcctNo"
           value={bankAcctNo}
           onChange={(e) => {
-            setBankacctno(Number(e.target.value));
+            setBankacctno(e.target.value);
           }}
           placeholder="Account No"
         />

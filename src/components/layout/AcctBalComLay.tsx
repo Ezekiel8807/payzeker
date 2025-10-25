@@ -12,7 +12,7 @@ type AcctBalComLayProps = {
     rank: number;
     balance: number;
     bankName: string;
-    bankAcctNo: number;
+    bankAcctNo: string;
     minWithdrawal: number;
     maxWithdrawal: number;
     allTimeWithdrawal: number;
