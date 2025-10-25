@@ -1,7 +1,8 @@
 "use client";
+
 import { useState } from "react";
+import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ChevronUp } from "lucide-react";
 
 const faqs = [
   {
@@ -22,17 +23,12 @@ const faqs = [
   {
     question: "How much does it cost to post a task?",
     answer:
-      "You’re charged per task based on the number of users and the task type. A breakdown will be shown before confirming any campaign",
+      "You’re charged per task based on the number of users and the task type. A breakdown will be shown before confirming any campaign.",
   },
   {
     question: "How soon will my tasks be completed?",
     answer:
       "Most tasks begin receiving responses within minutes of approval, depending on the number of active workers and the reward offered.",
-  },
-  {
-    question: "How much does it cost to post a task?",
-    answer:
-      "You’re charged per task based on the number of users and the task type. A breakdown will be shown before confirming any campaign",
   },
 ];
 
@@ -44,23 +40,23 @@ export default function BusAccord() {
   };
 
   return (
-    <div className="w-full mx-auto py-4">
+    <div className="w-full max-w-2xl mx-auto py-6 px-4 md:px-0">
       <div className="space-y-4">
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className="border rounded-2xl overflow-hidden shadow-sm"
+            className="border border-[#29cd9c]/30 rounded-2xl overflow-hidden shadow-md bg-white/70 backdrop-blur-sm transition hover:shadow-lg"
           >
             <button
-              className="flex justify-between items-center w-full px-5 py-4 text-left font-medium text-gray-800 bg-[#BCDFD5] hover:bg-[var(--green)] transition"
+              className="flex justify-between items-center w-full px-5 py-4 text-left font-semibold text-gray-800 bg-[#bcdfd5] hover:bg-[#29cd9c] hover:text-white transition-colors duration-300"
               onClick={() => handleToggle(index)}
               aria-expanded={openIndex === index}
             >
               <span>{faq.question}</span>
               {openIndex === index ? (
-                <ChevronUp className="w-5 h-5" />
+                <Icon icon="mdi:chevron-up" className="w-6 h-6" />
               ) : (
-                <ChevronDown className="w-5 h-5" />
+                <Icon icon="mdi:chevron-down" className="w-6 h-6" />
               )}
             </button>
             <AnimatePresence initial={false}>
@@ -69,9 +65,11 @@ export default function BusAccord() {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
                 >
-                  <div className="px-5 pb-4 text-gray-600">{faq.answer}</div>
+                  <div className="px-5 pb-4 text-gray-600 text-sm md:text-base leading-relaxed">
+                    {faq.answer}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

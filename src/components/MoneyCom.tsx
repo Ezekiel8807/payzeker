@@ -1,0 +1,68 @@
+import React from "react";
+
+//components
+import BankInfo from "./BankInfo";
+import EarningBal from "./EarningBal";
+import AcctBalComLay from "./layout/AcctBalComLay";
+
+type MoneyComProbs = {
+  moneyComData: {
+    firstname: string;
+    lastname: string;
+    email: string;
+    rank: number;
+    balance: number;
+    earning: number;
+    bankName: string;
+    bankAcctNo: string;
+    minWithdrawal: number;
+    maxWithdrawal: number;
+    allTimeWithdrawal: number;
+  };
+};
+
+export default function MoneyCom({ moneyComData }: MoneyComProbs) {
+  const {
+    firstname,
+    lastname,
+    email,
+    rank,
+    balance,
+    earning,
+    bankName,
+    bankAcctNo,
+    minWithdrawal,
+    maxWithdrawal,
+    allTimeWithdrawal,
+  } = moneyComData;
+  return (
+    <div className="flex items-center justify-end">
+      <div className="w-full md:max-w-[70%] grid grid-flow-col justify-start gap-5 overflow-x-scroll no-scrollbar">
+        <div className="w-[300px] h-[130px]">
+          <AcctBalComLay
+            AcctBalComInfo={{
+              firstname,
+              lastname,
+              email,
+              rank,
+              balance,
+              bankName,
+              bankAcctNo,
+              minWithdrawal,
+              maxWithdrawal,
+              allTimeWithdrawal,
+            }}
+          />
+        </div>
+
+        <div className="w-[300px] h-[130px]">
+          <EarningBal earning={earning} />
+        </div>
+
+        <div className="w-[300px] h-[130px]">
+          <BankInfo BankInfo={{ firstname, lastname, bankName, bankAcctNo }} />
+        </div>
+      </div>
+    </div>
+  );
+}

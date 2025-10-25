@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Trash2, PauseCircle } from "lucide-react";
+import { Icon } from "@iconify/react";
 
 interface TaskCardProps {
   title: string;
@@ -72,7 +72,7 @@ export default function BusniessTaskCard({
               title="Pause Task"
               className="p-2 rounded-full hover:bg-yellow-100 text-yellow-500 transition"
             >
-              <PauseCircle size={20} />
+              <Icon icon="mdi:pause-circle" width="20" height="20" />
             </button>
           )}
           {onDelete && (
@@ -81,7 +81,7 @@ export default function BusniessTaskCard({
               title="Delete Task"
               className="p-2 rounded-full hover:bg-red-100 text-red-500 transition"
             >
-              <Trash2 size={20} />
+              <Icon icon="mdi:trash-can-outline" width="20" height="20" />
             </button>
           )}
         </div>

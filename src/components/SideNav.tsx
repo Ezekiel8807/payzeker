@@ -34,6 +34,7 @@ export default function SideNav({ sideNavInfo }: SideNavProbs) {
       show: sideNavInfo.isLogin && sideNavInfo.isAdmin,
     },
 
+    { label: "Leadership", href: "/leadership", show: sideNavInfo.isLogin },
     { label: "Transactions", href: "/transactions", show: sideNavInfo.isLogin },
     { label: "Upgrade", href: "/upgrade", show: sideNavInfo.isLogin },
   ];

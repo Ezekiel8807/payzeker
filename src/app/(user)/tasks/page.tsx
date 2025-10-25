@@ -10,7 +10,6 @@ import Footer from "@/components/layout/Footer";
 
 // Components
 import SideNav from "@/components/SideNav";
-import AllTasks from "@/components/AllTasks";
 import SubHeading from "@/components/SubHeading";
 import TaskCom from "@/components/TaskCom";
 import SubmittedTask from "@/model/submittedTaskModel";
@@ -48,10 +47,12 @@ export default async function page() {
                 desc="Your Tasks managing page."
               />
 
-              {isAdmin && <AllTasks alltasks={tasks} />}
-              {!isAdmin && (
-                <TaskCom userTasks={userTasks} busniessTasks={busniessTasks} />
-              )}
+              <TaskCom
+                isAdmin={isAdmin}
+                alltasks={tasks}
+                userTasks={userTasks}
+                busniessTasks={busniessTasks}
+              />
             </Main>
           </div>
         </div>

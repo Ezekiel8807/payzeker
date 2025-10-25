@@ -6,7 +6,6 @@ import { fetchModelById } from "@/utils/modelFunc";
 //layout
 import Main from "@/components/layout/Main";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 
 // Components
 import SubHeading from "@/components/SubHeading";
@@ -53,7 +52,6 @@ export default async function Profile() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

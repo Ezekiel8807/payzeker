@@ -5,14 +5,12 @@ import Transaction from "@/model/transactionModel";
 import { fetchModelById, fetchModelsData } from "@/utils/modelFunc";
 
 // Components
-import BankInfo from "@/components/BankInfo";
 import SubHeading from "@/components/SubHeading";
 import Main from "@/components/layout/Main";
 import UserTrans from "@/components/transactions/UserTrans";
 import SideNav from "@/components/SideNav";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import AcctBalComLay from "../../../components/layout/AcctBalComLay";
+import MoneyCom from "@/components/MoneyCom";
 
 export default async function Account() {
   const token = await getToken();
@@ -25,6 +23,7 @@ export default async function Account() {
   const isLogin = !!user;
   const { username, isAdmin, firstname, lastname, email, rank } = user;
   const balance = user.account.balance as number;
+  const earning = user.account.earning as number;
   const {
     bankName = "bankName",
     bankAcctNo = 12346790,
@@ -43,33 +42,22 @@ export default async function Account() {
           </div>
           <div className="w-[100%] px-5 lg:w-[70%]">
             <Main>
-              <SubHeading
-                title="Account"
-                desc="Everything about your account."
+              {/* //account details */}
+              <MoneyCom
+                moneyComData={{
+                  firstname,
+                  lastname,
+                  email,
+                  rank,
+                  balance,
+                  earning,
+                  bankName,
+                  bankAcctNo,
+                  minWithdrawal,
+                  maxWithdrawal,
+                  allTimeWithdrawal,
+                }}
               />
-
-              <div className="grid grid-flow-col justify-start gap-5 overflow-x-scroll no-scrollbar  my-3">
-                <div className="w-[275px] h-[130px] md:w-[300px]">
-                  <AcctBalComLay
-                    AcctBalComInfo={{
-                      firstname,
-                      lastname,
-                      email,
-                      rank,
-                      balance,
-                      bankName,
-                      bankAcctNo,
-                      minWithdrawal,
-                      maxWithdrawal,
-                      allTimeWithdrawal,
-                    }}
-                  />
-                </div>
-
-                <BankInfo
-                  BankInfo={{ firstname, lastname, bankName, bankAcctNo }}
-                />
-              </div>
 
               {/* auto scroll element */}
               <div className="scroll-smooth"></div>
@@ -85,7 +73,6 @@ export default async function Account() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

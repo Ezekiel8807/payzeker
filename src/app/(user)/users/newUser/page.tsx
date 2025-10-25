@@ -5,7 +5,6 @@ import { getToken } from "@/actions/action";
 import SideNav from "@/components/SideNav";
 import Main from "@/components/layout/Main";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import SubHeading from "@/components/SubHeading";
 import UserCreationForm from "@/components/form/UserCreationForm";
 
@@ -38,8 +37,6 @@ export default async function page() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 }

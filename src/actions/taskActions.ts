@@ -207,7 +207,7 @@ export async function verifyTask(userId: string, subTaskId: string) {
     user.completedTask += 1;
 
     //add price to balance
-    user.account.balance += task.price;
+    user.account.earning += task.price;
 
     //save to update new info
     await user.save();

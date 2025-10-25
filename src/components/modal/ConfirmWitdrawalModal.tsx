@@ -8,7 +8,7 @@ type ConfirmWitdrawalModalProbs = {
   confirmInfo: {
     fullname: string;
     bankName: string;
-    bankAcctNo: number;
+    bankAcctNo: string;
     amount: number;
   };
   setIsconwitmodal: React.Dispatch<React.SetStateAction<boolean>>;
