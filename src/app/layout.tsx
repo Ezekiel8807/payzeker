@@ -59,7 +59,15 @@ export default function RootLayout({
         <meta name="monetag" content="7843fd53e3b091bef9898efe16389281" />
 
         {/* google ads script */}
-<script type='text/javascript' src='//pl27984449.effectivegatecpm.com/df/e5/a4/dfe5a4112cf84067739c2d1a7cfdb46f.js'></script>
+        <script
+          type="text/javascript"
+          src="//pl27984449.effectivegatecpm.com/df/e5/a4/dfe5a4112cf84067739c2d1a7cfdb46f.js"
+        ></script>
+
+        <script
+          type="text/javascript"
+          src="//ashtraythreederange.com/df/e5/a4/dfe5a4112cf84067739c2d1a7cfdb46f.js"
+        ></script>
       </head>
       <body className={`${workSans.variable} ${quicksand.variable}`}>
         {children}
