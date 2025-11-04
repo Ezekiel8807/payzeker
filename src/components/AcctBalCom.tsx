@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import { withdrawalAction } from "@/actions/requesAction";

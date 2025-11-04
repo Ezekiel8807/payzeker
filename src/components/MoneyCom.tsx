@@ -56,7 +56,12 @@ export default function MoneyCom({ moneyComData }: MoneyComProbs) {
         </div>
 
         <div className="w-[300px] h-[130px]">
-          <EarningBal earning={earning} />
+          <EarningBal
+            earning={earning}
+            minWithdrawal={minWithdrawal}
+            maxWithdrawal={maxWithdrawal}
+            allTimeWithdrawal={allTimeWithdrawal}
+          />
         </div>
 
         <div className="w-[300px] h-[130px]">

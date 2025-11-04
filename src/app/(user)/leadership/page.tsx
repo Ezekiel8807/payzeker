@@ -25,7 +25,7 @@ export default async function Page() {
             'key' : '55eb44035a9c29a44aa55d55dc1574e6',
             'format' : 'iframe',
             'height' : 60,
-            'width' : 468,
+            'width' : 200,
             'params' : {}
           };
         `}
