@@ -87,9 +87,18 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
       <div
         className={`${
           !menuIsOpen ? "hidden" : "block"
-        } absolute top-16 z-10 right-5 bg-[var(--white)] rounded shadow-lg border-b-2 border-[var(--green)] transition-transform scale-100 ease-in-out`}
+        } fixed top-0 left-0 h-screen z-10 bg-[#eefdfa] shadow-lg border-r-2 border-[var(--green)] transition-transform scale-100 ease-in-out`}
       >
-        <nav className="h-[250px] overflow-y-scroll text-center">
+        <nav className="relative h-[94vh] text-center">
+          <Image
+            src="/img/payzekel-logo-icon1.png"
+            width={500}
+            height={500}
+            alt="logo-2"
+            className="object-cover bg-no-repeat w-[85px] h-[85px] mx-auto mt-10 mb-2"
+          />
+          <h1 className="text-3xl text-center font-black mb-3">Payzeker</h1>
+
           {menuItems.map(
             (item) =>
               item.show && (
@@ -104,7 +113,7 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
               )
           )}
           {toggleData.isLogin && (
-            <Logout_btn logoutBtnStyle="p-3 block w-[200px] hover:bg-[var(--green)] hover:text-[var(--white)] hover:font-black" />
+            <Logout_btn logoutBtnStyle="absolute left-0 bottom-0 p-3 block w-[200px] text-red-500 hover:bg-[var(--green)] hover:text-[var(--white)] hover:font-black" />
           )}
         </nav>
       </div>
