@@ -1,10 +1,69 @@
 "use server";
 import { getToken } from "./action";
 import User from "../model/userModel";
+import { revalidatePath } from "next/cache";
 import Request from "../model/requestModel";
 import Transaction from "@/model/transactionModel";
 import Notification from "../model/notificationModel";
-// import { revalidatePath } from "next/cache";
+
+export async function EarningWithdrawalAction(
+  earning: number,
+  minWithdrawal: number,
+  allTimeWithdrawal: number,
+  maxWithdrawal: number,
+  amount: number
+) {
+  try {
+    const token = await getToken();
+    if (!token) return { error: true, msg: "User not logged in" };
+
+    if (amount > earning) {
+      return { error: true, msg: "Insufficient balance" };
+    }
+
+    if (amount < minWithdrawal) {
+      return { error: true, msg: `Minimum withdrawal is #${minWithdrawal}` };
+    }
+
+    if (amount + allTimeWithdrawal > maxWithdrawal) {
+      return {
+        error: true,
+        msg: `Upgrade your account to withdraw this amount.`,
+      };
+    }
+
+    const userId = token.id as string;
+    const user = await User.findOne({ _id: userId });
+    if (!user) return { error: true, msg: "User not found" };
+
+    //remove withdrawal amount from balance and add to allTimeWitdrawal
+    user.account.earning -= amount;
+    user.account.balance += amount;
+    user.account.withdrawal.allTimeWithdrawal += amount;
+    await user.save();
+
+    // Notify user about withdrawal
+    const newNotification = await new Notification({
+      username: user.username,
+      message: `Transter #${amount} to balance successfully made.`,
+    });
+    await newNotification.save();
+    // Save to database
+
+    revalidatePath("/dashboard");
+
+    return {
+      error: false,
+      balance: user.account.balance,
+      msg: `Withdrawal request of #${amount} successfully made.`,
+    };
+  } catch (err) {
+    return {
+      error: true,
+      msg: err instanceof Error ? err.message : "An unknown error occurred",
+    };
+  }
+}
 
 export async function withdrawalAction(
   balance: number,
