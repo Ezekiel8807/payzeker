@@ -56,9 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="monetag" content="7843fd53e3b091bef9898efe16389281" />
-
-        {/* google ads script */}
+        {/* ads scripts */}
         <script
           type="text/javascript"
           src="//pl27984449.effectivegatecpm.com/df/e5/a4/dfe5a4112cf84067739c2d1a7cfdb46f.js"
@@ -66,7 +64,7 @@ export default function RootLayout({
 
         <script
           type="text/javascript"
-          src="//ashtraythreederange.com/df/e5/a4/dfe5a4112cf84067739c2d1a7cfdb46f.js"
+          src="//ashtraythreederange.com/cd/25/e0/cd25e0a72342f4fb6f2b0e1bc8faf396.js"
         ></script>
       </head>
       <body className={`${workSans.variable} ${quicksand.variable}`}>
