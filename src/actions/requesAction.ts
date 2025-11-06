@@ -68,8 +68,6 @@ export async function EarningWithdrawalAction(
 export async function withdrawalAction(
   balance: number,
   minWithdrawal: number,
-  allTimeWithdrawal: number,
-  maxWithdrawal: number,
   amount: number
 ) {
   try {
@@ -82,13 +80,6 @@ export async function withdrawalAction(
 
     if (amount < minWithdrawal) {
       return { error: true, msg: `Minimum withdrawal is #${minWithdrawal}` };
-    }
-
-    if (amount + allTimeWithdrawal > maxWithdrawal) {
-      return {
-        error: true,
-        msg: `Upgrade your account to withdraw this amount.`,
-      };
     }
 
     const userId = token.id as string;
@@ -107,9 +98,8 @@ export async function withdrawalAction(
       };
     }
 
-    //remove withdrawal amount from balance and add to allTimeWitdrawal
+    //remove withdrawal amount from balance
     user.account.balance -= amount;
-    user.account.withdrawal.allTimeWithdrawal += amount;
     await user.save();
 
     //update
@@ -202,6 +192,7 @@ export async function withdrawalAction(
 // }
 
 //function to cancle deposit or withdraw requst...
+
 export async function cancelRequest(userId: string, requestId: string) {
   if (!userId || !requestId)
     return { error: true, msg: "Error something went wrong!" };

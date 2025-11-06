@@ -60,14 +60,15 @@ export default async function Account() {
               />
 
               {/* auto scroll element */}
-              <div className="scroll-smooth"></div>
-
-              <div className="w-full m-auto">
+              <div className="w-full mt-5 mx-auto">
                 <SubHeading
                   title="Transaction"
                   desc="Transaction history right here."
                 />
-                <UserTrans userId={user._id as string} trans={AllTransac} />
+
+                <div className="w-full h-screen scroll-smooth overflow-y-scroll">
+                  <UserTrans userId={user._id as string} trans={AllTransac} />
+                </div>
               </div>
             </Main>
           </div>

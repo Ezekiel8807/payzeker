@@ -1,5 +1,3 @@
-import React from "react";
-
 //components
 import BankInfo from "./BankInfo";
 import EarningBal from "./EarningBal";
@@ -36,37 +34,32 @@ export default function MoneyCom({ moneyComData }: MoneyComProbs) {
     allTimeWithdrawal,
   } = moneyComData;
   return (
-    <div className="flex items-center justify-end">
-      <div className="w-full md:max-w-[70%] grid grid-flow-col justify-start gap-5 overflow-x-scroll no-scrollbar">
-        <div className="w-[300px] h-[130px]">
-          <AcctBalComLay
-            AcctBalComInfo={{
-              firstname,
-              lastname,
-              email,
-              rank,
-              balance,
-              bankName,
-              bankAcctNo,
-              minWithdrawal,
-              maxWithdrawal,
-              allTimeWithdrawal,
-            }}
-          />
-        </div>
+    <div className="w-full grid grid-flow-col justify-start gap-5 overflow-x-scroll no-scrollbar">
+      <div className="w-[300px] h-[130px]">
+        <AcctBalComLay
+          AcctBalComInfo={{
+            firstname,
+            lastname,
+            email,
+            rank,
+            balance,
+            bankName,
+            bankAcctNo,
+          }}
+        />
+      </div>
 
-        <div className="w-[300px] h-[130px]">
-          <EarningBal
-            earning={earning}
-            minWithdrawal={minWithdrawal}
-            maxWithdrawal={maxWithdrawal}
-            allTimeWithdrawal={allTimeWithdrawal}
-          />
-        </div>
+      <div className="w-[300px] h-[130px]">
+        <EarningBal
+          earning={earning}
+          minWithdrawal={minWithdrawal}
+          maxWithdrawal={maxWithdrawal}
+          allTimeWithdrawal={allTimeWithdrawal}
+        />
+      </div>
 
-        <div className="w-[300px] h-[130px]">
-          <BankInfo BankInfo={{ firstname, lastname, bankName, bankAcctNo }} />
-        </div>
+      <div className="w-[300px] h-[130px]">
+        <BankInfo BankInfo={{ firstname, lastname, bankName, bankAcctNo }} />
       </div>
     </div>
   );

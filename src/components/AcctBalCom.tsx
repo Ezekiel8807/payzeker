@@ -22,24 +22,11 @@ type AcctBalComProps = {
     setBalance: React.Dispatch<React.SetStateAction<number>>;
     bankName: string;
     bankAcctNo: string;
-    minWithdrawal: number;
-    maxWithdrawal: number;
-    allTimeWithdrawal: number;
   };
 };
 
 export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
-  const {
-    firstname,
-    lastname,
-    email,
-    rank,
-    balance,
-    setBalance,
-    minWithdrawal,
-    maxWithdrawal,
-    allTimeWithdrawal,
-  } = acctInfo;
+  const { firstname, lastname, email, rank, balance, setBalance } = acctInfo;
 
   const [isPen, setIspen] = useState(false);
   const [isSuc, setIssuc] = useState(false);
@@ -47,8 +34,9 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
   const [sucMsg, setSucmsg] = useState("");
   const [isErr, setIserr] = useState(false);
 
+  const minWithdrawal = 100;
   const fullname = `${lastname} ${firstname}`;
-  const [amount, setAmount] = useState(5000);
+  const [amount, setAmount] = useState(100);
   const [depAmount, setDepamount] = useState(100);
   const [bankName, setBankname] = useState(acctInfo.bankName);
   const [bankAcctNo, setBankacctno] = useState(acctInfo.bankAcctNo);
@@ -70,13 +58,7 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
     const user = await getToken();
     if (!user) redirect("/login");
 
-    const res = await withdrawalAction(
-      balance,
-      minWithdrawal,
-      allTimeWithdrawal,
-      maxWithdrawal,
-      amount
-    );
+    const res = await withdrawalAction(balance, minWithdrawal, amount);
 
     if (res.error) {
       setIserr(true);
@@ -167,8 +149,6 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
             amount,
             setAmount,
             minWithdrawal,
-            maxWithdrawal,
-            allTimeWithdrawal,
             setIsconwitmodal,
             setOpenWithdrawModal,
           }}

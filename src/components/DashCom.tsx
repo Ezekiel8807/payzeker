@@ -10,11 +10,8 @@ import Performance from "./Performance";
 
 type DashComProps = {
   dashInfo: {
-    username: string;
     firstname: string;
     lastname: string;
-    isAdmin: boolean;
-    isLogin: boolean;
     email: string;
     rank: number;
     completedTask: number;
@@ -30,7 +27,7 @@ type DashComProps = {
 };
 
 export default function DashCom({ dashInfo }: DashComProps) {
-  const { isAdmin, bankName, bankAcctNo } = dashInfo;
+  const { bankName, bankAcctNo } = dashInfo;
 
   //varables
   const firstname = dashInfo.firstname;
@@ -50,27 +47,21 @@ export default function DashCom({ dashInfo }: DashComProps) {
 
   return (
     <>
-      {!isAdmin && (
-        <>
-          <MoneyCom
-            moneyComData={{
-              firstname,
-              lastname,
-              email,
-              rank,
-              balance,
-              earning,
-              bankName,
-              bankAcctNo,
-              minWithdrawal,
-              maxWithdrawal,
-              allTimeWithdrawal,
-            }}
-          />
-
-          <Performance Overall={overallTask} Completed={completedTask} />
-        </>
-      )}
+      <MoneyCom
+        moneyComData={{
+          firstname,
+          lastname,
+          email,
+          rank,
+          balance,
+          earning,
+          bankName,
+          bankAcctNo,
+          minWithdrawal,
+          maxWithdrawal,
+          allTimeWithdrawal,
+        }}
+      />
 
       {show && (
         <div className="bg-[#e6fff7] p-5 rounded-2xl shadow-md mt-6 w-full mx-auto">
@@ -106,6 +97,8 @@ export default function DashCom({ dashInfo }: DashComProps) {
           </div>
         </div>
       )}
+
+      <Performance Overall={overallTask} Completed={completedTask} />
 
       <div className="flex flex-col-reverse sm:flex-row justify-between my-5 gap-5">
         <div className="w-full sm:w-[30%]">
