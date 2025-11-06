@@ -17,8 +17,6 @@ type WithdrawalModalProbs = {
     amount: number;
     setAmount: React.Dispatch<React.SetStateAction<number>>;
     minWithdrawal: number;
-    maxWithdrawal: number;
-    allTimeWithdrawal: number;
     setIsconwitmodal: React.Dispatch<React.SetStateAction<boolean>>;
     setOpenWithdrawModal: React.Dispatch<React.SetStateAction<boolean>>;
   };
@@ -43,8 +41,6 @@ export default function WithdrawalModal({
     amount,
     setAmount,
     minWithdrawal,
-    maxWithdrawal,
-    allTimeWithdrawal,
     setIsconwitmodal,
     setOpenWithdrawModal,
   } = withdrawalInfo;
@@ -53,7 +49,7 @@ export default function WithdrawalModal({
   const [disWithdraw, setDiswithdraw] = useState(true);
 
   useEffect(() => {
-    if (amount <= balance) {
+    if (amount <= balance && amount >= minWithdrawal) {
       setDiswithdraw(false);
     } else {
       setDiswithdraw(true);
@@ -81,15 +77,6 @@ export default function WithdrawalModal({
       setIspen(false);
       setOpenWithdrawModal(false);
       setErrmsg(`Opps, minimum withdrawal is #${minWithdrawal}`);
-      setIserr(true);
-      return;
-    }
-
-    if (amount + allTimeWithdrawal > maxWithdrawal) {
-      setAmount(0);
-      setIspen(false);
-      setOpenWithdrawModal(false);
-      setErrmsg("Upgrade account to increase your withdrawal limit");
       setIserr(true);
       return;
     }
@@ -141,17 +128,17 @@ export default function WithdrawalModal({
           placeholder="Account No"
         />
 
-        <div className="text-right mt-2">
+        <div className="flex items-center justify-between mt-3">
           <small className="block text-gray-400">
-            {"Balance: "}
-            {balance.toLocaleString("en-NG", {
+            {"Min: "}
+            {minWithdrawal.toLocaleString("en-NG", {
               style: "currency",
               currency: "NGN",
             })}
           </small>
           <small className="block text-gray-400">
-            {"min withdrawal: "}
-            {minWithdrawal.toLocaleString("en-NG", {
+            {"Bal: "}
+            {balance.toLocaleString("en-NG", {
               style: "currency",
               currency: "NGN",
             })}

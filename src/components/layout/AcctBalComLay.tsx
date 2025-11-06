@@ -13,24 +13,12 @@ type AcctBalComLayProps = {
     balance: number;
     bankName: string;
     bankAcctNo: string;
-    minWithdrawal: number;
-    maxWithdrawal: number;
-    allTimeWithdrawal: number;
   };
 };
 
 export default function AcctBalComLay({ AcctBalComInfo }: AcctBalComLayProps) {
-  const {
-    firstname,
-    lastname,
-    email,
-    rank,
-    bankName,
-    bankAcctNo,
-    minWithdrawal,
-    maxWithdrawal,
-    allTimeWithdrawal,
-  } = AcctBalComInfo;
+  const { firstname, lastname, email, rank, bankName, bankAcctNo } =
+    AcctBalComInfo;
 
   const [balance, setBalance] = useState(Number(AcctBalComInfo.balance) || 0);
 
@@ -46,9 +34,6 @@ export default function AcctBalComLay({ AcctBalComInfo }: AcctBalComLayProps) {
         setBalance,
         bankName,
         bankAcctNo,
-        minWithdrawal,
-        maxWithdrawal,
-        allTimeWithdrawal,
       }}
     />
   );
