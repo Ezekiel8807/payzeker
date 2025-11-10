@@ -49,6 +49,10 @@ export default function TaskSubmissionForm({ taskId }: TaskSubmissionForm) {
   async function handleGetFile(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    //disable mutiple submission
+    if (isPen) return;
+
+    //process submission
     setIspen(true);
 
     if (!file) {

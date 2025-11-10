@@ -80,10 +80,10 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
     await new Promise((res) => setTimeout(res, 2000));
 
     setSpinning(false);
-    setWinType(handleSpinActionRes.result!.winType);
-    setAmountWon(handleSpinActionRes.result!.amountWon);
-    setBalance(handleSpinActionRes.result!.finalBalance);
-    setResult(handleSpinActionRes.result!.outcome);
+    setWinType(handleSpinActionRes["result"]!.winType);
+    setAmountWon(handleSpinActionRes["result"]!.amountWon);
+    setBalance(handleSpinActionRes["result"]!.finalBalance);
+    setResult(handleSpinActionRes["result"]!.outcome);
     setIsProcessing(false);
   }
 

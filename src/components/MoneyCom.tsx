@@ -10,6 +10,7 @@ type MoneyComProbs = {
     email: string;
     rank: number;
     balance: number;
+    setBalance: React.Dispatch<React.SetStateAction<number>>;
     earning: number;
     bankName: string;
     bankAcctNo: string;
@@ -26,6 +27,7 @@ export default function MoneyCom({ moneyComData }: MoneyComProbs) {
     email,
     rank,
     balance,
+    setBalance,
     earning,
     bankName,
     bankAcctNo,
@@ -34,7 +36,7 @@ export default function MoneyCom({ moneyComData }: MoneyComProbs) {
     allTimeWithdrawal,
   } = moneyComData;
   return (
-    <div className="w-full grid grid-flow-col justify-start gap-5 overflow-x-scroll no-scrollbar">
+    <div className="w-full grid grid-flow-col justify-start gap-2 md:gap-5 overflow-x-scroll no-scrollbar">
       <div className="w-[300px] h-[130px]">
         <AcctBalComLay
           AcctBalComInfo={{
@@ -43,6 +45,7 @@ export default function MoneyCom({ moneyComData }: MoneyComProbs) {
             email,
             rank,
             balance,
+            setBalance,
             bankName,
             bankAcctNo,
           }}

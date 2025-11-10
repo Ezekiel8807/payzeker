@@ -54,6 +54,7 @@ export default function DashCom({ dashInfo }: DashComProps) {
           email,
           rank,
           balance,
+          setBalance,
           earning,
           bankName,
           bankAcctNo,
