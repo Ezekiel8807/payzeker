@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Work_Sans, Quicksand } from "next/font/google";
-import ServiceWorkerRegister from "./registerServiceWorker";
+// import ServiceWorkerRegister from "./registerServiceWorker";
 
 // components
 import AddToHomeScreen from "@/components/AddToHomeScreen";
@@ -59,17 +59,12 @@ export default function RootLayout({
         {/* ads scripts */}
         <script
           type="text/javascript"
-          src="//pl27984449.effectivegatecpm.com/df/e5/a4/dfe5a4112cf84067739c2d1a7cfdb46f.js"
-        ></script>
-
-        <script
-          type="text/javascript"
-          src="//ashtraythreederange.com/cd/25/e0/cd25e0a72342f4fb6f2b0e1bc8faf396.js"
+          src="//intimidatingsideway.com/cd/25/e0/cd25e0a72342f4fb6f2b0e1bc8faf396.js"
         ></script>
       </head>
       <body className={`${workSans.variable} ${quicksand.variable}`}>
         {children}
-        <ServiceWorkerRegister />
+        {/* <ServiceWorkerRegister /> */}
         <AddToHomeScreen />
       </body>
     </html>
