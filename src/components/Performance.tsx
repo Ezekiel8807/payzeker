@@ -1,17 +1,21 @@
-"use client";
+import User from "@/model/userModel";
+import { redirect } from "next/navigation";
+import { getToken } from "@/actions/action";
+import { fetchModelById } from "@/utils/modelFunc";
 
-import React from "react";
+//components
 import { Icon } from "@iconify/react";
 
-type PerformanceProps = {
-  Overall: number;
-  Completed: number;
-};
+export default async function Performance() {
+  const token = await getToken();
+  if (!token) return redirect("/login");
 
-export default function Performance({ Overall, Completed }: PerformanceProps) {
-  const missed = Overall - Completed || 0;
-  const overall = Overall || 0;
-  const completed = Completed || 0;
+  const user = await fetchModelById(User, token.id);
+  const { completedTask, overallTask } = user;
+
+  const missed = overallTask - completedTask || 0;
+  const overall = overallTask || 0;
+  const completed = completedTask || 0;
 
   const stats = [
     {
@@ -39,7 +43,7 @@ export default function Performance({ Overall, Completed }: PerformanceProps) {
 
   return (
     <div className="w-full my-5">
-      <div className="flex flex-row gap-4 sm:gap-6 bg-white/80 backdrop-blur-sm px-0 sm:px-3 sm:py-5 rounded shadow-sm border-none sm:border border-gray-100 overflow-x-scroll no-scrollbar">
+      <div className="flex flex-row gap-4 sm:gap-6 bg-white/80 backdrop-blur-sm px-0 sm:px-3 sm:py-5 rounded md:shadow-sm border-none sm:border border-gray-100 overflow-x-scroll no-scrollbar">
         {stats.map((stat, i) => (
           <div
             key={i}

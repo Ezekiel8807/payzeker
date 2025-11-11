@@ -33,32 +33,14 @@ async function getUser() {
 }
 
 export default async function Dashboard() {
+  const token = await getToken();
+  if (!token) redirect("/login");
+
   const user = await getUser();
   const [subTaskArr] = await fetchModelsData(SubmittedTask);
 
-  if (!user) return redirect("/login");
-
   const isLogin = !!user;
-  const {
-    username,
-    isAdmin,
-    firstname,
-    lastname,
-    email,
-    rank,
-    completedTask,
-    overallTask,
-    account,
-  } = user;
-  const balance = account.balance as number;
-  const earning = account.earning as number;
-  const {
-    bankName,
-    bankAcctNo,
-    minWithdrawal,
-    maxWithdrawal,
-    allTimeWithdrawal,
-  } = user.account.withdrawal;
+  const { username, isAdmin } = user;
 
   // filter submitted task with review state
   const filterSubTask = subTaskArr.filter(
@@ -101,25 +83,7 @@ export default async function Dashboard() {
                   </div>
                 </>
               )}
-              {!isAdmin && (
-                <DashCom
-                  dashInfo={{
-                    firstname,
-                    lastname,
-                    email,
-                    rank,
-                    completedTask,
-                    overallTask,
-                    balance,
-                    earning,
-                    bankName,
-                    bankAcctNo,
-                    minWithdrawal,
-                    maxWithdrawal,
-                    allTimeWithdrawal,
-                  }}
-                />
-              )}
+              {!isAdmin && <DashCom />}
             </Main>
           </div>
         </div>

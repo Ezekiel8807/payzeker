@@ -1,69 +1,19 @@
-"use client";
-import { useState } from "react";
-
 // components
-import Link from "next/link";
-import PayGamer from "./PayGamer";
+// import Link from "next/link";
+// import PayGamer from "./PayGamer";
 import MoneyCom from "./MoneyCom";
 import DailyTask from "./DailyTask";
 import Performance from "./Performance";
+import PayGameCom from "./PayGameCom";
 
-type DashComProps = {
-  dashInfo: {
-    firstname: string;
-    lastname: string;
-    email: string;
-    rank: number;
-    completedTask: number;
-    overallTask: number;
-    balance: number;
-    earning: number;
-    bankName: string;
-    bankAcctNo: string;
-    minWithdrawal: number;
-    maxWithdrawal: number;
-    allTimeWithdrawal: number;
-  };
-};
-
-export default function DashCom({ dashInfo }: DashComProps) {
-  const { bankName, bankAcctNo } = dashInfo;
-
-  //varables
-  const firstname = dashInfo.firstname;
-  const lastname = dashInfo.lastname;
-  const email = dashInfo.email;
-  const rank = dashInfo.rank;
-  const earning = dashInfo.earning;
-  const completedTask = dashInfo.completedTask;
-  const overallTask = dashInfo.overallTask;
-  const minWithdrawal = dashInfo.minWithdrawal;
-  const maxWithdrawal = dashInfo.maxWithdrawal;
-  const allTimeWithdrawal = dashInfo.allTimeWithdrawal;
-
-  //state
-  const [show, setShow] = useState(true);
-  const [balance, setBalance] = useState(Number(dashInfo.balance) || 0);
+export default function DashCom() {
+  // const [show, setShow] = useState(true);
 
   return (
     <>
-      <MoneyCom
-        moneyComData={{
-          firstname,
-          lastname,
-          email,
-          rank,
-          balance,
-          earning,
-          bankName,
-          bankAcctNo,
-          minWithdrawal,
-          maxWithdrawal,
-          allTimeWithdrawal,
-        }}
-      />
+      <MoneyCom />
 
-      {show && (
+      {/* {show && (
         <div className="bg-[#e6fff7] p-5 rounded-2xl shadow-md mt-6 w-full mx-auto">
           <div className="flex items-start justify-between">
             <h2 className="w-[90%] text-2xl font-bold text-[#29cd9c] mb-3 flex items-center gap-2">
@@ -96,13 +46,13 @@ export default function DashCom({ dashInfo }: DashComProps) {
             </Link>
           </div>
         </div>
-      )}
+      )} */}
 
-      <Performance Overall={overallTask} Completed={completedTask} />
+      <Performance />
 
       <div className="flex flex-col-reverse sm:flex-row justify-between my-5 gap-5">
         <div className="w-full sm:w-[30%]">
-          <PayGamer gameInfo={{ balance, setBalance }} />
+          <PayGameCom />
         </div>
 
         <div className="w-full sm:w-[70%]">

@@ -1,9 +1,9 @@
 "use server";
-
 import User from "@/model/userModel";
-import Transaction from "@/model/transactionModel";
 import { connectDB } from "@/lib/mongodb";
 import { getToken } from "@/actions/action";
+import { revalidatePath } from "next/cache";
+import Transaction from "@/model/transactionModel";
 
 export async function handleSpinAction(stake: number, balance: number) {
   await connectDB(); // Ensure DB connection
@@ -75,6 +75,9 @@ export async function handleSpinAction(stake: number, balance: number) {
       });
     }
 
+    //re-validate path
+    revalidatePath("/dashboard");
+
     return {
       error: false,
       msg: "success",
@@ -82,7 +85,6 @@ export async function handleSpinAction(stake: number, balance: number) {
         outcome,
         winType,
         amountWon,
-        finalBalance,
       },
     };
   } catch (error) {

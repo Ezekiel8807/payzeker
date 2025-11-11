@@ -1,5 +1,7 @@
+"use server";
 import { getToken } from "@/actions/action";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 //public key
 const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_KEY;
@@ -10,8 +12,7 @@ export const payWithPaystack = async (
   setErrmsg: React.Dispatch<React.SetStateAction<string>>,
   setIserr: React.Dispatch<React.SetStateAction<boolean>>,
   setIssuc: React.Dispatch<React.SetStateAction<boolean>>,
-  setSucmsg: React.Dispatch<React.SetStateAction<string>>,
-  setBalance: React.Dispatch<React.SetStateAction<number>>
+  setSucmsg: React.Dispatch<React.SetStateAction<string>>
 ) => {
   const userToken = await getToken();
   if (!userToken) redirect("/login");
@@ -36,7 +37,8 @@ export const payWithPaystack = async (
         .then((data) => {
           if (data.success) {
             // Update your UI with the new balance or status
-            setBalance((e) => (e += amount));
+            // setBalance((e) => (e += amount));
+            revalidatePath("/dashboard");
 
             setSucmsg("Payment Successful");
             setIssuc(true);
