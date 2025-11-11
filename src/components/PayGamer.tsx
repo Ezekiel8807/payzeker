@@ -12,15 +12,10 @@ import ResultModal from "./modal/ResultModal";
 import StakeSlector from "./StakeSlector";
 
 type PayGamerProbs = {
-  gameInfo: {
-    balance: number;
-    setBalance: React.Dispatch<React.SetStateAction<number>>;
-  };
+  balance: number;
 };
 
-export default function PayGamer({ gameInfo }: PayGamerProbs) {
-  const { balance, setBalance } = gameInfo;
-
+export default function PayGamer({ balance }: PayGamerProbs) {
   const [stake, setStake] = useState(100);
   const [con, setIscon] = useState(false);
   const [isErr, setiserr] = useState(false);
@@ -82,7 +77,6 @@ export default function PayGamer({ gameInfo }: PayGamerProbs) {
     setSpinning(false);
     setWinType(handleSpinActionRes["result"]!.winType);
     setAmountWon(handleSpinActionRes["result"]!.amountWon);
-    setBalance(handleSpinActionRes["result"]!.finalBalance);
     setResult(handleSpinActionRes["result"]!.outcome);
     setIsProcessing(false);
   }

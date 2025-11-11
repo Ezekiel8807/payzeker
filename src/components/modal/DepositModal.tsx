@@ -13,7 +13,6 @@ type DepositModalProbs = {
     setSucmsg: React.Dispatch<React.SetStateAction<string>>;
     setIserr: React.Dispatch<React.SetStateAction<boolean>>;
     setIssuc: React.Dispatch<React.SetStateAction<boolean>>;
-    setBalance: React.Dispatch<React.SetStateAction<number>>;
     fullname: string;
     email: string;
     balance: number;
@@ -35,7 +34,6 @@ export default function DepositModal({
     setSucmsg,
     setIserr,
     setIssuc,
-    setBalance,
     fullname,
     email,
     balance,
@@ -74,8 +72,7 @@ export default function DepositModal({
       setErrmsg,
       setIserr,
       setIssuc,
-      setSucmsg,
-      setBalance
+      setSucmsg
     );
 
     //set pending state

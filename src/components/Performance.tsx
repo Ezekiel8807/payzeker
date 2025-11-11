@@ -1,17 +1,21 @@
-"use client";
+import User from "@/model/userModel";
+import { redirect } from "next/navigation";
+import { getToken } from "@/actions/action";
+import { fetchModelById } from "@/utils/modelFunc";
 
-import React from "react";
+//components
 import { Icon } from "@iconify/react";
 
-type PerformanceProps = {
-  Overall: number;
-  Completed: number;
-};
+export default async function Performance() {
+  const token = await getToken();
+  if (!token) return redirect("/login");
 
-export default function Performance({ Overall, Completed }: PerformanceProps) {
-  const missed = Overall - Completed || 0;
-  const overall = Overall || 0;
-  const completed = Completed || 0;
+  const user = await fetchModelById(User, token.id);
+  const { completedTask, overallTask } = user;
+
+  const missed = overallTask - completedTask || 0;
+  const overall = overallTask || 0;
+  const completed = completedTask || 0;
 
   const stats = [
     {

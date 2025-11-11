@@ -1,8 +1,7 @@
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
-import User from "../../../model/userModel";
 import Transaction from "@/model/transactionModel";
-import { fetchModelById, fetchModelsData } from "@/utils/modelFunc";
+import { fetchModelsData } from "@/utils/modelFunc";
 
 // Components
 import SubHeading from "@/components/SubHeading";
@@ -14,23 +13,11 @@ import MoneyCom from "@/components/MoneyCom";
 
 export default async function Account() {
   const token = await getToken();
-
   if (!token) return redirect("/login");
 
-  const user = await fetchModelById(User, token.id);
+  const isLogin = !!token;
+  const { username, isAdmin } = token;
   const [AllTransac] = await fetchModelsData(Transaction);
-
-  const isLogin = !!user;
-  const { username, isAdmin, firstname, lastname, email, rank } = user;
-  const balance = user.account.balance as number;
-  const earning = user.account.earning as number;
-  const {
-    bankName = "bankName",
-    bankAcctNo = 12346790,
-    minWithdrawal = 5000,
-    maxWithdrawal,
-    allTimeWithdrawal,
-  } = user.account.withdrawal;
 
   return (
     <>
@@ -43,21 +30,7 @@ export default async function Account() {
           <div className="w-[100%] px-5 lg:w-[70%]">
             <Main>
               {/* //account details */}
-              <MoneyCom
-                moneyComData={{
-                  firstname,
-                  lastname,
-                  email,
-                  rank,
-                  balance,
-                  earning,
-                  bankName,
-                  bankAcctNo,
-                  minWithdrawal,
-                  maxWithdrawal,
-                  allTimeWithdrawal,
-                }}
-              />
+              <MoneyCom />
 
               {/* auto scroll element */}
               <div className="w-full mt-5 mx-auto">
@@ -67,7 +40,7 @@ export default async function Account() {
                 />
 
                 <div className="w-full h-screen scroll-smooth overflow-y-scroll">
-                  <UserTrans userId={user._id as string} trans={AllTransac} />
+                  <UserTrans userId={token.id as string} trans={AllTransac} />
                 </div>
               </div>
             </Main>

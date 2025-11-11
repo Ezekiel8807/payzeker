@@ -134,11 +134,15 @@ export async function withdrawalAction(
     await newNotification.save();
     // Save to database
 
+    //realidate data
+    revalidatePath("/dashboard");
+
     return {
       error: false,
-      balance: user.account.balance,
       msg: `Withdrawal request of #${amount} successfully made.`,
     };
+
+    //
   } catch (err) {
     return {
       error: true,

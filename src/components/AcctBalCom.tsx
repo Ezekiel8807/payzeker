@@ -19,14 +19,13 @@ type AcctBalComProps = {
     email: string;
     rank: number;
     balance: number;
-    setBalance: React.Dispatch<React.SetStateAction<number>>;
     bankName: string;
     bankAcctNo: string;
   };
 };
 
 export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
-  const { firstname, lastname, email, rank, balance, setBalance } = acctInfo;
+  const { firstname, lastname, email, rank, balance } = acctInfo;
 
   const [isPen, setIspen] = useState(false);
   const [isSuc, setIssuc] = useState(false);
@@ -66,7 +65,6 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
       return;
     }
 
-    setBalance(res.balance);
     setIssuc(true);
     setSucmsg(res.msg);
   }
@@ -124,7 +122,6 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
             fullname,
             email,
             balance,
-            setBalance,
             depAmount,
             setDepamount,
             setOpenDepositModal,
