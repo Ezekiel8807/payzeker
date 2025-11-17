@@ -18,18 +18,19 @@ export default function Forget() {
               type="email"
               name=""
               id=""
+              required
               placeholder="Enter account email"
             />
             <Link className="text-[12px] cursor-pointer" href="/login">
               Back to login
             </Link>
-          </form>
 
-          <div className="flex justify-end">
-            <Button btnStyle="px-5 py-2 my-5 bg-[var(--green)] rounded">
-              Change password
-            </Button>
-          </div>
+            <div className="flex justify-end">
+              <Button btnStyle="px-5 py-2 my-5 bg-[var(--green)] rounded">
+                Change password
+              </Button>
+            </div>
+          </form>
         </div>
       </div>
     </Main>

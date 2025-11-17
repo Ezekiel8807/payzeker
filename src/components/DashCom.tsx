@@ -1,17 +1,34 @@
 // components
-// import Link from "next/link";
-// import PayGamer from "./PayGamer";
+// import Script from "next/script";
 import MoneyCom from "./MoneyCom";
 import DailyTask from "./DailyTask";
 import Performance from "./Performance";
 import PayGameCom from "./PayGameCom";
 
 export default function DashCom() {
-  // const [show, setShow] = useState(true);
-
   return (
     <>
       <MoneyCom />
+
+      {/* <div className="relative w-full overflow-hidden">
+        <Script id="ad-config" strategy="afterInteractive">
+          {`
+            atOptions = {
+              'key': '55eb44035a9c29a44aa55d55dc1574e6',
+              'format': 'iframe',
+              'height': 60,
+              'width': window.innerWidth || document.documentElement.clientWidth,
+              'params': {}
+            };
+          `}
+        </Script>
+
+        <Script
+          id="ad-script"
+          strategy="afterInteractive"
+          src="//intimidatingsideway.com/55eb44035a9c29a44aa55d55dc1574e6/invoke.js"
+        />
+      </div> */}
 
       {/* {show && (
         <div className="bg-[#e6fff7] p-5 rounded-2xl shadow-md mt-6 w-full mx-auto">

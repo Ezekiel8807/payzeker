@@ -61,6 +61,12 @@ export default function RootLayout({
           type="text/javascript"
           src="//intimidatingsideway.com/cd/25/e0/cd25e0a72342f4fb6f2b0e1bc8faf396.js"
         ></script>
+
+        <script
+          async
+          data-cfasync="false"
+          src="//intimidatingsideway.com/ba42027f6ac5fb9c6f4b3bbcc8a5f13e/invoke.js"
+        ></script>
       </head>
       <body className={`${workSans.variable} ${quicksand.variable}`}>
         {children}

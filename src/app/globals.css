@@ -62,3 +62,9 @@ body {
   font-family: "Quicksand", "Work Sans", serif;
   background-color: var(--white);
 }
+
+.responsive-ad iframe {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 728 / 90;
+}

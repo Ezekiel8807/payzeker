@@ -56,10 +56,6 @@ export default function HowToStart() {
             right opportunities. Payzeker makes it easy to connect, collaborate,
             and grow. Let&apos;s get to work!
           </p>
-
-          <button className="mt-6 px-6 py-3 bg-[#29cd9c] text-white rounded-lg shadow-lg font-semibold hover:scale-105 transition-all duration-300">
-            Get Started
-          </button>
         </motion.div>
 
         {/* Image Section */}
