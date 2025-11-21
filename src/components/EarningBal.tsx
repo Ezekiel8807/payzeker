@@ -48,7 +48,7 @@ export default function EarningBal({
         <div className="flex justify-end items-center">
           <Button
             btnAction={openCloseWithdrawModal}
-            btnStyle="w-[100px] p-2 font-bold text-[12px] cursor-pointer bg-[var(--gray-10)] hover:bg-[var(--green)] hover:text-[var(--white)] rounded outline-none"
+            btnStyle="w-[100px] p-2 font-bold text-[12px] cursor-pointer bg-green-100 hover:bg-[var(--green)] hover:text-[var(--white)] rounded outline-none shadow-md"
           >
             {!isPen ? "Transfer" : "Processing..."}
           </Button>
