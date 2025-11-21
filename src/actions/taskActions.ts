@@ -133,13 +133,13 @@ export async function subTask({
   taskFileType,
   taskFileLink,
 }: subTaskInfo) {
-  const userToken = await getToken();
-  if (!userToken) return redirect("/login");
-
-  //
-  const userId = userToken.id as string;
-
   try {
+    const userToken = await getToken();
+    if (!userToken) redirect("/login");
+
+    //
+    const userId = userToken.id as string;
+
     if (!taskId || !taskFileType || !taskFileLink)
       return { error: true, msg: "Error something went wrong!" };
 

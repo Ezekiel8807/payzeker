@@ -82,7 +82,7 @@ export default function PayGamer({ balance }: PayGamerProbs) {
   }
 
   return (
-    <div className="relative p-5 max-w-md bg-[var(--gray-10)] text-sm rounded-lg shadow-lg">
+    <div className="w-full relative p-5 max-w-md bg-[var(--gray-10)] text-sm rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold text-[#2D3436]">Lucky Spin 🎰</h2>
       <small className="text-[13px] text-[#636e72]">
         One Spin Could Change Everything

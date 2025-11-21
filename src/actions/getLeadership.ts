@@ -1,5 +1,4 @@
 "use server";
-
 import User from "@/model/userModel";
 import { connectDB } from "@/lib/mongodb";
 

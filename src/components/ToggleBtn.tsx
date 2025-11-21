@@ -68,6 +68,12 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
       show: toggleData.isLogin,
     },
     {
+      label: "Lucky Spin",
+      href: "/luckySpin",
+      show: toggleData.isLogin,
+      icon: "mdi:gamepad-variant",
+    },
+    {
       label: "Request",
       href: "/requests",
       icon: "mdi:inbox-arrow-down-outline",
@@ -190,7 +196,7 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
               <div className="w-full absolute left-0 bottom-0 border-t-2">
                 {/* hover:bg-[var(--green)] */}
                 {toggleData.isLogin && (
-                  <Logout_btn logoutBtnStyle="w-full p-3 block text-red-500 hover:font-black" />
+                  <Logout_btn logoutBtnStyle="w-full flex items-center justify-center gap-3 p-3 block text-red-500 hover:font-black" />
                 )}
               </div>
             </nav>
