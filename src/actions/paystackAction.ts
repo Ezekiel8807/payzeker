@@ -38,8 +38,9 @@ export async function withdrawPaystackServer(amount: number) {
     }
 
     //fetch/find user recipient_code from Recipient model
-    let recipient = await Recipient.findOne({ userId: user._id });
+    const recipient = await Recipient.findOne({ userId: user._id });
     let recipientCode = recipient?.recipient_code;
+
 
     //create user recipient_code if not exists
     if (!recipientCode) {
