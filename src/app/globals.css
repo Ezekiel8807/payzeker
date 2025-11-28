@@ -59,7 +59,7 @@ body {
   color: var(--black);
   box-sizing: border-box;
   font-optical-sizing: auto;
-  font-family: "Quicksand", "Work Sans", serif;
+  font-family: "Quicksand", "Work Sans", sans-serif;
   background-color: var(--white);
 }
 

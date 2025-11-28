@@ -71,7 +71,6 @@ export async function PATCH() {
     );
     //
   } catch (err) {
-    console.log(err);
     return NextResponse.json(
       { error: `Failed to rest expired plan: ${err}` },
       { status: 500 }

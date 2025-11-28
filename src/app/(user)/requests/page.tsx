@@ -14,6 +14,8 @@ import RequestCard from "@/components/cards/RequestCard";
 
 export default async function page() {
   const user = await getToken();
+  if (!user) return redirect("/login");
+
   const [requests] = await fetchModelsData(Request);
   const isLogin = !!user;
 
@@ -21,7 +23,6 @@ export default async function page() {
     (r: { status: string }) => r.status === "new"
   );
 
-  if (!user) return redirect("/login");
   const { username, isAdmin } = user;
   if (!isAdmin) return redirect("/dashboard");
 
@@ -34,7 +35,6 @@ export default async function page() {
             <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
           </div>
           <div className="w-[100%] px-5 lg:w-[70%]">
-            {" "}
             <Main>
               <SubHeading
                 title="Requests"
@@ -47,11 +47,8 @@ export default async function page() {
                     (request: {
                       _id: string;
                       userId: string;
-                      type: string;
-                      username: string;
                       fullname: string;
                       bankName: string | null | undefined;
-                      prof: string;
                       bankAcctNo: number | null | undefined;
                       amount: number;
                     }) => (

@@ -13,12 +13,14 @@ type ConfirmWitdrawalModalProbs = {
   };
   setIsconwitmodal: React.Dispatch<React.SetStateAction<boolean>>;
   withdrawalFunc: () => void;
+  isProcessing?: boolean;
 };
 
 export default function ConfirmWitdrawalModal({
   confirmInfo,
   setIsconwitmodal,
   withdrawalFunc,
+  isProcessing = false,
 }: ConfirmWitdrawalModalProbs) {
   const { fullname, bankName, bankAcctNo, amount } = confirmInfo;
 
@@ -60,16 +62,24 @@ export default function ConfirmWitdrawalModal({
         <div className="flex items-center justify-between">
           <Button
             btnAction={handleCancleClick}
-            btnStyle="w-[100px] p-2 rounded font- black bg-[var(--gray-05)]"
+            btnStyle={`w-[100px] p-2 rounded font-black bg-[var(--gray-05)] ${
+              isProcessing ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={isProcessing}
           >
             Cancel
           </Button>
 
           <Button
             btnAction={handleConfirmClick}
-            btnStyle="w-[100px] p-2 rounded font- black text-white bg-[var(--green)]"
+            btnStyle={`w-[100px] p-2 rounded font-black text-white ${
+              isProcessing
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-[var(--green)]"
+            }`}
+            disabled={isProcessing}
           >
-            Confirm
+            {isProcessing ? "Processing..." : "Confirm"}
           </Button>
         </div>
       </div>

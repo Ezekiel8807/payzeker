@@ -1,5 +1,5 @@
 import Script from "next/script";
-import { payWithPaystack } from "@/utils/payWithPaystack";
+import { payWithPaystack } from "@/utils/paystackFunc";
 
 //components
 import Button from "../Button";
@@ -42,8 +42,8 @@ export default function DepositModal({
     setOpenDepositModal,
   } = depositInfo;
 
-  //function to handle withdrawal form submit
-  async function handleDepposit(e: React.FormEvent<HTMLFormElement>) {
+  //function to handle deposit form submit
+  function handleDepposit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     //set pending state
@@ -52,7 +52,7 @@ export default function DepositModal({
     if (depAmount < 100) {
       setIspen(false);
       setOpenDepositModal(false);
-      setErrmsg("Opps, minimum deposit of #100");
+      setErrmsg("Opps, minimum deposit of ₦100");
       setIserr(true);
       return;
     }
@@ -66,18 +66,24 @@ export default function DepositModal({
     }
 
     //initialize paystack payment
-    await payWithPaystack(
+    payWithPaystack(
       email,
       depAmount,
-      setErrmsg,
-      setIserr,
-      setIssuc,
-      setSucmsg
+      (message) => {
+        // Success callback
+        setIspen(false);
+        setOpenDepositModal(false);
+        setSucmsg(message);
+        setIssuc(true);
+      },
+      (message) => {
+        // Error callback
+        setIspen(false);
+        setOpenDepositModal(false);
+        setErrmsg(message);
+        setIserr(true);
+      }
     );
-
-    //set pending state
-    setIspen(false);
-    setOpenDepositModal(false);
   }
 
   return (

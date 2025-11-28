@@ -2,6 +2,7 @@ import mongoose, { models } from "mongoose";
 
 const transactionSchema = new mongoose.Schema({
   userId: { type: String, default: "" },
+  // transId
   type: {
     type: String,
     enum: ["credit", "debit"],
