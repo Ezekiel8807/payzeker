@@ -2,8 +2,6 @@
 import { cancelRequest, confirmRequest } from "@/actions/requesAction";
 
 //components
-import Image from "next/image";
-import Link from "next/link";
 import CardActionBtn from "../CardActionBtn";
 import WarningModal from "../modal/WarningModal";
 import { useState } from "react";
@@ -14,11 +12,8 @@ type RequestCardProbs = {
   requestCardInfo: {
     _id: string;
     userId: string;
-    type: string;
-    username: string;
     fullname: string;
     bankName: string | null | undefined;
-    prof: string;
     bankAcctNo: number | null | undefined;
     amount: number;
   };
@@ -36,17 +31,8 @@ export default function RequestCard({ requestCardInfo }: RequestCardProbs) {
   const [IsRejWarning, setIsrejwarning] = useState(false);
   const [IsConWarning, setIsconwarning] = useState(false);
 
-  const {
-    _id,
-    userId,
-    type,
-    username,
-    fullname,
-    bankName,
-    prof,
-    bankAcctNo,
-    amount,
-  } = requestCardInfo;
+  const { _id, userId, fullname, bankName, bankAcctNo, amount } =
+    requestCardInfo;
 
   async function cancelRequestAction() {
     setIsrej(true);
@@ -105,34 +91,13 @@ export default function RequestCard({ requestCardInfo }: RequestCardProbs) {
   return (
     <>
       <div className="bg-[var(--gray-10)] p-3 rounded-lg shadow-md">
-        {prof && (
-          <Link href={prof} target="_bank">
-            <Image
-              src={prof}
-              width={500}
-              height={500}
-              alt="request prof"
-              className="w-full h-[200px]"
-            />
-          </Link>
-        )}
-
-        <h2 className="font-black mt-3">{type.toLocaleUpperCase()}</h2>
+        <h2 className="font-black mt-3">Withdral</h2>
 
         <div>
-          {type === "withdraw" && (
-            <div className="flex mt-1 items-center justify-between">
-              <span className="">Name:</span>
-              <span className="text-right">{fullname}</span>
-            </div>
-          )}
-
-          {type === "deposit" && (
-            <div className="flex mt-1 items-center justify-between">
-              <span className="">Username:</span>
-              <span className="text-right">{username}</span>
-            </div>
-          )}
+          <div className="flex mt-1 items-center justify-between">
+            <span className="">Name:</span>
+            <span className="text-right">{fullname}</span>
+          </div>
 
           {bankName && (
             <div className="flex mt-1 items-center justify-between">
@@ -158,11 +123,9 @@ export default function RequestCard({ requestCardInfo }: RequestCardProbs) {
             </span>
           </div>
 
-          {type === "withdraw" && (
-            <p className="mt-5 p-2 text-sm text-center bg-[var(--gray-05)]">
-              Balace must have been check before confirming payment.
-            </p>
-          )}
+          <p className="mt-5 p-2 text-sm text-center bg-[var(--gray-05)]">
+            Balace must have been check before confirming payment.
+          </p>
 
           <CardActionBtn
             isCon={isCon}

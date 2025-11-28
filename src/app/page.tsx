@@ -1,3 +1,8 @@
+import { redirect } from "next/navigation";
+import { getToken } from "@/actions/action";
+
+
+
 // app/page.tsx
 import Faq from "@/components/layout/Faq";
 import Hero from "@/components/layout/Hero";
@@ -10,7 +15,12 @@ import Contact from "@/components/layout/Contact";
 import PayzekerLive from "@/components/PayzekerLive";
 import HowToStart from "@/components/layout/HowToStart";
 
-export default function Home() {
+
+
+export default async function Home() {
+  const token = await getToken();
+  if (token) redirect("/dashboard");
+  
   return (
     <>
       <Header />

@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
-import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
-import { withdrawalAction } from "@/actions/requesAction";
+import { withdrawPaystack } from "@/utils/paystackFunc";
 
 //components
 import Button from "./Button";
@@ -32,6 +30,7 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
   const [errMsg, setErrmsg] = useState("");
   const [sucMsg, setSucmsg] = useState("");
   const [isErr, setIserr] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const minWithdrawal = 100;
   const fullname = `${lastname} ${firstname}`;
@@ -45,28 +44,42 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
   const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
 
   function openCloseWithdrawModal() {
+    // Prevent opening modal if any operation is processing
+    if (isProcessing || isPen) return;
     setOpenWithdrawModal(!openWithdrawModal);
   }
 
   function openCloseDepositModal() {
+    // Prevent opening modal if any operation is processing
+    if (isProcessing || isPen) return;
     setOpenDepositModal(!openDepositModal);
   }
 
   //function to handle withdrawal form submit
   async function withdrawalFunc() {
-    const user = await getToken();
-    if (!user) redirect("/login");
+    // Prevent multiple calls
+    if (isProcessing) return;
 
-    const res = await withdrawalAction(balance, minWithdrawal, amount);
+    setIsProcessing(true);
 
-    if (res.error) {
+    try {
+      const result = await withdrawPaystack(amount);
+      
+      if (result.error) {
+        setErrmsg(result.message);
+        setIserr(true);
+      } else {
+        setSucmsg(result.message);
+        setIssuc(true);
+        setIsconwitmodal(false); // Close the confirmation modal on success
+      }
+    } catch (error) {
       setIserr(true);
-      setErrmsg(res.msg);
-      return;
+      setErrmsg("An unexpected error occurred");
+      console.error("Withdrawal error:", error);
+    } finally {
+      setIsProcessing(false);
     }
-
-    setIssuc(true);
-    setSucmsg(res.msg);
   }
 
   return (
@@ -96,16 +109,26 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
         <div className="flex justify-end items-center">
           <button
             id="payBtn"
-            onClick={openCloseDepositModal} //payWithPaystack("ayebidunezekiel@gmail.com", 5000)
-            className="font-bold text-[12px] mx-2 px-2 py-1 cursor-pointer text-[var(--white)] bg-[var(--green)] rounded-lg"
+            onClick={openCloseDepositModal}
+            disabled={isProcessing || isPen}
+            className={`font-bold text-[12px] mx-2 px-2 py-1 rounded-lg ${
+              isProcessing || isPen
+                ? "opacity-50 cursor-not-allowed bg-gray-400 text-gray-600"
+                : "cursor-pointer text-[var(--white)] bg-[var(--green)]"
+            }`}
           >
-            Deposit
+            {isPen ? "Processing..." : "Deposit"}
           </button>
           <Button
             btnAction={openCloseWithdrawModal}
-            btnStyle="font-bold text-[12px] cursor-pointer hover:text-[var(--green)]"
+            btnStyle={`font-bold text-[12px] ${
+              isProcessing || isPen
+                ? "opacity-50 cursor-not-allowed"
+                : "cursor-pointer hover:text-[var(--green)]"
+            }`}
+            disabled={isProcessing || isPen}
           >
-            Withdraw
+            {isProcessing ? "Processing..." : "Withdraw"}
           </Button>
         </div>
       </div>
@@ -159,6 +182,7 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
           confirmInfo={{ fullname, bankName, bankAcctNo, amount }}
           withdrawalFunc={withdrawalFunc}
           setIsconwitmodal={setIsconwitmodal}
+          isProcessing={isProcessing}
         />
       )}
 

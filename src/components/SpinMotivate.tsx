@@ -26,7 +26,9 @@ export default function SpinMotivate() {
         const rnd = Math.floor(Math.random() * data.length);
         const w = data[rnd];
         setMessage(
-          `${w.username} won #${w.amount.toLocaleString()} from spinning. 💵`
+          `${
+            w.username
+          } won #${w.amount.toLocaleString()} from spinning. 💵💵💵`
         );
       }
     }
@@ -42,7 +44,7 @@ export default function SpinMotivate() {
       const rnd = Math.floor(Math.random() * winners.length);
       const w = winners[rnd];
       setMessage(
-        `${w.username} won #${w.amount!.toLocaleString()} from spinning. 💵`
+        `${w.username} won #${w.amount!.toLocaleString()} from spinning. 💵💵💵`
       );
     }, 10000);
 

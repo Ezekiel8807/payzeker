@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import Request from "../model/requestModel";
 import Transaction from "@/model/transactionModel";
 import Notification from "../model/notificationModel";
+import { redirect } from "next/navigation";
 
 export async function EarningWithdrawalAction(
   earning: number,
@@ -34,22 +35,55 @@ export async function EarningWithdrawalAction(
 
     const userId = token.id as string;
     const user = await User.findOne({ _id: userId });
-    if (!user) return { error: true, msg: "User not found" };
+    if (!user) redirect("/login");
 
-    //remove withdrawal amount from balance and add to allTimeWitdrawal
+    if (
+      user.firstname === "" ||
+      user.lastname === "" ||
+      !user.account.withdrawal.bankName ||
+      !user.account.withdrawal.bankAcctNo
+    ) {
+      return {
+        error: true,
+        msg: "Details are missing. Please update your profile.",
+      };
+    }
+
+    //remove withdrawal amount from earning balance and add to balance and allTimeWitdrawal
     user.account.earning -= amount;
-    user.account.balance += amount;
     user.account.withdrawal.allTimeWithdrawal += amount;
     await user.save();
+
+    //crate transaction
+    const newTransaction = await new Transaction({
+      userId: user._id,
+      type: "debit",
+      amount: amount,
+      disc: `Earnings withdraw`,
+    });
+    await newTransaction.save();
+
+    // Create withdrawal request
+    const newRequest = new Request({
+      userId,
+      transId: newTransaction._id,
+      username: user.username,
+      fullname: `${user.lastname} ${user.firstname}`,
+      bankName: user.account.withdrawal.bankName,
+      bankAcctNo: user.account.withdrawal.bankAcctNo,
+      amount: amount,
+    });
+    await newRequest.save();
 
     // Notify user about withdrawal
     const newNotification = await new Notification({
       username: user.username,
-      message: `Transter #${amount} to balance successfully made.`,
+      message: `Withdrawal request of #${amount} successfully made. Await payment under 48hrs.`,
     });
     await newNotification.save();
     // Save to database
 
+    //realidate data
     revalidatePath("/dashboard");
 
     return {
@@ -102,9 +136,12 @@ export async function withdrawalAction(
     user.account.balance -= amount;
     await user.save();
 
-    //update
+    // Make payment via paystack
 
-    //crate transaction
+    // End paystack payment
+
+    //crate transaction base on paystack result
+    // start
     const newTransaction = await new Transaction({
       userId: user._id,
       type: "debit",
@@ -113,23 +150,10 @@ export async function withdrawalAction(
     });
     await newTransaction.save();
 
-    // Create withdrawal request
-    const newRequest = new Request({
-      userId,
-      transId: newTransaction._id,
-      username: user.username,
-      fullname: `${user.lastname} ${user.firstname}`,
-      type: "withdraw",
-      bankName: user.account.withdrawal.bankName,
-      bankAcctNo: user.account.withdrawal.bankAcctNo,
-      amount: amount,
-    });
-    await newRequest.save();
-
     // Notify user about withdrawal
     const newNotification = await new Notification({
       username: user.username,
-      message: `Withdrawal request of #${amount} successfully made. Await payment under 48hrs.`,
+      message: `Withdrawal request of #${amount} successfully made.`,
     });
     await newNotification.save();
     // Save to database
@@ -141,6 +165,7 @@ export async function withdrawalAction(
       error: false,
       msg: `Withdrawal request of #${amount} successfully made.`,
     };
+    // stop
 
     //
   } catch (err) {
@@ -215,12 +240,9 @@ export async function cancelRequest(userId: string, requestId: string) {
     if (!transaction)
       return { error: true, msg: "Error can't find transaction!" };
 
-    if (request.type === "withdraw") {
-      user.account.balance += request.amount;
-
-      //Update user
-      await user.save();
-    }
+    // update user
+    user.account.earning += request.amount;
+    await user.save();
 
     //set transaction status failed
     transaction.status = "failed";
@@ -240,6 +262,9 @@ export async function cancelRequest(userId: string, requestId: string) {
 
     //save to update new info
     await notification.save();
+
+    //realidate data
+    revalidatePath("/request");
 
     return { error: false, msg: "Request rejected sucessfully!" };
 
@@ -271,20 +296,8 @@ export async function confirmRequest(userId: string, requestId: string) {
     if (!transaction)
       return { error: true, msg: "Error can't find transaction!" };
 
-    // if (request.type === "withdraw") {
-    //   if (user.account.balance < request.amount) {
-    //     cancelRequest(userId, requestId);
-    //     return { error: true, msg: "Error: Insufficent balance!" };
-    //   }
-
-    //   user.account.balance -= request.amount;
-    // }
-
-    if (request.type === "deposit") {
-      user.account.balance += request.amount;
-    }
-
     //update user
+    user.account.balance += request.amount;
     await user.save();
 
     //Update the status of the request

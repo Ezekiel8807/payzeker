@@ -70,8 +70,8 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
     {
       label: "Lucky Spin",
       href: "/luckySpin",
-      show: toggleData.isLogin,
       icon: "mdi:gamepad-variant",
+      show: toggleData.isLogin && !toggleData.isAdmin,
     },
     {
       label: "Request",
@@ -107,7 +107,7 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
       label: "Upgrade",
       href: "/upgrade",
       icon: "mdi:arrow-up-bold-circle-outline",
-      show: toggleData.isLogin,
+      show: toggleData.isLogin && !toggleData.isAdmin,
     },
     {
       label: "Login",

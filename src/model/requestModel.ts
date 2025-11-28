@@ -5,11 +5,6 @@ const requestSchema = new mongoose.Schema({
   transId: { type: mongoose.Schema.Types.ObjectId, ref: "Transaction" },
   username: { type: String, default: "" },
   fullname: { type: String, default: "" },
-  type: {
-    type: String,
-    enum: ["deposit", "withdraw", "others"],
-    required: true,
-  },
   status: {
     type: String,
     enum: ["new", "accepted", "declined"],
@@ -17,7 +12,6 @@ const requestSchema = new mongoose.Schema({
   },
   bankName: String,
   bankAcctNo: Number,
-  prof: { type: String, default: "" },
   amount: { type: Number, required: true },
 });
 
