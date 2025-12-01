@@ -1,7 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { updateNotis } from "@/actions/notifficationAction";
-import { deleteNotis } from "@/actions/notifficationAction";
+import {
+  updateNotis,
+  deleteNotis,
+  getNotifications,
+} from "@/actions/notifficationAction";
 
 // Components
 import DeleteIcon from "./ui/DeleteIcon";
@@ -23,12 +26,36 @@ export default function NotificationCom({ notis }: { notis: any[] }) {
     unReadNotiCheck();
   }, [notisArr]); // Depend on `notisArr` to update properly
 
-  function openCloseNoteBox() {
-    if (notisArr.length > 0) {
-      setNotebox((prev) => !prev);
-      return;
+  // Poll for new notifications every 5 seconds
+  useEffect(() => {
+    const pollNotifications = async () => {
+      const result = await getNotifications();
+      if (!result.error && result.data) {
+        // Only update if there are changes to avoid unnecessary re-renders
+        if (JSON.stringify(result.data) !== JSON.stringify(notisArr)) {
+          setNotisarr(result.data);
+        }
+      }
+    };
+
+    // Poll every 5 seconds for real-time updates
+    const interval = setInterval(pollNotifications, 5000);
+
+    // Cleanup interval on unmount
+    return () => clearInterval(interval);
+  }, [notisArr]);
+
+  async function openCloseNoteBox() {
+    // Fetch latest notifications when opening the box
+    if (!noteBox) {
+      const result = await getNotifications();
+      if (!result.error && result.data) {
+        setNotisarr(result.data);
+      }
     }
-    setNotebox(false);
+
+    // Always allow opening the notification box (even if empty)
+    setNotebox((prev) => !prev);
   }
 
   async function deleteNotisDbSt(id: string) {
@@ -74,7 +101,14 @@ export default function NotificationCom({ notis }: { notis: any[] }) {
 
       {noteBox && (
         <div className="absolute z-10 top-9 md:top-10 -left-56 md:right-0 flex flex-col p-5 gap-2 w-[285px] h-[300px] bg-[var(--gray-05)] overflow-y-scroll rounded shadow-lg border-b-2 border-[var(--green)] transition-transform scale-100 ease-in-out">
-          {notisArr.map((el) =>
+          {notisArr.length === 0 ? (
+            <div className="flex items-center justify-center h-full">
+              <p className="text-center text-gray-500 text-sm">
+                No notifications yet 🔔
+              </p>
+            </div>
+          ) : (
+            notisArr.map((el) =>
             el.state === "unread" ? (
               <div
                 key={el._id}
@@ -102,9 +136,10 @@ export default function NotificationCom({ notis }: { notis: any[] }) {
                   <small className="block text-end mt-2 cursor-pointer">
                     |
                   </small>
-                  <DeleteIcon deleteNotis={() => deleteNotis(el._id)} />
+                  <DeleteIcon deleteNotis={() => deleteNotisDbSt(el._id)} />
                 </div>
               </div>
+            )
             )
           )}
         </div>

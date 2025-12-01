@@ -19,12 +19,20 @@ const cached: MongooseGlobal = globalWithMongoose.mongoose || {
 export async function connectDB(): Promise<mongoose.Mongoose> {
   if (cached.conn) return cached.conn;
 
+  // Check if MONGODB_URI is defined
+  const mongoUri = process.env.MONGODB_URI;
+  if (!mongoUri) {
+    throw new Error(
+      "MONGODB_URI is not defined in environment variables. Please add it to .env.local"
+    );
+  }
+
   if (!cached.promise) {
     const options = {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(process.env.MONGODB_URI!, options);
+    cached.promise = mongoose.connect(mongoUri, options);
   }
 
   cached.conn = await cached.promise;

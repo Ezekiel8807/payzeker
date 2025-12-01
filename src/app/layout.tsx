@@ -9,11 +9,15 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 const workSans = Work_Sans({
   subsets: ["latin"],
   variable: "--font-work-sans",
+  display: "swap",
+  fallback: ["system-ui", "arial"],
 });
 
 const quicksand = Quicksand({
   subsets: ["latin"],
   variable: "--font-quicksand",
+  display: "swap",
+  fallback: ["system-ui", "arial"],
 });
 
 export const metadata: Metadata = {
@@ -56,7 +60,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* ads scripts */}
+
+        {/* ezoic meta verification */}
+        <meta
+          name="ezoic-site-verification"
+          content="gfL4le20ODCIyaInWTbUTMcbFrq0wo"
+        />
+
+        {/* adsterra ads scripts */}
         <script
           type="text/javascript"
           src="//intimidatingsideway.com/cd/25/e0/cd25e0a72342f4fb6f2b0e1bc8faf396.js"
@@ -68,11 +79,33 @@ export default function RootLayout({
           src="//intimidatingsideway.com/ba42027f6ac5fb9c6f4b3bbcc8a5f13e/invoke.js"
         ></script>
 
-        <script 
-          async 
+        {/* google   Ads com */}
+        <script
+          async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3810051236937370"
           crossOrigin="anonymous"
         ></script>
+
+        {/* Ezoic's  Ads com */}
+
+        <script
+          src="https://cmp.gatekeeperconsent.com/min.js"
+          data-cfasync="false"
+        ></script>
+        <script
+          src="https://the.gatekeeperconsent.com/cmp.min.js"
+          data-cfasync="false"
+        ></script>
+
+        <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.ezstandalone = window.ezstandalone || {};
+              ezstandalone.cmd = ezstandalone.cmd || [];
+            `,
+          }}
+        />
       </head>
       <body className={`${workSans.variable} ${quicksand.variable}`}>
         {children}

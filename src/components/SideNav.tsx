@@ -54,6 +54,12 @@ export default function SideNav({ sideNavInfo }: SideNavProps) {
       icon: "mdi:inbox",
     },
     {
+      label: "Withdrawals",
+      href: "/withdrawals",
+      show: sideNavInfo.isLogin && sideNavInfo.isAdmin,
+      icon: "mdi:cash-multiple",
+    },
+    {
       label: "Users",
       href: "/users",
       show: sideNavInfo.isLogin && sideNavInfo.isAdmin,

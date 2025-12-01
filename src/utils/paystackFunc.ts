@@ -1,4 +1,5 @@
-import {  withdrawPaystackServer } from "@/actions/paystackAction";
+// Commented out - will be used when Paystack account is upgraded
+// import { withdrawPaystackServer } from "@/actions/paystackAction";
 
 //public key - accessed on client side
 const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_KEY;
@@ -45,10 +46,34 @@ export const payWithPaystack = (
   handler.openIframe();
 };
 
-// Client-side wrapper function for withdrawal
+/* ============================================
+   AUTOMATIC PAYSTACK WITHDRAWAL (COMMENTED OUT)
+   Uncomment this when Paystack account is upgraded
+   ============================================ */
+
+// export async function withdrawPaystack(amount: number) {
+//   try {
+//     const { withdrawPaystackServer } = await import("@/actions/paystackAction");
+//     const result = await withdrawPaystackServer(amount);
+//     return result;
+//   } catch (error) {
+//     console.error("Withdrawal error:", error);
+//     return {
+//       error: true,
+//       message: "An unexpected error occurred during withdrawal",
+//     };
+//   }
+// }
+
+/* ============================================
+   MANUAL WITHDRAWAL REQUEST (ACTIVE)
+   Used until Paystack account is upgraded
+   ============================================ */
+
 export async function withdrawPaystack(amount: number) {
   try {
-    const result = await withdrawPaystackServer(amount);
+    const { createWithdrawalRequest } = await import("@/actions/paystackAction");
+    const result = await createWithdrawalRequest(amount);
     return result;
   } catch (error) {
     console.error("Withdrawal error:", error);

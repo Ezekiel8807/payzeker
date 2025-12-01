@@ -6,7 +6,6 @@ import { fetchModelsData } from "@/utils/modelFunc";
 import SubmittedTask from "@/model/submittedTaskModel";
 
 // Layouts
-import Main from "@/components/layout/Main";
 import Header from "@/components/layout/Header";
 
 // Components
@@ -55,36 +54,31 @@ export default async function Dashboard() {
           <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
             <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
           </div>
-          <div className="w-[100%] px-5 lg:w-[70%]">
-            <Main>
-              {isAdmin && (
-                <>
-                  <SubHeading
-                    title="Submitted Tasks"
-                    desc="All tasks submitted at a go."
-                  />
+          <div className="w-[100%] p-5 lg:w-[70%]">
+            {isAdmin && (
+              <>
+                <SubHeading
+                  title="Submitted Tasks"
+                  desc="All tasks submitted at a go."
+                />
 
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 mb-5 items-center justify-start gap-5">
-                    {filterSubTask.length > 0 ? (
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      filterSubTask.map((subTask: any) => (
-                        <SubmittedTaskCard
-                          key={subTask._id}
-                          subTask={subTask}
-                        />
-                      ))
-                    ) : (
-                      <div className="col-span-3 h-[200px] flex items-center justify-center">
-                        <p className="w-[200px] text-center text-gray-600">
-                          No submitted tasks🙈. Check back later.
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </>
-              )}
-              {!isAdmin && <DashCom />}
-            </Main>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 mb-5 items-center justify-start gap-5">
+                  {filterSubTask.length > 0 ? (
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    filterSubTask.map((subTask: any) => (
+                      <SubmittedTaskCard key={subTask._id} subTask={subTask} />
+                    ))
+                  ) : (
+                    <div className="col-span-3 h-[200px] flex items-center justify-center">
+                      <p className="w-[200px] text-center text-gray-600">
+                        No submitted tasks🙈. Check back later.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+            {!isAdmin && <DashCom />}
           </div>
         </div>
       </div>

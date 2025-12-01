@@ -8,7 +8,7 @@ import NavLink from "../NavLink";
 import ToggleBtn from "../ToggleBtn";
 import Login_out from "../Login_out";
 import NavProfile from "../NavProfile";
-import NotificationCom from "../NotificationCom";
+import NotificationPanel from "../notifications/NotificationPanel";
 
 export default async function Header() {
   const { user, notifications } = await getHeaderData();
@@ -16,7 +16,7 @@ export default async function Header() {
   const isAdmin = user?.isAdmin;
 
   return (
-    <header className="px-5 py-2 sm:py-5 sm:px-10 md:px-20">
+    <header className="sticky top-0 z-50 bg-white shadow-md px-5 py-2 sm:py-5 sm:px-10 md:px-20">
       <div className="flex flex-row items-center justify-between">
         {/* Logo */}
         <Link href={isLogin ? "/dashboard" : "/"}>
@@ -41,7 +41,7 @@ export default async function Header() {
               <Login_out />
             ) : (
               <>
-                <NotificationCom notis={notifications} />
+                <NotificationPanel initialNotifications={notifications} />
                 <Link href="/profile">
                   <NavProfile userName={user.username} userRank={user.rank} />
                 </Link>

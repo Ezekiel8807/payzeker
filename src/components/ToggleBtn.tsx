@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Logout_btn from "./Logout_btn";
@@ -18,10 +18,37 @@ interface ToggleBtnProps {
 export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
   const pathname = usePathname();
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLImageElement>(null);
 
   const toggleMenu = useCallback(() => {
     setMenuIsOpen((prev) => !prev);
   }, []);
+
+  // Close menu when clicking outside (but not on the button)
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      
+      // Don't close if clicking the menu itself or the toggle button
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(target)
+      ) {
+        setMenuIsOpen(false);
+      }
+    };
+
+    if (menuIsOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuIsOpen]);
 
   // Define menu icons and routes
   const menuItems = [
@@ -80,6 +107,12 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
       show: toggleData.isLogin && toggleData.isAdmin,
     },
     {
+      label: "Withdrawals",
+      href: "/withdrawals",
+      icon: "mdi:cash-multiple",
+      show: toggleData.isLogin && toggleData.isAdmin,
+    },
+    {
       label: "Users",
       href: "/users",
       icon: "mdi:account-group-outline",
@@ -127,6 +160,7 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
     <>
       {/* Toggle Button */}
       <Image
+        ref={buttonRef}
         onClick={toggleMenu}
         aria-expanded={menuIsOpen}
         aria-label="Toggle navigation menu"
@@ -142,6 +176,7 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
       <AnimatePresence>
         {menuIsOpen && (
           <motion.div
+            ref={menuRef}
             key="menu"
             initial={{ x: -300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}

@@ -1,5 +1,36 @@
 "use server";
 import Notification from "@/model/notificationModel";
+import { getToken } from "@/actions/action";
+import { connectDB } from "@/lib/mongodb";
+
+// Get all notifications for current user
+export async function getNotifications() {
+  try {
+    const token = await getToken();
+    if (!token) {
+      return { error: true, message: "Unauthorized", data: [] };
+    }
+
+    await connectDB();
+
+    const notifications = await Notification.find({
+      username: token.username,
+    })
+      .sort({ _id: -1 })
+      .lean();
+
+    return {
+      error: false,
+      data: JSON.parse(JSON.stringify(notifications)),
+    };
+  } catch (err) {
+    return {
+      error: true,
+      message: err instanceof Error ? err.message : "An unknown error occurred",
+      data: [],
+    };
+  }
+}
 
 // Update Notification State
 export async function updateNotis(id: string) {
