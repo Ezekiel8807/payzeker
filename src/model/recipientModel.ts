@@ -1,8 +1,8 @@
 import mongoose, { models } from "mongoose";
 
 const RecipientSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, unique: true },
-  recipient_code: { type: String, required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, unique: true, index: true },
+  recipient_code: { type: String, required: true, index: true },
   recipient_id: { type: Number },
   type: { type: String, default: "nuban" },
   name: { type: String, required: true },
@@ -14,6 +14,9 @@ const RecipientSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
+
+// Add compound index for faster lookups
+RecipientSchema.index({ userId: 1, isActive: 1 });
 
 const Recipient = models?.Recipient || mongoose.model("Recipient", RecipientSchema);
 export default Recipient;

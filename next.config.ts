@@ -16,6 +16,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Skip database connection during build if MONGODB_URI is not set
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
 };
 
 export default nextConfig;

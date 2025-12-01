@@ -47,7 +47,7 @@ export default function EarningWithdrawalModal({
     } else {
       setDiswithdraw(true);
     }
-  }, [earning, amount]);
+  }, [earning, amount, minWithdrawal]);
 
   async function transToBal() {
     const res = await EarningWithdrawalAction(
@@ -62,14 +62,16 @@ export default function EarningWithdrawalModal({
   }
 
   //function to handle earning withdrawal form submit
-  function handleWithdrawal(e: React.FormEvent<HTMLFormElement>) {
+  async function handleWithdrawal(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    // Prevent multiple submissions
+    if (isPen) return;
 
     //set pending state
     setIspen(true);
 
     if (amount > earning) {
-      setAmount(0);
       setIspen(false);
       setOpenWithdrawModal(false);
       setErrmsg("Insufficient balance");
@@ -78,16 +80,14 @@ export default function EarningWithdrawalModal({
     }
 
     if (amount < minWithdrawal) {
-      setAmount(0);
       setIspen(false);
       setOpenWithdrawModal(false);
-      setErrmsg(`Opps, minimum withdrawal is #${minWithdrawal}`);
+      setErrmsg(`Minimum withdrawal is ₦${minWithdrawal.toLocaleString()}`);
       setIserr(true);
       return;
     }
 
     if (amount + allTimeWithdrawal > maxWithdrawal) {
-      setAmount(0);
       setIspen(false);
       setOpenWithdrawModal(false);
       setErrmsg("Upgrade account to increase your withdrawal limit");
@@ -95,18 +95,27 @@ export default function EarningWithdrawalModal({
       return;
     }
 
-    //set pending state
-    setIspen(false);
-    setOpenWithdrawModal(false);
+    try {
+      //backend call
+      const res = await transToBal();
+      
+      setIspen(false);
+      setOpenWithdrawModal(false);
 
-    //backend call
-    transToBal()
-      .then((res) => {
-        if (res.error) setErrmsg(res.msg);
+      if (res.error) {
+        setErrmsg(res.msg);
+        setIserr(true);
+      } else {
+        // Success - show message and reload
         alert(res.msg);
         window.location.reload();
-      })
-      .catch((e) => setErrmsg(e.message));
+      }
+    } catch (error) {
+      setIspen(false);
+      setOpenWithdrawModal(false);
+      setErrmsg(error instanceof Error ? error.message : "An error occurred");
+      setIserr(true);
+    }
   }
 
   return (
@@ -147,10 +156,10 @@ export default function EarningWithdrawalModal({
 
         <div className="text-right">
           <Button
-            disabled={disWithdraw}
-            btnStyle="w-[100px] mt-5 p-1 text-center bg-[var(--green)] disabled:text-gray-300 disabled:bg-gray-200 rounded"
+            disabled={disWithdraw || isPen}
+            btnStyle="w-[100px] mt-5 p-1 text-center bg-[var(--green)] disabled:text-gray-300 disabled:bg-gray-200 disabled:cursor-not-allowed rounded"
           >
-            {!isPen ? "Withdraw" : "Processing..."}
+            {isPen ? "Processing..." : "Transfer"}
           </Button>
         </div>
       </form>

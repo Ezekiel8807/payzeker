@@ -21,6 +21,11 @@ const transactionSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now() },
 });
 
+// Add indexes for better query performance
+transactionSchema.index({ userId: 1, date: -1 });
+transactionSchema.index({ type: 1, status: 1 });
+transactionSchema.index({ userId: 1, type: 1, status: 1 });
+
 const Transaction =
   models?.Transaction || mongoose.model("Transaction", transactionSchema);
 export default Transaction;

@@ -2,7 +2,7 @@ import React from "react";
 
 type NotificationIconProbs = {
   color?: string;
-  openCloseNoteBox: () => void;
+  openCloseNoteBox?: () => void;
 };
 
 export default function NotificationIcon({
@@ -15,7 +15,7 @@ export default function NotificationIcon({
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className={`size-6 mx-2 ${color}`}
+      className={`size-6 mx-2 ${color} cursor-pointer`}
     >
       <path
         fillRule="evenodd"

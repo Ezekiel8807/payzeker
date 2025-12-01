@@ -21,14 +21,13 @@ export default function EarningBal({
   allTimeWithdrawal,
 }: EarningBalPobs) {
   const [isPen, setIspen] = useState(false);
-  // const [isSuc, setIssuc] = useState(false);
   const [errMsg, setErrmsg] = useState("");
-  // const [sucMsg, setSucmsg] = useState("");
   const [isErr, setIserr] = useState(false);
-
   const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
 
   function openCloseWithdrawModal() {
+    // Prevent opening modal if processing
+    if (isPen) return;
     setOpenWithdrawModal(!openWithdrawModal);
   }
 
@@ -48,9 +47,14 @@ export default function EarningBal({
         <div className="flex justify-end items-center">
           <Button
             btnAction={openCloseWithdrawModal}
-            btnStyle="w-[100px] p-2 font-bold text-[12px] cursor-pointer bg-green-100 hover:bg-[var(--green)] hover:text-[var(--white)] rounded outline-none shadow-md"
+            btnStyle={`w-[100px] p-2 font-bold text-[12px] rounded outline-none shadow-md ${
+              isPen
+                ? "opacity-50 cursor-not-allowed bg-gray-300"
+                : "cursor-pointer bg-green-100 hover:bg-[var(--green)] hover:text-[var(--white)]"
+            }`}
+            disabled={isPen}
           >
-            {!isPen ? "Transfer" : "Processing..."}
+            {isPen ? "Processing..." : "Transfer"}
           </Button>
         </div>
       </div>

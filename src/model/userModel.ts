@@ -3,8 +3,8 @@ import mongoose, { models } from "mongoose";
 const UserSchema = new mongoose.Schema({
   firstname: { type: String, default: "" },
   lastname: { type: String, default: "" },
-  username: { type: String, required: true, unique: true }, /// username is required
-  email: { type: String, required: true, unique: true }, /// user email is required
+  username: { type: String, required: true, unique: true, index: true }, /// username is required
+  email: { type: String, required: true, unique: true, index: true }, /// user email is required
   planName: { type: String, required: true },
   subDuration: String,
   subStartDate: Date,
@@ -41,16 +41,17 @@ const UserSchema = new mongoose.Schema({
   account: {
     balance: { type: Number, default: 0 },
     earning: { type: Number, default: 0 },
-    minWithdraw: { type: Number, default: 100 },
+    minWithdrawal: { type: Number, default: 100 }, // Account-level minimum withdrawal
     withdrawal: {
       allTimeWithdrawal: { type: Number, default: 0 },
       bankName: { type: String, default: "" },
+      bankCode: { type: String, default: "" },
       bankAcctNo: { type: String, default: "1234567890" },
-      minWithdrawal: { type: Number, required: true },
-      maxWithdrawal: { type: Number, required: true },
+      minWithdrawal: { type: Number, required: true }, // User-specific minimum withdrawal
+      maxWithdrawal: { type: Number, required: true }, // User-specific maximum withdrawal
     },
   },
-  password: { type: String, require: true }, // user password is required
+  password: { type: String, required: true }, // user password is required
   createdAt: { type: Date, default: Date.now() },
 });
 

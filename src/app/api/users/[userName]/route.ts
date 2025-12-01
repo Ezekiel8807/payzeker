@@ -72,6 +72,7 @@ export async function PATCH(req: Request) {
         {
           $set: {
             "account.withdrawal.bankName": data.bankName,
+            "account.withdrawal.bankCode": data.bankCode,
             "account.withdrawal.bankAcctNo": data.bankAcctNo,
           },
         },
