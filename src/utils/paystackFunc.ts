@@ -9,7 +9,8 @@ export const payWithPaystack = (
   email: string,
   amount: number,
   onSuccess: (message: string) => void,
-  onError: (message: string) => void
+  onError: (message: string) => void,
+  onRefresh?: () => void
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handler = (window as any).PaystackPop.setup({
@@ -29,6 +30,10 @@ export const payWithPaystack = (
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
+            // Refresh the UI to show updated balance
+            if (onRefresh) {
+              onRefresh();
+            }
             onSuccess("Payment Successful");
           } else {
             onError("Payment verification failed");
@@ -72,7 +77,9 @@ export const payWithPaystack = (
 
 export async function withdrawPaystack(amount: number) {
   try {
-    const { createWithdrawalRequest } = await import("@/actions/paystackAction");
+    const { createWithdrawalRequest } = await import(
+      "@/actions/paystackAction"
+    );
     const result = await createWithdrawalRequest(amount);
     return result;
   } catch (error) {
@@ -83,4 +90,3 @@ export async function withdrawPaystack(amount: number) {
     };
   }
 }
-

@@ -1,4 +1,5 @@
 import Script from "next/script";
+import { useRouter } from "next/navigation";
 import { payWithPaystack } from "@/utils/paystackFunc";
 
 //components
@@ -27,6 +28,7 @@ export default function DepositModal({
   depositInfo,
   closeModal,
 }: DepositModalProbs) {
+  const router = useRouter();
   const {
     isPen,
     setIspen,
@@ -82,6 +84,10 @@ export default function DepositModal({
         setOpenDepositModal(false);
         setErrmsg(message);
         setIserr(true);
+      },
+      () => {
+        // Refresh callback - updates UI without page reload
+        router.refresh();
       }
     );
   }
