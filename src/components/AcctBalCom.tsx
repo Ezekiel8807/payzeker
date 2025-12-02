@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { withdrawPaystack } from "@/utils/paystackFunc";
 
 //components
@@ -23,6 +24,7 @@ type AcctBalComProps = {
 };
 
 export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
+  const router = useRouter();
   const { firstname, lastname, email, rank, balance } = acctInfo;
 
   const [isPen, setIspen] = useState(false);
@@ -64,7 +66,7 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
 
     try {
       const result = await withdrawPaystack(amount);
-      
+
       if (result.error) {
         setErrmsg(result.message);
         setIserr(true);
@@ -72,6 +74,8 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
         setSucmsg(result.message);
         setIssuc(true);
         setIsconwitmodal(false); // Close the confirmation modal on success
+        // Refresh the UI to show updated balance
+        router.refresh();
       }
     } catch (error) {
       setIserr(true);
