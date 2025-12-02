@@ -124,11 +124,9 @@ export const metadata: Metadata = {
   },
 
   // Verification Tags (add your verification codes)
-  verification: {
-    google: "your-google-verification-code", // Add your Google Search Console verification
-    // yandex: "your-yandex-verification-code",
-    // bing: "your-bing-verification-code",
-  },
+  // verification: {
+  //   google: "3F89lO-Y5fqytC3Nwm1caXZW2qSDJ4XUm93MFmcVfaI",
+  // },
 
   // Category
   category: "Business & Finance",
@@ -146,8 +144,6 @@ export const viewport: Viewport = {
   themeColor: "#29cd9c",
 };
 
-// export const config = { amp: true };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -156,6 +152,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* google meta verification
+        <meta
+          name="google-site-verification"
+          content="3F89lO-Y5fqytC3Nwm1caXZW2qSDJ4XUm93MFmcVfaI"
+        /> */}
+
         {/* ezoic meta verification */}
         <meta
           name="ezoic-site-verification"
@@ -174,15 +176,14 @@ export default function RootLayout({
           src="//intimidatingsideway.com/ba42027f6ac5fb9c6f4b3bbcc8a5f13e/invoke.js"
         ></script>
 
-        {/* google   Ads com */}
+        {/* google Ads com */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3810051236937370"
           crossOrigin="anonymous"
         ></script>
 
-        {/* Ezoic's  Ads com */}
-
+        {/* Ezoic's Ads com */}
         <script
           src="https://cmp.gatekeeperconsent.com/min.js"
           data-cfasync="false"
