@@ -24,6 +24,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-query": "^3.39.3",
+    "resend": "^6.5.2",
     "zod": "^4.1.13"
   },
   "devDependencies": {

@@ -10,7 +10,10 @@ export const usernameSchema = z
   .string()
   .min(3, "Username must be at least 3 characters")
   .max(20, "Username must be at most 20 characters")
-  .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores")
+  .regex(
+    /^[a-zA-Z0-9_]+$/,
+    "Username can only contain letters, numbers, and underscores"
+  )
   .trim();
 
 // Email validation
@@ -28,7 +31,10 @@ export const passwordSchema = z
   .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
   .regex(/[a-z]/, "Password must contain at least one lowercase letter")
   .regex(/[0-9]/, "Password must contain at least one number")
-  .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character");
+  .regex(
+    /[^A-Za-z0-9]/,
+    "Password must contain at least one special character"
+  );
 
 // Login schema
 export const loginSchema = z.object({
@@ -126,6 +132,41 @@ export function validateAmount(amount: unknown) {
 // Validate bank details
 export function validateBankDetails(data: unknown) {
   const result = bankDetailsSchema.safeParse(data);
+  if (!result.success) {
+    throw new Error(result.error.issues[0].message);
+  }
+  return sanitizeObject(result.data);
+}
+
+// Forgot password schema
+export const forgotPasswordSchema = z.object({
+  email: emailSchema,
+});
+
+// Reset password schema
+export const resetPasswordSchema = z
+  .object({
+    token: z.string().min(1, "Reset token is required"),
+    newPassword: passwordSchema,
+    confirmPassword: z.string().min(1, "Please confirm your password"),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
+
+// Validate forgot password input
+export function validateForgotPassword(data: unknown) {
+  const result = forgotPasswordSchema.safeParse(data);
+  if (!result.success) {
+    throw new Error(result.error.issues[0].message);
+  }
+  return sanitizeObject(result.data);
+}
+
+// Validate reset password input
+export function validateResetPassword(data: unknown) {
+  const result = resetPasswordSchema.safeParse(data);
   if (!result.success) {
     throw new Error(result.error.issues[0].message);
   }
