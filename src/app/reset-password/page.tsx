@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { z } from "zod";
@@ -9,7 +9,7 @@ import Main from "@/components/layout/Main";
 import ErrorModal from "@/components/modal/ErrorModal";
 import SuccessModal from "@/components/modal/SuccessModal";
 
-export default function ResetPasswordPage() {
+function ResetPasswordForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams.get("token");
@@ -228,5 +228,23 @@ export default function ResetPasswordPage() {
       {isSuc && <SuccessModal setIssuc={setIssuc} sucMsg={sucMsg} />}
       {isErr && <ErrorModal setIserr={setIserr} errMsg={errMsg} />}
     </Main>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense
+      fallback={
+        <Main>
+          <div className="flex px-5 sm:px-10 md:px-20 pt-20 items-center justify-center">
+            <div className="w-full md:max-w-[50%] text-center">
+              <p className="text-gray-600">Loading...</p>
+            </div>
+          </div>
+        </Main>
+      }
+    >
+      <ResetPasswordForm />
+    </Suspense>
   );
 }
