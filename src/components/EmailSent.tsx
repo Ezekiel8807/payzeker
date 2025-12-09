@@ -3,11 +3,8 @@ import React from "react";
 import Button from "./Button";
 import Main from "./layout/Main";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function EmailSent() {
-  const router = useRouter();
-
   const handleViewEmail = () => {
     // Open default email client
     window.location.href = "mailto:";

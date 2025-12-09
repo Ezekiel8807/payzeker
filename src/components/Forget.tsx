@@ -5,7 +5,6 @@ import Main from "./layout/Main";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ErrorModal from "./modal/ErrorModal";
-import SuccessModal from "./modal/SuccessModal";
 import { forgotPasswordSchema } from "@/lib/validation";
 import { z } from "zod";
 
@@ -15,8 +14,6 @@ export default function Forget() {
   const [isLoading, setIsLoading] = useState(false);
   const [isErr, setIserr] = useState(false);
   const [errMsg, setErrmsg] = useState("");
-  const [isSuc, setIssuc] = useState(false);
-  const [sucMsg, setSucmsg] = useState("");
   const [emailError, setEmailError] = useState("");
 
   // Real-time email validation
@@ -168,7 +165,6 @@ export default function Forget() {
         </div>
       </div>
 
-      {isSuc && <SuccessModal setIssuc={setIssuc} sucMsg={sucMsg} />}
       {isErr && <ErrorModal setIserr={setIserr} errMsg={errMsg} />}
     </Main>
   );
