@@ -23,7 +23,7 @@ export default async function page() {
             <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
           </div>
 
-          <div className="w-[100%] px-5 lg:w-[70%]">
+          <div className="w-[100%] p-5 lg:w-[70%]">
             <PayGameCom />
           </div>
         </div>

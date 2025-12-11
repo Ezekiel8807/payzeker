@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 
 //
-import Forget from "@/components/Forget";
+import EmailSent from "@/components/EmailSent";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 
@@ -14,7 +14,7 @@ export default async function page() {
   return (
     <>
       <Header />
-      <Forget />
+      <EmailSent />
       <Footer />
     </>
   );
