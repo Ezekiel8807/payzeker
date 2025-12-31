@@ -34,16 +34,16 @@ export interface RateLimitConfig {
 export const RATE_LIMITS = {
   // Strict limits for authentication
   AUTH: { interval: 15 * 60 * 1000, maxRequests: 5 }, // 5 attempts per 15 minutes
-  
+
   // Moderate limits for sensitive operations
   WITHDRAWAL: { interval: 60 * 1000, maxRequests: 3 }, // 3 per minute
   PAYMENT: { interval: 60 * 1000, maxRequests: 5 }, // 5 per minute
-  
+
   // Generous limits for general API
   API: { interval: 60 * 1000, maxRequests: 60 }, // 60 per minute
-  
+
   // Very strict for registration
-  REGISTER: { interval: 60 * 60 * 1000, maxRequests: 3 }, // 3 per hour
+  REGISTER: { interval: 60 * 60 * 1000, maxRequests: 10 }, // 10 per hour
 };
 
 /**
@@ -51,12 +51,12 @@ export const RATE_LIMITS = {
  */
 function getClientId(request: NextRequest, userId?: string): string {
   if (userId) return `user:${userId}`;
-  
+
   // Try to get real IP from headers (for proxies/load balancers)
   const forwarded = request.headers.get("x-forwarded-for");
   const realIp = request.headers.get("x-real-ip");
   const ip = forwarded?.split(",")[0] || realIp || "unknown";
-  
+
   return `ip:${ip}`;
 }
 
@@ -102,7 +102,7 @@ export function rateLimit(config: RateLimitConfig) {
 
     if (!result.allowed) {
       const retryAfter = Math.ceil((result.resetTime - Date.now()) / 1000);
-      
+
       return new Response(
         JSON.stringify({
           error: "Too many requests. Please try again later.",

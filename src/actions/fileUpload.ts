@@ -1,7 +1,6 @@
 "use server";
 import mime from "mime-types";
 import { Readable } from "stream";
-import { google } from "googleapis";
 
 export async function fileUpload(file: File | null) {
   //   const file = files[0]; // Get uploaded file
@@ -12,6 +11,9 @@ export async function fileUpload(file: File | null) {
   }
 
   try {
+    // Dynamic import to prevent build errors with googleapis in client/edge bundles
+    const { google } = await import("googleapis");
+
     // Convert File to Buffer
     const fileStream = Readable.from(Buffer.from(await file.arrayBuffer()));
 

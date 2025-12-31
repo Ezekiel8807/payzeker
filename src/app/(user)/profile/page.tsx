@@ -11,6 +11,7 @@ import Header from "@/components/layout/Header";
 import SubHeading from "@/components/SubHeading";
 import ClientProfile from "@/components/layout/Profile";
 import ForgetPass from "@/components/ForgetPass";
+import CurrentSubscription from "@/components/CurrentSubscription";
 import SideNav from "@/components/SideNav";
 
 export default async function Profile() {
@@ -20,7 +21,7 @@ export default async function Profile() {
   const user = await fetchModelById(User, token.id); // Fetch user data before rendering
 
   const isLogin = !!user;
-  const { username, isAdmin, firstname, lastname, rank, email } = user;
+  const { username, isAdmin, firstname, lastname, rank, email, planName, subStartDate, subEndDate, subDuration } = user;
   const { bankName = "bankName", bankAcctNo = 12346790 } =
     user.account.withdrawal;
 
@@ -46,6 +47,13 @@ export default async function Profile() {
                   bankAcctNo,
                 }}
               ></ClientProfile>
+
+              <div className="mt-8">
+                <CurrentSubscription
+                  subInfo={{ planName, subStartDate, subEndDate, subDuration }}
+                />
+              </div>
+
 
               <ForgetPass />
             </Main>

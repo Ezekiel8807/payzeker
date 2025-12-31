@@ -46,6 +46,11 @@ export default async function Dashboard() {
     (filterTask: { state: string }) => filterTask.state === "submitted"
   );
 
+  const isExpired =
+    user?.subEndDate && new Date(user.subEndDate).getTime() < Date.now();
+  const showPrompt = !user?.planName || isExpired;
+
+
   return (
     <>
       <Header />
@@ -78,7 +83,7 @@ export default async function Dashboard() {
                 </div>
               </>
             )}
-            {!isAdmin && <DashCom />}
+            {!isAdmin && <DashCom showPrompt={showPrompt} />}
           </div>
         </div>
       </div>

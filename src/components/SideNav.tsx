@@ -84,8 +84,8 @@ export default function SideNav({ sideNavInfo }: SideNavProps) {
       icon: "mdi:wallet",
     },
     {
-      label: "Upgrade",
-      href: "/upgrade",
+      label: "Subscription",
+      href: "/subscription",
       show: sideNavInfo.isLogin,
       icon: "mdi:arrow-up-bold-circle",
     },

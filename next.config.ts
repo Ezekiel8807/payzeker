@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   // reactStrictMode: true,
+  serverExternalPackages: ["googleapis"],
   experimental: {
     serverActions: {
       bodySizeLimit: "200mb",

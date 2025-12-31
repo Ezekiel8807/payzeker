@@ -10,7 +10,7 @@ const notificationSchema = new mongoose.Schema({
   message: {
     type: String,
     default:
-      "Hello, welcome to payzeker. Start earning by performing your daily assigned task on your dashboard.",
+      "Hello, welcome to payzeker. you are currently on our 7days free trial. Subscribe to any of our plans today and start earning more cash for every task completed.",
   },
 });
 

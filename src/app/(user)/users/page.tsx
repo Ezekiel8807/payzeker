@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getToken } from "@/actions/action";
 import User from "../../../model/userModel";
-import { fetchModelsData } from "@/utils/modelFunc";
+import { connectDB } from "@/lib/mongodb";
 
 // Components
 import SideNav from "@/components/SideNav";
@@ -10,10 +10,12 @@ import SubHeading from "@/components/SubHeading";
 import Allusers from "@/components/Allusers";
 import Header from "@/components/layout/Header";
 
-// Fetch user data on the server
-const fetchData = await fetchModelsData(User);
+export default async function page(props: { searchParams?: Promise<{ page?: string }> }) {
+  const searchParams = await props.searchParams;
+  const page = Number(searchParams?.page) || 1;
+  const limit = 20;
+  const skip = (page - 1) * limit;
 
-export default async function page() {
   const token = await getToken();
   if (!token) redirect("/login");
   if (!token.isAdmin) redirect("/dashboard");
@@ -21,7 +23,19 @@ export default async function page() {
   const isLogin = !!token;
   const { username, isAdmin } = token;
 
-  const [users] = fetchData;
+  // DB Connection
+  await connectDB();
+
+  // Fetch Users with pagination
+  const usersData = await User.find({})
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
+
+  const totalUsers = await User.countDocuments({});
+  const totalPages = Math.ceil(totalUsers / limit);
+
+  const users = JSON.parse(JSON.stringify(usersData));
 
   return (
     <>
@@ -38,7 +52,11 @@ export default async function page() {
                 title="All Users"
                 desc="Users information all together."
               />
-              <Allusers allUsers={users} />
+              <Allusers
+                allUsers={users}
+                currentPage={page}
+                totalPages={totalPages}
+              />
             </Main>
           </div>
         </div>

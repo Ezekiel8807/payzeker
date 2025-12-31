@@ -29,7 +29,7 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
-      
+
       // Don't close if clicking the menu itself or the toggle button
       if (
         menuRef.current &&
@@ -137,8 +137,8 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
       show: toggleData.isLogin,
     },
     {
-      label: "Upgrade",
-      href: "/upgrade",
+      label: "Subscription",
+      href: "/subscription",
       icon: "mdi:arrow-up-bold-circle-outline",
       show: toggleData.isLogin && !toggleData.isAdmin,
     },
@@ -182,7 +182,7 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -300, opacity: 0 }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            className="fixed top-0 left-0 h-screen z-10 w-64 bg-white shadow-sm border-r-2"
+            className="fixed top-0 left-0 h-screen z-[60] w-64 bg-white shadow-sm border-r-2"
           >
             <nav className="relative h-screen text-center overflow-y-auto">
               <div className="border-b-2 mb-3">
@@ -213,11 +213,10 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
                         <Link
                           href={item.href}
                           onClick={() => setMenuIsOpen(false)}
-                          className={`w-full flex items-center gap-3 px-6 py-3 ${
-                            active
-                              ? "bg-[#eefdfa] text-[var(--green)] border-r-4 border-[var(--green)] font-medium"
-                              : "text-gray-600 hover:bg-gray-100"
-                          }`}
+                          className={`w-full flex items-center gap-3 px-6 py-3 ${active
+                            ? "bg-[#eefdfa] text-[var(--green)] border-r-4 border-[var(--green)] font-medium"
+                            : "text-gray-600 hover:bg-gray-100"
+                            }`}
                         >
                           <Icon icon={item.icon} width="22" height="22" />
                           {item.label}

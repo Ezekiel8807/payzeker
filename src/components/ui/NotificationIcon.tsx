@@ -15,7 +15,7 @@ export default function NotificationIcon({
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className={`size-6 mx-2 ${color} cursor-pointer`}
+      className={`size-6 flex items-center justify-center ${color} cursor-pointer`}
     >
       <path
         fillRule="evenodd"

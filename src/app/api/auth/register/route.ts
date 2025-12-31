@@ -1,11 +1,12 @@
 import bcrypt from "bcryptjs";
-import Task from "@/model/taskModel";
 import User from "@/model/userModel";
 import Plan from "@/model/planModel";
+import Task from "@/model/taskModel";
 import Notification from "@/model/notificationModel";
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import { rateLimit, RATE_LIMITS } from "@/lib/rateLimit";
+import { calculateEndDate } from "@/utils/dateFunc";
 
 const registerRateLimit = rateLimit(RATE_LIMITS.REGISTER);
 
@@ -106,12 +107,21 @@ export async function POST(request: NextRequest) {
     // Hash password with higher cost factor for better security
     const hashPass = await bcrypt.hash(password, 12);
 
-    // Get a random task from the task collection
-    const task = await Task.aggregate([{ $sample: { size: 1 } }]);
-    const assignedTask = task?.[0] || null;
-
-    //get default plan
+    // Get default plan
     const defaultPlan = await Plan.findOne({ isDefault: true });
+    if (!defaultPlan) {
+      return NextResponse.json(
+        { error: "Default plan not found" },
+        { status: 500 }
+      );
+    }
+
+    // Calculate end date
+    const now = new Date();
+    const end = calculateEndDate(now, defaultPlan.subDuration);
+
+    // Get random task
+    const randomTask = await Task.aggregate([{ $sample: { size: defaultPlan.rank } }]);
 
     // Create new user with sanitized data
     const newUser = new User({
@@ -120,10 +130,10 @@ export async function POST(request: NextRequest) {
       email: sanitizedEmail,
       planName: defaultPlan.name,
       subDuration: defaultPlan.subDuration,
-      subStartDate: defaultPlan.subStartDate,
-      subEndDate: defaultPlan.subEndDate,
-      overallTask: task.length,
-      tasks: assignedTask ? [assignedTask] : [],
+      subStartDate: now,
+      subEndDate: end,
+      overallTask: 0,
+      tasks: randomTask,
       password: hashPass,
       account: {
         withdrawal: {
