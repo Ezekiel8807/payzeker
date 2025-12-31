@@ -35,7 +35,7 @@ export async function PATCH() {
         // Notify user Plan set to default
         const newNotification = new Notification({
           username: user.username,
-          message: `✅ Plan expired and reset to default.`,
+          message: `❌ Your subscription has expired.`,
         });
 
         // Save to database
@@ -53,8 +53,9 @@ export async function PATCH() {
           // Notify user Plan set to default
           const warnNotification = new Notification({
             username: user.username,
-            message: `⚠️ Plan expires in ${daysRemaining} ${daysRemaining > 1 ? "days" : "day"
-              }.`,
+            message: `⚠️ Plan expires in ${daysRemaining} ${
+              daysRemaining > 1 ? "days" : "day"
+            }.`,
           });
 
           // Save to database

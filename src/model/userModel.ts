@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
   lastname: { type: String, default: "" },
   username: { type: String, required: true, unique: true, index: true }, /// username is required
   email: { type: String, required: true, unique: true, index: true }, /// user email is required
-  planName: { type: String, required: true },
+  planName: String,
   subDuration: String,
   subStartDate: Date,
   subEndDate: Date,
