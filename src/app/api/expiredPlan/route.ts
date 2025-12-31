@@ -1,5 +1,4 @@
 import User from "@/model/userModel";
-import Plan from "@/model/planModel";
 import { connectDB } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import Notification from "@/model/notificationModel";
@@ -13,26 +12,22 @@ export async function PATCH() {
     const now = new Date();
 
     // Fetch all users whose planName is not "iron"
-    const users = await User.find({ planName: { $ne: "iron" } });
+    const users = await User.find({ planName: { $ne: "" } });
 
-    // Distribute tasks to users
     for (const user of users) {
       //de
       const expiry = new Date(user.subEndDate);
 
       if (expiry < now) {
-        //get default plan
-        const defualtPlan = await Plan.findOne({ name: "iron" });
-
         // Reset plan data
-        user.planName = defualtPlan.name;
-        user.rank = defualtPlan.rank;
-        user.subStartDate = defualtPlan.subStartDate;
-        user.subEndDate = defualtPlan.subEndDate;
-        user.subDuration = defualtPlan.subDuration;
+        user.planName = "";
+        user.rank = 0;
+        user.subEndDate = null;
+        user.subStartDate = null;
+        user.subDuration = "";
         user.account.withdrawal.allTimeWithdrawal = 0;
-        user.account.withdrawal.minWithdrawal = defualtPlan.minWithdrawal;
-        user.account.withdrawal.maxWithdrawal = defualtPlan.maxWithdrawal;
+        user.account.withdrawal.minWithdrawal = 0;
+        user.account.withdrawal.maxWithdrawal = 0;
 
         //save chhanges
         await user.save();
@@ -58,9 +53,8 @@ export async function PATCH() {
           // Notify user Plan set to default
           const warnNotification = new Notification({
             username: user.username,
-            message: `⚠️ Plan expires in ${daysRemaining} ${
-              daysRemaining > 1 ? "days" : "day"
-            }.`,
+            message: `⚠️ Plan expires in ${daysRemaining} ${daysRemaining > 1 ? "days" : "day"
+              }.`,
           });
 
           // Save to database

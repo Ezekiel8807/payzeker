@@ -17,7 +17,7 @@ export default async function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md px-5 py-2 sm:py-5 sm:px-10 md:px-20">
-      <div className="flex flex-row items-center justify-between">
+      <div className="flex items-center justify-between">
         {/* Logo */}
         <Link href={isLogin ? "/dashboard" : "/"}>
           <Image
@@ -35,7 +35,7 @@ export default async function Header() {
         <NavLink />
 
         {/* User Authentication */}
-        <div className="w-[100px] md:w-[200px] flex items-center justify-end">
+        <div className="flex items-center justify-end gap-3 sm:gap-4">
           <div className="flex flex-row-reverse md:flex-row items-center">
             {!isLogin ? (
               <Login_out />

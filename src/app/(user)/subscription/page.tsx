@@ -14,7 +14,9 @@ import SideNav from "@/components/SideNav";
 import SubHeading from "@/components/SubHeading";
 import Upgradecard from "@/components/cards/Upgradecard";
 
-export default async function Upgrade() {
+import CurrentSubscription from "@/components/CurrentSubscription";
+
+export default async function Subscription() {
   const token = await getToken();
   if (!token) redirect("/login");
 
@@ -22,7 +24,7 @@ export default async function Upgrade() {
   const [plans] = await fetchModelsData(Plan);
   const user = await fetchModelById(User, token.id);
 
-  const { username, isAdmin, rank } = user;
+  const { username, isAdmin, planName, subStartDate, subEndDate, subDuration } = user;
 
   return (
     <>
@@ -34,17 +36,21 @@ export default async function Upgrade() {
           </div>
           <div className="w-[100%] p-5 lg:w-[70%]">
             <Main>
+
               <SubHeading
-                title="User Upgrade"
+                title="Subscription"
                 desc="Upgrade to unlock higher privileges."
               />
 
+              <CurrentSubscription
+                subInfo={{ planName, subStartDate, subEndDate, subDuration }}
+              />
+
+
+
+
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 my-5">
-                {plans
-                  .filter(
-                    (e: { rank: number; isDefault: boolean }) =>
-                      e.rank > rank && !e.isDefault
-                  )
+                {plans.filter((e: { isDefault: boolean }) => !e.isDefault)
                   .map(
                     (
                       el: {

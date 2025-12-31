@@ -76,14 +76,10 @@ export default function Upgradecard({ upgradeInfo }: UpgradecardProbs) {
             <h2 className="font-black text-center text-[16px] text-[var(--green)]">
               {price
                 ? price.toLocaleString("en-NG", {
-                    style: "currency",
-                    currency: "NGN",
-                  })
+                  style: "currency",
+                  currency: "NGN",
+                })
                 : "Free"}
-              {/* {upgradeInfo.price.toLocaleString("en-NG", {
-              style: "currency",
-              currency: "NGN",
-            })} */}
             </h2>
           </div>
         </div>

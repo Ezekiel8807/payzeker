@@ -9,8 +9,6 @@ const planSchema = new mongoose.Schema({
   minEarning: Number,
   price: Number,
   isDefault: { type: Boolean, default: false },
-  subStartDate: Date,
-  subEndDate: Date,
 });
 
 const Plan = mongoose.models.Plan || mongoose.model("Plan", planSchema);

@@ -10,12 +10,12 @@ import {
   getNotifications,
 } from "@/actions/notifficationAction";
 import type { Notification } from "@/types";
-import { 
-  getUnreadCount, 
-  markAsRead, 
-  markAllAsRead, 
+import {
+  getUnreadCount,
+  markAsRead,
+  markAllAsRead,
   removeNotification,
-  hasNotificationsChanged 
+  hasNotificationsChanged
 } from "@/utils/notificationUtils";
 
 interface NotificationPanelProps {
@@ -149,7 +149,7 @@ export default function NotificationPanel({
   // Mark all as read
   const handleMarkAllAsRead = useCallback(async () => {
     const unreadNotifications = notifications.filter((n) => n.state === "unread");
-    
+
     // Optimistic update - mark all as read immediately
     setNotifications((prev) => markAllAsRead(prev));
 
@@ -160,7 +160,7 @@ export default function NotificationPanel({
       );
 
       // Check if any failed
-      const hasErrors = results.some((result) => 
+      const hasErrors = results.some((result) =>
         result.status === "fulfilled" && result.value.error
       );
 
@@ -184,7 +184,7 @@ export default function NotificationPanel({
   // Clear all notifications
   const handleClearAll = useCallback(async () => {
     const allNotifications = [...notifications];
-    
+
     // Optimistic update - clear all immediately
     setNotifications([]);
 
@@ -195,7 +195,7 @@ export default function NotificationPanel({
       );
 
       // Check if any failed
-      const hasErrors = results.some((result) => 
+      const hasErrors = results.some((result) =>
         result.status === "fulfilled" && result.value.error
       );
 
@@ -222,7 +222,7 @@ export default function NotificationPanel({
       <div
         ref={buttonRef}
         onClick={togglePanel}
-        className="relative cursor-pointer p-2 hover:bg-gray-100 rounded-full transition-colors"
+        className="relative cursor-pointer h-10 w-10 p-2 bg-gray-100 mr-2 md:mr-0 rounded-full transition-colors"
         aria-label="Notifications"
       >
         <NotificationIcon />
