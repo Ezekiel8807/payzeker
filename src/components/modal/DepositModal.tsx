@@ -68,11 +68,13 @@ export default function DepositModal({
     }
 
     //initialize paystack payment
+    const callbackUrl = `${window.location.origin}/payment/verify`;
+
     payWithPaystack(
       email,
       depAmount,
       (message) => {
-        // Success callback
+        // Success callback (This might not fire if redirect happens first, which is fine)
         setIspen(false);
         setOpenDepositModal(false);
         setSucmsg(message);
@@ -88,7 +90,8 @@ export default function DepositModal({
       () => {
         // Refresh callback - updates UI without page reload
         router.refresh();
-      }
+      },
+      callbackUrl // Pass the callback URL
     );
   }
 

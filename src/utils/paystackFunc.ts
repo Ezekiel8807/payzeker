@@ -10,7 +10,8 @@ export const payWithPaystack = (
   amount: number,
   onSuccess: (message: string) => void,
   onError: (message: string) => void,
-  onRefresh?: () => void
+  onRefresh?: () => void,
+  callbackUrl?: string
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handler = (window as any).PaystackPop.setup({
@@ -18,6 +19,7 @@ export const payWithPaystack = (
     email,
     amount: amount * 100, // in kobo
     currency: "NGN",
+    callback_url: callbackUrl, // Redirect to this URL on completion
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     callback: function (response: any) {
       const reference = response.reference;
