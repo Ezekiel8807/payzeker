@@ -15,6 +15,19 @@ export async function POST(req: NextRequest) {
 
   const { reference } = await req.json();
 
+  await connectDB();
+
+  // 1. Idempotency Check: Check if we have already processed this reference
+  const existingTransaction = await Transaction.findOne({ reference });
+  if (existingTransaction) {
+    return NextResponse.json({
+      success: true,
+      amount: existingTransaction.amount,
+      message: "Transaction already verified",
+    });
+  }
+
+  // 2. Verify with Paystack
   const res = await fetch(
     `https://api.paystack.co/transaction/verify/${reference}`,
     {
@@ -30,9 +43,6 @@ export async function POST(req: NextRequest) {
     const { amount, customer } = result.data;
     const email = customer.email;
 
-    //connect database
-    await connectDB();
-
     //Update your database
     await User.updateOne(
       { email },
@@ -47,6 +57,7 @@ export async function POST(req: NextRequest) {
       amount: amount / 100,
       disc: "Deposit",
       date: new Date(),
+      reference: reference, // Save reference
     });
 
     return NextResponse.json({

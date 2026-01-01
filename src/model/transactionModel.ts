@@ -18,6 +18,7 @@ const transactionSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  reference: { type: String, unique: true, sparse: true },
   date: { type: Date, default: Date.now() },
 });
 
