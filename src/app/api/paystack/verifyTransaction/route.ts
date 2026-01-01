@@ -23,7 +23,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       amount: existingTransaction.amount,
-      email: userToken.email, // Or fetch from transaction if stored
       message: "Transaction already verified",
     });
   }
