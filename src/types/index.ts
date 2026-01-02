@@ -166,6 +166,7 @@ export interface PaystackTransfer {
 
 // JWT Payload Types
 export interface AppJWTPayload {
+  email: any;
   id: string;
   username: string;
   isAdmin: boolean;
