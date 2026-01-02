@@ -42,9 +42,9 @@ export async function POST(request: NextRequest) {
     }
 
     await connectDB();
-    
+
     // Use case-insensitive search
-    const user = await User.findOne({ 
+    const user = await User.findOne({
       username: { $regex: new RegExp(`^${sanitizedUsername}$`, 'i') }
     }).select("+password");
 
@@ -73,6 +73,7 @@ export async function POST(request: NextRequest) {
     // Generate secure token
     const token = await encrypt({
       id: user._id.toString(),
+      email: user.email,
       username: user.username,
       isAdmin: user.isAdmin,
     });
@@ -145,6 +146,7 @@ export async function POST(request: NextRequest) {
 //   const expires = new Date(Date.now() + 60 * 60 * 1000);
 //   const token = await encrypt({
 //     id: user._id.toString(),
+//     email: user.email,
 //     username: user.username,
 //     isAdmin: user.isAdmin,
 //     expires,

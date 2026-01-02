@@ -12,6 +12,7 @@ const key = new TextEncoder().encode(JWT_SECRET);
 
 export interface AuthUser {
   id: string;
+  email: string;
   username: string;
   isAdmin: boolean;
   expires: Date;
@@ -34,6 +35,7 @@ export async function verifyToken(token: string): Promise<AuthUser | null> {
 
     return {
       id: payload.id as string,
+      email: payload.email as string,
       username: payload.username as string,
       isAdmin: payload.isAdmin as boolean,
       expires,

@@ -13,7 +13,7 @@ const MAX_TOKEN_LIFETIME = JWT_CONFIG.MAX_TOKEN_LIFETIME / 1000; // Convert ms t
 
 export async function encrypt(payload: AppJWTPayload) {
   const now = Math.floor(Date.now() / 1000);
-  
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await new SignJWT(payload as any)
     .setProtectedHeader({ alg: "HS256" })
@@ -91,6 +91,7 @@ export async function updateTokenExpirationTime(): Promise<boolean> {
   // Create new token with fresh expiration
   const expires = new Date(Date.now() + JWT_CONFIG.ACCESS_TOKEN_EXPIRY);
   const newPayload: AppJWTPayload = {
+    email: parsed.email as string,
     id: parsed.id as string,
     username: parsed.username as string,
     isAdmin: parsed.isAdmin as boolean,
