@@ -25,9 +25,6 @@ export async function PATCH() {
         user.subEndDate = null;
         user.subStartDate = null;
         user.subDuration = "";
-        user.account.withdrawal.allTimeWithdrawal = 0;
-        user.account.withdrawal.minWithdrawal = 0;
-        user.account.withdrawal.maxWithdrawal = 0;
 
         //save chhanges
         await user.save();

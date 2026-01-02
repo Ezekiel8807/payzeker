@@ -54,26 +54,25 @@ export default function TaskCom3({ alltasks }: taskType) {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 my-5 gap-5">
-        {alltasks.map(
-          (task: { _id: string; name: string; state: string; price: number }) =>
-            alltasks.length < 1 ? (
-              <p className="text-gray-500">No tasks.</p>
-            ) : (
-              <UserTaskCard
-                key={task._id || task.name}
-                title={`📢 ${task.name}`}
-                status={status}
-                dateLabel="Price"
-                dateValue={`#${task.price}`}
-                onDelete={() => handleDeleteTask(task._id!)}
-                onActionClick={() => {
-                  if (status === "New") {
-                    // handle view details (maybe navigate or show modal)
-                    navigate.push(`/tasks/${task._id}`);
-                  }
-                }}
-              />
-            )
+        {alltasks.length === 0 ? (
+          <p className="text-gray-500">No tasks.</p>
+        ) : (
+          alltasks.map((task) => (
+            <UserTaskCard
+              key={task._id || task.name}
+              title={`📢 ${task.name}`}
+              status={status}
+              dateLabel="Price"
+              dateValue={`#${task.price}`}
+              onDelete={() => handleDeleteTask(task._id!)}
+              onActionClick={() => {
+                if (status === "New") {
+                  // handle view details (maybe navigate or show modal)
+                  navigate.push(`/tasks/${task._id}`);
+                }
+              }}
+            />
+          ))
         )}
       </div>
     </div>

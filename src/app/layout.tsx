@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Work_Sans, Quicksand } from "next/font/google";
+import Script from "next/script";
 // import ServiceWorkerRegister from "./registerServiceWorker";
 
 // components
@@ -165,43 +166,46 @@ export default function RootLayout({
         />
 
         {/* adsterra ads scripts */}
-        <script
-          type="text/javascript"
+        <Script
+          strategy="afterInteractive"
           src="//intimidatingsideway.com/cd/25/e0/cd25e0a72342f4fb6f2b0e1bc8faf396.js"
-        ></script>
+        />
 
-        <script
-          async
+        <Script
+          strategy="afterInteractive"
           data-cfasync="false"
           src="//intimidatingsideway.com/ba42027f6ac5fb9c6f4b3bbcc8a5f13e/invoke.js"
-        ></script>
+        />
 
         {/* google Ads com */}
-        <script
-          async
+        <Script
+          strategy="afterInteractive"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3810051236937370"
           crossOrigin="anonymous"
-        ></script>
+        />
 
         {/* Ezoic's Ads com */}
-        <script
+        <Script
+          strategy="afterInteractive"
           src="https://cmp.gatekeeperconsent.com/min.js"
           data-cfasync="false"
-        ></script>
-        <script
+        />
+        <Script
+          strategy="afterInteractive"
           src="https://the.gatekeeperconsent.com/cmp.min.js"
           data-cfasync="false"
-        ></script>
-
-        <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.ezstandalone = window.ezstandalone || {};
-              ezstandalone.cmd = ezstandalone.cmd || [];
-            `,
-          }}
         />
+
+        <Script
+          strategy="afterInteractive"
+          src="//www.ezojs.com/ezoic/sa.min.js"
+        />
+        <Script id="ezoic-standalone-setup" strategy="afterInteractive">
+          {`
+            window.ezstandalone = window.ezstandalone || {};
+            ezstandalone.cmd = ezstandalone.cmd || [];
+          `}
+        </Script>
       </head>
       <body className={`${workSans.variable} ${quicksand.variable}`}>
         {children}
