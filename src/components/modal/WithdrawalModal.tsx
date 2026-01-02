@@ -54,7 +54,7 @@ export default function WithdrawalModal({
     } else {
       setDiswithdraw(true);
     }
-  }, [balance, amount]);
+  }, [balance, amount, minWithdrawal]);
 
   //function to handle withdrawal form submit
   function handleWithdrawal(e: React.FormEvent<HTMLFormElement>) {
