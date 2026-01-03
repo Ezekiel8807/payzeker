@@ -33,7 +33,7 @@ export interface RateLimitConfig {
 // Predefined rate limit configs
 export const RATE_LIMITS = {
   // Strict limits for authentication
-  AUTH: { interval: 15 * 60 * 1000, maxRequests: 5 }, // 5 attempts per 15 minutes
+  AUTH: { interval: 15 * 60 * 1000, maxRequests: 10 }, // 5 attempts per 15 minutes
 
   // Moderate limits for sensitive operations
   WITHDRAWAL: { interval: 60 * 1000, maxRequests: 3 }, // 3 per minute

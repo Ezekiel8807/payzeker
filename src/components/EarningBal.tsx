@@ -33,7 +33,7 @@ export default function EarningBal({
 
   return (
     <>
-      <div className="w-full h-full bg-gradient-to-b from-[#f9f9f9] to-[#eefdfa] p-3 shadow-md rounded-lg">
+      <div id="dashboard-earnings" className="w-full h-full bg-gradient-to-b from-[#f9f9f9] to-[#eefdfa] p-3 shadow-md rounded-lg">
         <div className="text-left">
           <h4 className="font-semibold text-xl">Earning:</h4>
           <h5 className="font-black text-lg my-1">
@@ -47,11 +47,10 @@ export default function EarningBal({
         <div className="flex justify-end items-center">
           <Button
             btnAction={openCloseWithdrawModal}
-            btnStyle={`w-[100px] p-2 font-bold text-[12px] rounded outline-none shadow-md ${
-              isPen
+            btnStyle={`w-[100px] p-2 font-bold text-[12px] rounded outline-none shadow-md ${isPen
                 ? "opacity-50 cursor-not-allowed bg-gray-300"
                 : "cursor-pointer bg-green-100 hover:bg-[var(--green)] hover:text-[var(--white)]"
-            }`}
+              }`}
             disabled={isPen}
           >
             {isPen ? "Processing..." : "Transfer"}

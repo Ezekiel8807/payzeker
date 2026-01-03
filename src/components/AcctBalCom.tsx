@@ -88,7 +88,7 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
 
   return (
     <>
-      <div className="w-full bg-[var(--gray-10)] p-3 shadow-md rounded-lg">
+      <div id="dashboard-balance" className="w-full bg-[var(--gray-10)] p-3 shadow-md rounded-lg">
         <div className="flex justify-between items-center">
           {firstname != "" ? (
             <h3 className="font-bold text-[14px]">{`${fullname}`}</h3>
@@ -115,21 +115,19 @@ export default function AcctBalCom({ acctInfo }: AcctBalComProps) {
             id="payBtn"
             onClick={openCloseDepositModal}
             disabled={isProcessing || isPen}
-            className={`font-bold text-[12px] mx-2 px-2 py-1 rounded-lg ${
-              isProcessing || isPen
+            className={`font-bold text-[12px] mx-2 px-2 py-1 rounded-lg ${isProcessing || isPen
                 ? "opacity-50 cursor-not-allowed bg-gray-400 text-gray-600"
                 : "cursor-pointer text-[var(--white)] bg-[var(--green)]"
-            }`}
+              }`}
           >
             {isPen ? "Processing..." : "Deposit"}
           </button>
           <Button
             btnAction={openCloseWithdrawModal}
-            btnStyle={`font-bold text-[12px] ${
-              isProcessing || isPen
+            btnStyle={`font-bold text-[12px] ${isProcessing || isPen
                 ? "opacity-50 cursor-not-allowed"
                 : "cursor-pointer hover:text-[var(--green)]"
-            }`}
+              }`}
             disabled={isProcessing || isPen}
           >
             {isProcessing ? "Processing..." : "Withdraw"}

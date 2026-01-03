@@ -26,8 +26,7 @@ export default function SpinMotivate() {
         const rnd = Math.floor(Math.random() * data.length);
         const w = data[rnd];
         setMessage(
-          `${
-            w.username
+          `${w.username
           } won #${w.amount.toLocaleString()} from spinning. 💵💵💵`
         );
       }
@@ -56,7 +55,7 @@ export default function SpinMotivate() {
   }
 
   return (
-    <div className="w-full border border-[var(--green)] mb-5 text-center rounded-full">
+    <div id="dashboard-spin" className="w-full border border-[var(--green)] mb-5 text-center rounded-full">
       <div className="flex items-center justify-between gap-2">
         <AnimatePresence mode="wait">
           <motion.div

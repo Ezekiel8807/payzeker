@@ -121,6 +121,7 @@ export default function SideNav({ sideNavInfo }: SideNavProps) {
                 transition={{ type: "spring", stiffness: 250 }}
               >
                 <Link
+                  id={`nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                   href={item.href}
                   className="flex items-center gap-3 font-bold p-3 rounded hover:bg-[var(--blue-dark)] hover:text-white transition-all duration-200"
                 >
