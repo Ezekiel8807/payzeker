@@ -42,7 +42,7 @@ export default async function Performance() {
   ];
 
   return (
-    <div className="w-full my-5">
+    <div id="dashboard-performance" className="w-full my-5">
       <div className="flex flex-row gap-4 sm:gap-6 bg-white/80 backdrop-blur-sm px-0 sm:px-3 sm:py-5 rounded md:shadow-sm border-none sm:border border-gray-100 overflow-x-scroll no-scrollbar">
         {stats.map((stat, i) => (
           <div

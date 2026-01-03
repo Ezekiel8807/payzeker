@@ -23,7 +23,7 @@ export default function DailyTask() {
   }, []);
 
   return (
-    <div className="bg-[var(--gray-01)] mb-5 p-5 rounded">
+    <div id="dashboard-daily-tasks" className="bg-[var(--gray-01)] mb-5 p-5 rounded">
       <h2 className="text-2xl font-bold text-[#2D3436]">Task</h2>
       <small className="block mb-5 text-[13px] text-[#636e72]">
         Earn real cash for completing task.

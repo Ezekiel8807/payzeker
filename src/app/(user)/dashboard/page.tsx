@@ -9,7 +9,7 @@ import SubmittedTask from "@/model/submittedTaskModel";
 import Header from "@/components/layout/Header";
 
 // Components
-
+import DashboardTourWrapper from "@/components/DashboardTourWrapper";
 // import AmpAd1 from "@/components/ads/AmpAd1";
 import SideNav from "@/components/SideNav";
 import SubHeading from "@/components/SubHeading";
@@ -87,6 +87,7 @@ export default async function Dashboard() {
           </div>
         </div>
       </div>
+      <DashboardTourWrapper userId={user._id} completedTours={user.completedTours || []} />
     </>
   );
 }
