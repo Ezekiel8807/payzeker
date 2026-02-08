@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   subDuration: String,
   subStartDate: Date,
   subEndDate: Date,
-  rank: Number,
+  rank: { type: Number, default: 0 },
   isAdmin: { type: Boolean, default: false },
   tasks: [
     {
@@ -47,8 +47,8 @@ const UserSchema = new mongoose.Schema({
       bankName: { type: String, default: "" },
       bankCode: { type: String, default: "" },
       bankAcctNo: { type: String, default: "1234567890" },
-      minWithdrawal: { type: Number, required: true }, // User-specific minimum withdrawal
-      maxWithdrawal: { type: Number, required: true }, // User-specific maximum withdrawal
+      minWithdrawal: { type: Number, default: 5000 }, // User-specific minimum withdrawal
+      maxWithdrawal: { type: Number, default: 5000 }, // User-specific maximum withdrawal
     },
   },
   password: { type: String, required: true }, // user password is required
