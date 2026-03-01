@@ -18,9 +18,7 @@ export interface AuthUser {
   expires: Date;
 }
 
-/**
- * Verify and decode JWT token
- */
+/** Verify and decode JWT token */
 export async function verifyToken(token: string): Promise<AuthUser | null> {
   try {
     const { payload } = await jwtVerify(token, key, {

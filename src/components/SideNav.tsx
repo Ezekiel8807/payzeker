@@ -89,6 +89,12 @@ export default function SideNav({ sideNavInfo }: SideNavProps) {
       show: sideNavInfo.isLogin,
       icon: "mdi:arrow-up-bold-circle",
     },
+    {
+      label: "Referrals",
+      href: "/referrer",
+      show: sideNavInfo.isLogin,
+      icon: "mdi:account-multiple-plus",
+    },
   ];
 
   return (
@@ -129,7 +135,7 @@ export default function SideNav({ sideNavInfo }: SideNavProps) {
                   {item.label}
                 </Link>
               </motion.div>
-            )
+            ),
         )}
 
         <Logout_btn logoutBtnStyle="flex items-center gap-3 font-bold block p-3 hover:text-[var(--white)]" />

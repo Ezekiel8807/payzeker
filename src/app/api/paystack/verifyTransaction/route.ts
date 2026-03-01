@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
       headers: {
         Authorization: `Bearer ${privateKey}`, // from .env
       },
-    }
+    },
   );
 
   const result = await res.json();
@@ -43,13 +43,7 @@ export async function POST(req: NextRequest) {
     const { amount, customer } = result.data;
     const email = customer.email;
 
-    //Update your database
-    await User.updateOne(
-      { email },
-      { $inc: { "account.balance": amount / 100 } }
-    );
-
-    //create new transaction for deposit
+    // Create transaction record FIRST (this acts as a lock)
     await Transaction.create({
       userId: userToken.id,
       type: "credit",
@@ -57,13 +51,21 @@ export async function POST(req: NextRequest) {
       amount: amount / 100,
       disc: "Deposit",
       date: new Date(),
-      reference: reference, // Save reference
+      reference: reference,
     });
+
+    // Then credit balance
+    // Webhook will skip this transaction because it already exists
+    await User.updateOne(
+      { email },
+      { $inc: { "account.balance": amount / 100 } },
+    );
 
     return NextResponse.json({
       success: true,
-      amount: amount / 100, // Convert back to Naira
+      amount: amount / 100,
       email,
+      message: "Payment verified and credited successfully",
     });
   }
 

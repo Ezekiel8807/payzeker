@@ -142,6 +142,12 @@ export default function ToggleBtn({ toggleData }: ToggleBtnProps) {
       icon: "mdi:arrow-up-bold-circle-outline",
       show: toggleData.isLogin && !toggleData.isAdmin,
     },
+        {
+      label: "Referrals",
+      href: "/referrer",
+      icon: "mdi:account-multiple-plus",
+      show: toggleData.isLogin,
+    },
     {
       label: "Login",
       href: "/login",

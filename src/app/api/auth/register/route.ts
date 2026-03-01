@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     if (rateLimitResponse) return rateLimitResponse;
 
     const body = await request.json();
-    const { username, email, password } = body;
+    const { username, email, password, referralCode } = body;
 
     // Input validation
     if (!username || !email || !password) {
@@ -110,27 +110,35 @@ export async function POST(request: NextRequest) {
     // Hash password with higher cost factor for better security
     const hashPass = await bcrypt.hash(password, 12);
 
-    // // Get default plan
-    // const defaultPlan = await Plan.findOne({ isDefault: true });
-    // if (!defaultPlan) {
-    //   return NextResponse.json(
-    //     { error: "Default plan not found" },
-    //     { status: 500 }
-    //   );
-    // }
+    // Generate a unique referral code
+    const generateReferralCode = () => {
+      return Math.random().toString(36).substring(2, 10).toUpperCase();
+    };
 
-    // // Calculate end date
-    // const now = new Date();
-    // const end = calculateEndDate(now, defaultPlan.subDuration);
+    let newReferralCode = generateReferralCode();
+    // ensure uniqueness
+    while (await User.findOne({ referralCode: newReferralCode })) {
+      newReferralCode = generateReferralCode();
+    }
 
-    // Get random task
-    // const randomTask = await Task.aggregate([{ $sample: { size: defaultPlan.rank } }]);
+    let referredById = null;
+    if (referralCode) {
+      const referrer = await User.findOne({ referralCode });
+      if (referrer) {
+        referredById = referrer._id;
+        // Increment their referrals count
+        referrer.referralsCount += 1;
+        await referrer.save();
+      }
+    }
 
     // Create new user with sanitized data
     const newUser = new User({
       username: sanitizedUsername,
       email: sanitizedEmail,
       password: hashPass,
+      referralCode: newReferralCode,
+      referredBy: referredById,
     });
 
     //save user
