@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-
+import { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 // components
 import Link from "next/link";
@@ -10,17 +9,26 @@ import Button from "@/components/Button";
 import FormError from "@/components/errorCom/FormError";
 import { Icon } from "@iconify/react";
 
-export default function RegisterForm() {
+function RegisterFormContent() {
   const [err, setErr] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [compass, setCompass] = useState("");
   const [password, setPassword] = useState("");
+  const [referralCode, setReferralCode] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showCompass, setShowCompass] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const ref = searchParams.get("ref");
+    if (ref) {
+      setReferralCode(ref);
+    }
+  }, [searchParams]);
 
   const handleRegistration = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,7 +58,7 @@ export default function RegisterForm() {
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ username, email, password, referralCode }),
       });
 
       const data = await res.json();
@@ -76,9 +84,7 @@ export default function RegisterForm() {
           <h2 className="mt-2 text-3xl font-extrabold text-gray-900">
             Create an account
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
-            Sign up to get started
-          </p>
+          <p className="mt-2 text-sm text-gray-600">Sign up to get started</p>
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleRegistration}>
@@ -146,7 +152,10 @@ export default function RegisterForm() {
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Icon icon="solar:lock-password-bold" className="text-gray-400" />
+                  <Icon
+                    icon="solar:lock-password-bold"
+                    className="text-gray-400"
+                  />
                 </div>
                 <input
                   id="password"
@@ -166,7 +175,12 @@ export default function RegisterForm() {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-gray-400 hover:text-gray-600"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  <Icon icon={showPassword ? "heroicons:eye" : "heroicons:eye-slash"} className="h-5 w-5" />
+                  <Icon
+                    icon={
+                      showPassword ? "heroicons:eye" : "heroicons:eye-slash"
+                    }
+                    className="h-5 w-5"
+                  />
                 </button>
               </div>
             </div>
@@ -180,7 +194,10 @@ export default function RegisterForm() {
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Icon icon="solar:lock-password-bold" className="text-gray-400" />
+                  <Icon
+                    icon="solar:lock-password-bold"
+                    className="text-gray-400"
+                  />
                 </div>
                 <input
                   id="compass"
@@ -200,8 +217,36 @@ export default function RegisterForm() {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-gray-400 hover:text-gray-600"
                   onClick={() => setShowCompass(!showCompass)}
                 >
-                  <Icon icon={showCompass ? "heroicons:eye" : "heroicons:eye-slash"} className="h-5 w-5" />
+                  <Icon
+                    icon={showCompass ? "heroicons:eye" : "heroicons:eye-slash"}
+                    className="h-5 w-5"
+                  />
                 </button>
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="referralCode"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Referral Code (Optional)
+              </label>
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Icon icon="solar:link-bold" className="text-gray-400" />
+                </div>
+                <input
+                  id="referralCode"
+                  name="referralCode"
+                  type="text"
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--green)] focus:border-transparent transition-colors"
+                  placeholder="Enter referral code"
+                  value={referralCode}
+                  onChange={(e) => {
+                    setReferralCode(e.target.value);
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -211,8 +256,9 @@ export default function RegisterForm() {
           <div>
             <Button
               disabled={isLoading}
-              btnStyle={`group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-[var(--green)] hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--green)] transition-colors ${isLoading ? "opacity-70 cursor-not-allowed" : ""
-                }`}
+              btnStyle={`group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-[var(--green)] hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--green)] transition-colors ${
+                isLoading ? "opacity-70 cursor-not-allowed" : ""
+              }`}
             >
               {isLoading ? (
                 <div className="flex items-center gap-2">
@@ -237,5 +283,22 @@ export default function RegisterForm() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function RegisterForm() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center min-h-screen">
+          <Icon
+            icon="eos-icons:loading"
+            className="h-8 w-8 text-[var(--green)]"
+          />
+        </div>
+      }
+    >
+      <RegisterFormContent />
+    </Suspense>
   );
 }

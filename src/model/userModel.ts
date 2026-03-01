@@ -55,6 +55,11 @@ const UserSchema = new mongoose.Schema({
   resetPasswordToken: { type: String }, // Token for password reset
   resetPasswordExpiry: { type: Date }, // Expiry time for reset token
   completedTours: { type: [String], default: [] }, // Track completed onboarding tours
+  referralCode: { type: String, unique: true, sparse: true },
+  referredBy: { type: String, default: null }, // ID of the user who referred them
+  referralsCount: { type: Number, default: 0 },
+  referralEarnings: { type: Number, default: 0 },
+  hasPaidReferralBonus: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now() },
 });
 

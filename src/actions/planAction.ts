@@ -44,7 +44,7 @@ export async function createPlan({
       price,
     ];
     const hasMissingFields = requiredFields.some(
-      (field) => field === undefined || field === null || field === ""
+      (field) => field === undefined || field === null || field === "",
     );
 
     if (hasMissingFields) {
@@ -58,7 +58,7 @@ export async function createPlan({
     if (isDefault) {
       await Plan.updateMany(
         { isDefault: true },
-        { $set: { isDefault: false } }
+        { $set: { isDefault: false } },
       );
     }
 
@@ -118,6 +118,37 @@ export async function subToPlan(planId: string) {
     const end = calculateEndDate(now, plan.subDuration);
     const updatedBalance = dbUserInfo.account.balance - plan.price;
 
+    let hasPaidReferralBonus = dbUserInfo.hasPaidReferralBonus;
+    const bonusAmount = 500;
+
+    // Process referral bonus if applicable
+    if (dbUserInfo.referredBy && !hasPaidReferralBonus) {
+      const referrer = await User.findById(dbUserInfo.referredBy);
+      if (referrer) {
+        // Update referrer's balance and earnings
+        referrer.account.balance += bonusAmount;
+        referrer.referralEarnings += bonusAmount;
+        await referrer.save();
+
+        // Create a transaction for the referrer
+        await new Transaction({
+          userId: referrer._id,
+          type: "credit",
+          status: "successful",
+          amount: bonusAmount,
+          disc: `Referral Bonus for ${dbUserInfo.username}'s first subscription`,
+        }).save();
+
+        // Notify the referrer
+        await new Notification({
+          username: referrer.username,
+          message: `You earned a ₦${bonusAmount} referral bonus for ${dbUserInfo.username}'s first subscription!`,
+        }).save();
+
+        hasPaidReferralBonus = true; // Mark as paid for the subscribing user
+      }
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       dbUserInfo._id,
       {
@@ -131,9 +162,10 @@ export async function subToPlan(planId: string) {
           "account.withdrawal.allTimeWithdrawal": 0,
           "account.withdrawal.minWithdrawal": plan.minWithdrawal,
           "account.withdrawal.maxWithdrawal": plan.maxWithdrawal,
+          hasPaidReferralBonus: hasPaidReferralBonus,
         },
       },
-      { new: true }
+      { new: true },
     );
 
     if (!updatedUser) {

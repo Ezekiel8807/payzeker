@@ -4,18 +4,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import NotificationBadge from "./NotificationBadge";
 import NotificationList from "./NotificationList";
 import NotificationIcon from "../ui/NotificationIcon";
-import {
-  updateNotis,
-  deleteNotis,
-  getNotifications,
-} from "@/actions/notifficationAction";
+import { updateNotis, deleteNotis } from "@/actions/notifficationAction";
 import type { Notification } from "@/types";
 import {
   getUnreadCount,
   markAsRead,
   markAllAsRead,
   removeNotification,
-  hasNotificationsChanged
+  hasNotificationsChanged,
 } from "@/utils/notificationUtils";
 
 interface NotificationPanelProps {
@@ -25,7 +21,8 @@ interface NotificationPanelProps {
 export default function NotificationPanel({
   initialNotifications,
 }: NotificationPanelProps) {
-  const [notifications, setNotifications] = useState<Notification[]>(initialNotifications);
+  const [notifications, setNotifications] =
+    useState<Notification[]>(initialNotifications);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -63,12 +60,17 @@ export default function NotificationPanel({
       if (isLoading) return;
 
       try {
-        const result = await getNotifications();
+        const res = await fetch("/api/notifications");
+        const result = await res.json();
+
         if (!result.error && result.data) {
           // Only update if there are changes
-          if (hasNotificationsChanged(result.data, notifications)) {
-            setNotifications(result.data);
-          }
+          setNotifications((prev) => {
+            if (hasNotificationsChanged(result.data, prev)) {
+              return result.data;
+            }
+            return prev;
+          });
         }
       } catch (error) {
         console.error("Failed to fetch notifications:", error);
@@ -78,7 +80,7 @@ export default function NotificationPanel({
     // Poll every 5 seconds
     const interval = setInterval(pollNotifications, 5000);
     return () => clearInterval(interval);
-  }, [notifications, isLoading]);
+  }, [isLoading]); // Only depend on isLoading to keep interval stable
 
   // Toggle panel
   const togglePanel = useCallback(async () => {
@@ -86,7 +88,8 @@ export default function NotificationPanel({
       // Fetch latest notifications when opening
       setIsLoading(true);
       try {
-        const result = await getNotifications();
+        const res = await fetch("/api/notifications");
+        const result = await res.json();
         if (!result.error && result.data) {
           setNotifications(result.data);
         }
@@ -110,8 +113,8 @@ export default function NotificationPanel({
         // Revert on error
         setNotifications((prev) =>
           prev.map((n) =>
-            n._id === notificationId ? { ...n, state: "unread" as const } : n
-          )
+            n._id === notificationId ? { ...n, state: "unread" as const } : n,
+          ),
         );
         console.error("Failed to mark notification as read:", result.msg);
       }
@@ -119,36 +122,41 @@ export default function NotificationPanel({
       // Revert on error
       setNotifications((prev) =>
         prev.map((n) =>
-          n._id === notificationId ? { ...n, state: "unread" as const } : n
-        )
+          n._id === notificationId ? { ...n, state: "unread" as const } : n,
+        ),
       );
       console.error("Failed to mark notification as read:", error);
     }
   }, []);
 
   // Delete notification with immediate UI update
-  const handleDelete = useCallback(async (notificationId: string) => {
-    // Optimistic update - remove immediately from UI
-    const previousNotifications = notifications;
-    setNotifications((prev) => removeNotification(prev, notificationId));
+  const handleDelete = useCallback(
+    async (notificationId: string) => {
+      // Optimistic update - remove immediately from UI
+      const previousNotifications = notifications;
+      setNotifications((prev) => removeNotification(prev, notificationId));
 
-    try {
-      const result = await deleteNotis(notificationId);
-      if (result.error) {
+      try {
+        const result = await deleteNotis(notificationId);
+        if (result.error) {
+          // Revert on error - restore previous state
+          setNotifications(previousNotifications);
+          console.error("Failed to delete notification:", result.msg);
+        }
+      } catch (error) {
         // Revert on error - restore previous state
         setNotifications(previousNotifications);
-        console.error("Failed to delete notification:", result.msg);
+        console.error("Failed to delete notification:", error);
       }
-    } catch (error) {
-      // Revert on error - restore previous state
-      setNotifications(previousNotifications);
-      console.error("Failed to delete notification:", error);
-    }
-  }, [notifications]);
+    },
+    [notifications],
+  );
 
   // Mark all as read
   const handleMarkAllAsRead = useCallback(async () => {
-    const unreadNotifications = notifications.filter((n) => n.state === "unread");
+    const unreadNotifications = notifications.filter(
+      (n) => n.state === "unread",
+    );
 
     // Optimistic update - mark all as read immediately
     setNotifications((prev) => markAllAsRead(prev));
@@ -156,26 +164,36 @@ export default function NotificationPanel({
     try {
       // Mark all unread notifications as read
       const results = await Promise.allSettled(
-        unreadNotifications.map((n) => updateNotis(n._id))
+        unreadNotifications.map((n) => updateNotis(n._id)),
       );
 
       // Check if any failed
-      const hasErrors = results.some((result) =>
-        result.status === "fulfilled" && result.value.error
+      const hasErrors = results.some(
+        (result) => result.status === "fulfilled" && result.value.error,
       );
 
       if (hasErrors) {
         // Refresh notifications on error
-        const refreshResult = await getNotifications();
-        if (!refreshResult.error && refreshResult.data) {
-          setNotifications(refreshResult.data);
+        try {
+          const res = await fetch("/api/notifications");
+          const refreshResult = await res.json();
+          if (!refreshResult.error && refreshResult.data) {
+            setNotifications(refreshResult.data);
+          }
+        } catch (e) {
+          console.error("Failed to refresh notifications:", e);
         }
       }
     } catch (error) {
       // Refresh on error
-      const result = await getNotifications();
-      if (!result.error && result.data) {
-        setNotifications(result.data);
+      try {
+        const res = await fetch("/api/notifications");
+        const result = await res.json();
+        if (!result.error && result.data) {
+          setNotifications(result.data);
+        }
+      } catch (e) {
+        console.error("Failed to refresh notifications:", e);
       }
       console.error("Failed to mark all as read:", error);
     }
@@ -191,26 +209,36 @@ export default function NotificationPanel({
     try {
       // Delete all notifications
       const results = await Promise.allSettled(
-        allNotifications.map((n) => deleteNotis(n._id))
+        allNotifications.map((n) => deleteNotis(n._id)),
       );
 
       // Check if any failed
-      const hasErrors = results.some((result) =>
-        result.status === "fulfilled" && result.value.error
+      const hasErrors = results.some(
+        (result) => result.status === "fulfilled" && result.value.error,
       );
 
       if (hasErrors) {
         // Refresh notifications on error
-        const refreshResult = await getNotifications();
-        if (!refreshResult.error && refreshResult.data) {
-          setNotifications(refreshResult.data);
+        try {
+          const res = await fetch("/api/notifications");
+          const refreshResult = await res.json();
+          if (!refreshResult.error && refreshResult.data) {
+            setNotifications(refreshResult.data);
+          }
+        } catch (e) {
+          console.error("Failed to refresh notifications:", e);
         }
       }
     } catch (error) {
       // Refresh on error
-      const result = await getNotifications();
-      if (!result.error && result.data) {
-        setNotifications(result.data);
+      try {
+        const res = await fetch("/api/notifications");
+        const result = await res.json();
+        if (!result.error && result.data) {
+          setNotifications(result.data);
+        }
+      } catch (e) {
+        console.error("Failed to refresh notifications:", e);
       }
       console.error("Failed to clear all notifications:", error);
     }
