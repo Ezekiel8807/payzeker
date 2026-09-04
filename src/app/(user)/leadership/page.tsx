@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
-import getLeadership from "@/actions/getLeadership";
+import { getToken } from "@/features/auth/actions/action";
+import getLeadership from "@/features/leadership/actions/getLeadership";
 
 //components
-import Header from "@/components/layout/Header";
-import Leadership from "@/components/Leadership";
+import Header from "@/shared/components/layout/Header";
+import Leadership from "@/features/leadership/components/Leadership";
 
 export default async function Page() {
   const token = await getToken();

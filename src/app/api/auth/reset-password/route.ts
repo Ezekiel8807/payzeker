@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { connectDB } from "@/lib/mongodb";
-import User from "@/model/userModel";
+import { connectDB } from "@/shared/lib/mongodb";
+import User from "@/shared/models/userModel";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-import { validateResetPassword } from "@/lib/validation";
+import { validateResetPassword } from "@/shared/lib/validation";
 
 export async function POST(request: NextRequest) {
   try {

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/mongodb";
-import { getToken } from "@/actions/action";
-import Notification from "@/model/notificationModel";
+import { connectDB } from "@/shared/lib/mongodb";
+import { getToken } from "@/features/auth/actions/action";
+import Notification from "@/shared/models/notificationModel";
 
 export async function GET() {
   try {

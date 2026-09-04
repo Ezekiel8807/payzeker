@@ -1,14 +1,14 @@
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
-import User from "../../../model/userModel";
-import { connectDB } from "@/lib/mongodb";
+import { getToken } from "@/features/auth/actions/action";
+import User from "@/shared/models/userModel";
+import { connectDB } from "@/shared/lib/mongodb";
 
 // Components
-import SideNav from "@/components/SideNav";
-import Main from "@/components/layout/Main";
-import SubHeading from "@/components/SubHeading";
-import Allusers from "@/components/Allusers";
-import Header from "@/components/layout/Header";
+import SideNav from "@/shared/components/layout/SideNav";
+import AppShell from "@/shared/components/layout/AppShell";
+import SubHeading from "@/shared/components/ui/SubHeading";
+import Allusers from "@/features/users/components/Allusers";
+import Header from "@/shared/components/layout/Header";
 
 export default async function page(props: { searchParams?: Promise<{ page?: string }> }) {
   const searchParams = await props.searchParams;
@@ -41,13 +41,7 @@ export default async function page(props: { searchParams?: Promise<{ page?: stri
     <>
       <Header />
 
-      <div className="mx-auto">
-        <div className="flex">
-          <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
-            <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
-          </div>
-          <div className="w-[100%] p-5 lg:w-[70%]">
-            <Main>
+      <AppShell sideNav={<SideNav sideNavInfo={{ username, isAdmin, isLogin }} />}>
               <SubHeading
                 title="All Users"
                 desc="Users information all together."
@@ -57,10 +51,7 @@ export default async function page(props: { searchParams?: Promise<{ page?: stri
                 currentPage={page}
                 totalPages={totalPages}
               />
-            </Main>
-          </div>
-        </div>
-      </div>
+      </AppShell>
     </>
   );
 }

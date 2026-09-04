@@ -1,5 +1,5 @@
-import Task from "@/model/taskModel";
-import { connectDB } from "@/lib/mongodb";
+import Task from "@/features/tasks/models/taskModel";
+import { connectDB } from "@/shared/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
 //Get all Task from database

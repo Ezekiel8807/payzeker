@@ -5,7 +5,7 @@ import Script from "next/script";
 // import ServiceWorkerRegister from "./registerServiceWorker";
 
 // components
-import AddToHomeScreen from "@/components/AddToHomeScreen";
+import AddToHomeScreen from "@/shared/components/feedback/AddToHomeScreen";
 
 const workSans = Work_Sans({
   subsets: ["latin"],

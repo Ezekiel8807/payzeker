@@ -1,12 +1,12 @@
 import bcrypt from "bcryptjs";
-import User from "@/model/userModel";
-// import Plan from "@/model/planModel";
-// import Task from "@/model/taskModel";
-import Notification from "@/model/notificationModel";
+import User from "@/shared/models/userModel";
+// import Plan from "@/features/plans/models/planModel";
+// import Task from "@/features/tasks/models/taskModel";
+import Notification from "@/shared/models/notificationModel";
 import { NextRequest, NextResponse } from "next/server";
-import { connectDB } from "@/lib/mongodb";
-import { rateLimit, RATE_LIMITS } from "@/lib/rateLimit";
-// import { calculateEndDate } from "@/utils/dateFunc";
+import { connectDB } from "@/shared/lib/mongodb";
+import { rateLimit, RATE_LIMITS } from "@/shared/lib/rateLimit";
+// import { calculateEndDate } from "@/shared/utils/dateFunc";
 
 const registerRateLimit = rateLimit(RATE_LIMITS.REGISTER);
 

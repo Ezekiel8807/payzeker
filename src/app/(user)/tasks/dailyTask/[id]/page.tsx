@@ -1,17 +1,16 @@
 import React from "react";
 import mongoose from "mongoose";
-import User from "@/model/userModel";
-import { connectDB } from "@/lib/mongodb";
+import User from "@/shared/models/userModel";
+import { connectDB } from "@/shared/lib/mongodb";
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
+import { getToken } from "@/features/auth/actions/action";
 
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import SideNav from "@/components/SideNav";
-import MediaCom from "@/components/MediaCom";
-import SubHeading from "@/components/SubHeading";
-import TaskSubmissionForm from "@/components/form/TaskSubmissionForm";
-import Main from "@/components/layout/Main";
+import AppShell from "@/shared/components/layout/AppShell";
+import Header from "@/shared/components/layout/Header";
+import SideNav from "@/shared/components/layout/SideNav";
+import MediaCom from "@/shared/components/ui/MediaCom";
+import SubHeading from "@/shared/components/ui/SubHeading";
+import TaskSubmissionForm from "@/features/tasks/forms/TaskSubmissionForm";
 
 type DailyTaskPageProps = {
   params: Promise<{ id: string }>;
@@ -42,23 +41,13 @@ export default async function Page({ params }: DailyTaskPageProps) {
   if (!taskInfo) redirect("/tasks");
 
   const isLogin = true;
+  const username = user.username;
+  const isAdmin = user.isAdmin;
 
   return (
     <>
       <Header />
-      <div className="mx-auto">
-        <div className="flex">
-          <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
-            <SideNav
-              sideNavInfo={{
-                username: user.username,
-                isAdmin: user.isAdmin,
-                isLogin,
-              }}
-            />
-          </div>
-          <div className="w-[100%] p-5 lg:w-[70%]">
-            <Main>
+      <AppShell sideNav={<SideNav sideNavInfo={{ username, isAdmin, isLogin }} />}>
               <SubHeading
                 title="Task Details"
                 desc="More information on how to perform task"
@@ -113,26 +102,9 @@ export default async function Page({ params }: DailyTaskPageProps) {
                   desc="Submitting proof for Payment"
                 />
 
-                {/* <section className="bg-white rounded-xl p-6 shadow-md">
-                <h2 className="text-xl font-semibold mb-4">Task Submission</h2>
-                <p className="text-gray-600 mb-2">
-                    Upload an image or video record for task verification
-                </p>
-                <div className="flex items-center space-x-4">
-                    <input type="file" className="border px-4 py-2 rounded-md w-full" />
-                    <button className="bg-teal-500 text-white px-6 py-2 rounded-md hover:bg-teal-600">
-                    Submit
-                    </button>
-                </div>
-            </section>; */}
-
                 <TaskSubmissionForm taskId={taskInfo._id.toString()} />
               </div>
-            </Main>
-          </div>
-        </div>
-      </div>
-      <Footer />
+      </AppShell>
     </>
   );
 }

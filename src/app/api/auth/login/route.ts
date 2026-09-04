@@ -1,10 +1,10 @@
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
-import User from "../../../../model/userModel";
-import { connectDB } from "../../../../lib/mongodb";
-import { encrypt } from "@/actions/action";
-import { rateLimit, RATE_LIMITS } from "@/lib/rateLimit";
+import User from "@/shared/models/userModel";
+import { connectDB } from "@/shared/lib/mongodb";
+import { encrypt } from "@/features/auth/actions/action";
+import { rateLimit, RATE_LIMITS } from "@/shared/lib/rateLimit";
 
 const loginRateLimit = rateLimit(RATE_LIMITS.AUTH);
 

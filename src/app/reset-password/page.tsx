@@ -3,11 +3,11 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { z } from "zod";
-import { resetPasswordSchema } from "@/lib/validation";
-import Button from "@/components/Button";
-import Main from "@/components/layout/Main";
-import ErrorModal from "@/components/modal/ErrorModal";
-import SuccessModal from "@/components/modal/SuccessModal";
+import { resetPasswordSchema } from "@/shared/lib/validation";
+import Button from "@/shared/components/ui/Button";
+import Main from "@/shared/components/layout/Main";
+import ErrorModal from "@/shared/components/modals/ErrorModal";
+import SuccessModal from "@/shared/components/modals/SuccessModal";
 
 function ResetPasswordForm() {
   const searchParams = useSearchParams();
@@ -125,7 +125,7 @@ function ResetPasswordForm() {
 
   return (
     <Main>
-      <div className="flex px-5 sm:px-10 md:px-20 pt-20 items-center justify-center">
+      <div className="flex page-container pt-20 items-center justify-center">
         <div className="w-full md:max-w-[50%]">
           <h1 className="text-lead text-xl font-black mb-3">
             Reset Your Password 🔐
@@ -236,7 +236,7 @@ export default function ResetPasswordPage() {
     <Suspense
       fallback={
         <Main>
-          <div className="flex px-5 sm:px-10 md:px-20 pt-20 items-center justify-center">
+          <div className="flex page-container pt-20 items-center justify-center">
             <div className="w-full md:max-w-[50%] text-center">
               <p className="text-gray-600">Loading...</p>
             </div>

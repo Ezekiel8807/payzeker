@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "@/actions/action";
-import { rateLimit, RATE_LIMITS } from "@/lib/rateLimit";
+import { getToken } from "@/features/auth/actions/action";
+import { rateLimit, RATE_LIMITS } from "@/shared/lib/rateLimit";
 
 const apiRateLimit = rateLimit(RATE_LIMITS.API);
 const privateKey = process.env.PAYSTACK_SECRET_KEY;

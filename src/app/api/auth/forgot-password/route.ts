@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { connectDB } from "@/lib/mongodb";
-import User from "@/model/userModel";
+import { connectDB } from "@/shared/lib/mongodb";
+import User from "@/shared/models/userModel";
 import crypto from "crypto";
-import { validateForgotPassword } from "@/lib/validation";
+import { validateForgotPassword } from "@/shared/lib/validation";
 
 export async function POST(request: NextRequest) {
   try {
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
 
     // Send email with reset link
     try {
-      const { sendPasswordResetEmail } = await import("@/lib/email");
+      const { sendPasswordResetEmail } = await import("@/shared/lib/email");
       const emailResult = await sendPasswordResetEmail(
         user.email,
         resetUrl,

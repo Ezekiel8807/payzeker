@@ -1,20 +1,21 @@
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
-import User from "../../../model/userModel";
-import { connectDB } from "../../../lib/mongodb";
-import { fetchModelsData } from "@/utils/modelFunc";
-import SubmittedTask from "@/model/submittedTaskModel";
+import { getToken } from "@/features/auth/actions/action";
+import User from "@/shared/models/userModel";
+import { connectDB } from "@/shared/lib/mongodb";
+import { fetchModelsData } from "@/shared/utils/modelFunc";
+import SubmittedTask from "@/features/tasks/models/submittedTaskModel";
 
 // Layouts
-import Header from "@/components/layout/Header";
+import Header from "@/shared/components/layout/Header";
+import AppShell from "@/shared/components/layout/AppShell";
 
 // Components
-import DashboardTourWrapper from "@/components/DashboardTourWrapper";
+import DashboardTourWrapper from "@/features/dashboard/components/DashboardTourWrapper";
 // import AmpAd1 from "@/components/ads/AmpAd1";
-import SideNav from "@/components/SideNav";
-import SubHeading from "@/components/SubHeading";
-import SubmittedTaskCard from "@/components/cards/SubmittedTaskCard";
-import DashCom from "@/components/DashCom";
+import SideNav from "@/shared/components/layout/SideNav";
+import SubHeading from "@/shared/components/ui/SubHeading";
+import SubmittedTaskCard from "@/features/tasks/cards/SubmittedTaskCard";
+import DashCom from "@/features/dashboard/components/DashCom";
 
 // Fetch user data on the server
 async function getUser() {
@@ -54,12 +55,7 @@ export default async function Dashboard() {
   return (
     <>
       <Header />
-      <div className="mx-auto">
-        <div className="flex">
-          <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
-            <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
-          </div>
-          <div className="w-[100%] p-5 lg:w-[70%]">
+      <AppShell sideNav={<SideNav sideNavInfo={{ username, isAdmin, isLogin }} />}>
             {isAdmin && (
               <>
                 <SubHeading
@@ -84,9 +80,7 @@ export default async function Dashboard() {
               </>
             )}
             {!isAdmin && <DashCom showPrompt={showPrompt} />}
-          </div>
-        </div>
-      </div>
+      </AppShell>
       <DashboardTourWrapper userId={user._id} completedTours={user.completedTours || []} />
     </>
   );

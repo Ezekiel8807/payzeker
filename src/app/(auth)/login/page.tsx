@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
+import { getToken } from "@/features/auth/actions/action";
 
 // components
-import Header from "@/components/layout/Header";
-import LoginForm from "@/components/form/LoginForm";
+import Header from "@/shared/components/layout/Header";
+import LoginForm from "@/features/auth/components/LoginForm";
 
 export const metadata: Metadata = {
   title: "Payzeker - Login page",

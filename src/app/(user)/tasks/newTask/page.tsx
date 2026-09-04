@@ -1,44 +1,33 @@
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
+import { getToken } from "@/features/auth/actions/action";
 
-//layout
-import Main from "@/components/layout/Main";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+//layouts
+import AppShell from "@/shared/components/layout/AppShell";
+import Header from "@/shared/components/layout/Header";
 
-// import Button from "@/components/Button";
-import SideNav from "@/components/SideNav";
-import SubHeading from "@/components/SubHeading";
-import TaskCreationForm from "@/components/form/TaskCreationForm";
+//components
+import SubHeading from "@/shared/components/ui/SubHeading";
+import TaskCreationForm from "@/features/tasks/forms/TaskCreationForm";
+import SideNav from "@/shared/components/layout/SideNav";
 
-export default async function Page() {
+export default async function page() {
   const user = await getToken();
-  if (!user) return redirect("/login");
-
   const isLogin = !!user;
+
+  if (!user) return redirect("/login");
   const { username, isAdmin } = user;
+  if (!isAdmin) return redirect("/dashboard");
 
   return (
     <>
       <Header />
-      <div className="mx-auto">
-        <div className="flex">
-          <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
-            <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
-          </div>
-          <div className="w-[100%] p-5 lg:w-[70%]">
-            <Main>
+      <AppShell sideNav={<SideNav sideNavInfo={{ username, isAdmin, isLogin }} />}>
               <SubHeading
                 title="Create Task"
-                desc="Where you get your task up runing."
+                desc="creating new task"
               />
-
               <TaskCreationForm />
-            </Main>
-          </div>
-        </div>
-      </div>
-      <Footer />
+      </AppShell>
     </>
   );
 }

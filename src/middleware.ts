@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getToken, updateTokenExpirationTime } from "./actions/action";
+import { getToken, updateTokenExpirationTime } from "@/features/auth/actions/action";
 
 export async function middleware(request: NextRequest) {
   //check token avaliable

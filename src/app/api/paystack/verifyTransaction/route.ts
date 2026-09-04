@@ -1,8 +1,8 @@
 "use server";
-import { getToken } from "@/actions/action";
-import User from "@/model/userModel";
-import { connectDB } from "@/lib/mongodb";
-import Transaction from "@/model/transactionModel";
+import { getToken } from "@/features/auth/actions/action";
+import User from "@/shared/models/userModel";
+import { connectDB } from "@/shared/lib/mongodb";
+import Transaction from "@/shared/models/transactionModel";
 import { NextRequest, NextResponse } from "next/server";
 import { redirect } from "next/navigation";
 

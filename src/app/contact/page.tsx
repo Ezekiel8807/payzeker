@@ -1,6 +1,6 @@
-import ContactForm from "@/components/form/ContactForm";
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
+import ContactForm from "@/features/marketing/forms/ContactForm";
+import Footer from "@/shared/components/layout/Footer";
+import Header from "@/shared/components/layout/Header";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,7 +14,7 @@ export default function Contact() {
     <>
       <Header />
 
-      <div className="px-5 sm:px-10 md:px-20 py-10 min-h-screen bg-[#D9EDE7] ">
+      <div className="page-container py-10 min-h-screen bg-[#D9EDE7]">
         {/* Breadcrumb & Header */}
         <div className="mb-10">
           <p className="text-sm font-medium">

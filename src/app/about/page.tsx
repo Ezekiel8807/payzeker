@@ -1,7 +1,7 @@
 //components
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
-import OurTeam from "@/components/layout/OurTeam";
+import Footer from "@/shared/components/layout/Footer";
+import Header from "@/shared/components/layout/Header";
+import OurTeam from "@/shared/components/layout/OurTeam";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -59,8 +59,9 @@ export default function About() {
         {/* +++++++++++++++++++++++++++++++++
         ++ */}
         {/* 2 */}
-        <div className="px-5 sm:px-10 md:px-20 py-5 sm:py-20 bg-white">
-          <h1 className="w-full md:max-w-[500px] font-black text-3xl">
+        <div className="py-5 sm:py-20 bg-white">
+          <div className="page-container">
+            <h1 className="w-full md:max-w-[500px] font-black text-3xl">
             Empowering Micro-Freelancers One Task at a Time
           </h1>
           <div className="flex flex-col md:flex-row items-start justify-between gap-2 md:gap-20">
@@ -81,13 +82,15 @@ export default function About() {
               extra income daily, Payzeker makes it effortless.
             </p>
           </div>
+          </div>
         </div>
 
         {/* +++++++++++++++++++++++++++++++++
         ++ */}
         {/* 3 */}
-        <div className="px-5 sm:px-10 md:px-20 py-5 sm:py-10">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-10">
+        <div className="py-5 sm:py-10">
+          <div className="page-container">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-10">
             <div className="w-full md:w-1/2 m-auto">
               <Image
                 width={500}
@@ -116,6 +119,7 @@ export default function About() {
               </div>
             </div>
           </div>
+        </div>
         </div>
 
         {/* +++++++++++++++++++++++++++++++++

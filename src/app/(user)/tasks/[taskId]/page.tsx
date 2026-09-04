@@ -1,17 +1,16 @@
-import Task from "@/model/taskModel";
+import Task from "@/features/tasks/models/taskModel";
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
-import { fetchModelById } from "@/utils/modelFunc";
+import { getToken } from "@/features/auth/actions/action";
+import { fetchModelById } from "@/shared/utils/modelFunc";
 
 //layout
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import AppShell from "@/shared/components/layout/AppShell";
+import Header from "@/shared/components/layout/Header";
 
 //components
-import SideNav from "@/components/SideNav";
-import MediaCom from "@/components/MediaCom";
-import SubHeading from "@/components/SubHeading";
-import Main from "@/components/layout/Main";
+import SideNav from "@/shared/components/layout/SideNav";
+import MediaCom from "@/shared/components/ui/MediaCom";
+import SubHeading from "@/shared/components/ui/SubHeading";
 
 type TaskDetailsProbs = {
   params: Promise<{ taskId: string }>;
@@ -37,13 +36,7 @@ export default async function TaskDetails({ params }: TaskDetailsProbs) {
   return (
     <>
       <Header />
-      <div className="mx-auto">
-        <div className="flex">
-          <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
-            <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
-          </div>
-          <div className="w-[100%] p-5 lg:w-[70%]">
-            <Main>
+      <AppShell sideNav={<SideNav sideNavInfo={{ username, isAdmin, isLogin }} />}>
               <SubHeading
                 title="Task Details"
                 desc="More information on how to perform task"
@@ -126,11 +119,7 @@ export default async function TaskDetails({ params }: TaskDetailsProbs) {
                 type={taskInfo.media.type}
                 content={taskInfo.media.content}
               />
-            </Main>
-          </div>
-        </div>
-      </div>
-      <Footer />
+      </AppShell>
     </>
   );
 }

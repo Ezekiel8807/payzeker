@@ -1,20 +1,20 @@
-import User from "@/model/userModel";
-import Plan from "@/model/planModel";
+import User from "@/shared/models/userModel";
+import Plan from "@/features/plans/models/planModel";
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
-import { fetchModelsData } from "@/utils/modelFunc";
-import { fetchModelById } from "@/utils/modelFunc";
+import { getToken } from "@/features/auth/actions/action";
+import { fetchModelsData } from "@/shared/utils/modelFunc";
+import { fetchModelById } from "@/shared/utils/modelFunc";
 
 //layouts
-import Main from "@/components/layout/Main";
-import Header from "@/components/layout/Header";
+import AppShell from "@/shared/components/layout/AppShell";
+import Header from "@/shared/components/layout/Header";
 
 // Components
-import SideNav from "@/components/SideNav";
-import SubHeading from "@/components/SubHeading";
-import Upgradecard from "@/components/cards/Upgradecard";
+import SideNav from "@/shared/components/layout/SideNav";
+import SubHeading from "@/shared/components/ui/SubHeading";
+import Upgradecard from "@/features/plans/cards/Upgradecard";
 
-import CurrentSubscription from "@/components/CurrentSubscription";
+import CurrentSubscription from "@/features/plans/components/CurrentSubscription";
 
 export default async function Subscription() {
   const token = await getToken();
@@ -29,13 +29,7 @@ export default async function Subscription() {
   return (
     <>
       <Header />
-      <div className="mx-auto">
-        <div className="flex">
-          <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
-            <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
-          </div>
-          <div className="w-[100%] p-5 lg:w-[70%]">
-            <Main>
+      <AppShell sideNav={<SideNav sideNavInfo={{ username, isAdmin, isLogin }} />}>
 
               <SubHeading
                 title="Subscription"
@@ -72,10 +66,7 @@ export default async function Subscription() {
                     )
                   )}
               </div>
-            </Main>
-          </div>
-        </div>
-      </div>
+            </AppShell>
     </>
   );
 }

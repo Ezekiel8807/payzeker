@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "../../../lib/mongodb";
-import User from "../../../model/userModel";
+import { connectDB } from "@/shared/lib/mongodb";
+import User from "@/shared/models/userModel";
 
 export async function GET() {
   try {

@@ -1,16 +1,16 @@
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
-import Request from "../../../model/requestModel";
-import { fetchModelsData } from "@/utils/modelFunc";
+import { getToken } from "@/features/auth/actions/action";
+import Request from "@/features/requests/models/requestModel";
+import { fetchModelsData } from "@/shared/utils/modelFunc";
 
 //layout
-import Main from "@/components/layout/Main";
-import Header from "@/components/layout/Header";
+import AppShell from "@/shared/components/layout/AppShell";
+import Header from "@/shared/components/layout/Header";
 
 // Components
-import SideNav from "@/components/SideNav";
-import SubHeading from "@/components/SubHeading";
-import RequestCard from "@/components/cards/RequestCard";
+import SideNav from "@/shared/components/layout/SideNav";
+import SubHeading from "@/shared/components/ui/SubHeading";
+import RequestCard from "@/features/requests/cards/RequestCard";
 
 export default async function page() {
   const user = await getToken();
@@ -29,13 +29,7 @@ export default async function page() {
   return (
     <>
       <Header />
-      <div className="mx-auto">
-        <div className="flex">
-          <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
-            <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
-          </div>
-          <div className="w-[100%] p-5 lg:w-[70%]">
-            <Main>
+      <AppShell sideNav={<SideNav sideNavInfo={{ username, isAdmin, isLogin }} />}>
               <SubHeading
                 title="Requests"
                 desc="Deposit and withdrawal confirmation."
@@ -66,10 +60,7 @@ export default async function page() {
                   </div>
                 )}
               </div>
-            </Main>
-          </div>
-        </div>
-      </div>
+      </AppShell>
     </>
   );
 }

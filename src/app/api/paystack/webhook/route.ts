@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
-import { connectDB } from "@/lib/mongodb";
-import User from "@/model/userModel";
-import Transaction from "@/model/transactionModel";
+import { connectDB } from "@/shared/lib/mongodb";
+import User from "@/shared/models/userModel";
+import Transaction from "@/shared/models/transactionModel";
 
 export async function POST(req: NextRequest) {
     try {

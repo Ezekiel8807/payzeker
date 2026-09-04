@@ -1,18 +1,18 @@
-import { getToken } from "@/actions/action";
-import User from "../../../model/userModel";
+import { getToken } from "@/features/auth/actions/action";
+import User from "@/shared/models/userModel";
 import { redirect } from "next/navigation";
-import { fetchModelById } from "@/utils/modelFunc";
+import { fetchModelById } from "@/shared/utils/modelFunc";
 
 //layout
-import Main from "@/components/layout/Main";
-import Header from "@/components/layout/Header";
+import AppShell from "@/shared/components/layout/AppShell";
+import Header from "@/shared/components/layout/Header";
 
 // Components
-import SubHeading from "@/components/SubHeading";
-import ClientProfile from "@/components/layout/Profile";
-import ForgetPass from "@/components/ForgetPass";
-import CurrentSubscription from "@/components/CurrentSubscription";
-import SideNav from "@/components/SideNav";
+import SubHeading from "@/shared/components/ui/SubHeading";
+import ClientProfile from "@/features/profile/components/Profile";
+import ForgetPass from "@/features/auth/components/ForgetPass";
+import CurrentSubscription from "@/features/plans/components/CurrentSubscription";
+import SideNav from "@/shared/components/layout/SideNav";
 
 export default async function Profile() {
   const token = await getToken();
@@ -28,13 +28,7 @@ export default async function Profile() {
   return (
     <>
       <Header />
-      <div className="mx-auto">
-        <div className="flex">
-          <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
-            <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
-          </div>
-          <div className="w-[100%] p-5 lg:w-[70%]">
-            <Main>
+      <AppShell sideNav={<SideNav sideNavInfo={{ username, isAdmin, isLogin }} />}>
               <SubHeading title="User Profile" desc="Everything about you." />
               <ClientProfile
                 userInfo={{
@@ -56,10 +50,7 @@ export default async function Profile() {
 
 
               <ForgetPass />
-            </Main>
-          </div>
-        </div>
-      </div>
+      </AppShell>
     </>
   );
 }

@@ -1,6 +1,6 @@
-import User from "@/model/userModel";
-import Task from "@/model/taskModel";
-import { connectDB } from "@/lib/mongodb";
+import User from "@/shared/models/userModel";
+import Task from "@/features/tasks/models/taskModel";
+import { connectDB } from "@/shared/lib/mongodb";
 import { NextResponse } from "next/server";
 
 export async function PATCH() {

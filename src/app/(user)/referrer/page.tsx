@@ -1,14 +1,14 @@
 import ReferralClient from "./ReferralClient";
-import User from "@/model/userModel";
-import { getToken } from "@/actions/action";
+import User from "@/shared/models/userModel";
+import { getToken } from "@/features/auth/actions/action";
 import { redirect } from "next/navigation";
-import { connectDB } from "@/lib/mongodb";
-import { fetchModelById } from "@/utils/modelFunc";
+import { connectDB } from "@/shared/lib/mongodb";
+import { fetchModelById } from "@/shared/utils/modelFunc";
 
 // Layout
-import Main from "@/components/layout/Main";
-import Header from "@/components/layout/Header";
-import SideNav from "@/components/SideNav";
+import AppShell from "@/shared/components/layout/AppShell";
+import Header from "@/shared/components/layout/Header";
+import SideNav from "@/shared/components/layout/SideNav";
 
 export default async function ReferrerPage() {
   const token = await getToken();
@@ -30,22 +30,13 @@ export default async function ReferrerPage() {
   return (
     <>
       <Header />
-      <div className="mx-auto">
-        <div className="flex">
-          <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
-            <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
-          </div>
-          <div className="w-[100%] p-5 lg:w-[70%]">
-            <Main>
+      <AppShell sideNav={<SideNav sideNavInfo={{ username, isAdmin, isLogin }} />}>
               <ReferralClient
                 referralCode={referralCode}
                 referralsCount={referralsCount}
                 referralEarnings={referralEarnings}
               />
-            </Main>
-          </div>
-        </div>
-      </div>
+            </AppShell>
     </>
   );
 }

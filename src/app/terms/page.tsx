@@ -1,12 +1,12 @@
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
+import Footer from "@/shared/components/layout/Footer";
+import Header from "@/shared/components/layout/Header";
 
 export default function page() {
   return (
     <>
       <Header />
 
-      <div className="px-5 sm:px-10 md:px-20 py-5 sm:py-10 text-gray-800 leading-relaxed">
+      <div className="page-container py-5 sm:py-10 text-gray-800 leading-relaxed">
         <h1 className="text-2xl font-bold mb-4 text-gray-900">
           Terms of Service
         </h1>

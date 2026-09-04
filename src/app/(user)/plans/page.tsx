@@ -1,56 +1,41 @@
+import Plan from "@/features/plans/models/planModel";
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
-import Plan from "@/model/planModel";
-import { fetchModelsData } from "@/utils/modelFunc";
+import { getToken } from "@/features/auth/actions/action";
+import { fetchModelsData } from "@/shared/utils/modelFunc";
 
 //layouts
-import Main from "@/components/layout/Main";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import AppShell from "@/shared/components/layout/AppShell";
+import Header from "@/shared/components/layout/Header";
 
 //components
-import Link from "next/link";
-import SubHeading from "@/components/SubHeading";
-import PlanCard from "@/components/cards/PlanCard";
-import SideNav from "@/components/SideNav";
+import SubHeading from "@/shared/components/ui/SubHeading";
+import PlanCard from "@/features/plans/cards/PlanCard";
+import SideNav from "@/shared/components/layout/SideNav";
 
 export default async function page() {
   const user = await getToken();
-  const [plans] = await fetchModelsData(Plan);
-  const isLogin = !!user;
-
   if (!user) return redirect("/login");
+
+  const isLogin = !!user;
   const { username, isAdmin } = user;
-  if (!isAdmin) return redirect("/dashboard");
+  const [plans] = await fetchModelsData(Plan);
+
+  //filter business plans
+  const plansInfo = plans.filter(
+    (e: { isDefault: boolean }) => !e.isDefault
+  );
 
   return (
     <>
       <Header />
-      <div className="mx-auto">
-        <div className="flex">
-          <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
-            <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
-          </div>
-          <div className="w-[100%] p-5 lg:w-[70%]">
-            <Main>
+      <AppShell sideNav={<SideNav sideNavInfo={{ username, isAdmin, isLogin }} />}>
               <SubHeading
-                title="User Plans"
-                desc="Create users plan right here."
+                title="Plans"
+                desc="Here are available plans."
               />
-              <div className="flex py-3 px-5 mb-5 items-center justify-between bg-[var(--gray-05)] shadow-md">
-                <h2 className="font-black text-[18px]">Plans</h2>
-
-                <Link
-                  className="w-[100px]  p-2 text-[12px] font-black text-center text-white bg-[var(--green)] rounded-2xl"
-                  href="/plans/newPlan"
-                >
-                  Create Plan
-                </Link>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-                {plans.map(
-                  (plan: {
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 my-5">
+                {plansInfo.map(
+                  (el: {
                     _id: string;
                     name: string;
                     rank: number;
@@ -60,15 +45,11 @@ export default async function page() {
                     minEarning: number;
                     price: number;
                   }) => (
-                    <PlanCard key={plan._id} plan={plan} />
+                    <PlanCard plan={el} key={el._id} />
                   )
                 )}
               </div>
-            </Main>
-          </div>
-        </div>
-      </div>
-      <Footer />
+      </AppShell>
     </>
   );
 }

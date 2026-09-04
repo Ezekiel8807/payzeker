@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
+import { getToken } from "@/features/auth/actions/action";
 
 //components
-import SideNav from "@/components/SideNav";
-import Main from "@/components/layout/Main";
-import Header from "@/components/layout/Header";
-import SubHeading from "@/components/SubHeading";
-import UserCreationForm from "@/components/form/UserCreationForm";
+import SideNav from "@/shared/components/layout/SideNav";
+import AppShell from "@/shared/components/layout/AppShell";
+import Header from "@/shared/components/layout/Header";
+import SubHeading from "@/shared/components/ui/SubHeading";
+import UserCreationForm from "@/features/users/forms/UserCreationForm";
 
 export default async function page() {
   const token = await getToken();
@@ -20,23 +20,14 @@ export default async function page() {
     <>
       <Header />
 
-      <div className="mx-auto">
-        <div className="flex">
-          <div className="hidden lg:block w-[100%] md:w-[30%] bg-[var(--gray-01)] border-e-8 border-[var(--white)]">
-            <SideNav sideNavInfo={{ username, isAdmin, isLogin }} />
-          </div>
-          <div className="w-[100%] p-5 lg:w-[70%]">
-            <Main>
+      <AppShell sideNav={<SideNav sideNavInfo={{ username, isAdmin, isLogin }} />}>
               <SubHeading
                 title="Create User"
                 desc="Setup a new user account."
               />
 
               <UserCreationForm />
-            </Main>
-          </div>
-        </div>
-      </div>
+      </AppShell>
     </>
   );
 }

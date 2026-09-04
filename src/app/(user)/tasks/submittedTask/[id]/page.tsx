@@ -1,13 +1,13 @@
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
-import SubmittedTask from "@/model/submittedTaskModel";
-import { fetchModelById } from "@/utils/modelFunc";
+import { getToken } from "@/features/auth/actions/action";
+import SubmittedTask from "@/features/tasks/models/submittedTaskModel";
+import { fetchModelById } from "@/shared/utils/modelFunc";
 
 //cononents
-import SubmittedTaskDetails from "@/components/SubmittedTaskDetails";
-import Header from "@/components/layout/Header";
-import Main from "@/components/layout/Main";
-import Footer from "@/components/layout/Footer";
+import SubmittedTaskDetails from "@/features/tasks/components/SubmittedTaskDetails";
+import AppShell from "@/shared/components/layout/AppShell";
+import Header from "@/shared/components/layout/Header";
+import SideNav from "@/shared/components/layout/SideNav";
 
 export default async function page({
   params,
@@ -18,7 +18,8 @@ export default async function page({
   const user = await getToken();
   if (!user) return redirect("/login");
 
-  const { isAdmin } = user;
+  const isLogin = !!user;
+  const { username, isAdmin } = user;
   if (!isAdmin) return redirect("/dashboard");
 
   const subTask = await fetchModelById(SubmittedTask, id);
@@ -26,11 +27,9 @@ export default async function page({
   return (
     <>
       <Header />
-      <Main>
+      <AppShell sideNav={<SideNav sideNavInfo={{ username, isAdmin, isLogin }} />}>
         <SubmittedTaskDetails subTask={subTask} />
-
-        <Footer />
-      </Main>
+      </AppShell>
     </>
   );
 }

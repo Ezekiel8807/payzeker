@@ -1,11 +1,11 @@
 ///
 import { redirect } from "next/navigation";
-import { getToken } from "@/actions/action";
+import { getToken } from "@/features/auth/actions/action";
 
 //
-import Forget from "@/components/Forget";
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
+import Forget from "@/features/auth/components/Forget";
+import Footer from "@/shared/components/layout/Footer";
+import Header from "@/shared/components/layout/Header";
 
 export default async function page() {
   const token = await getToken();

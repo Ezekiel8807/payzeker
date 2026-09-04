@@ -1,6 +1,6 @@
 "use server";
-import User from "../../../../model/userModel";
-import { connectDB } from "../../../../lib/mongodb";
+import User from "@/shared/models/userModel";
+import { connectDB } from "@/shared/lib/mongodb";
 import { NextResponse } from "next/server";
 
 //get a user
